@@ -274,6 +274,18 @@
             "type": "entity"
           },
           {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
             "name": "world",
             "type": "world"
           }
@@ -337,13 +349,14 @@
   },
   "workspaceSettings": {
     "modid": "midnightlurker",
-    "modName": "midnightlurker",
-    "version": "1.0.0",
-    "author": "legol, MCreator",
+    "modName": "The Midnight Lurker",
+    "version": "1.0.2",
+    "author": "Voxla",
     "websiteURL": "https://mcreator.net",
-    "license": "Academic Free License v3.0",
+    "license": "MIT License",
     "disableForgeVersionCheck": true,
     "serverSideOnly": false,
+    "modPicture": "mlicon",
     "requiredMods": [],
     "dependencies": [],
     "dependants": [],
@@ -351,7 +364,7 @@
       "geckolib"
     ],
     "currentGenerator": "forge-1.19.4",
-    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
+    "credits": "Created using mod maker MCreator - Music in the mod from Slender the Arrival",
     "modElementsPackage": "net.mcreator.midnightlurker",
     "lockBaseModFiles": false
   },
