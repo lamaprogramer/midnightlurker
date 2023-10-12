@@ -1,0 +1,38 @@
+{
+  "lurkerjumpscare": {
+    "sounds": [
+      {
+        "name": "midnightlurker:jumpscaresound",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurkerjumpscare",
+        "stream": false
+      }
+    ]
+  },
+  "lurkeranger": {
+    "sounds": [
+      {
+        "name": "midnightlurker:change",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerdisappear": {
+    "sounds": [
+      {
+        "name": "midnightlurker:lurkerdisappear",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerchase": {
+    "sounds": [
+      {
+        "name": "midnightlurker:chase",
+        "stream": false
+      }
+    ]
+  }
+}

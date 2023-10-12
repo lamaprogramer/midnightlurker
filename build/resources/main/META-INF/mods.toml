@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[45,)"
+license="MIT License"
+
+[[mods]]
+modId="midnightlurker"
+version="1.0.2"
+displayName="The Midnight Lurker"
+credits="Created using mod maker MCreator - Music in the mod from Slender the Arrival"
+displayURL="https://mcreator.net"
+logoFile="logo.png"
+authors="Voxla"
+
+[[dependencies.midnightlurker]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.4]"
+    ordering="NONE"
+    side="BOTH"
+
+
+
+[[dependencies.midnightlurker]]
+    modId="geckolib"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
