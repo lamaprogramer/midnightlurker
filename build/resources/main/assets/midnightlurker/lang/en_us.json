@@ -1,12 +1,14 @@
 {
-  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
   "subtitles.lurkerdisappear": "",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Midnight Lurker Spawn Egg",
   "entity.midnightlurker.midnight_lurkertpose": "Midnight Lurker",
-  "subtitles.lurkerjumpscare": "",
   "entity.midnightlurker.midnight_lurker": "Midnight Lurker",
-  "entity.midnightlurker.midnight_lurker_aggressive": "Midnight Lurker",
-  "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg",
   "subtitles.lurkeranger": "",
-  "subtitles.lurkerchase": ""
+  "subtitles.lurkerchase": "",
+  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
+  "subtitles.lurkerjumpscare": "",
+  "entity.midnightlurker.midnight_lurker_stalking": "Midnight Lurker",
+  "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Midnight Lurker Spawn Egg",
+  "entity.midnightlurker.midnight_lurker_aggressive": "Midnight Lurker",
+  "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg"
 }

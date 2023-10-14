@@ -274,6 +274,148 @@
             "type": "entity"
           },
           {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MidnightLurkerOnInitialEntitySpawn",
+      "type": "procedure",
+      "sortid": 13,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "midnight_lurker_on_initial_entity_spawn",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/MidnightLurkerOnInitialEntitySpawnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MidnightLurkerAggressiveThisEntityKillsAnotherOne",
+      "type": "procedure",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "midnight_lurker_aggressive_this_entity_kills_another_one",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/MidnightLurkerAggressiveThisEntityKillsAnotherOneProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MidnightLurkerStalking",
+      "type": "animatedentity",
+      "sortid": 16,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "midnight_lurker_stalking",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/entity/MidnightLurkerStalkingEntity.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/layer/MidnightLurkerStalkingLayer.java",
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/MidnightLurkerStalkingRenderer.java",
+          "src/main/resources/assets/midnightlurker/models/item/midnight_lurker_stalking_spawn_egg.json",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/MidnightLurkerStalkingModel.java",
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/midnight_lurker_stalking_biome_modifier.json"
+        ]
+      }
+    },
+    {
+      "name": "MidnightLurkerStalkingOnEntityTickUpdate",
+      "type": "procedure",
+      "sortid": 15,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "midnight_lurker_stalking_on_entity_tick_update",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/MidnightLurkerStalkingOnEntityTickUpdateProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lurkerdisappearstalking",
+      "type": "procedure",
+      "sortid": 17,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lurkerdisappearstalking",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/LurkerdisappearstalkingProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
             "name": "world",
             "type": "world"
           }
@@ -319,16 +461,18 @@
   ],
   "language_map": {
     "en_us": {
-      "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkerdisappear": "",
       "item.midnightlurker.midnight_lurker_spawn_egg": "Midnight Lurker Spawn Egg",
       "entity.midnightlurker.midnight_lurkertpose": "Midnight Lurker",
-      "subtitles.lurkerjumpscare": "",
       "entity.midnightlurker.midnight_lurker": "Midnight Lurker",
-      "entity.midnightlurker.midnight_lurker_aggressive": "Midnight Lurker",
-      "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkeranger": "",
-      "subtitles.lurkerchase": ""
+      "subtitles.lurkerchase": "",
+      "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
+      "subtitles.lurkerjumpscare": "",
+      "entity.midnightlurker.midnight_lurker_stalking": "Midnight Lurker",
+      "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Midnight Lurker Spawn Egg",
+      "entity.midnightlurker.midnight_lurker_aggressive": "Midnight Lurker",
+      "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg"
     }
   },
   "foldersRoot": {
@@ -338,9 +482,10 @@
   "workspaceSettings": {
     "modid": "midnightlurker",
     "modName": "The Midnight Lurker",
-    "version": "1.0.2",
+    "version": "1.0.6",
+    "description": "A small mod that adds a new horrifying entity to Minecraft.",
     "author": "Voxla",
-    "websiteURL": "https://mcreator.net",
+    "websiteURL": "https://modrinth.com/mod/the-midnight-lurker",
     "license": "MIT License",
     "disableForgeVersionCheck": true,
     "serverSideOnly": false,

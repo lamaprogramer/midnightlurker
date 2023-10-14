@@ -18,11 +18,11 @@
     "mountedYOffset": 0.0,
     "hasSpawnEgg": true,
     "spawnEggBaseColor": {
-      "value": -16777216,
+      "value": -13421773,
       "falpha": 0.0
     },
     "spawnEggDotColor": {
-      "value": -10066330,
+      "value": -3355444,
       "falpha": 0.0
     },
     "creativeTab": {
@@ -51,7 +51,7 @@
     },
     "mobBehaviourType": "Mob",
     "mobCreatureType": "UNDEFINED",
-    "attackStrength": 16,
+    "attackStrength": 12,
     "attackKnockback": 0.0,
     "knockbackResistance": 0.0,
     "movementSpeed": 0.4,
@@ -98,6 +98,9 @@
     },
     "stepSound": {
       "value": ""
+    },
+    "whenThisMobKillsAnother": {
+      "name": "MidnightLurkerAggressiveThisEntityKillsAnotherOne"
     },
     "onMobTickUpdate": {
       "name": "MidnightLurkerAggressiveOnEntityTickUpdate"

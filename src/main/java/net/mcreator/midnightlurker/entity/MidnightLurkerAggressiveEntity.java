@@ -48,6 +48,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.nbt.CompoundTag;
 
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveThisEntityKillsAnotherOneProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayerCollidesWithThisEntityProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
@@ -172,6 +173,12 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	}
 
 	@Override
+	public void awardKillScore(Entity entity, int score, DamageSource damageSource) {
+		super.awardKillScore(entity, score, damageSource);
+		MidnightLurkerAggressiveThisEntityKillsAnotherOneProcedure.execute(this.level, entity);
+	}
+
+	@Override
 	public void baseTick() {
 		super.baseTick();
 		MidnightLurkerAggressiveOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
@@ -197,7 +204,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
 		builder = builder.add(Attributes.MAX_HEALTH, 10);
 		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 16);
+		builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
 		return builder;
 	}

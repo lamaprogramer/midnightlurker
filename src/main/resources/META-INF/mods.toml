@@ -4,12 +4,13 @@ license="MIT License"
 
 [[mods]]
 modId="midnightlurker"
-version="1.0.2"
+version="1.0.6"
 displayName="The Midnight Lurker"
 credits="Created using mod maker MCreator - Music in the mod from Slender the Arrival"
-displayURL="https://mcreator.net"
+displayURL="https://modrinth.com/mod/the-midnight-lurker"
 logoFile="logo.png"
 authors="Voxla"
+description="A small mod that adds a new horrifying entity to Minecraft."
 
 [[dependencies.midnightlurker]]
     modId="minecraft"
