@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 
@@ -36,6 +37,13 @@ public class EntityAnimationFactory {
 				}
 			}
 			if (event.getEntity() instanceof MidnightLurkerStalkingEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof MidnightLurkerNEEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");

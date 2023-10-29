@@ -1,0 +1,12 @@
+{
+  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "entity.midnightlurker.midnight_lurkertpose": "Acechador de medianoche",
+  "entity.midnightlurker.midnight_lurker_stalking": "Acechador de medianoche",
+  "entity.midnightlurker.midnight_lurker": "Acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "entity.midnightlurker.midnight_lurker_ne": "Midnight Lurker",
+  "entity.midnightlurker.midnight_lurker_aggressive": "Acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Midnight Lurker Spawn Egg"
+}

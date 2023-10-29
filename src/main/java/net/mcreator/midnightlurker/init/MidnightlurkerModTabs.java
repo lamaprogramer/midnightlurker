@@ -17,6 +17,7 @@ public class MidnightlurkerModTabs {
 
 		if (tabData.getTab() == CreativeModeTabs.SPAWN_EGGS) {
 			tabData.accept(MidnightlurkerModItems.MIDNIGHT_LURKER_SPAWN_EGG.get());
+			tabData.accept(MidnightlurkerModItems.MIDNIGHT_LURKER_NE_SPAWN_EGG.get());
 		}
 	}
 }

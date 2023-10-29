@@ -12,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkertposeRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerStalkingRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerRenderer;
+import net.mcreator.midnightlurker.client.renderer.MidnightLurkerNERenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerAggressiveRenderer;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -22,5 +23,6 @@ public class MidnightlurkerModEntityRenderers {
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER.get(), MidnightLurkerRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE.get(), MidnightLurkertposeRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING.get(), MidnightLurkerStalkingRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_NE.get(), MidnightLurkerNERenderer::new);
 	}
 }
