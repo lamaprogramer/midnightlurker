@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.Comparator;
 
 @Mod.EventBusSubscriber
-public class LurkerDisappearNEProcedure {
+public class LurkerdisappearNEProcedure {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {

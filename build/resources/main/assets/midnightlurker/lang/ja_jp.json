@@ -1,12 +1,14 @@
 {
-  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
   "item.midnightlurker.midnight_lurker_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
   "entity.midnightlurker.midnight_lurkertpose": "ミッドナイト・ラーカー",
-  "entity.midnightlurker.midnight_lurker_stalking": "ミッドナイト・ラーカー",
   "entity.midnightlurker.midnight_lurker": "ミッドナイト・ラーカー",
+  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+  "entity.midnightlurker.midnight_lurker_stalking": "ミッドナイト・ラーカー",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
-  "entity.midnightlurker.midnight_lurker_ne": "Midnight Lurker",
+  "entity.midnightlurker.midnight_lurker_ne": "ミッドナイト・ラーカー",
   "entity.midnightlurker.midnight_lurker_aggressive": "ミッドナイト・ラーカー",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
-  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Midnight Lurker Spawn Egg"
+  "entity.midnightlurker.midnight_lurker_high_spawn": "ミッドナイト・ラーカー"
 }

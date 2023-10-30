@@ -1,12 +1,14 @@
 {
-  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
   "entity.midnightlurker.midnight_lurkertpose": "Espreitador da meia-noite",
-  "entity.midnightlurker.midnight_lurker_stalking": "Espreitador da meia-noite",
   "entity.midnightlurker.midnight_lurker": "Espreitador da meia-noite",
+  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+  "entity.midnightlurker.midnight_lurker_stalking": "Espreitador da meia-noite",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
-  "entity.midnightlurker.midnight_lurker_ne": "Midnight Lurker",
+  "entity.midnightlurker.midnight_lurker_ne": "Espreitador da meia-noite",
   "entity.midnightlurker.midnight_lurker_aggressive": "Espreitador da meia-noite",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
-  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Midnight Lurker Spawn Egg"
+  "entity.midnightlurker.midnight_lurker_high_spawn": "Espreitador da meia-noite"
 }

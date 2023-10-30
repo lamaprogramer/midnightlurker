@@ -22,7 +22,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 @Mod.EventBusSubscriber({Dist.CLIENT})
 public class JumpscareoverlayOverlay {
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {
 		int w = event.getWindow().getGuiScaledWidth();
 		int h = event.getWindow().getGuiScaledHeight();
@@ -45,9 +45,9 @@ public class JumpscareoverlayOverlay {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
-		if (JumpscareoverlayDisplayOverlayIngameProcedure.execute(world, x, y, z)) {
+		if (JumpscareoverlayDisplayOverlayIngameProcedure.execute(world, x, y, z, entity)) {
 			RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/lurkerjumpscare.png"));
-			Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -151, posY + -112, 0, 0, 303, 327, 303, 327);
+			Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -154, posY + -112, 0, 0, 303, 327, 303, 327);
 
 		}
 		RenderSystem.depthMask(true);

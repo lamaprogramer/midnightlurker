@@ -105,7 +105,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
-				return 4;
+				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, (float) 100));
@@ -193,7 +193,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	@Override
 	public void playerTouch(Player sourceentity) {
 		super.playerTouch(sourceentity);
-		MidnightLurkerAggressivePlayerCollidesWithThisEntityProcedure.execute(this.level, this.getX(), this.getY(), this.getZ());
+		MidnightLurkerAggressivePlayerCollidesWithThisEntityProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	public static void init() {

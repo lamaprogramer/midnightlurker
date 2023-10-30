@@ -105,7 +105,7 @@ public class MidnightLurkertposeEntity extends Monster implements GeoEntity {
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
-				return 1;
+				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
 		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, (float) 100));

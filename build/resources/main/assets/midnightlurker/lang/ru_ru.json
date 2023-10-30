@@ -1,12 +1,14 @@
 {
-  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Яйцо призыва полуночника",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Яйцо призыва полуночника",
   "entity.midnightlurker.midnight_lurkertpose": "Полуночник",
-  "entity.midnightlurker.midnight_lurker_stalking": "Полуночник",
   "entity.midnightlurker.midnight_lurker": "Полуночник",
+  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "Яйцо призыва полуночника",
+  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Яйцо призыва полуночника",
+  "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Яйцо призыва полуночника",
+  "entity.midnightlurker.midnight_lurker_stalking": "Полуночник",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Яйцо призыва полуночника",
-  "entity.midnightlurker.midnight_lurker_ne": "Midnight Lurker",
+  "entity.midnightlurker.midnight_lurker_ne": "Полуночник",
   "entity.midnightlurker.midnight_lurker_aggressive": "Полуночник",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Яйцо призыва полуночника",
-  "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Midnight Lurker Spawn Egg"
+  "entity.midnightlurker.midnight_lurker_high_spawn": "Полуночник"
 }

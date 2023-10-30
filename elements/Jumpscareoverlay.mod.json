@@ -2,14 +2,14 @@
   "_fv": 47,
   "_type": "overlay",
   "definition": {
-    "priority": "HIGHEST",
+    "priority": "NORMAL",
     "components": [
       {
         "type": "image",
         "data": {
           "image": "lurkerjumpscare.png",
           "use1Xscale": true,
-          "x": 62,
+          "x": 59,
           "y": 8
         }
       }
