@@ -1,14 +1,21 @@
 {
+  "entity.midnightlurker.midnight_lurker_invisible": "Lurker di mezzanotte",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
   "entity.midnightlurker.midnight_lurkertpose": "Lurker di mezzanotte",
   "entity.midnightlurker.midnight_lurker": "Lurker di mezzanotte",
-  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "item.midnightlurker.midnight_lurker_seen_angressive_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "entity.midnightlurker.midnight_lurker_seen_angressive": "Lurker di mezzanotte",
+  "subtitles.spookyambience": "",
   "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "subtitles.lurkerinvisiblejumpscare": "",
   "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "subtitles.lurkerchase2": "",
   "entity.midnightlurker.midnight_lurker_stalking": "Lurker di mezzanotte",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
   "entity.midnightlurker.midnight_lurker_ne": "Lurker di mezzanotte",
   "entity.midnightlurker.midnight_lurker_aggressive": "Lurker di mezzanotte",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
-  "entity.midnightlurker.midnight_lurker_high_spawn": "Lurker di mezzanotte"
+  "item.midnightlurker.spookyambienceentity_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+  "entity.midnightlurker.spookyambienceentity": "Lurker di mezzanotte"
 }

@@ -1,14 +1,21 @@
 {
+  "entity.midnightlurker.midnight_lurker_invisible": "Mitternachtslurker",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Mitternachtslurker-Spawn-Ei",
   "entity.midnightlurker.midnight_lurkertpose": "Mitternachtslurker",
   "entity.midnightlurker.midnight_lurker": "Mitternachtslurker",
-  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "item.midnightlurker.midnight_lurker_seen_angressive_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "entity.midnightlurker.midnight_lurker_seen_angressive": "Mitternachtslurker",
+  "subtitles.spookyambience": "",
   "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "subtitles.lurkerinvisiblejumpscare": "",
   "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "subtitles.lurkerchase2": "",
   "entity.midnightlurker.midnight_lurker_stalking": "Mitternachtslurker",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Mitternachtslurker-Spawn-Ei",
   "entity.midnightlurker.midnight_lurker_ne": "Mitternachtslurker",
   "entity.midnightlurker.midnight_lurker_aggressive": "Mitternachtslurker",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Mitternachtslurker-Spawn-Ei",
-  "entity.midnightlurker.midnight_lurker_high_spawn": "Mitternachtslurker"
+  "item.midnightlurker.spookyambienceentity_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+  "entity.midnightlurker.spookyambienceentity": "Mitternachtslurker"
 }

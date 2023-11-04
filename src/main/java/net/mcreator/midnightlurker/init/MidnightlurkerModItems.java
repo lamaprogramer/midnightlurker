@@ -23,6 +23,10 @@ public class MidnightlurkerModItems {
 	public static final RegistryObject<Item> MIDNIGHT_LURKER_STALKING_SPAWN_EGG = REGISTRY.register("midnight_lurker_stalking_spawn_egg",
 			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING, -13421773, -3355444, new Item.Properties()));
 	public static final RegistryObject<Item> MIDNIGHT_LURKER_NE_SPAWN_EGG = REGISTRY.register("midnight_lurker_ne_spawn_egg", () -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_NE, -13421773, -3355444, new Item.Properties()));
-	public static final RegistryObject<Item> MIDNIGHT_LURKER_HIGH_SPAWN_SPAWN_EGG = REGISTRY.register("midnight_lurker_high_spawn_spawn_egg",
-			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIGH_SPAWN, -13421773, -3355444, new Item.Properties()));
+	public static final RegistryObject<Item> MIDNIGHT_LURKER_INVISIBLE_SPAWN_EGG = REGISTRY.register("midnight_lurker_invisible_spawn_egg",
+			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, -13421773, -3355444, new Item.Properties()));
+	public static final RegistryObject<Item> SPOOKYAMBIENCEENTITY_SPAWN_EGG = REGISTRY.register("spookyambienceentity_spawn_egg",
+			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, -13421773, -3355444, new Item.Properties()));
+	public static final RegistryObject<Item> MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG = REGISTRY.register("midnight_lurker_seen_angressive_spawn_egg",
+			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE, -13421773, -3355444, new Item.Properties()));
 }

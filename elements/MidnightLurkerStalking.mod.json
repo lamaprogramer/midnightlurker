@@ -58,7 +58,7 @@
     "armorBaseValue": 0.0,
     "trackingRange": 64,
     "followRange": 100,
-    "health": 10,
+    "health": 200,
     "xpAmount": 0,
     "waterMob": false,
     "flyingMob": false,
@@ -98,6 +98,9 @@
     },
     "stepSound": {
       "value": ""
+    },
+    "whenMobIsHurt": {
+      "name": "MidnightLurkerEntityIsHurt"
     },
     "onMobTickUpdate": {
       "name": "MidnightLurkerStalkingOnEntityTickUpdate"
@@ -145,6 +148,9 @@
     "height": 1.0,
     "spawnThisMob": true,
     "doesDespawnWhenIdle": true,
+    "spawningCondition": {
+      "name": "MidnightLurkerNaturalEntitySpawningCondition"
+    },
     "spawningProbability": 7,
     "mobSpawningType": "monster",
     "minNumberOfMobsPerGroup": 1,

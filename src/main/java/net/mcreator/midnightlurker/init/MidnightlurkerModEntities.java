@@ -16,10 +16,12 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Entity;
 
+import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerSeenAngressiveEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerNEEntity;
-import net.mcreator.midnightlurker.entity.MidnightLurkerHighSpawnEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerInvisibleEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
@@ -39,9 +41,14 @@ public class MidnightlurkerModEntities {
 					.setCustomClientFactory(MidnightLurkerStalkingEntity::new).fireImmune().sized(0.7f, 2.5f));
 	public static final RegistryObject<EntityType<MidnightLurkerNEEntity>> MIDNIGHT_LURKER_NE = register("midnight_lurker_ne", EntityType.Builder.<MidnightLurkerNEEntity>of(MidnightLurkerNEEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerNEEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerHighSpawnEntity>> MIDNIGHT_LURKER_HIGH_SPAWN = register("midnight_lurker_high_spawn",
-			EntityType.Builder.<MidnightLurkerHighSpawnEntity>of(MidnightLurkerHighSpawnEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerHighSpawnEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<MidnightLurkerInvisibleEntity>> MIDNIGHT_LURKER_INVISIBLE = register("midnight_lurker_invisible",
+			EntityType.Builder.<MidnightLurkerInvisibleEntity>of(MidnightLurkerInvisibleEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+					.setCustomClientFactory(MidnightLurkerInvisibleEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<SpookyambienceentityEntity>> SPOOKYAMBIENCEENTITY = register("spookyambienceentity", EntityType.Builder.<SpookyambienceentityEntity>of(SpookyambienceentityEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(SpookyambienceentityEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<MidnightLurkerSeenAngressiveEntity>> MIDNIGHT_LURKER_SEEN_ANGRESSIVE = register("midnight_lurker_seen_angressive",
+			EntityType.Builder.<MidnightLurkerSeenAngressiveEntity>of(MidnightLurkerSeenAngressiveEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+					.setCustomClientFactory(MidnightLurkerSeenAngressiveEntity::new).fireImmune().sized(0.7f, 2.5f));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
@@ -55,7 +62,9 @@ public class MidnightlurkerModEntities {
 			MidnightLurkertposeEntity.init();
 			MidnightLurkerStalkingEntity.init();
 			MidnightLurkerNEEntity.init();
-			MidnightLurkerHighSpawnEntity.init();
+			MidnightLurkerInvisibleEntity.init();
+			SpookyambienceentityEntity.init();
+			MidnightLurkerSeenAngressiveEntity.init();
 		});
 	}
 
@@ -66,6 +75,8 @@ public class MidnightlurkerModEntities {
 		event.put(MIDNIGHT_LURKERTPOSE.get(), MidnightLurkertposeEntity.createAttributes().build());
 		event.put(MIDNIGHT_LURKER_STALKING.get(), MidnightLurkerStalkingEntity.createAttributes().build());
 		event.put(MIDNIGHT_LURKER_NE.get(), MidnightLurkerNEEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_HIGH_SPAWN.get(), MidnightLurkerHighSpawnEntity.createAttributes().build());
+		event.put(MIDNIGHT_LURKER_INVISIBLE.get(), MidnightLurkerInvisibleEntity.createAttributes().build());
+		event.put(SPOOKYAMBIENCEENTITY.get(), SpookyambienceentityEntity.createAttributes().build());
+		event.put(MIDNIGHT_LURKER_SEEN_ANGRESSIVE.get(), MidnightLurkerSeenAngressiveEntity.createAttributes().build());
 	}
 }

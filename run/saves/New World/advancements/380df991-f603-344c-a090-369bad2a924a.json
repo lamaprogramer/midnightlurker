@@ -98,14 +98,21 @@
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "minecraft:old_growth_pine_taiga": "2023-10-29 20:37:39 -0400",
+      "minecraft:mushroom_fields": "2023-11-03 21:10:59 -0400",
       "minecraft:taiga": "2023-10-14 11:14:04 -0400",
       "minecraft:birch_forest": "2023-10-14 11:05:49 -0400",
+      "minecraft:badlands": "2023-11-03 21:49:13 -0400",
       "minecraft:beach": "2023-10-29 20:37:47 -0400",
       "minecraft:dark_forest": "2023-10-29 20:08:06 -0400",
+      "minecraft:sparse_jungle": "2023-11-04 13:31:54 -0400",
       "minecraft:river": "2023-10-14 11:06:46 -0400",
+      "minecraft:stony_shore": "2023-11-03 21:49:34 -0400",
       "minecraft:forest": "2023-10-14 11:07:33 -0400",
       "minecraft:old_growth_spruce_taiga": "2023-10-29 20:07:55 -0400",
-      "minecraft:old_growth_birch_forest": "2023-10-14 10:41:27 -0400"
+      "minecraft:deep_lukewarm_ocean": "2023-11-03 21:48:52 -0400",
+      "minecraft:old_growth_birch_forest": "2023-10-14 10:41:27 -0400",
+      "minecraft:savanna": "2023-11-04 13:29:42 -0400",
+      "minecraft:plains": "2023-11-03 21:49:29 -0400"
     },
     "done": false
   },

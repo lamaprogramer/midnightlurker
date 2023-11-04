@@ -34,5 +34,65 @@
         "stream": false
       }
     ]
+  },
+  "lurkerinvisiblejumpscare": {
+    "sounds": [
+      {
+        "name": "midnightlurker:invisiblejumpscare1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:invisiblejumpscare2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:invisiblejumpscare3",
+        "stream": false
+      }
+    ]
+  },
+  "spookyambience": {
+    "sounds": [
+      {
+        "name": "midnightlurker:spookyambience1",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience2",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience3",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience4",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience5",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience6",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience7",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:spookyambience8",
+        "stream": true
+      }
+    ]
+  },
+  "lurkerchase2": {
+    "sounds": [
+      {
+        "name": "midnightlurker:chase2",
+        "stream": false
+      }
+    ]
   }
 }

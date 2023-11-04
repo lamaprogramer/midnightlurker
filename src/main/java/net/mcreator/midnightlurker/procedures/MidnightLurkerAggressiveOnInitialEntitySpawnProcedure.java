@@ -26,17 +26,6 @@ public class MidnightLurkerAggressiveOnInitialEntitySpawnProcedure {
 			return;
 		File lurker = new File("");
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
-		MidnightlurkerMod.queueServerWork(1200, () -> {
-			if (world instanceof Level _level) {
-				if (!_level.isClientSide()) {
-					_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
-				} else {
-					_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
-				}
-			}
-			if (!entity.level.isClientSide())
-				entity.discard();
-		});
 		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "lurkerconfig.json");
 		{
 			try {
@@ -48,7 +37,7 @@ public class MidnightLurkerAggressiveOnInitialEntitySpawnProcedure {
 				}
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
-				if (mainjsonobject.get("lurker_chase_music").getAsBoolean() == true) {
+				if (mainjsonobject.get("lurker_chase_music").getAsBoolean() == true && mainjsonobject.get("longer_lurker_chase").getAsBoolean() == false) {
 					if (entity instanceof MidnightLurkerAggressiveEntity) {
 						if (world instanceof Level _level) {
 							if (!_level.isClientSide()) {
@@ -57,6 +46,80 @@ public class MidnightLurkerAggressiveOnInitialEntitySpawnProcedure {
 								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 1, 1, false);
 							}
 						}
+						MidnightlurkerMod.queueServerWork(1200, () -> {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+								} else {
+									_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+								}
+							}
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
+					}
+				} else if (mainjsonobject.get("lurker_chase_music").getAsBoolean() == false && mainjsonobject.get("longer_lurker_chase").getAsBoolean() == false) {
+					if (entity instanceof MidnightLurkerAggressiveEntity) {
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0, false);
+							}
+						}
+						MidnightlurkerMod.queueServerWork(1200, () -> {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+								} else {
+									_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+								}
+							}
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
+					}
+				} else if (mainjsonobject.get("lurker_chase_music").getAsBoolean() == true && mainjsonobject.get("longer_lurker_chase").getAsBoolean() == true) {
+					if (entity instanceof MidnightLurkerAggressiveEntity) {
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+						MidnightlurkerMod.queueServerWork(2400, () -> {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+								} else {
+									_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+								}
+							}
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
+					}
+				} else if (mainjsonobject.get("lurker_chase_music").getAsBoolean() == false && mainjsonobject.get("longer_lurker_chase").getAsBoolean() == true) {
+					if (entity instanceof MidnightLurkerAggressiveEntity) {
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 0, 0);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 0, 0, false);
+							}
+						}
+						MidnightlurkerMod.queueServerWork(2400, () -> {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+								} else {
+									_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+								}
+							}
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
 					}
 				}
 			} catch (IOException e) {

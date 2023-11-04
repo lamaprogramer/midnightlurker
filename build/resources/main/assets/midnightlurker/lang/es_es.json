@@ -1,14 +1,21 @@
 {
+  "entity.midnightlurker.midnight_lurker_invisible": "Acechador de medianoche",
   "item.midnightlurker.midnight_lurker_spawn_egg": "Huevo de generación del acechador de medianoche",
   "entity.midnightlurker.midnight_lurkertpose": "Acechador de medianoche",
   "entity.midnightlurker.midnight_lurker": "Acechador de medianoche",
-  "item.midnightlurker.midnight_lurker_high_spawn_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_seen_angressive_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "entity.midnightlurker.midnight_lurker_seen_angressive": "Acechador de medianoche",
+  "subtitles.spookyambience": "",
   "item.midnightlurker.midnight_lurker_ne_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "subtitles.lurkerinvisiblejumpscare": "",
   "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "subtitles.lurkerchase2": "",
   "entity.midnightlurker.midnight_lurker_stalking": "Acechador de medianoche",
   "item.midnightlurker.midnight_lurker_stalking_spawn_egg": "Huevo de generación del acechador de medianoche",
   "entity.midnightlurker.midnight_lurker_ne": "Acechador de medianoche",
   "entity.midnightlurker.midnight_lurker_aggressive": "Acechador de medianoche",
   "item.midnightlurker.midnight_lurker_aggressive_spawn_egg": "Huevo de generación del acechador de medianoche",
-  "entity.midnightlurker.midnight_lurker_high_spawn": "Acechador de medianoche"
+  "item.midnightlurker.spookyambienceentity_spawn_egg": "Huevo de generación del acechador de medianoche",
+  "entity.midnightlurker.spookyambienceentity": "Acechador de medianoche"
 }

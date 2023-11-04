@@ -38,10 +38,13 @@ public class LurkerconfigProcedure {
 				exception.printStackTrace();
 			}
 			mainjsonobject.addProperty("lurker_chase_music", true);
-			mainjsonobject.addProperty("lurker_low_spawn_rate", true);
+			mainjsonobject.addProperty("lurker_spawn_rate", 1);
+			mainjsonobject.addProperty("the spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			mainjsonobject.addProperty("pop_up_jumpscare", true);
 			mainjsonobject.addProperty("jumpscare_sound", true);
 			mainjsonobject.addProperty("blindness_in_chase", false);
+			mainjsonobject.addProperty("longer_lurker_chase", false);
+			mainjsonobject.addProperty("spooky_ambience", true);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 				try {

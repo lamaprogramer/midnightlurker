@@ -9,11 +9,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.api.distmarker.Dist;
 
+import net.mcreator.midnightlurker.client.renderer.SpookyambienceentityRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkertposeRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerStalkingRenderer;
+import net.mcreator.midnightlurker.client.renderer.MidnightLurkerSeenAngressiveRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerNERenderer;
-import net.mcreator.midnightlurker.client.renderer.MidnightLurkerHighSpawnRenderer;
+import net.mcreator.midnightlurker.client.renderer.MidnightLurkerInvisibleRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerAggressiveRenderer;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -25,6 +27,8 @@ public class MidnightlurkerModEntityRenderers {
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE.get(), MidnightLurkertposeRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING.get(), MidnightLurkerStalkingRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_NE.get(), MidnightLurkerNERenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIGH_SPAWN.get(), MidnightLurkerHighSpawnRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE.get(), MidnightLurkerInvisibleRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY.get(), SpookyambienceentityRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE.get(), MidnightLurkerSeenAngressiveRenderer::new);
 	}
 }

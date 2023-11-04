@@ -19,4 +19,7 @@ public class MidnightlurkerModSounds {
 	public static final RegistryObject<SoundEvent> LURKERANGER = REGISTRY.register("lurkeranger", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkeranger")));
 	public static final RegistryObject<SoundEvent> LURKERDISAPPEAR = REGISTRY.register("lurkerdisappear", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdisappear")));
 	public static final RegistryObject<SoundEvent> LURKERCHASE = REGISTRY.register("lurkerchase", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchase")));
+	public static final RegistryObject<SoundEvent> LURKERINVISIBLEJUMPSCARE = REGISTRY.register("lurkerinvisiblejumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerinvisiblejumpscare")));
+	public static final RegistryObject<SoundEvent> SPOOKYAMBIENCE = REGISTRY.register("spookyambience", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "spookyambience")));
+	public static final RegistryObject<SoundEvent> LURKERCHASE2 = REGISTRY.register("lurkerchase2", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchase2")));
 }

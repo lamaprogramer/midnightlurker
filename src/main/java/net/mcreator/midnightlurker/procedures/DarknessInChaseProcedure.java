@@ -57,7 +57,7 @@ public class DarknessInChaseProcedure {
 					mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 					if (mainjsonobject.get("blindness_in_chase").getAsBoolean() == true) {
 						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
-							_entity.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 60, 0, false, false));
+							_entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0, false, false));
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

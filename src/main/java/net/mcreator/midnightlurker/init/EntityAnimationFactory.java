@@ -4,10 +4,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
+import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerSeenAngressiveEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerNEEntity;
-import net.mcreator.midnightlurker.entity.MidnightLurkerHighSpawnEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerInvisibleEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 
@@ -51,7 +53,21 @@ public class EntityAnimationFactory {
 					syncable.animationprocedure = animation;
 				}
 			}
-			if (event.getEntity() instanceof MidnightLurkerHighSpawnEntity syncable) {
+			if (event.getEntity() instanceof MidnightLurkerInvisibleEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof SpookyambienceentityEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof MidnightLurkerSeenAngressiveEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");
