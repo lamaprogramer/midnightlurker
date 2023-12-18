@@ -1,21 +1,23 @@
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="[43,)"
 license="MIT License"
 
 [[mods]]
 modId="midnightlurker"
-version="1.2.4"
+version="2.0.0"
 displayName="The Midnight Lurker"
-credits="Created using mod maker MCreator - Music in the mod from Slender the Arrival"
+credits="Mod made by Voxla - Created using mod maker MCreator - Legacy music in the mod from Slender the Arrival - Most Lurker sounds by TH34N0M4LY/Z3R0TW0"
 displayURL="https://modrinth.com/mod/the-midnight-lurker - https://www.curseforge.com/minecraft/mc-mods/the-midnight-lurker"
 logoFile="logo.png"
 authors="Voxla"
-description="A small mod that adds a new horrifying entity to Minecraft."
+description='''
+A small mod that adds a new horrifying entity to Minecraft.
+'''
 
 [[dependencies.midnightlurker]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4]"
+    versionRange="[1.19.2]"
     ordering="NONE"
     side="BOTH"
 

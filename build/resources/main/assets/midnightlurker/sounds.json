@@ -1,17 +1,6 @@
 {
-  "lurkerjumpscare": {
-    "sounds": [
-      {
-        "name": "midnightlurker:jumpscaresound",
-        "stream": false
-      },
-      {
-        "name": "midnightlurker:lurkerjumpscare",
-        "stream": false
-      }
-    ]
-  },
   "lurkeranger": {
+    "category": "neutral",
     "sounds": [
       {
         "name": "midnightlurker:change",
@@ -20,6 +9,7 @@
     ]
   },
   "lurkerdisappear": {
+    "category": "neutral",
     "sounds": [
       {
         "name": "midnightlurker:lurkerdisappear",
@@ -28,6 +18,7 @@
     ]
   },
   "lurkerchase": {
+    "category": "neutral",
     "sounds": [
       {
         "name": "midnightlurker:chase",
@@ -36,6 +27,7 @@
     ]
   },
   "lurkerinvisiblejumpscare": {
+    "category": "neutral",
     "sounds": [
       {
         "name": "midnightlurker:invisiblejumpscare1",
@@ -51,46 +43,263 @@
       }
     ]
   },
-  "spookyambience": {
+  "lurkerchase2": {
+    "category": "neutral",
     "sounds": [
       {
-        "name": "midnightlurker:spookyambience1",
+        "name": "midnightlurker:chase2",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerprefinalbreak": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "midnightlurker:prefinalbreak",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerfinalbreak": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "midnightlurker:finalbreak",
+        "stream": false
+      }
+    ]
+  },
+  "spookyambience": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "midnightlurker:hal4ambient1",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience2",
+        "name": "midnightlurker:hal4ambient3",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience3",
+        "name": "midnightlurker:hal4ambient4",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience4",
+        "name": "midnightlurker:hal4ambient5",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience5",
+        "name": "midnightlurker:hal4ambient6",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience6",
+        "name": "midnightlurker:hal4ambient7",
         "stream": true
       },
       {
-        "name": "midnightlurker:spookyambience7",
-        "stream": true
-      },
-      {
-        "name": "midnightlurker:spookyambience8",
+        "name": "midnightlurker:hal4ambient8",
         "stream": true
       }
     ]
   },
-  "lurkerchase2": {
+  "insanitygoesbacksound": {
+    "category": "neutral",
     "sounds": [
       {
-        "name": "midnightlurker:chase2",
+        "name": "midnightlurker:goodrewardsound",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:goodrewardsound1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:goodrewardsound2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:goodrewardsound3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:goodrewardsound4",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:goodrewardsound5",
+        "stream": false
+      }
+    ]
+  },
+  "insanityambience": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:insanitysounds",
+        "stream": false
+      }
+    ]
+  },
+  "insanitychase": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:insanitychase",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerbreakingblock": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_break",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerdistantscream": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_distant",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerdeath": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_death",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerdeathjumpscare": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:finaljump2",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerscream": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_scream1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_scream2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_scream3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_scream4",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerambient": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_ambient1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_ambient2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_ambient3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_ambient4",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerhurt": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_hurt1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_hurt2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_hurt3",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerfootsteps": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_footstep1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep4",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerchasesteps": {
+    "category": "hostile",
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_chasestep1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_chasestep2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_chasestep3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_chasestep4",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerjumpscare": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "midnightlurker:finaljump1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:finaljump3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:finaljump4",
         "stream": false
       }
     ]

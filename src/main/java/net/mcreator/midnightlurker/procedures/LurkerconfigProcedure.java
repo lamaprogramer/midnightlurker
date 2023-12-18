@@ -29,7 +29,7 @@ public class LurkerconfigProcedure {
 	private static void execute(@Nullable Event event) {
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "lurkerconfig.json");
+		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
 		if (!lurker.exists()) {
 			try {
 				lurker.getParentFile().mkdirs();
@@ -37,14 +37,17 @@ public class LurkerconfigProcedure {
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}
-			mainjsonobject.addProperty("lurker_chase_music", true);
-			mainjsonobject.addProperty("lurker_spawn_rate", 1);
+			mainjsonobject.addProperty("lurker_chase_music", false);
+			mainjsonobject.addProperty("lurker_spawn_rate", 5);
 			mainjsonobject.addProperty("the spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			mainjsonobject.addProperty("pop_up_jumpscare", true);
 			mainjsonobject.addProperty("jumpscare_sound", true);
-			mainjsonobject.addProperty("blindness_in_chase", false);
 			mainjsonobject.addProperty("longer_lurker_chase", false);
 			mainjsonobject.addProperty("spooky_ambience", true);
+			mainjsonobject.addProperty("multi_spawning", false);
+			mainjsonobject.addProperty("insanity_progress_effect", true);
+			mainjsonobject.addProperty("insanity_countdown_time", 2);
+			mainjsonobject.addProperty("the insanity countdown time determines how long the timer is for insanity. 1 is 5mins, 2 is 10mins, 3 is 20mins, and 4 is 30mins.", 0);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 				try {

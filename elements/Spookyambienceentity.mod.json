@@ -7,7 +7,7 @@
     "mobModelTexture": "midnightlurkerglow.png",
     "mobModelGlowTexture": "",
     "visualScale": {
-      "fixedValue": 1.0
+      "fixedValue": 0.95
     },
     "boundingBoxScale": {
       "fixedValue": 1.0
@@ -100,7 +100,7 @@
       "value": ""
     },
     "onMobTickUpdate": {
-      "name": "SpookyambienceentityOnInitialEntitySpawn"
+      "name": "SpookyambienceentityOnEntityTickUpdate"
     },
     "onInitialSpawn": {
       "name": "SpookyambienceentityOnInitialEntitySpawn"
@@ -108,7 +108,7 @@
     "hasAI": true,
     "aiBase": "(none)",
     "aixml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"aitasks_container\" deletable=\"false\" x=\"40\" y=\"40\"><next><block type=\"attack_entity\"><field name=\"insight\">FALSE</field><field name=\"nearby\">FALSE</field><field name=\"entity\">EntityPlayer</field><field name=\"condition\">null,null</field><next><block type=\"attack_on_collide\"><field name=\"speed\">1.2</field><field name=\"longmemory\">FALSE</field><field name=\"condition\">null,null</field><next><block type=\"watch_closest_entity\"><field name=\"entity\">EntityPlayer</field><field name=\"radius\">100</field><field name=\"condition\">null,null</field><next><block type=\"swim_in_water\"><field name=\"condition\">null,null</field></block></next></block></next></block></next></block></next></block></xml>",
-    "model": "midnightlurker.geo.json",
+    "model": "midnightlurkernormal.geo.json",
     "groupName": "head",
     "animation1": "idle",
     "animation2": "",
@@ -146,7 +146,7 @@
     "spawnThisMob": true,
     "doesDespawnWhenIdle": true,
     "spawningCondition": {
-      "name": "MidnightLurkertposeNaturalEntitySpawningCondition"
+      "name": "SpookyambienceentityNaturalEntitySpawningCondition"
     },
     "spawningProbability": 2,
     "mobSpawningType": "monster",

@@ -1,19 +1,21 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.IAnimatable;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.network.NetworkHooks;
 
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.projectile.ThrownPotion;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -36,7 +39,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -44,23 +46,29 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveThisEntityKillsAnotherOneProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayerCollidesWithThisEntityProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityDiesProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveBoundingBoxScaleProcedure;
+import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.procedures.LurkerfightbackProcedure;
+import net.mcreator.midnightlurker.procedures.AggrowatchplayerProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import javax.annotation.Nullable;
 
-public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity {
+public class MidnightLurkerAggressiveEntity extends Monster implements IAnimatable {
 	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(MidnightLurkerAggressiveEntity.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(MidnightLurkerAggressiveEntity.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(MidnightLurkerAggressiveEntity.class, EntityDataSerializers.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
@@ -82,7 +90,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurker");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
 	}
 
 	public void setTexture(String texture) {
@@ -94,22 +102,83 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, false, false));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, false) {
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canUse() && LurkerfightbackProcedure.execute(entity);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canContinueToUse() && LurkerfightbackProcedure.execute(entity);
+			}
+		});
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, false, false));
+		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2, true) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
 				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
-		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, (float) 100));
-		this.goalSelector.addGoal(4, new FloatGoal(this));
+		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, (float) 100) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canContinueToUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
+			}
+		});
+		this.goalSelector.addGoal(5, new FloatGoal(this) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerAggressiveEntity.this.getX();
+				double y = MidnightLurkerAggressiveEntity.this.getY();
+				double z = MidnightLurkerAggressiveEntity.this.getZ();
+				Entity entity = MidnightLurkerAggressiveEntity.this;
+				Level world = MidnightLurkerAggressiveEntity.this.level;
+				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
+			}
+		});
 	}
 
 	@Override
@@ -123,46 +192,55 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	}
 
 	@Override
+	public void playStepSound(BlockPos pos, BlockState blockIn) {
+		this.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchasesteps")), 0.15f, 1);
+	}
+
+	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.hurt"));
+		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerhurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.death"));
+		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdeath"));
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (source.is(DamageTypes.IN_FIRE))
-			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
 			return false;
 		if (source.getDirectEntity() instanceof Player)
 			return false;
 		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source == DamageSource.FALL)
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source == DamageSource.CACTUS)
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source == DamageSource.DROWN)
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source == DamageSource.LIGHTNING_BOLT)
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isExplosion())
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.getMsgId().equals("trident"))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source == DamageSource.ANVIL)
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source == DamageSource.DRAGON_BREATH)
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source == DamageSource.WITHER)
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.getMsgId().equals("witherSkull"))
 			return false;
 		return super.hurt(source, amount);
+	}
+
+	@Override
+	public void die(DamageSource source) {
+		super.die(source);
+		MidnightLurkerAggressiveEntityDiesProcedure.execute(this.level, this);
 	}
 
 	@Override
@@ -187,13 +265,12 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 
 	@Override
 	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
-	}
-
-	@Override
-	public void playerTouch(Player sourceentity) {
-		super.playerTouch(sourceentity);
-		MidnightLurkerAggressivePlayerCollidesWithThisEntityProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		Entity entity = this;
+		Level world = this.level;
+		double x = this.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
+		return super.getDimensions(p_33597_).scale((float) MidnightLurkerAggressiveBoundingBoxScaleProcedure.execute(world, x, y, z));
 	}
 
 	public static void init() {
@@ -201,48 +278,63 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
+		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.42);
 		builder = builder.add(Attributes.MAX_HEALTH, 60);
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
+		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 1);
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
+	private <E extends IAnimatable> PlayState movementPredicate(AnimationEvent<E> event) {
 		if (this.animationprocedure.equals("empty")) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
 
-			) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("running"));
+					&& !this.isAggressive()) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("stalking1", EDefaultLoopTypes.LOOP));
+				return PlayState.CONTINUE;
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
+			if (this.isInWaterOrBubble()) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("swim1", EDefaultLoopTypes.LOOP));
+				return PlayState.CONTINUE;
+			}
+			if (this.isAggressive() && event.isMoving()) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("running1", EDefaultLoopTypes.LOOP));
+				return PlayState.CONTINUE;
+			}
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("idle1", EDefaultLoopTypes.LOOP));
+			return PlayState.CONTINUE;
 		}
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
+	private <E extends IAnimatable> PlayState procedurePredicate(AnimationEvent<E> event) {
 		Entity entity = this;
 		Level world = entity.level;
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
+		String condition = MidnightLurkerAggressivePlayReturnedAnimationProcedure.execute(world, x, y, z, entity);
+		if (!condition.equals("empty"))
+			this.animationprocedure = condition;
+		loop = MidnightLurkerAggressiveLoopExternalAnimationsProcedure.execute(world, x, y, z, entity);
 		if (!loop && this.lastloop) {
 			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
+			event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.PLAY_ONCE));
+			event.getController().clearAnimationCache();
 			return PlayState.STOP;
 		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState().equals(software.bernie.geckolib3.core.AnimationState.Stopped)) {
 			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+				event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.PLAY_ONCE));
+				if (event.getController().getAnimationState().equals(software.bernie.geckolib3.core.AnimationState.Stopped)) {
 					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
+					event.getController().markNeedsReload();
 				}
 			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
+				event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.LOOP));
 				this.lastloop = true;
 			}
 		}
@@ -267,13 +359,13 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	}
 
 	@Override
-	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+	public void registerControllers(AnimationData data) {
+		data.addAnimationController(new AnimationController<>(this, "movement", 4, this::movementPredicate));
+		data.addAnimationController(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
 	}
 
 	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
+	public AnimationFactory getFactory() {
+		return this.factory;
 	}
 }

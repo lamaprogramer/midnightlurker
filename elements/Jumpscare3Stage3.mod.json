@@ -1,0 +1,93 @@
+{
+  "_fv": 47,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird4stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame15"
+          },
+          "x": -300,
+          "y": -1
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird3stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame14"
+          },
+          "x": -300,
+          "y": -1
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird2stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame13"
+          },
+          "x": -300,
+          "y": -1
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird1stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame12"
+          },
+          "x": -300,
+          "y": -1
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird5stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame16"
+          },
+          "x": -300,
+          "y": -91
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscarethird6stage3.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame17"
+          },
+          "x": -300,
+          "y": -271
+        }
+      }
+    ],
+    "baseTexture": "",
+    "overlayTarget": "Ingame",
+    "displayCondition": {
+      "name": "ShowJump3Stage3"
+    },
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": true
+    }
+  }
+}

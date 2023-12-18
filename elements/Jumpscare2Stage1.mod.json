@@ -1,0 +1,213 @@
+{
+  "_fv": 47,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond14stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame15"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond13stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame14"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond12stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame13"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond11stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame12"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond10stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame11"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond9stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame10"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond8stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame9"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond7stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame8"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond6stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame7"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond5stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame6"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond4stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame5"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond3stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "Insanityoverlayevent4"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond2stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame3"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond1stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame2"
+          },
+          "x": -300,
+          "y": -217
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond15stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame16"
+          },
+          "x": -300,
+          "y": -208
+        }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "jumpscaresecond16stage1.png",
+          "use1Xscale": true,
+          "displayCondition": {
+            "name": "JumpscareFrame17"
+          },
+          "x": -300,
+          "y": -28
+        }
+      }
+    ],
+    "baseTexture": "",
+    "overlayTarget": "Ingame",
+    "displayCondition": {
+      "name": "ShowJump2Stage1"
+    },
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": true
+    }
+  }
+}

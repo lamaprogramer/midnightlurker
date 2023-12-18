@@ -5,7 +5,7 @@
   },
   "spawners": {
     "type": "midnightlurker:midnight_lurker_invisible",
-    "weight": 4,
+    "weight": 9,
     "minCount": 1,
     "maxCount": 1
   }

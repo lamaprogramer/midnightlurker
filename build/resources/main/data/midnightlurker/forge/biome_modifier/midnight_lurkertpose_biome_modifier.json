@@ -5,7 +5,7 @@
   },
   "spawners": {
     "type": "midnightlurker:midnight_lurkertpose",
-    "weight": 5,
+    "weight": 1,
     "minCount": 1,
     "maxCount": 1
   }

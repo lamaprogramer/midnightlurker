@@ -1,0 +1,87 @@
+{
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:28 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_ingot_from_iron_block": {
+    "criteria": {
+      "has_iron_block": "2023-11-05 12:54:26 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/oak_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/jack_o_lantern": {
+    "criteria": {
+      "has_carved_pumpkin": "2023-11-05 12:54:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/anvil": {
+    "criteria": {
+      "has_iron_block": "2023-11-05 12:54:26 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/pumpkin_pie": {
+    "criteria": {
+      "has_carved_pumpkin": "2023-11-05 12:54:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/birch_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/jungle_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:adventure/summon_iron_golem": {
+    "criteria": {
+      "summoned_golem": "2023-11-05 12:54:34 -0500"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/spruce_boat": {
+    "criteria": {
+      "in_water": "2023-11-05 12:50:29 -0500"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:birch_forest": "2023-11-05 12:53:05 -0500",
+      "minecraft:bamboo_jungle": "2023-11-05 12:48:04 -0500",
+      "minecraft:beach": "2023-11-05 12:45:59 -0500",
+      "minecraft:dark_forest": "2023-11-05 12:53:18 -0500",
+      "minecraft:sparse_jungle": "2023-11-05 12:47:15 -0500",
+      "minecraft:river": "2023-11-05 12:45:55 -0500",
+      "minecraft:forest": "2023-11-05 12:35:03 -0500",
+      "minecraft:ocean": "2023-11-05 12:53:10 -0500",
+      "minecraft:jungle": "2023-11-05 12:51:13 -0500",
+      "minecraft:old_growth_birch_forest": "2023-11-05 12:53:14 -0500",
+      "minecraft:meadow": "2023-11-05 12:45:33 -0500",
+      "minecraft:savanna": "2023-11-05 12:45:42 -0500",
+      "minecraft:plains": "2023-11-05 12:45:34 -0500"
+    },
+    "done": false
+  },
+  "DataVersion": 2975
+}

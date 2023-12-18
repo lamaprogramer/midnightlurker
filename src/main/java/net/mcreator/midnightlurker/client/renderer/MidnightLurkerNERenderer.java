@@ -1,39 +1,30 @@
 
 package net.mcreator.midnightlurker.client.renderer;
 
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
-import net.mcreator.midnightlurker.entity.model.MidnightLurkerNEModel;
-import net.mcreator.midnightlurker.entity.layer.MidnightLurkerNELayer;
-import net.mcreator.midnightlurker.entity.MidnightLurkerNEEntity;
+import net.mcreator.midnightlurker.entity.model.MidnightlurkerNEModel;
+import net.mcreator.midnightlurker.entity.layer.MidnightlurkerNELayer;
+import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class MidnightLurkerNERenderer extends GeoEntityRenderer<MidnightLurkerNEEntity> {
-	public MidnightLurkerNERenderer(EntityRendererProvider.Context renderManager) {
-		super(renderManager, new MidnightLurkerNEModel());
+public class MidnightlurkerNERenderer extends GeoEntityRenderer<MidnightlurkerNEEntity> {
+	public MidnightlurkerNERenderer(EntityRendererProvider.Context renderManager) {
+		super(renderManager, new MidnightlurkerNEModel());
 		this.shadowRadius = 0.7f;
-		this.addRenderLayer(new MidnightLurkerNELayer(this));
+		this.addLayer(new MidnightlurkerNELayer(this));
 	}
 
 	@Override
-	public RenderType getRenderType(MidnightLurkerNEEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-		return RenderType.entityTranslucent(getTextureLocation(animatable));
-	}
-
-	@Override
-	public void preRender(PoseStack poseStack, MidnightLurkerNEEntity entity, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red,
-			float green, float blue, float alpha) {
-		float scale = 1f;
-		this.scaleHeight = scale;
-		this.scaleWidth = scale;
-		super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+	public RenderType getRenderType(MidnightlurkerNEEntity entity, float partialTicks, PoseStack stack, MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
+		stack.scale(0.95f, 0.95f, 0.95f);
+		return RenderType.entityTranslucent(getTextureLocation(entity));
 	}
 }

@@ -1,0 +1,176 @@
+{
+  "_fv": 47,
+  "_type": "overlay",
+  "definition": {
+    "priority": "LOW",
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "name": "label_empty",
+          "text": {
+            "fixedValue": "",
+            "name": "Chasetimerthing"
+          },
+          "color": {
+            "value": -6750157,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 17
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_voidrandom",
+          "text": {
+            "fixedValue": "voidrandom",
+            "name": "Voidrandomnumberthing"
+          },
+          "color": {
+            "value": -3355444,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 44
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_insanitytimer",
+          "text": {
+            "fixedValue": "Insanitytimer",
+            "name": "Insanitytimerdisplay"
+          },
+          "color": {
+            "value": -39322,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 71
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_insanitystage",
+          "text": {
+            "fixedValue": "Insanitystage",
+            "name": "Insanitystagedisplay"
+          },
+          "color": {
+            "value": -39271,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 98
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_chase_timer",
+          "text": {
+            "fixedValue": "Chase Timer:"
+          },
+          "color": {
+            "value": -6750157,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 8
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_void_gateway_random_number",
+          "text": {
+            "fixedValue": "Void Gateway Random Number"
+          },
+          "color": {
+            "value": -3355444,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 35
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_insanity_timer",
+          "text": {
+            "fixedValue": "Insanity Timer:"
+          },
+          "color": {
+            "value": -39322,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 62
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_insanity_stage",
+          "text": {
+            "fixedValue": "Insanity Stage:"
+          },
+          "color": {
+            "value": -39271,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 89
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_healthboost",
+          "text": {
+            "fixedValue": "Lurker Health Boost Number:"
+          },
+          "color": {
+            "value": -13395712,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 116
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_healthboostnumber",
+          "text": {
+            "fixedValue": "Healthboostnumber",
+            "name": "Healthboostnumber"
+          },
+          "color": {
+            "value": -13395712,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 125
+        }
+      }
+    ],
+    "baseTexture": "",
+    "overlayTarget": "Ingame",
+    "displayCondition": {
+      "name": "ChasetimerfortestingDisplayOverlayIngame"
+    },
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": true
+    }
+  }
+}

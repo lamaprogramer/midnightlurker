@@ -7,7 +7,7 @@
     "mobModelTexture": "midnightlurker.png",
     "mobModelGlowTexture": "midnightlurkerglow.png",
     "visualScale": {
-      "fixedValue": 1.0
+      "fixedValue": 0.95
     },
     "boundingBoxScale": {
       "fixedValue": 1.0
@@ -58,7 +58,7 @@
     "armorBaseValue": 0.0,
     "trackingRange": 64,
     "followRange": 100,
-    "health": 200,
+    "health": 60,
     "xpAmount": 0,
     "waterMob": false,
     "flyingMob": false,
@@ -91,16 +91,16 @@
       "value": ""
     },
     "hurtSound": {
-      "value": "entity.generic.hurt"
+      "value": "CUSTOM:lurkerhurt"
     },
     "deathSound": {
-      "value": "entity.generic.death"
+      "value": "CUSTOM:lurkerdeath"
     },
     "stepSound": {
-      "value": ""
+      "value": "CUSTOM:lurkerfootsteps"
     },
-    "whenMobIsHurt": {
-      "name": "MidnightLurkerEntityIsHurt"
+    "whenMobDies": {
+      "name": "MidnightLurkerEntityDies"
     },
     "onMobTickUpdate": {
       "name": "MidnightLurkerStalkingOnEntityTickUpdate"
@@ -110,8 +110,8 @@
     },
     "hasAI": true,
     "aiBase": "(none)",
-    "aixml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"aitasks_container\" deletable=\"false\" x=\"40\" y=\"40\"><next><block type=\"attack_entity\"><field name=\"insight\">FALSE</field><field name=\"nearby\">FALSE</field><field name=\"entity\">EntityPlayer</field><field name=\"condition\">null,null</field><next><block type=\"attack_on_collide\"><field name=\"speed\">1.2</field><field name=\"longmemory\">FALSE</field><field name=\"condition\">null,null</field><next><block type=\"watch_closest_entity\"><field name=\"entity\">EntityPlayer</field><field name=\"radius\">100</field><field name=\"condition\">null,null</field><next><block type=\"swim_in_water\"><field name=\"condition\">null,null</field></block></next></block></next></block></next></block></next></block></xml>",
-    "model": "midnightlurker.geo.json",
+    "aixml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"aitasks_container\" deletable=\"false\" x=\"40\" y=\"40\"><next><block type=\"attack_entity\"><field name=\"insight\">FALSE</field><field name=\"nearby\">FALSE</field><field name=\"entity\">EntityPlayer</field><field name=\"condition\">null,null</field><next><block type=\"attack_on_collide\"><field name=\"speed\">1.2</field><field name=\"longmemory\">FALSE</field><field name=\"condition\">null,null</field><next><block type=\"wander\"><field name=\"speed\">0.8</field><field name=\"condition\">null,null</field><next><block type=\"watch_closest_entity\"><field name=\"entity\">EntityPlayer</field><field name=\"radius\">100</field><field name=\"condition\">null,null</field><next><block type=\"swim_in_water\"><field name=\"condition\">null,null</field></block></next></block></next></block></next></block></next></block></next></block></xml>",
+    "model": "midnightlurkernormal.geo.json",
     "groupName": "head",
     "animation1": "idle",
     "animation2": "stalking",
@@ -151,7 +151,7 @@
     "spawningCondition": {
       "name": "MidnightLurkerNaturalEntitySpawningCondition"
     },
-    "spawningProbability": 7,
+    "spawningProbability": 15,
     "mobSpawningType": "monster",
     "minNumberOfMobsPerGroup": 1,
     "maxNumberOfMobsPerGroup": 1,
