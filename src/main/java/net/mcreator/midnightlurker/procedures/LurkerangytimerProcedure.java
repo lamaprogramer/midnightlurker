@@ -138,7 +138,7 @@ public class LurkerangytimerProcedure {
 					if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledtimer == 1199) {
 						if (world instanceof Level _level) {
 							if (!_level.isClientSide()) {
-								_level.playSound(null, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0);
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0);
 							} else {
 								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0, false);
 							}
@@ -155,7 +155,7 @@ public class LurkerangytimerProcedure {
 					if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledtimer == 2399) {
 						if (world instanceof Level _level) {
 							if (!_level.isClientSide()) {
-								_level.playSound(null, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 0, 0);
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 0, 0);
 							} else {
 								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase2")), SoundSource.NEUTRAL, 0, 0, false);
 							}

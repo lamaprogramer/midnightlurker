@@ -77,7 +77,7 @@ public class JumpscareTimerProcedure {
 				if (mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == true) {
 					if (world instanceof Level _level) {
 						if (!_level.isClientSide()) {
-							_level.playSound(null, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0);
+							_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0);
 						} else {
 							_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0, false);
 						}
@@ -85,7 +85,7 @@ public class JumpscareTimerProcedure {
 				} else if (mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == false) {
 					if (world instanceof Level _level) {
 						if (!_level.isClientSide()) {
-							_level.playSound(null, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0);
+							_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0);
 						} else {
 							_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 0, 0, false);
 						}
@@ -117,7 +117,7 @@ public class JumpscareTimerProcedure {
 				|| entity.getPersistentData().getDouble("JumpscareTimer") == 9 || entity.getPersistentData().getDouble("JumpscareTimer") == 8 || entity.getPersistentData().getDouble("JumpscareTimer") == 7
 				|| entity.getPersistentData().getDouble("JumpscareTimer") == 6 || entity.getPersistentData().getDouble("JumpscareTimer") == 5 || entity.getPersistentData().getDouble("JumpscareTimer") == 4
 				|| entity.getPersistentData().getDouble("JumpscareTimer") == 3 || entity.getPersistentData().getDouble("JumpscareTimer") == 2 || entity.getPersistentData().getDouble("JumpscareTimer") == 1)) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 155, 0, false, false));
 			world.addParticle((SimpleParticleType) (MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get()), (x + Mth.nextDouble(RandomSource.create(), -6, 6)), (y + Mth.nextDouble(RandomSource.create(), 0, 6)),
 					(z + Mth.nextDouble(RandomSource.create(), -6, 6)), 0, 0, 0);

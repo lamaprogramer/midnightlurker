@@ -41,7 +41,7 @@ public class InsanityOnEffectActiveTickProcedure {
 	private static void execute(@Nullable Event event, Entity entity, ViewportEvent viewport) {
 		if (entity == null || viewport == null)
 			return;
-		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player) {
 				if (viewport instanceof ViewportEvent.RenderFog _renderFog) {
 					_renderFog.setNearPlaneDistance(1);
@@ -66,11 +66,11 @@ public class InsanityOnEffectActiveTickProcedure {
 				}
 			}
 		}
-		if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false)) {
+		if (!(entity instanceof LivingEntity _livEnt17 && _livEnt17.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()))) {
 			if (entity instanceof Player) {
 				entity.getPersistentData().putDouble("InsanityFog", 201);
 			}
-		} else if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		} else if (entity instanceof LivingEntity _livEnt20 && _livEnt20.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player && entity.getPersistentData().getDouble("InsanityFog") < 1) {
 				entity.getPersistentData().putDouble("InsanityFog", 201);
 			}

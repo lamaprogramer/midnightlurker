@@ -18,6 +18,7 @@ public class MidnightLurkerAggressiveOnInitialEntitySpawnProcedure {
 	public static void execute(LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
+		entity.maxUpStep = 1;
 		if (entity instanceof Mob _entity && ((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 200, 200, 200), e -> true).stream().sorted(new Object() {
 			Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
 				return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
@@ -25,7 +26,7 @@ public class MidnightLurkerAggressiveOnInitialEntitySpawnProcedure {
 		}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)) instanceof LivingEntity _ent)
 			_entity.setTarget(_ent);
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost == 5) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 99999, 1, false, false));
 		}
 	}

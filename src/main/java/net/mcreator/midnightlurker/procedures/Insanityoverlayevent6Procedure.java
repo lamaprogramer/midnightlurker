@@ -29,7 +29,7 @@ public class Insanityoverlayevent6Procedure {
 	private static boolean execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return false;
-		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player) {
 				if (entity.getPersistentData().getDouble("InsanityOverlayTime") == 6) {
 					return true;

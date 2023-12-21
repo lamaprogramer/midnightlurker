@@ -31,7 +31,7 @@ public class MidnightLurkerStalkingOnEntityTickUpdateProcedure {
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 20, 20, 20), e -> true).isEmpty()) {
 			if (world instanceof Level _level) {
 				if (!_level.isClientSide()) {
-					_level.playSound(null, new BlockPos(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1);
+					_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1);
 				} else {
 					_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1, false);
 				}
@@ -45,23 +45,23 @@ public class MidnightLurkerStalkingOnEntityTickUpdateProcedure {
 				entityToSpawn.setYHeadRot(0);
 				entityToSpawn.setDeltaMovement(0, 0, 0);
 				if (entityToSpawn instanceof Mob _mobToSpawn)
-					_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-				world.addFreshEntity(entityToSpawn);
+					_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+				_level.addFreshEntity(entityToSpawn);
 			}
 		} else if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 25, 25, 25), e -> true).isEmpty()) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255, false, false));
 		}
-		if (world.getBlockState(new BlockPos(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		if (world.getBlockState(BlockPos.containing(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.EAST) {
 			entity.setDeltaMovement(new Vec3(0.2, 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.WEST) {
 			entity.setDeltaMovement(new Vec3((-0.2), 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.SOUTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, 0.2));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.NORTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, (-0.2)));
 		}

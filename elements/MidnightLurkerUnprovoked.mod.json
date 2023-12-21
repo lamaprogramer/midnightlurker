@@ -53,7 +53,7 @@
     "mobCreatureType": "UNDEFINED",
     "attackStrength": 8,
     "attackKnockback": 0.0,
-    "knockbackResistance": 1.0,
+    "knockbackResistance": 0.5,
     "movementSpeed": 0.42,
     "armorBaseValue": 0.0,
     "trackingRange": 64,
@@ -78,7 +78,7 @@
     "immuneToDrowning": true,
     "immuneToLightning": true,
     "immuneToPotions": true,
-    "immuneToPlayer": true,
+    "immuneToPlayer": false,
     "immuneToExplosion": true,
     "immuneToTrident": true,
     "immuneToAnvil": true,
@@ -101,6 +101,9 @@
     },
     "whenMobDies": {
       "name": "MidnightLurkerEntityDies"
+    },
+    "whenMobIsHurt": {
+      "name": "MidnightLurkerAggressiveEntityIsHurt"
     },
     "whenThisMobKillsAnother": {
       "name": "MidnightLurkerUnprovokedThisEntityKillsAnotherOne"

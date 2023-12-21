@@ -37,7 +37,7 @@ public class Insanitystage7Procedure {
 			return;
 		File lurker = new File("");
 		if (entity.getPersistentData().getDouble("InsanityStage") > 6 && !world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 60, 60, 60), e -> true).isEmpty()) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 55, 0, false, false));
 		}
 	}

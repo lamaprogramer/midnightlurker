@@ -1,31 +1,29 @@
 package net.mcreator.midnightlurker.entity.layer;
 
-import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
+import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
+import software.bernie.geckolib.renderer.GeoRenderer;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
+import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
+
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class MidnightLurkerFakerWatcherLayer extends GeoLayerRenderer {
+public class MidnightLurkerFakerWatcherLayer extends GeoRenderLayer<MidnightLurkerFakerWatcherEntity> {
 	private static final ResourceLocation LAYER = new ResourceLocation("midnightlurker", "textures/entities/midnightlurkerglow.png");
-	private static final ResourceLocation MODEL = new ResourceLocation("midnightlurker", "geo/midnightlurkerfaker.geo.json");
 
-	public MidnightLurkerFakerWatcherLayer(IGeoRenderer<?> entityRendererIn) {
-		super(entityRendererIn);
+	public MidnightLurkerFakerWatcherLayer(GeoRenderer<MidnightLurkerFakerWatcherEntity> entityRenderer) {
+		super(entityRenderer);
 	}
 
 	@Override
-	public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Entity entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		RenderType cameo = RenderType.eyes(LAYER);
-		matrixStackIn.pushPose();
-		matrixStackIn.scale(1.0f, 1.0f, 1.0f);
-		matrixStackIn.translate(0.0d, 0.0d, 0.0d);
-		this.getRenderer().render(this.getEntityModel().getModel(MODEL), entityLivingBaseIn, partialTicks, cameo, matrixStackIn, bufferIn, bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-		matrixStackIn.popPose();
+	public void render(PoseStack poseStack, MidnightLurkerFakerWatcherEntity animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+		RenderType glowRenderType = RenderType.eyes(LAYER);
+		getRenderer().reRender(getDefaultBakedModel(animatable), poseStack, bufferSource, animatable, glowRenderType, bufferSource.getBuffer(glowRenderType), partialTick, packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 }

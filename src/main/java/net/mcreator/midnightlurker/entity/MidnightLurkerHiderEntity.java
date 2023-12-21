@@ -1,15 +1,14 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import software.bernie.geckolib3.util.GeckoLibUtil;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.GeoEntity;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.network.PlayMessages;
@@ -40,6 +39,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.sounds.SoundEvent;
@@ -47,6 +47,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.nbt.CompoundTag;
 
@@ -57,17 +58,18 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderPlayReturnedAni
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.HiderWatchProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import javax.annotation.Nullable;
 
-public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
+public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(MidnightLurkerHiderEntity.class, EntityDataSerializers.BOOLEAN);
 	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(MidnightLurkerHiderEntity.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(MidnightLurkerHiderEntity.class, EntityDataSerializers.STRING);
-	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
@@ -100,7 +102,7 @@ public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -177,31 +179,32 @@ public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this);
+		if (source.is(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof Player)
+		if (source.getDirectEntity() instanceof AbstractArrow)
 			return false;
 		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
 			return false;
-		if (source == DamageSource.FALL)
+		if (source.is(DamageTypes.FALL))
 			return false;
-		if (source == DamageSource.CACTUS)
+		if (source.is(DamageTypes.CACTUS))
 			return false;
-		if (source == DamageSource.DROWN)
+		if (source.is(DamageTypes.DROWN))
 			return false;
-		if (source == DamageSource.LIGHTNING_BOLT)
+		if (source.is(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.isExplosion())
+		if (source.is(DamageTypes.EXPLOSION))
 			return false;
-		if (source.getMsgId().equals("trident"))
+		if (source.is(DamageTypes.TRIDENT))
 			return false;
-		if (source == DamageSource.ANVIL)
+		if (source.is(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source == DamageSource.DRAGON_BREATH)
+		if (source.is(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source == DamageSource.WITHER)
+		if (source.is(DamageTypes.WITHER))
 			return false;
-		if (source.getMsgId().equals("witherSkull"))
+		if (source.is(DamageTypes.WITHER_SKULL))
 			return false;
 		return super.hurt(source, amount);
 	}
@@ -253,29 +256,26 @@ public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 8);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
-		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 1);
+		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.5);
 		return builder;
 	}
 
-	private <E extends IAnimatable> PlayState movementPredicate(AnimationEvent<E> event) {
+	private PlayState movementPredicate(AnimationState event) {
 		if (this.animationprocedure.equals("empty")) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
 
 			) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("stalking8", EDefaultLoopTypes.LOOP));
-				return PlayState.CONTINUE;
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking8"));
 			}
 			if (this.isInWaterOrBubble()) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation("swim8", EDefaultLoopTypes.LOOP));
-				return PlayState.CONTINUE;
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim8"));
 			}
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("idle8", EDefaultLoopTypes.LOOP));
-			return PlayState.CONTINUE;
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle8"));
 		}
 		return PlayState.STOP;
 	}
 
-	private <E extends IAnimatable> PlayState procedurePredicate(AnimationEvent<E> event) {
+	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
 		Level world = entity.level;
 		boolean loop = false;
@@ -288,19 +288,19 @@ public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
 		loop = MidnightLurkerHiderLoopExternalAnimationsProcedure.execute(entity);
 		if (!loop && this.lastloop) {
 			this.lastloop = false;
-			event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.PLAY_ONCE));
-			event.getController().clearAnimationCache();
+			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
+			event.getController().forceAnimationReset();
 			return PlayState.STOP;
 		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState().equals(software.bernie.geckolib3.core.AnimationState.Stopped)) {
+		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
 			if (!loop) {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.PLAY_ONCE));
-				if (event.getController().getAnimationState().equals(software.bernie.geckolib3.core.AnimationState.Stopped)) {
+				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
+				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
 					this.animationprocedure = "empty";
-					event.getController().markNeedsReload();
+					event.getController().forceAnimationReset();
 				}
 			} else {
-				event.getController().setAnimation(new AnimationBuilder().addAnimation(this.animationprocedure, EDefaultLoopTypes.LOOP));
+				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
 				this.lastloop = true;
 			}
 		}
@@ -325,13 +325,13 @@ public class MidnightLurkerHiderEntity extends Monster implements IAnimatable {
 	}
 
 	@Override
-	public void registerControllers(AnimationData data) {
-		data.addAnimationController(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.addAnimationController(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
 	}
 
 	@Override
-	public AnimationFactory getFactory() {
-		return this.factory;
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return this.cache;
 	}
 }

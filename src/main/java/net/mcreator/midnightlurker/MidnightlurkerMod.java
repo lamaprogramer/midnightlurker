@@ -13,7 +13,7 @@
  */
 package net.mcreator.midnightlurker;
 
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -53,7 +53,6 @@ public class MidnightlurkerMod {
 
 	public MidnightlurkerMod() {
 		MinecraftForge.EVENT_BUS.register(this);
-
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		MidnightlurkerModSounds.REGISTRY.register(bus);
 

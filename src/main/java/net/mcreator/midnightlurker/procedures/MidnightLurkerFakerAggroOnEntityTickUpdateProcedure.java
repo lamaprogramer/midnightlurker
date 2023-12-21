@@ -26,21 +26,21 @@ public class MidnightLurkerFakerAggroOnEntityTickUpdateProcedure {
 			return;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		if (entity instanceof LivingEntity _entity)
+		if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 			_entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 60, 0, false, false));
 		if (entity.isPassenger()) {
 			entity.stopRiding();
 		}
-		if (world.getBlockState(new BlockPos(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		if (world.getBlockState(BlockPos.containing(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.EAST) {
 			entity.setDeltaMovement(new Vec3(0.2, 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.WEST) {
 			entity.setDeltaMovement(new Vec3((-0.2), 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.SOUTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, 0.2));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.NORTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, (-0.2)));
 		}
@@ -85,7 +85,7 @@ public class MidnightLurkerFakerAggroOnEntityTickUpdateProcedure {
 				Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
 					return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
 				}
-			}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)) instanceof LivingEntity _entity)
+			}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)) instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 55, 0, false, false));
 		}
 		if (Math.random() > 0.9) {

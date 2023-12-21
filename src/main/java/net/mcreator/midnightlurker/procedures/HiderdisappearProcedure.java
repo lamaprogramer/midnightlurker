@@ -156,7 +156,7 @@ public class HiderdisappearProcedure {
 										.getY()),
 								(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
 										.getZ())))
-						.findFirst().orElse(null)) instanceof LivingEntity _entity)
+						.findFirst().orElse(null)) instanceof LivingEntity _entity && !_entity.level.isClientSide())
 					_entity.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, 1, false, false));
 			}
 		}

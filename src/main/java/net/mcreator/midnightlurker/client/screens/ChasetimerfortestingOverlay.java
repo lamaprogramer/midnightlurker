@@ -18,6 +18,7 @@ import net.mcreator.midnightlurker.procedures.VoidrandomnumberthingProcedure;
 import net.mcreator.midnightlurker.procedures.InsanitytimerdisplayProcedure;
 import net.mcreator.midnightlurker.procedures.InsanitystagedisplayProcedure;
 import net.mcreator.midnightlurker.procedures.HealthboostnumberProcedure;
+import net.mcreator.midnightlurker.procedures.CloseTimerdisplayProcedure;
 import net.mcreator.midnightlurker.procedures.ChasetimerthingProcedure;
 import net.mcreator.midnightlurker.procedures.ChasetimerfortestingDisplayOverlayIngameProcedure;
 
@@ -61,6 +62,10 @@ public class ChasetimerfortestingOverlay {
 			Minecraft.getInstance().font.draw(event.getPoseStack(),
 
 					HealthboostnumberProcedure.execute(world), posX + -207, posY + 5, -13395712);
+			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_closespawntimer"), posX + -207, posY + 23, -16724788);
+			Minecraft.getInstance().font.draw(event.getPoseStack(),
+
+					CloseTimerdisplayProcedure.execute(entity), posX + -207, posY + 32, -16724788);
 		}
 	}
 }

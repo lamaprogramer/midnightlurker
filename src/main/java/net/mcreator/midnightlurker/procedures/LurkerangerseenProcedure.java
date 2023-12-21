@@ -176,8 +176,8 @@ public class LurkerangerseenProcedure {
 					}.compareDistOf(x, y, z)).findFirst().orElse(null)).getYRot());
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 				if (!((Entity) world.getEntitiesOfClass(MidnightLurkerSeenAngressiveEntity.class,
 						AABB.ofSize(new Vec3(
@@ -223,7 +223,7 @@ public class LurkerangerseenProcedure {
 							.findFirst().orElse(null)).discard();
 				if (world instanceof Level _level) {
 					if (!_level.isClientSide()) {
-						_level.playSound(null, new BlockPos(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1);
+						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1);
 					} else {
 						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1, false);
 					}

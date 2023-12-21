@@ -19,18 +19,18 @@ public class MidnightLurkerShadowEyesOnEntityTickUpdateProcedure {
 	public static void execute(LevelAccessor world, Entity entity) {
 		if (entity == null)
 			return;
-		if (entity.getPersistentData().getDouble("LightLevelRandom") < 8 && world.getMaxLocalRawBrightness(new BlockPos(entity.getX(), entity.getY(), entity.getZ())) > 1) {
+		if (entity.getPersistentData().getDouble("LightLevelRandom") < 8 && world.getMaxLocalRawBrightness(BlockPos.containing(entity.getX(), entity.getY(), entity.getZ())) > 1) {
 			if (!entity.level.isClientSide())
 				entity.discard();
-		} else if (entity.getPersistentData().getDouble("LightLevelRandom") > 7 && world.getMaxLocalRawBrightness(new BlockPos(entity.getX(), entity.getY(), entity.getZ())) > 1) {
+		} else if (entity.getPersistentData().getDouble("LightLevelRandom") > 7 && world.getMaxLocalRawBrightness(BlockPos.containing(entity.getX(), entity.getY(), entity.getZ())) > 1) {
 			if (world instanceof ServerLevel _level) {
 				Entity entityToSpawn = new MidnightLurkerUnprovokedEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get(), _level);
 				entityToSpawn.moveTo((entity.getX()), (entity.getY()), (entity.getZ()), entity.getYRot(), entity.getXRot());
 				entityToSpawn.setYBodyRot(entity.getYRot());
 				entityToSpawn.setYHeadRot(entity.getYRot());
 				if (entityToSpawn instanceof Mob _mobToSpawn)
-					_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-				world.addFreshEntity(entityToSpawn);
+					_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+				_level.addFreshEntity(entityToSpawn);
 			}
 			if (!entity.level.isClientSide())
 				entity.discard();

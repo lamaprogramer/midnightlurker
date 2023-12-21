@@ -22,13 +22,13 @@ public class MidnightLurkerRunawayOnInitialEntitySpawnProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (world.getBiome(new BlockPos(x, y, z)).is(new ResourceLocation("mushroom_fields"))) {
+		if (world.getBiome(BlockPos.containing(x, y, z)).is(new ResourceLocation("mushroom_fields"))) {
 			MidnightlurkerMod.queueServerWork(1, () -> {
 				if (!entity.level.isClientSide())
 					entity.discard();
 			});
 		}
-		if (entity instanceof LivingEntity _entity)
+		if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 			_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 99999, 250, false, false));
 		MidnightlurkerModVariables.WorldVariables.get(world).NeutralrunRandom = Mth.nextDouble(RandomSource.create(), 1, 10);
 		MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
@@ -48,7 +48,7 @@ public class MidnightLurkerRunawayOnInitialEntitySpawnProcedure {
 			}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)).getPersistentData().putDouble("InsanityAktive", 1);
 		}
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost == 5) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 99999, 1, false, false));
 		}
 	}

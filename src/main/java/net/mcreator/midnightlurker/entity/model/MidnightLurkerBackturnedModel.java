@@ -1,12 +1,12 @@
 package net.mcreator.midnightlurker.entity.model;
 
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
 import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 
-public class MidnightLurkerBackturnedModel extends AnimatedGeoModel<MidnightLurkerBackturnedEntity> {
+public class MidnightLurkerBackturnedModel extends GeoModel<MidnightLurkerBackturnedEntity> {
 	@Override
 	public ResourceLocation getAnimationResource(MidnightLurkerBackturnedEntity entity) {
 		return new ResourceLocation("midnightlurker", "animations/midnightlurkerbackturned.animation.json");

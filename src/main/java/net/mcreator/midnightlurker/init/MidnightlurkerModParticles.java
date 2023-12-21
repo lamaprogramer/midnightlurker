@@ -17,8 +17,8 @@ import net.mcreator.midnightlurker.client.particle.LurkerfaceparticleParticle;
 public class MidnightlurkerModParticles {
 	@SubscribeEvent
 	public static void registerParticles(RegisterParticleProvidersEvent event) {
-		event.register(MidnightlurkerModParticleTypes.VOID_GATEWAY_PARTICLE.get(), VoidGatewayParticleParticle::provider);
-		event.register(MidnightlurkerModParticleTypes.VOID_DOT.get(), VoidDotParticle::provider);
-		event.register(MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get(), LurkerfaceparticleParticle::provider);
+		event.registerSpriteSet(MidnightlurkerModParticleTypes.VOID_GATEWAY_PARTICLE.get(), VoidGatewayParticleParticle::provider);
+		event.registerSpriteSet(MidnightlurkerModParticleTypes.VOID_DOT.get(), VoidDotParticle::provider);
+		event.registerSpriteSet(MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get(), LurkerfaceparticleParticle::provider);
 	}
 }

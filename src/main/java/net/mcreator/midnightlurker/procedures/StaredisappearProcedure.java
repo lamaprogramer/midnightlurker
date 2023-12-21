@@ -247,9 +247,9 @@ public class StaredisappearProcedure {
 											.getBlockPos().getY()),
 									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
 											.getBlockPos().getZ())))
-							.findFirst().orElse(null)) instanceof LivingEntity _entity)
+							.findFirst().orElse(null)) instanceof LivingEntity _entity && !_entity.level.isClientSide())
 						_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 255, false, false));
-				} else if ((((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
+				} else if (((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
 						AABB.ofSize(new Vec3(
 								(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
 										.getX()),
@@ -269,7 +269,8 @@ public class StaredisappearProcedure {
 										.getY()),
 								(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
 										.getZ())))
-						.findFirst().orElse(null)) instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) : false)
+						.findFirst().orElse(null)) instanceof LivingEntity _livEnt53
+						&& _livEnt53.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
 						&& ((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
 								AABB.ofSize(new Vec3(
 										(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))

@@ -35,7 +35,7 @@ public class InsanityEffectStartedappliedProcedure {
 	private static void execute(@Nullable Event event, Entity entity, ViewportEvent viewport) {
 		if (entity == null || viewport == null)
 			return;
-		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player) {
 				if (viewport instanceof ViewportEvent.ComputeFogColor _computeFogColor) {
 					_computeFogColor.setRed(62 / 255.0F);

@@ -28,7 +28,7 @@ public class SpookyambienceentityNaturalEntitySpawningConditionProcedure {
 	public static boolean execute(LevelAccessor world, double x, double y, double z) {
 		File lurker = new File("");
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
-		if ((world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == (Level.OVERWORLD) && Math.random() > 0.9
+		if ((world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == Level.OVERWORLD && Math.random() > 0.9
 				&& (!world.getEntitiesOfClass(MidnightLurkerFakerEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkerFakerAggroEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkerFakerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
@@ -44,7 +44,7 @@ public class SpookyambienceentityNaturalEntitySpawningConditionProcedure {
 						|| !world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkertposeEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty())
-				|| (world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == (Level.NETHER) && Math.random() > 0.9
+				|| (world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == Level.NETHER && Math.random() > 0.9
 						&& !world.getEntitiesOfClass(MidnightlurkerNEEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()) {
 			return true;
 		}

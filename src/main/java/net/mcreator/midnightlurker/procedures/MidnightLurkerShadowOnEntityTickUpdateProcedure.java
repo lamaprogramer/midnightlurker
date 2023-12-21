@@ -14,12 +14,12 @@ public class MidnightLurkerShadowOnEntityTickUpdateProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (world.getMaxLocalRawBrightness(new BlockPos(entity.getX(), entity.getY(), entity.getZ())) > 1) {
+		if (world.getMaxLocalRawBrightness(BlockPos.containing(entity.getX(), entity.getY(), entity.getZ())) > 1) {
 			if (!entity.level.isClientSide())
 				entity.discard();
 		}
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 35, 35, 35), e -> true).isEmpty()) {
-			if (entity instanceof LivingEntity _entity)
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 250, false, false));
 		}
 	}

@@ -10,7 +10,9 @@ import javax.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.File;
+import java.io.BufferedReader;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
@@ -48,6 +50,11 @@ public class LurkerconfigProcedure {
 			mainjsonobject.addProperty("insanity_progress_effect", true);
 			mainjsonobject.addProperty("insanity_countdown_time", 2);
 			mainjsonobject.addProperty("the insanity countdown time determines how long the timer is for insanity. 1 is 5mins, 2 is 10mins, 3 is 20mins, and 4 is 30mins.", 0);
+			mainjsonobject.addProperty("lurker_invulnerable", true);
+			mainjsonobject.addProperty("lurker_spawn_close", false);
+			mainjsonobject.addProperty("shadow_spawn_close", true);
+			mainjsonobject.addProperty("faker_spawn_close", true);
+			mainjsonobject.addProperty("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to", 0);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 				try {
@@ -57,6 +64,85 @@ public class LurkerconfigProcedure {
 				} catch (IOException exception) {
 					exception.printStackTrace();
 				}
+			}
+		}
+		{
+			try {
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(lurker));
+				StringBuilder jsonstringbuilder = new StringBuilder();
+				String line;
+				while ((line = bufferedReader.readLine()) != null) {
+					jsonstringbuilder.append(line);
+				}
+				bufferedReader.close();
+				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
+				if (lurker.exists() && !mainjsonobject.has("lurker_invulnerable")) {
+					mainjsonobject.addProperty("lurker_invulnerable", true);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("lurker_spawn_close")) {
+					mainjsonobject.addProperty("lurker_spawn_close", false);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("shadow_spawn_close")) {
+					mainjsonobject.addProperty("shadow_spawn_close", true);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("faker_spawn_close")) {
+					mainjsonobject.addProperty("faker_spawn_close", true);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to")) {
+					mainjsonobject.addProperty("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to", 0);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

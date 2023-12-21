@@ -29,7 +29,7 @@ public class InsanityoverlayrendersProcedure {
 	private static void execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return;
-		if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player) {
 				if ((entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) ? _livEnt.getEffect(MidnightlurkerModMobEffects.INSANITY.get()).getDuration() : 0) >= 45
 						&& entity.getPersistentData().getDouble("InsanityOverlayTime") >= 11) {
@@ -47,11 +47,11 @@ public class InsanityoverlayrendersProcedure {
 				}
 			}
 		}
-		if (!(entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false)) {
+		if (!(entity instanceof LivingEntity _livEnt14 && _livEnt14.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()))) {
 			if (entity instanceof Player) {
 				entity.getPersistentData().putDouble("InsanityOverlayTime", 11);
 			}
-		} else if (entity instanceof LivingEntity _livEnt ? _livEnt.hasEffect(MidnightlurkerModMobEffects.INSANITY.get()) : false) {
+		} else if (entity instanceof LivingEntity _livEnt17 && _livEnt17.hasEffect(MidnightlurkerModMobEffects.INSANITY.get())) {
 			if (entity instanceof Player && entity.getPersistentData().getDouble("InsanityOverlayTime") < 0) {
 				entity.getPersistentData().putDouble("InsanityOverlayTime", 11);
 			}

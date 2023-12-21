@@ -51,250 +51,250 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 			return;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.OAK_DOOR) {
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.OAK_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.OAK_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.OAK_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.OAK_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.OAK_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.OAK_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.OAK_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.SPRUCE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.SPRUCE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.SPRUCE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.SPRUCE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
 				world.destroyBlock(_pos, false);
 			}
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.BIRCH_DOOR) {
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.SPRUCE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.BIRCH_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.SPRUCE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.BIRCH_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.SPRUCE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.BIRCH_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.SPRUCE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.JUNGLE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.JUNGLE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.JUNGLE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.JUNGLE_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
 				world.destroyBlock(_pos, false);
 			}
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.ACACIA_DOOR) {
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.BIRCH_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.ACACIA_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.BIRCH_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.ACACIA_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.BIRCH_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.ACACIA_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.BIRCH_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.DARK_OAK_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.DARK_OAK_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.DARK_OAK_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.DARK_OAK_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
 				world.destroyBlock(_pos, false);
 			}
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.CRIMSON_DOOR) {
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.JUNGLE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.CRIMSON_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.JUNGLE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.CRIMSON_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.JUNGLE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.CRIMSON_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.JUNGLE_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.WARPED_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.WARPED_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.WARPED_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
-				world.destroyBlock(_pos, false);
-			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.WARPED_DOOR) {
-			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
 				world.destroyBlock(_pos, false);
 			}
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.MANGROVE_DOOR) {
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.ACACIA_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x + 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.MANGROVE_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.ACACIA_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x - 1, y, z);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x + 1, y + 0.5, z), null);
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.MANGROVE_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.ACACIA_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z + 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z + 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
 				world.destroyBlock(_pos, false);
 			}
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.MANGROVE_DOOR) {
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.ACACIA_DOOR) {
 			{
-				BlockPos _pos = new BlockPos(x, y, z - 1);
-				Block.dropResources(world.getBlockState(_pos), world, new BlockPos(x, y + 0.5, z - 1), null);
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
 				world.destroyBlock(_pos, false);
 			}
 		}
-		if (entity instanceof LivingEntity _entity)
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.DARK_OAK_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.DARK_OAK_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.DARK_OAK_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.DARK_OAK_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		}
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.CRIMSON_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.CRIMSON_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.CRIMSON_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.CRIMSON_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		}
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.WARPED_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.WARPED_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.WARPED_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.WARPED_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		}
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.MANGROVE_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x + 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.MANGROVE_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x - 1, y, z);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x + 1, y + 0.5, z), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.MANGROVE_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z + 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z + 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.MANGROVE_DOOR) {
+			{
+				BlockPos _pos = BlockPos.containing(x, y, z - 1);
+				Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y + 0.5, z - 1), null);
+				world.destroyBlock(_pos, false);
+			}
+		}
+		if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 			_entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 60, 0, false, false));
 		if (entity.isPassenger()) {
 			entity.stopRiding();
 		}
-		if (world.getBlockState(new BlockPos(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		if (world.getBlockState(BlockPos.containing(x + 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, (y + 52), z), 100.1, 100.1, 100.1), e -> true).isEmpty() && (entity.getDirection()) == Direction.EAST) {
 			entity.setDeltaMovement(new Vec3(0.2, 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x - 1, y + 0, z)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, (y + 52), z), 100.1, 100.1, 100.1), e -> true).isEmpty() && (entity.getDirection()) == Direction.WEST) {
 			entity.setDeltaMovement(new Vec3((-0.2), 0.2, 0));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z + 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, (y + 52), z), 100.1, 100.1, 100.1), e -> true).isEmpty() && (entity.getDirection()) == Direction.SOUTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, 0.2));
-		} else if (world.getBlockState(new BlockPos(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || !world.getBlockState(new BlockPos(x, y + 3, z)).canOcclude())
+		} else if (world.getBlockState(BlockPos.containing(x, y + 0, z - 1)).canOcclude() && (!world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || !world.getBlockState(BlockPos.containing(x, y + 3, z)).canOcclude())
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, (y + 52), z), 100.1, 100.1, 100.1), e -> true).isEmpty() && (entity.getDirection()) == Direction.NORTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, (-0.2)));
 		}
-		if (world.getBlockState(new BlockPos(x + 1, y, z)).canOcclude() && !world.getBlockState(new BlockPos(x + 4, y, z)).canOcclude() && entity.getY() < 50) {
+		if (world.getBlockState(BlockPos.containing(x + 1, y, z)).canOcclude() && !world.getBlockState(BlockPos.containing(x + 4, y, z)).canOcclude() && entity.getY() < 50) {
 			if (entity.getPersistentData().getDouble("LurkerTime") == 0) {
 				entity.getPersistentData().putDouble("LurkerTime", 100);
 			} else {
@@ -304,12 +304,12 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
 					((MidnightLurkerAggressiveEntity) entity).setAnimation("breaking1");
 				}
-				world.destroyBlock(new BlockPos(x + 1, y + 0, z), false);
-				world.destroyBlock(new BlockPos(x + 1, y + 1, z), false);
-				world.destroyBlock(new BlockPos(x + 1, y + 2, z), false);
+				world.destroyBlock(BlockPos.containing(x + 1, y + 0, z), false);
+				world.destroyBlock(BlockPos.containing(x + 1, y + 1, z), false);
+				world.destroyBlock(BlockPos.containing(x + 1, y + 2, z), false);
 				if (world instanceof Level _level) {
 					if (!_level.isClientSide()) {
-						_level.playSound(null, new BlockPos(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
+						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
 					} else {
 						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1, false);
 					}
@@ -334,8 +334,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 60) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -352,8 +352,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 40) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -370,8 +370,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 20) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -388,11 +388,11 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			}
-		} else if (world.getBlockState(new BlockPos(x - 1, y, z)).canOcclude() && !world.getBlockState(new BlockPos(x - 4, y, z)).canOcclude() && entity.getY() < 50) {
+		} else if (world.getBlockState(BlockPos.containing(x - 1, y, z)).canOcclude() && !world.getBlockState(BlockPos.containing(x - 4, y, z)).canOcclude() && entity.getY() < 50) {
 			if (entity.getPersistentData().getDouble("LurkerTime") == 0) {
 				entity.getPersistentData().putDouble("LurkerTime", 100);
 			} else {
@@ -402,9 +402,9 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
 					((MidnightLurkerAggressiveEntity) entity).setAnimation("breaking1");
 				}
-				world.destroyBlock(new BlockPos(x - 1, y + 0, z), false);
-				world.destroyBlock(new BlockPos(x - 1, y + 1, z), false);
-				world.destroyBlock(new BlockPos(x - 1, y + 2, z), false);
+				world.destroyBlock(BlockPos.containing(x - 1, y + 0, z), false);
+				world.destroyBlock(BlockPos.containing(x - 1, y + 1, z), false);
+				world.destroyBlock(BlockPos.containing(x - 1, y + 2, z), false);
 				if (world instanceof ServerLevel _level)
 					_level.getServer().getCommands().performPrefixedCommand(
 							new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
@@ -425,8 +425,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 60) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -443,8 +443,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 40) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -461,8 +461,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 20) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -479,11 +479,11 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			}
-		} else if (world.getBlockState(new BlockPos(x, y, z + 1)).canOcclude() && !world.getBlockState(new BlockPos(x, y, z + 4)).canOcclude() && entity.getY() < 50) {
+		} else if (world.getBlockState(BlockPos.containing(x, y, z + 1)).canOcclude() && !world.getBlockState(BlockPos.containing(x, y, z + 4)).canOcclude() && entity.getY() < 50) {
 			if (entity.getPersistentData().getDouble("LurkerTime") == 0) {
 				entity.getPersistentData().putDouble("LurkerTime", 100);
 			} else {
@@ -493,12 +493,12 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
 					((MidnightLurkerAggressiveEntity) entity).setAnimation("breaking1");
 				}
-				world.destroyBlock(new BlockPos(x, y + 0, z + 1), false);
-				world.destroyBlock(new BlockPos(x, y + 1, z + 1), false);
-				world.destroyBlock(new BlockPos(x, y + 2, z + 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 0, z + 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 1, z + 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 2, z + 1), false);
 				if (world instanceof Level _level) {
 					if (!_level.isClientSide()) {
-						_level.playSound(null, new BlockPos(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
+						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
 					} else {
 						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1, false);
 					}
@@ -523,8 +523,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 60) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -541,8 +541,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 40) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -559,8 +559,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 20) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -577,11 +577,11 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			}
-		} else if (world.getBlockState(new BlockPos(x, y, z - 1)).canOcclude() && !world.getBlockState(new BlockPos(x, y, z - 4)).canOcclude() && entity.getY() < 50) {
+		} else if (world.getBlockState(BlockPos.containing(x, y, z - 1)).canOcclude() && !world.getBlockState(BlockPos.containing(x, y, z - 4)).canOcclude() && entity.getY() < 50) {
 			if (entity.getPersistentData().getDouble("LurkerTime") == 0) {
 				entity.getPersistentData().putDouble("LurkerTime", 100);
 			} else {
@@ -591,16 +591,16 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
 					((MidnightLurkerAggressiveEntity) entity).setAnimation("breaking1");
 				}
-				world.destroyBlock(new BlockPos(x, y + 0, z - 1), false);
-				world.destroyBlock(new BlockPos(x, y + 1, z - 1), false);
-				world.destroyBlock(new BlockPos(x, y + 2, z - 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 0, z - 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 1, z - 1), false);
+				world.destroyBlock(BlockPos.containing(x, y + 2, z - 1), false);
 				if (world instanceof ServerLevel _level)
 					_level.getServer().getCommands().performPrefixedCommand(
 							new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
 							"/playsound midnightlurker:lurkerfinalbreak block @a");
 				if (world instanceof Level _level) {
 					if (!_level.isClientSide()) {
-						_level.playSound(null, new BlockPos(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
+						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1);
 					} else {
 						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerfinalbreak")), SoundSource.BLOCKS, 1, 1, false);
 					}
@@ -621,8 +621,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 60) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -639,8 +639,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 40) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -657,8 +657,8 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			} else if (entity.getPersistentData().getDouble("LurkerTime") == 20) {
 				if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -675,51 +675,51 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 					entityToSpawn.setYHeadRot(0);
 					entityToSpawn.setDeltaMovement(0, 0, 0);
 					if (entityToSpawn instanceof Mob _mobToSpawn)
-						_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-					world.addFreshEntity(entityToSpawn);
+						_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+					_level.addFreshEntity(entityToSpawn);
 				}
 			}
 		}
-		if (!world.getBlockState(new BlockPos(x, y + 0, z)).canOcclude()
-				&& (world.getBlockState(new BlockPos(x, y + 1, z)).canOcclude() || (world.getBlockState(new BlockPos(x, y + 1, z))).is(BlockTags.create(new ResourceLocation("minecraft:leaves"))))) {
-			if (entity instanceof LivingEntity _entity)
+		if (!world.getBlockState(BlockPos.containing(x, y + 0, z)).canOcclude()
+				&& (world.getBlockState(BlockPos.containing(x, y + 1, z)).canOcclude() || (world.getBlockState(BlockPos.containing(x, y + 1, z))).is(BlockTags.create(new ResourceLocation("minecraft:leaves"))))) {
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3, 0, false, false));
 		}
-		if (!world.getBlockState(new BlockPos(x, y + 0, z)).canOcclude() && !world.getBlockState(new BlockPos(x, y + 1, z)).canOcclude()
-				&& (world.getBlockState(new BlockPos(x, y + 2, z)).canOcclude() || (world.getBlockState(new BlockPos(x, y + 2, z))).is(BlockTags.create(new ResourceLocation("minecraft:leaves"))))) {
-			if (entity instanceof LivingEntity _entity)
+		if (!world.getBlockState(BlockPos.containing(x, y + 0, z)).canOcclude() && !world.getBlockState(BlockPos.containing(x, y + 1, z)).canOcclude()
+				&& (world.getBlockState(BlockPos.containing(x, y + 2, z)).canOcclude() || (world.getBlockState(BlockPos.containing(x, y + 2, z))).is(BlockTags.create(new ResourceLocation("minecraft:leaves"))))) {
+			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3, 0, false, false));
 		}
 		if (Math.random() > 0.9) {
 			if (world instanceof ServerLevel _level)
 				_level.sendParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT.get()), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x + 1, y, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x + 1, y, z), false);
-		} else if ((world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x - 1, y, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x - 1, y, z), false);
-		} else if ((world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y, z + 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y, z + 1), false);
-		} else if ((world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y, z - 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y, z - 1), false);
+		if ((world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x + 1, y, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x + 1, y, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x - 1, y, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x - 1, y, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y, z + 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y, z + 1), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y, z - 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y, z - 1), false);
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y + 1, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x + 1, y + 1, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x + 1, y + 1, z), false);
-		} else if ((world.getBlockState(new BlockPos(x - 1, y + 1, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x - 1, y + 1, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x - 1, y + 1, z), false);
-		} else if ((world.getBlockState(new BlockPos(x, y + 1, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y + 1, z + 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y + 1, z + 1), false);
-		} else if ((world.getBlockState(new BlockPos(x, y + 1, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y + 1, z - 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y + 1, z - 1), false);
+		if ((world.getBlockState(BlockPos.containing(x + 1, y + 1, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x + 1, y + 1, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x + 1, y + 1, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y + 1, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x - 1, y + 1, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x - 1, y + 1, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y + 1, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y + 1, z + 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y + 1, z + 1), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y + 1, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y + 1, z - 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y + 1, z - 1), false);
 		}
-		if ((world.getBlockState(new BlockPos(x + 1, y + 2, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x + 1, y + 2, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x + 1, y + 2, z), false);
-		} else if ((world.getBlockState(new BlockPos(x - 1, y + 2, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x - 1, y + 2, z))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x - 1, y + 2, z), false);
-		} else if ((world.getBlockState(new BlockPos(x, y + 2, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y + 2, z + 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y + 2, z + 1), false);
-		} else if ((world.getBlockState(new BlockPos(x, y + 2, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(new BlockPos(x, y + 2, z - 1))).getBlock() == Blocks.GLASS) {
-			world.destroyBlock(new BlockPos(x, y + 2, z - 1), false);
+		if ((world.getBlockState(BlockPos.containing(x + 1, y + 2, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x + 1, y + 2, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x + 1, y + 2, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x - 1, y + 2, z))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x - 1, y + 2, z))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x - 1, y + 2, z), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y + 2, z + 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y + 2, z + 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y + 2, z + 1), false);
+		} else if ((world.getBlockState(BlockPos.containing(x, y + 2, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y + 2, z - 1))).getBlock() == Blocks.GLASS) {
+			world.destroyBlock(BlockPos.containing(x, y + 2, z - 1), false);
 		}
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledtimer < 16) {
 			if (entity instanceof MidnightLurkerAggressiveEntity) {
@@ -736,7 +736,7 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				MidnightlurkerMod.queueServerWork(1, () -> {
 					if (world instanceof Level _level) {
 						if (!_level.isClientSide()) {
-							_level.playSound(null, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerscream")), SoundSource.NEUTRAL, 50, 1);
+							_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerscream")), SoundSource.NEUTRAL, 50, 1);
 						} else {
 							_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerscream")), SoundSource.NEUTRAL, 50, 1, false);
 						}

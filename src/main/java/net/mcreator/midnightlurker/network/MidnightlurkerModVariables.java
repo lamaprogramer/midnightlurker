@@ -75,6 +75,8 @@ public class MidnightlurkerModVariables {
 			clone.DeathJumpActive = original.DeathJumpActive;
 			clone.DeathJumpTimer = original.DeathJumpTimer;
 			clone.DeathJumpShake = original.DeathJumpShake;
+			clone.ScreenShake = original.ScreenShake;
+			clone.CloseSpawnTimer = original.CloseSpawnTimer;
 			if (!event.isWasDeath()) {
 			}
 		}
@@ -270,6 +272,8 @@ public class MidnightlurkerModVariables {
 		public double DeathJumpActive = 0;
 		public double DeathJumpTimer = 0;
 		public double DeathJumpShake = 0;
+		public double ScreenShake = 0;
+		public double CloseSpawnTimer = 0;
 
 		public void syncPlayerVariables(Entity entity) {
 			if (entity instanceof ServerPlayer serverPlayer)
@@ -281,6 +285,8 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("DeathJumpActive", DeathJumpActive);
 			nbt.putDouble("DeathJumpTimer", DeathJumpTimer);
 			nbt.putDouble("DeathJumpShake", DeathJumpShake);
+			nbt.putDouble("ScreenShake", ScreenShake);
+			nbt.putDouble("CloseSpawnTimer", CloseSpawnTimer);
 			return nbt;
 		}
 
@@ -289,6 +295,8 @@ public class MidnightlurkerModVariables {
 			DeathJumpActive = nbt.getDouble("DeathJumpActive");
 			DeathJumpTimer = nbt.getDouble("DeathJumpTimer");
 			DeathJumpShake = nbt.getDouble("DeathJumpShake");
+			ScreenShake = nbt.getDouble("ScreenShake");
+			CloseSpawnTimer = nbt.getDouble("CloseSpawnTimer");
 		}
 	}
 
@@ -316,6 +324,8 @@ public class MidnightlurkerModVariables {
 					variables.DeathJumpActive = message.data.DeathJumpActive;
 					variables.DeathJumpTimer = message.data.DeathJumpTimer;
 					variables.DeathJumpShake = message.data.DeathJumpShake;
+					variables.ScreenShake = message.data.ScreenShake;
+					variables.CloseSpawnTimer = message.data.CloseSpawnTimer;
 				}
 			});
 			context.setPacketHandled(true);

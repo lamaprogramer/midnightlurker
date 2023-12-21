@@ -158,6 +158,37 @@
           "x": 6,
           "y": 125
         }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_closespawntimer",
+          "text": {
+            "fixedValue": "Close Spawn Timer:"
+          },
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 143
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "name": "label_close_spawn_timer",
+          "text": {
+            "fixedValue": "Close Spawn Timer",
+            "name": "CloseTimerdisplay"
+          },
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "x": 6,
+          "y": 152
+        }
       }
     ],
     "baseTexture": "",

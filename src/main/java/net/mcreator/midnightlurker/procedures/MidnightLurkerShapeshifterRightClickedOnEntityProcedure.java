@@ -28,8 +28,8 @@ public class MidnightLurkerShapeshifterRightClickedOnEntityProcedure {
 				entityToSpawn.setYBodyRot(entity.getYRot());
 				entityToSpawn.setYHeadRot(entity.getYRot());
 				if (entityToSpawn instanceof Mob _mobToSpawn)
-					_mobToSpawn.finalizeSpawn(_level, world.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-				world.addFreshEntity(entityToSpawn);
+					_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+				_level.addFreshEntity(entityToSpawn);
 			}
 		}
 	}
