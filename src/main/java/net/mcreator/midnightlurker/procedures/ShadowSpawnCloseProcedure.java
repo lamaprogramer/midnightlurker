@@ -23,6 +23,9 @@ import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.entity.MidnightLurkerShadowEyesEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerShadowEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
 
 import javax.annotation.Nullable;
 
@@ -67,45 +70,48 @@ public class ShadowSpawnCloseProcedure {
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("shadow_spawn_close").getAsBoolean() == true) {
-					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer > 600
-							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer < 700) {
-						if (entity instanceof Player) {
-							if ((entity.getPersistentData().getDouble("InsanityStage") == 2 || entity.getPersistentData().getDouble("InsanityStage") == 3 || entity.getPersistentData().getDouble("InsanityStage") == 4
-									|| entity.getPersistentData().getDouble("InsanityStage") == 5 || entity.getPersistentData().getDouble("InsanityStage") == 6) && y < 60 && world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0
-									&& (entity.level.dimension()) == Level.OVERWORLD) {
-								if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())
-										&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())) {
-									spawnx = x + Mth.nextInt(RandomSource.create(), -30, 30);
-									spawny = y + Mth.nextInt(RandomSource.create(), -30, 30);
-									spawnz = z + Mth.nextInt(RandomSource.create(), -30, 30);
-								}
-								if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())
-										&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())) {
-									Spawndeterminer = Mth.nextInt(RandomSource.create(), 1, 10);
-								}
-								if (Spawndeterminer > 6 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
-										&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
-									if (world instanceof ServerLevel _level) {
-										Entity entityToSpawn = new MidnightLurkerShadowEyesEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES.get(), _level);
-										entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
-										entityToSpawn.setYBodyRot(0);
-										entityToSpawn.setYHeadRot(0);
-										entityToSpawn.setDeltaMovement(0, 0, 0);
-										if (entityToSpawn instanceof Mob _mobToSpawn)
-											_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-										_level.addFreshEntity(entityToSpawn);
+					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer > 1000
+							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer < 1100) {
+						if (!(!world.getEntitiesOfClass(MidnightLurkerFakerEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())
+								&& !(!world.getEntitiesOfClass(MidnightLurkerFakerAggroEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())
+								&& !(!world.getEntitiesOfClass(MidnightLurkerFakerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())) {
+							if (entity instanceof Player) {
+								if ((entity.getPersistentData().getDouble("InsanityStage") == 2 || entity.getPersistentData().getDouble("InsanityStage") == 3 || entity.getPersistentData().getDouble("InsanityStage") == 4
+										|| entity.getPersistentData().getDouble("InsanityStage") == 5) && y < 60 && world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0 && (entity.level.dimension()) == Level.OVERWORLD) {
+									if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())
+											&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())) {
+										spawnx = x + Mth.nextInt(RandomSource.create(), -30, 30);
+										spawny = y + Mth.nextInt(RandomSource.create(), -30, 30);
+										spawnz = z + Mth.nextInt(RandomSource.create(), -30, 30);
 									}
-								} else if (Spawndeterminer < 7 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
-										&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
-									if (world instanceof ServerLevel _level) {
-										Entity entityToSpawn = new MidnightLurkerShadowEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW.get(), _level);
-										entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
-										entityToSpawn.setYBodyRot(0);
-										entityToSpawn.setYHeadRot(0);
-										entityToSpawn.setDeltaMovement(0, 0, 0);
-										if (entityToSpawn instanceof Mob _mobToSpawn)
-											_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-										_level.addFreshEntity(entityToSpawn);
+									if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())
+											&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())) {
+										Spawndeterminer = Mth.nextInt(RandomSource.create(), 1, 10);
+									}
+									if (Spawndeterminer > 6 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
+											&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
+										if (world instanceof ServerLevel _level) {
+											Entity entityToSpawn = new MidnightLurkerShadowEyesEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES.get(), _level);
+											entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
+											entityToSpawn.setYBodyRot(0);
+											entityToSpawn.setYHeadRot(0);
+											entityToSpawn.setDeltaMovement(0, 0, 0);
+											if (entityToSpawn instanceof Mob _mobToSpawn)
+												_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+											_level.addFreshEntity(entityToSpawn);
+										}
+									} else if (Spawndeterminer < 7 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
+											&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
+										if (world instanceof ServerLevel _level) {
+											Entity entityToSpawn = new MidnightLurkerShadowEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW.get(), _level);
+											entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
+											entityToSpawn.setYBodyRot(0);
+											entityToSpawn.setYHeadRot(0);
+											entityToSpawn.setDeltaMovement(0, 0, 0);
+											if (entityToSpawn instanceof Mob _mobToSpawn)
+												_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+											_level.addFreshEntity(entityToSpawn);
+										}
 									}
 								}
 							}

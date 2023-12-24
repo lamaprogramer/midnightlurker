@@ -68,8 +68,8 @@ public class FakerSpawnCloseProcedure {
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("faker_spawn_close").getAsBoolean() == true) {
-					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer > 300
-							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer < 400) {
+					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer > 2000
+							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer < 2100) {
 						if (entity instanceof Player) {
 							if (entity.getPersistentData().getDouble("InsanityStage") == 6 && ((world instanceof Level _lvl5 && _lvl5.isDay()) == false || world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0)
 									&& (entity.level.dimension()) == Level.OVERWORLD) {
