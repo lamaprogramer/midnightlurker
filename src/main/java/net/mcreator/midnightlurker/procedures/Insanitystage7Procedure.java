@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.effect.MobEffectInstance;
 
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 
@@ -36,7 +37,8 @@ public class Insanitystage7Procedure {
 		if (entity == null)
 			return;
 		File lurker = new File("");
-		if (entity.getPersistentData().getDouble("InsanityStage") > 6 && !world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 60, 60, 60), e -> true).isEmpty()) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage > 6
+				&& !world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 60, 60, 60), e -> true).isEmpty()) {
 			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 55, 0, false, false));
 		}

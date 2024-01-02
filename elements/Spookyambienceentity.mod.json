@@ -4,7 +4,7 @@
   "definition": {
     "mobName": "spookyambienceentity",
     "mobLabel": "",
-    "mobModelTexture": "midnightlurkerglow.png",
+    "mobModelTexture": "midnightlurkervoidgateemissive.png",
     "mobModelGlowTexture": "",
     "visualScale": {
       "fixedValue": 0.95

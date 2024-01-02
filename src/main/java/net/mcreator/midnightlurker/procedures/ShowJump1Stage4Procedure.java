@@ -1,34 +1,19 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.TickEvent;
-
 import net.minecraft.world.entity.Entity;
 
-import javax.annotation.Nullable;
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 
 import java.io.File;
 
-@Mod.EventBusSubscriber
 public class ShowJump1Stage4Procedure {
-	@SubscribeEvent
-	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player);
-		}
-	}
-
 	public static boolean execute(Entity entity) {
-		return execute(null, entity);
-	}
-
-	private static boolean execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return false;
 		File lurker = new File("");
-		if (entity.getPersistentData().getDouble("JumpscareActive") == 1 && entity.getPersistentData().getDouble("InsanityStage") == 4 && entity.getPersistentData().getDouble("JumpscareRandom") == 0) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 4
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareRandom == 0) {
 			return true;
 		}
 		return false;

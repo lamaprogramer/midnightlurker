@@ -31,6 +31,7 @@ import net.minecraft.commands.CommandSource;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.entity.DestroytexEntity;
 import net.mcreator.midnightlurker.entity.Destroytex4Entity;
@@ -721,7 +722,7 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 		} else if ((world.getBlockState(BlockPos.containing(x, y + 2, z - 1))).getBlock() == Blocks.GLASS_PANE || (world.getBlockState(BlockPos.containing(x, y + 2, z - 1))).getBlock() == Blocks.GLASS) {
 			world.destroyBlock(BlockPos.containing(x, y + 2, z - 1), false);
 		}
-		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledtimer < 16) {
+		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledtimer < 14) {
 			if (entity instanceof MidnightLurkerAggressiveEntity) {
 				((MidnightLurkerAggressiveEntity) entity).setAnimation("teleport1");
 			}
@@ -756,14 +757,30 @@ public class MidnightLurkerAggressiveOnEntityTickUpdateProcedure {
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("longer_lurker_chase").getAsBoolean() == false) {
-					MidnightlurkerMod.queueServerWork(1200, () -> {
-						if (!entity.level.isClientSide())
-							entity.discard();
+					MidnightlurkerMod.queueServerWork(1210, () -> {
+						if (entity instanceof MidnightLurkerAggressiveEntity) {
+							((MidnightLurkerAggressiveEntity) entity).setAnimation("teleport1");
+						}
+						if (entity instanceof MidnightlurkerNEEntity) {
+							((MidnightlurkerNEEntity) entity).setAnimation("teleport1");
+						}
+						MidnightlurkerMod.queueServerWork(13, () -> {
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
 					});
 				} else if (mainjsonobject.get("longer_lurker_chase").getAsBoolean() == true) {
-					MidnightlurkerMod.queueServerWork(2400, () -> {
-						if (!entity.level.isClientSide())
-							entity.discard();
+					MidnightlurkerMod.queueServerWork(2410, () -> {
+						if (entity instanceof MidnightLurkerAggressiveEntity) {
+							((MidnightLurkerAggressiveEntity) entity).setAnimation("teleport1");
+						}
+						if (entity instanceof MidnightlurkerNEEntity) {
+							((MidnightlurkerNEEntity) entity).setAnimation("teleport1");
+						}
+						MidnightlurkerMod.queueServerWork(13, () -> {
+							if (!entity.level.isClientSide())
+								entity.discard();
+						});
 					});
 				}
 			} catch (IOException e) {

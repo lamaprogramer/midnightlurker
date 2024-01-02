@@ -11,6 +11,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.entity.Entity;
 
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
 
 import javax.annotation.Nullable;
@@ -173,13 +174,31 @@ public class FakerWatcherdisappearProcedure {
 									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
 											.getBlockPos().getZ())))
 							.findFirst().orElse(null)).discard();
-				if (entity.getPersistentData().getDouble("JumpscareActive") < 1) {
-					entity.getPersistentData().putDouble("JumpscareActive", 1);
+				if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive < 1) {
+					{
+						double _setval = 1;
+						entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+							capability.JumpscareActive = _setval;
+							capability.syncPlayerVariables(entity);
+						});
+					}
 				}
 				if (Math.random() > 0.5) {
-					if (entity.getPersistentData().getDouble("InsanityStage") < 7) {
-						entity.getPersistentData().putDouble("InsanityStage", (entity.getPersistentData().getDouble("InsanityStage") + 1));
-						entity.getPersistentData().putDouble("InsanityTimer", 0);
+					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage < 7) {
+						{
+							double _setval = (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage + 1;
+							entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.InsanityStage = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
+						{
+							double _setval = 0;
+							entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+								capability.InsanityTimer = _setval;
+								capability.syncPlayerVariables(entity);
+							});
+						}
 					}
 				}
 			}

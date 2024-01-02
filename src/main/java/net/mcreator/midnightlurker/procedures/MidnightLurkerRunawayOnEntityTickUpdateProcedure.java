@@ -63,9 +63,11 @@ public class MidnightLurkerRunawayOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerRunawayEntity) {
 					((MidnightLurkerRunawayEntity) entity).setAnimation("teleport6");
 				}
-				MidnightlurkerMod.queueServerWork(14, () -> {
-					if (!entity.level.isClientSide())
-						entity.discard();
+				MidnightlurkerMod.queueServerWork(13, () -> {
+					if (!world.getEntitiesOfClass(MidnightLurkerRunawayEntity.class, AABB.ofSize(new Vec3(x, y, z), 4, 4, 4), e -> true).isEmpty()) {
+						if (!entity.level.isClientSide())
+							entity.discard();
+					}
 				});
 			});
 		}
@@ -73,7 +75,7 @@ public class MidnightLurkerRunawayOnEntityTickUpdateProcedure {
 			if (world instanceof ServerLevel _level)
 				_level.sendParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT.get()), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
 		}
-		if (entity instanceof LivingEntity _livEnt50 && _livEnt50.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+		if (entity instanceof LivingEntity _livEnt51 && _livEnt51.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 20, 20, 20), e -> true).isEmpty()) {
 			if (entity instanceof LivingEntity _entity)
 				_entity.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);

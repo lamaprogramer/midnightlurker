@@ -74,9 +74,11 @@ public class MidnightLurkerUnprovokedOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerUnprovokedEntity) {
 					((MidnightLurkerUnprovokedEntity) entity).setAnimation("teleport5");
 				}
-				MidnightlurkerMod.queueServerWork(14, () -> {
-					if (!entity.level.isClientSide())
-						entity.discard();
+				MidnightlurkerMod.queueServerWork(13, () -> {
+					if (!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 4, 4, 4), e -> true).isEmpty()) {
+						if (!entity.level.isClientSide())
+							entity.discard();
+					}
 				});
 			});
 		}

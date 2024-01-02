@@ -76,8 +76,11 @@ public class ShadowSpawnCloseProcedure {
 								&& !(!world.getEntitiesOfClass(MidnightLurkerFakerAggroEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())
 								&& !(!world.getEntitiesOfClass(MidnightLurkerFakerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())) {
 							if (entity instanceof Player) {
-								if ((entity.getPersistentData().getDouble("InsanityStage") == 2 || entity.getPersistentData().getDouble("InsanityStage") == 3 || entity.getPersistentData().getDouble("InsanityStage") == 4
-										|| entity.getPersistentData().getDouble("InsanityStage") == 5) && y < 60 && world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0 && (entity.level.dimension()) == Level.OVERWORLD) {
+								if (((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 2
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 3
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 4
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 5) && y < 60
+										&& world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0 && (entity.level.dimension()) == Level.OVERWORLD) {
 									if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty())) {
 										spawnx = x + Mth.nextInt(RandomSource.create(), -30, 30);

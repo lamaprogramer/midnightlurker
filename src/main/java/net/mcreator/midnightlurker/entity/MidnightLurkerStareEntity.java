@@ -56,10 +56,8 @@ import net.minecraft.core.BlockPos;
 import net.mcreator.midnightlurker.procedures.StarewatchProcedure;
 import net.mcreator.midnightlurker.procedures.StarerunProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerStarePlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerStareOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerStareOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerStareLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
@@ -306,7 +304,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("swim9"));
 			}
 			if (this.isShiftKeyDown()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned9"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("snapstare9"));
 			}
 			if (this.isAggressive() && event.isMoving()) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("running9"));
@@ -323,10 +321,6 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		String condition = MidnightLurkerStarePlayReturnedAnimationProcedure.execute(entity);
-		if (!condition.equals("empty"))
-			this.animationprocedure = condition;
-		loop = MidnightLurkerStareLoopExternalAnimationsProcedure.execute(entity);
 		if (!loop && this.lastloop) {
 			this.lastloop = false;
 			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));

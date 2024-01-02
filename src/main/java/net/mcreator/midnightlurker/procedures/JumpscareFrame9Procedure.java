@@ -1,31 +1,15 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.TickEvent;
-
 import net.minecraft.world.entity.Entity;
 
-import javax.annotation.Nullable;
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 
-@Mod.EventBusSubscriber
 public class JumpscareFrame9Procedure {
-	@SubscribeEvent
-	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player);
-		}
-	}
-
 	public static boolean execute(Entity entity) {
-		return execute(null, entity);
-	}
-
-	private static boolean execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return false;
-		if (entity.getPersistentData().getDouble("JumpscareTimer") == 38 && entity.getPersistentData().getDouble("JumpscareActive") == 1) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 38
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1) {
 			return true;
 		}
 		return false;

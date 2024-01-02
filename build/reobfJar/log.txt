@@ -1,4 +1,4 @@
-Java Launcher: C:\Program Files\Pylo1\MCreator\jdk\bin\java.exe
+Java Launcher: C:\Program Files\Pylo1\MCreator20233\jdk\bin\java.exe
 Arguments: '--in-jar, C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\libs\modid-1.0.jar, --out-jar, C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\reobfJar\output.jar, --srg-in, C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\createMcpToSrg\output.tsrg, --live'
 Classpath:
  - C:\Users\legol\.mcreator\gradle\caches\forge_gradle\maven_downloader\net\md-5\SpecialSource\1.11.0\SpecialSource-1.11.0-shaded.jar

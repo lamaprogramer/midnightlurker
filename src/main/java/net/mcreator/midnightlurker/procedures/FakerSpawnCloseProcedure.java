@@ -71,8 +71,8 @@ public class FakerSpawnCloseProcedure {
 					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer > 2000
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).CloseSpawnTimer < 2100) {
 						if (entity instanceof Player) {
-							if (entity.getPersistentData().getDouble("InsanityStage") == 6 && ((world instanceof Level _lvl5 && _lvl5.isDay()) == false || world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0)
-									&& (entity.level.dimension()) == Level.OVERWORLD) {
+							if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6
+									&& ((world instanceof Level _lvl4 && _lvl4.isDay()) == false || world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0) && (entity.level.dimension()) == Level.OVERWORLD) {
 								if (!(!world.getEntitiesOfClass(MidnightLurkerFakerEntity.class, AABB.ofSize(new Vec3(x, y, z), 400, 400, 400), e -> true).isEmpty())
 										&& !(!world.getEntitiesOfClass(MidnightLurkerFakerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 400, 400, 400), e -> true).isEmpty())
 										&& !(!world.getEntitiesOfClass(MidnightLurkerFakerAggroEntity.class, AABB.ofSize(new Vec3(x, y, z), 400, 400, 400), e -> true).isEmpty())) {

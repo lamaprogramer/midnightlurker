@@ -20,6 +20,7 @@ import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
@@ -103,6 +104,8 @@ public class MidnightlurkerModEntities {
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerStareEntity::new).fireImmune().sized(0.7f, 2.5f));
 	public static final RegistryObject<EntityType<MidnightlurkerNEEntity>> MIDNIGHTLURKER_NE = register("midnightlurker_ne", EntityType.Builder.<MidnightlurkerNEEntity>of(MidnightlurkerNEEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightlurkerNEEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<MidnightLurkerWatcherEntity>> MIDNIGHT_LURKER_WATCHER = register("midnight_lurker_watcher", EntityType.Builder.<MidnightLurkerWatcherEntity>of(MidnightLurkerWatcherEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
@@ -135,6 +138,7 @@ public class MidnightlurkerModEntities {
 			MidnightLurkerShapeshifterEntity.init();
 			MidnightLurkerStareEntity.init();
 			MidnightlurkerNEEntity.init();
+			MidnightLurkerWatcherEntity.init();
 		});
 	}
 
@@ -164,5 +168,6 @@ public class MidnightlurkerModEntities {
 		event.put(MIDNIGHT_LURKER_SHAPESHIFTER.get(), MidnightLurkerShapeshifterEntity.createAttributes().build());
 		event.put(MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareEntity.createAttributes().build());
 		event.put(MIDNIGHTLURKER_NE.get(), MidnightlurkerNEEntity.createAttributes().build());
+		event.put(MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherEntity.createAttributes().build());
 	}
 }

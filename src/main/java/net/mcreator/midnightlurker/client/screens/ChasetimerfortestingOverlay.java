@@ -50,10 +50,10 @@ public class ChasetimerfortestingOverlay {
 					VoidrandomnumberthingProcedure.execute(world), posX + -207, posY + -76, -3355444);
 			Minecraft.getInstance().font.draw(event.getPoseStack(),
 
-					InsanitytimerdisplayProcedure.execute(world), posX + -207, posY + -49, -39322);
+					InsanitytimerdisplayProcedure.execute(entity), posX + -207, posY + -49, -39322);
 			Minecraft.getInstance().font.draw(event.getPoseStack(),
 
-					InsanitystagedisplayProcedure.execute(world), posX + -207, posY + -22, -39271);
+					InsanitystagedisplayProcedure.execute(entity), posX + -207, posY + -22, -39271);
 			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_chase_timer"), posX + -207, posY + -112, -6750157);
 			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number"), posX + -207, posY + -85, -3355444);
 			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_insanity_timer"), posX + -207, posY + -58, -39322);

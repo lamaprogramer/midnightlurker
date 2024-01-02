@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
@@ -43,7 +44,8 @@ public class SpookyambienceentityNaturalEntitySpawningConditionProcedure {
 						|| !world.getEntitiesOfClass(MidnightLurkerShapeshifterEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
 						|| !world.getEntitiesOfClass(MidnightLurkertposeEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
-						|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty())
+						|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()
+						|| !world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty())
 				|| (world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == Level.NETHER && Math.random() > 0.9
 						&& !world.getEntitiesOfClass(MidnightlurkerNEEntity.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()) {
 			return true;

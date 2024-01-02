@@ -194,7 +194,7 @@ public class MidnightLurkerShadowEyesEntity extends Monster implements GeoEntity
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerShadowEyesOnEntityTickUpdateProcedure.execute(this.level, this);
+		MidnightLurkerShadowEyesOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 

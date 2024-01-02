@@ -285,7 +285,7 @@ public class MidnightlurkerNEEntity extends Monster implements GeoEntity {
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
 		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.42);
-		builder = builder.add(Attributes.MAX_HEALTH, 60);
+		builder = builder.add(Attributes.MAX_HEALTH, 120);
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 100);

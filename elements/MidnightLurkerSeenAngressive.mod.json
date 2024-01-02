@@ -4,8 +4,8 @@
   "definition": {
     "mobName": "Midnight Lurker",
     "mobLabel": "",
-    "mobModelTexture": "midnightlurker.png",
-    "mobModelGlowTexture": "midnightlurkerglow.png",
+    "mobModelTexture": "midnightlurkervoidgate.png",
+    "mobModelGlowTexture": "midnightlurkervoidgateemissive.png",
     "visualScale": {
       "fixedValue": 0.95
     },

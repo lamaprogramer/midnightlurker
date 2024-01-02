@@ -47,7 +47,7 @@ public class AggroSpawnProcedure {
 		double spawnx = 0;
 		double spawny = 0;
 		double spawnz = 0;
-		if (entity.getPersistentData().getDouble("InsanityStage") == 7) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 7) {
 			if (!(!world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
 				spawnx = x + Mth.nextInt(RandomSource.create(), -12, 12);
 				spawny = y + Mth.nextInt(RandomSource.create(), -12, 12);

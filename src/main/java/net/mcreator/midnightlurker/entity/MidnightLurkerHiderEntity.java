@@ -54,9 +54,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderThisEntityKillsAnotherOneProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderPlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
@@ -240,6 +238,19 @@ public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 		return super.getDimensions(p_33597_).scale((float) 1);
 	}
 
+	@Override
+	public boolean isPushable() {
+		return false;
+	}
+
+	@Override
+	protected void doPush(Entity entityIn) {
+	}
+
+	@Override
+	protected void pushEntities() {
+	}
+
 	public static void init() {
 		SpawnPlacements.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
@@ -270,6 +281,9 @@ public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 			if (this.isInWaterOrBubble()) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("swim8"));
 			}
+			if (this.isShiftKeyDown()) {
+				return event.setAndContinue(RawAnimation.begin().thenLoop("idlehidden8"));
+			}
 			return event.setAndContinue(RawAnimation.begin().thenLoop("idle8"));
 		}
 		return PlayState.STOP;
@@ -282,10 +296,6 @@ public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		String condition = MidnightLurkerHiderPlayReturnedAnimationProcedure.execute(entity);
-		if (!condition.equals("empty"))
-			this.animationprocedure = condition;
-		loop = MidnightLurkerHiderLoopExternalAnimationsProcedure.execute(entity);
 		if (!loop && this.lastloop) {
 			this.lastloop = false;
 			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));

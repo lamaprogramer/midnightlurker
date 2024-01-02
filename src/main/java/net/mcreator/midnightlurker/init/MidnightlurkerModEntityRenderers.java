@@ -13,6 +13,7 @@ import net.mcreator.midnightlurker.client.renderer.VoidGatewayRenderer;
 import net.mcreator.midnightlurker.client.renderer.SpookyambienceentityRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightlurkerNERenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkertposeRenderer;
+import net.mcreator.midnightlurker.client.renderer.MidnightLurkerWatcherRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerUnprovokedRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerStareRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerStalkingRenderer;
@@ -62,5 +63,6 @@ public class MidnightlurkerModEntityRenderers {
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER.get(), MidnightLurkerShapeshifterRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHTLURKER_NE.get(), MidnightlurkerNERenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherRenderer::new);
 	}
 }

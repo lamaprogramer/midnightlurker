@@ -87,7 +87,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurker");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
 	}
 
 	public void setTexture(String texture) {
@@ -221,6 +221,9 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 
 			) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
+			}
+			if (this.isInWaterOrBubble()) {
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}

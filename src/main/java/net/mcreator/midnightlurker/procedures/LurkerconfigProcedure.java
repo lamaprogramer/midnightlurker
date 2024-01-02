@@ -55,6 +55,8 @@ public class LurkerconfigProcedure {
 			mainjsonobject.addProperty("shadow_spawn_close", true);
 			mainjsonobject.addProperty("faker_spawn_close", true);
 			mainjsonobject.addProperty("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to", 0);
+			mainjsonobject.addProperty("nether_lurker_spawn_rate", 5);
+			mainjsonobject.addProperty("the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 				try {
@@ -130,6 +132,32 @@ public class LurkerconfigProcedure {
 				}
 				if (lurker.exists() && !mainjsonobject.has("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to")) {
 					mainjsonobject.addProperty("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to", 0);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("nether_lurker_spawn_rate")) {
+					mainjsonobject.addProperty("nether_lurker_spawn_rate", 5);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.")) {
+					mainjsonobject.addProperty("the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 					{
 						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 						try {

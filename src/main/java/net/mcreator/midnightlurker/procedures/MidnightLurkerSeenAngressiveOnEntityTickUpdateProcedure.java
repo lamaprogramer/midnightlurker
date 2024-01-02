@@ -15,21 +15,37 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
+import net.mcreator.midnightlurker.entity.MidnightLurkerSeenAngressiveEntity;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 
 public class MidnightLurkerSeenAngressiveOnEntityTickUpdateProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 17, 17, 17), e -> true).isEmpty()) {
-			if (world instanceof Level _level) {
-				if (!_level.isClientSide()) {
-					_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
-				} else {
-					_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+			MidnightlurkerMod.queueServerWork(10, () -> {
+				if (entity.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesOfClass(MidnightLurkerSeenAngressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
+					entity.getPersistentData().putDouble("SoundActivate", (entity.getPersistentData().getDouble("SoundActivate") + 1));
 				}
-			}
-			if (!entity.level.isClientSide())
-				entity.discard();
+				if (entity.getPersistentData().getDouble("SoundActivate") == 1) {
+					MidnightlurkerMod.queueServerWork(2, () -> {
+						if (world instanceof Level _level) {
+							if (!_level.isClientSide()) {
+								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+							} else {
+								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+							}
+						}
+					});
+				}
+				if (entity instanceof MidnightLurkerSeenAngressiveEntity) {
+					((MidnightLurkerSeenAngressiveEntity) entity).setAnimation("teleport");
+				}
+				MidnightlurkerMod.queueServerWork(13, () -> {
+					if (!entity.level.isClientSide())
+						entity.discard();
+				});
+			});
 		}
 		if (Math.random() > 0.9) {
 			if (world instanceof ServerLevel _level)

@@ -84,7 +84,7 @@ public class MidnightLurkerSeenAngressiveEntity extends Monster implements GeoEn
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurker");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
 	}
 
 	public void setTexture(String texture) {

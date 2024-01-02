@@ -48,7 +48,7 @@ public class MidnightLurkerStareOnEntityTickUpdateProcedure {
 				&& !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) && (entity.getDirection()) == Direction.NORTH) {
 			entity.setDeltaMovement(new Vec3(0, 0.2, (-0.2)));
 		}
-		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 15, 15, 15), e -> true).isEmpty()) {
+		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
 			MidnightlurkerMod.queueServerWork(100, () -> {
 				if (entity.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
 					entity.getPersistentData().putDouble("SoundActivate", (entity.getPersistentData().getDouble("SoundActivate") + 1));
@@ -67,7 +67,7 @@ public class MidnightLurkerStareOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerStareEntity) {
 					((MidnightLurkerStareEntity) entity).setAnimation("teleport9");
 				}
-				MidnightlurkerMod.queueServerWork(14, () -> {
+				MidnightlurkerMod.queueServerWork(13, () -> {
 					if (!entity.level.isClientSide())
 						entity.discard();
 				});
@@ -76,6 +76,14 @@ public class MidnightLurkerStareOnEntityTickUpdateProcedure {
 		if (Math.random() > 0.9) {
 			if (world instanceof ServerLevel _level)
 				_level.sendParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT.get()), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
+		}
+		if (entity.getPersistentData().getDouble("StareCountdown") >= 401) {
+			entity.getPersistentData().putDouble("Staringat", 0);
+		}
+		if (entity.getPersistentData().getDouble("Staringat") == 1) {
+			entity.setShiftKeyDown(true);
+		} else if (entity.getPersistentData().getDouble("Staringat") == 0) {
+			entity.setShiftKeyDown(false);
 		}
 	}
 }

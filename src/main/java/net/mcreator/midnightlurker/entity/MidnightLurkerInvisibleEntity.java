@@ -84,7 +84,7 @@ public class MidnightLurkerInvisibleEntity extends Monster implements GeoEntity 
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurkerglow");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgateemissive");
 	}
 
 	public void setTexture(String texture) {

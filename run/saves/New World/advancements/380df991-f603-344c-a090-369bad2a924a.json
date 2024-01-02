@@ -659,6 +659,12 @@
     },
     "done": true
   },
+  "minecraft:recipes/decorations/soul_lantern": {
+    "criteria": {
+      "has_soul_torch": "2023-12-26 00:55:03 -0500"
+    },
+    "done": true
+  },
   "minecraft:recipes/transportation/oak_boat": {
     "criteria": {
       "in_water": "2023-10-14 10:42:13 -0400"
@@ -740,6 +746,12 @@
   "minecraft:recipes/building_blocks/brown_wool": {
     "criteria": {
       "has_white_wool": "2023-10-14 11:14:45 -0400"
+    },
+    "done": true
+  },
+  "minecraft:nether/find_fortress": {
+    "criteria": {
+      "fortress": "2023-12-31 15:44:14 -0500"
     },
     "done": true
   },
@@ -1132,9 +1144,13 @@
   },
   "minecraft:nether/explore_nether": {
     "criteria": {
-      "minecraft:soul_sand_valley": "2023-10-14 11:15:23 -0400"
+      "minecraft:crimson_forest": "2023-12-31 15:45:46 -0500",
+      "minecraft:soul_sand_valley": "2023-10-14 11:15:23 -0400",
+      "minecraft:nether_wastes": "2023-12-31 15:41:17 -0500",
+      "minecraft:warped_forest": "2023-12-31 15:52:35 -0500",
+      "minecraft:basalt_deltas": "2023-12-31 15:52:24 -0500"
     },
-    "done": false
+    "done": true
   },
   "minecraft:recipes/decorations/light_gray_stained_glass_pane_from_glass_pane": {
     "criteria": {

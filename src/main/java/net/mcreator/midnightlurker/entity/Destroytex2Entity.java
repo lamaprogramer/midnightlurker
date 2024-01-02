@@ -101,7 +101,7 @@ public class Destroytex2Entity extends PathfinderMob {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		DestroytexOnEntityTickUpdateProcedure.execute(this.level, this);
+		DestroytexOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	@Override

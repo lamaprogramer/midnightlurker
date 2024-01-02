@@ -25,15 +25,15 @@ public class StaredisappearProcedure {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player.level, event.player);
+			execute(event, event.player.level, event.player.getX(), event.player.getY(), event.player.getZ(), event.player);
 		}
 	}
 
-	public static void execute(LevelAccessor world, Entity entity) {
-		execute(null, world, entity);
+	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+		execute(null, world, x, y, z, entity);
 	}
 
-	private static void execute(@Nullable Event event, LevelAccessor world, Entity entity) {
+	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
 		String found_entity_name = "";
@@ -249,6 +249,27 @@ public class StaredisappearProcedure {
 											.getBlockPos().getZ())))
 							.findFirst().orElse(null)) instanceof LivingEntity _entity && !_entity.level.isClientSide())
 						_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 255, false, false));
+					((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
+							AABB.ofSize(new Vec3(
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getX()),
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getY()),
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getZ())),
+									25, 25, 25),
+							e -> true).stream().sorted(new Object() {
+								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+									return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
+								}
+							}.compareDistOf(
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getX()),
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getY()),
+									(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
+											.getBlockPos().getZ())))
+							.findFirst().orElse(null)).getPersistentData().putDouble("Staringat", 1);
 				} else if (((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
 						AABB.ofSize(new Vec3(
 								(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
@@ -269,8 +290,8 @@ public class StaredisappearProcedure {
 										.getY()),
 								(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
 										.getZ())))
-						.findFirst().orElse(null)) instanceof LivingEntity _livEnt53
-						&& _livEnt53.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+						.findFirst().orElse(null)) instanceof LivingEntity _livEnt58
+						&& _livEnt58.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
 						&& ((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class,
 								AABB.ofSize(new Vec3(
 										(entity.level.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
@@ -315,6 +336,14 @@ public class StaredisappearProcedure {
 							.findFirst().orElse(null)) instanceof LivingEntity _entity)
 						_entity.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
 				}
+			}
+		} else {
+			if (!world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 70, 70, 70), e -> true).isEmpty()) {
+				((Entity) world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 70, 70, 70), e -> true).stream().sorted(new Object() {
+					Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+						return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
+					}
+				}.compareDistOf(x, y, z)).findFirst().orElse(null)).getPersistentData().putDouble("Staringat", 0);
 			}
 		}
 	}

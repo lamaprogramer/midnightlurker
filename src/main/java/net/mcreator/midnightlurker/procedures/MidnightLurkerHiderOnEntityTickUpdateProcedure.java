@@ -66,9 +66,9 @@ public class MidnightLurkerHiderOnEntityTickUpdateProcedure {
 					_level.sendParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT.get()), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
 			}
 		}
-		if (entity instanceof LivingEntity _livEnt44 && _livEnt44.hasEffect(MobEffects.LUCK)) {
+		if (entity.getPersistentData().getDouble("Hiding") == 1) {
 			entity.setShiftKeyDown(true);
-		} else if (!(entity instanceof LivingEntity _livEnt46 && _livEnt46.hasEffect(MobEffects.LUCK))) {
+		} else if (entity.getPersistentData().getDouble("Hiding") == 0) {
 			entity.setShiftKeyDown(false);
 		}
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
@@ -102,7 +102,7 @@ public class MidnightLurkerHiderOnEntityTickUpdateProcedure {
 				if (entity instanceof MidnightLurkerHiderEntity) {
 					((MidnightLurkerHiderEntity) entity).setAnimation("teleport8");
 				}
-				MidnightlurkerMod.queueServerWork(14, () -> {
+				MidnightlurkerMod.queueServerWork(13, () -> {
 					if (!entity.level.isClientSide())
 						entity.discard();
 				});

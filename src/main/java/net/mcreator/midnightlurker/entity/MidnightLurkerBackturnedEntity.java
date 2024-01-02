@@ -251,7 +251,7 @@ public class MidnightLurkerBackturnedEntity extends Monster implements GeoEntity
 				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking5"));
 			}
 			if (this.isInWaterOrBubble()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim6"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim5"));
 			}
 			if (this.isShiftKeyDown()) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned5"));

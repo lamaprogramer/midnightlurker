@@ -33,7 +33,13 @@ public class PlayerDeathProcedure {
 		if (entity == null)
 			return;
 		if (entity instanceof Player) {
-			entity.getPersistentData().putDouble("InsanityAktive", 0);
+			{
+				double _setval = 0;
+				entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.InsanityAktive = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
 		}
 		if (entity instanceof Player && !world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
 			if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).DeathJumpActive < 1) {

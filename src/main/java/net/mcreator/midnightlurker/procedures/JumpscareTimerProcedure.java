@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.CommandSource;
 
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 
@@ -67,7 +68,8 @@ public class JumpscareTimerProcedure {
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("jumpscare_sound").getAsBoolean() == true) {
-					if (entity.getPersistentData().getDouble("JumpscareTimer") == 31 && entity.getPersistentData().getDouble("JumpscareActive") > 0) {
+					if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 31
+							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive > 0) {
 						if (world instanceof ServerLevel _level)
 							_level.getServer().getCommands().performPrefixedCommand(
 									new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
@@ -95,36 +97,54 @@ public class JumpscareTimerProcedure {
 				e.printStackTrace();
 			}
 		}
-		if (entity.getPersistentData().getDouble("JumpscareActive") == 1) {
-			if (entity.getPersistentData().getDouble("JumpscareTimer") == 0) {
-				entity.getPersistentData().putDouble("JumpscareTimer", 46);
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1) {
+			if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 0) {
+				{
+					double _setval = 46;
+					entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+						capability.JumpscareTimer = _setval;
+						capability.syncPlayerVariables(entity);
+					});
+				}
 			}
 		}
-		if (entity.getPersistentData().getDouble("JumpscareActive") == 1 && entity.getPersistentData().getDouble("JumpscareTimer") == 1) {
-			entity.getPersistentData().putDouble("JumpscareActive", 0);
-			entity.getPersistentData().putDouble("JumpscareRandom", (Mth.nextInt(RandomSource.create(), 0, 2)));
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 1) {
+			{
+				double _setval = 0;
+				entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.JumpscareActive = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
+			{
+				double _setval = Mth.nextInt(RandomSource.create(), 0, 2);
+				entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.JumpscareRandom = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
 		}
-		if (entity.getPersistentData().getDouble("JumpscareTimer") > 0) {
-			entity.getPersistentData().putDouble("JumpscareTimer", (entity.getPersistentData().getDouble("JumpscareTimer") - 1));
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer > 0) {
+			{
+				double _setval = (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer - 1;
+				entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.JumpscareTimer = _setval;
+					capability.syncPlayerVariables(entity);
+				});
+			}
 		}
-		if (entity.getPersistentData().getDouble("JumpscareActive") == 1 && (entity.getPersistentData().getDouble("JumpscareTimer") == 29 || entity.getPersistentData().getDouble("JumpscareTimer") == 28
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 27 || entity.getPersistentData().getDouble("JumpscareTimer") == 26 || entity.getPersistentData().getDouble("JumpscareTimer") == 25
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 24 || entity.getPersistentData().getDouble("JumpscareTimer") == 23 || entity.getPersistentData().getDouble("JumpscareTimer") == 22
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 21 || entity.getPersistentData().getDouble("JumpscareTimer") == 20 || entity.getPersistentData().getDouble("JumpscareTimer") == 19
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 18 || entity.getPersistentData().getDouble("JumpscareTimer") == 17 || entity.getPersistentData().getDouble("JumpscareTimer") == 16
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 15 || entity.getPersistentData().getDouble("JumpscareTimer") == 14 || entity.getPersistentData().getDouble("JumpscareTimer") == 13
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 12 || entity.getPersistentData().getDouble("JumpscareTimer") == 11 || entity.getPersistentData().getDouble("JumpscareTimer") == 10
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 9 || entity.getPersistentData().getDouble("JumpscareTimer") == 8 || entity.getPersistentData().getDouble("JumpscareTimer") == 7
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 6 || entity.getPersistentData().getDouble("JumpscareTimer") == 5 || entity.getPersistentData().getDouble("JumpscareTimer") == 4
-				|| entity.getPersistentData().getDouble("JumpscareTimer") == 3 || entity.getPersistentData().getDouble("JumpscareTimer") == 2 || entity.getPersistentData().getDouble("JumpscareTimer") == 1)) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer <= 29
+				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer >= 1) {
 			if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
 				_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 155, 0, false, false));
 			world.addParticle((SimpleParticleType) (MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get()), (x + Mth.nextDouble(RandomSource.create(), -6, 6)), (y + Mth.nextDouble(RandomSource.create(), 0, 6)),
 					(z + Mth.nextDouble(RandomSource.create(), -6, 6)), 0, 0, 0);
 		}
-		if (entity.getPersistentData().getDouble("JumpscareTimer") > 0 && mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == true) {
+		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer > 0 && mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == true) {
 			return true;
-		} else if (entity.getPersistentData().getDouble("JumpscareTimer") > 0 && mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == false) {
+		} else if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer > 0 && mainjsonobject.get("pop_up_jumpscare").getAsBoolean() == false) {
 			return false;
 		}
 		return false;

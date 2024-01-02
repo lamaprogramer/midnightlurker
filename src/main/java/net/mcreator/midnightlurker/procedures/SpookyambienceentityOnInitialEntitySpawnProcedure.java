@@ -14,6 +14,7 @@ import net.minecraft.commands.CommandSource;
 
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
@@ -74,7 +75,8 @@ public class SpookyambienceentityOnInitialEntitySpawnProcedure {
 							|| !world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()
 							|| !world.getEntitiesOfClass(MidnightLurkertposeEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()
 							|| !world.getEntitiesOfClass(MidnightlurkerNEEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()
-							|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()) {
+							|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()
+							|| !world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 600, 600, 600), e -> true).isEmpty()) {
 						if (world instanceof ServerLevel _level)
 							_level.getServer().getCommands().performPrefixedCommand(
 									new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),

@@ -77,6 +77,13 @@ public class MidnightlurkerModVariables {
 			clone.DeathJumpShake = original.DeathJumpShake;
 			clone.ScreenShake = original.ScreenShake;
 			clone.CloseSpawnTimer = original.CloseSpawnTimer;
+			clone.InsanityStage = original.InsanityStage;
+			clone.InsanityTimer = original.InsanityTimer;
+			clone.InsanityAktive = original.InsanityAktive;
+			clone.InsanityReset = original.InsanityReset;
+			clone.JumpscareActive = original.JumpscareActive;
+			clone.JumpscareTimer = original.JumpscareTimer;
+			clone.JumpscareRandom = original.JumpscareRandom;
 			if (!event.isWasDeath()) {
 			}
 		}
@@ -112,7 +119,6 @@ public class MidnightlurkerModVariables {
 		public double midnightlurkerinsanitytimactivate = 0;
 		public double midnightlurkerinsanityactive = 0;
 		public double NeutralrunRandom = 0;
-		public double insanitystagedisplaylol = 0;
 		public double midnighthealthboost = 0;
 		public boolean lurkerdevoverlay = false;
 
@@ -130,7 +136,6 @@ public class MidnightlurkerModVariables {
 			midnightlurkerinsanitytimactivate = nbt.getDouble("midnightlurkerinsanitytimactivate");
 			midnightlurkerinsanityactive = nbt.getDouble("midnightlurkerinsanityactive");
 			NeutralrunRandom = nbt.getDouble("NeutralrunRandom");
-			insanitystagedisplaylol = nbt.getDouble("insanitystagedisplaylol");
 			midnighthealthboost = nbt.getDouble("midnighthealthboost");
 			lurkerdevoverlay = nbt.getBoolean("lurkerdevoverlay");
 		}
@@ -144,7 +149,6 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("midnightlurkerinsanitytimactivate", midnightlurkerinsanitytimactivate);
 			nbt.putDouble("midnightlurkerinsanityactive", midnightlurkerinsanityactive);
 			nbt.putDouble("NeutralrunRandom", NeutralrunRandom);
-			nbt.putDouble("insanitystagedisplaylol", insanitystagedisplaylol);
 			nbt.putDouble("midnighthealthboost", midnighthealthboost);
 			nbt.putBoolean("lurkerdevoverlay", lurkerdevoverlay);
 			return nbt;
@@ -274,6 +278,13 @@ public class MidnightlurkerModVariables {
 		public double DeathJumpShake = 0;
 		public double ScreenShake = 0;
 		public double CloseSpawnTimer = 0;
+		public double InsanityStage = 0;
+		public double InsanityTimer = 0;
+		public double InsanityAktive = 0;
+		public double InsanityReset = 0;
+		public double JumpscareActive = 0;
+		public double JumpscareTimer = 0;
+		public double JumpscareRandom = 0;
 
 		public void syncPlayerVariables(Entity entity) {
 			if (entity instanceof ServerPlayer serverPlayer)
@@ -287,6 +298,13 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("DeathJumpShake", DeathJumpShake);
 			nbt.putDouble("ScreenShake", ScreenShake);
 			nbt.putDouble("CloseSpawnTimer", CloseSpawnTimer);
+			nbt.putDouble("InsanityStage", InsanityStage);
+			nbt.putDouble("InsanityTimer", InsanityTimer);
+			nbt.putDouble("InsanityAktive", InsanityAktive);
+			nbt.putDouble("InsanityReset", InsanityReset);
+			nbt.putDouble("JumpscareActive", JumpscareActive);
+			nbt.putDouble("JumpscareTimer", JumpscareTimer);
+			nbt.putDouble("JumpscareRandom", JumpscareRandom);
 			return nbt;
 		}
 
@@ -297,6 +315,13 @@ public class MidnightlurkerModVariables {
 			DeathJumpShake = nbt.getDouble("DeathJumpShake");
 			ScreenShake = nbt.getDouble("ScreenShake");
 			CloseSpawnTimer = nbt.getDouble("CloseSpawnTimer");
+			InsanityStage = nbt.getDouble("InsanityStage");
+			InsanityTimer = nbt.getDouble("InsanityTimer");
+			InsanityAktive = nbt.getDouble("InsanityAktive");
+			InsanityReset = nbt.getDouble("InsanityReset");
+			JumpscareActive = nbt.getDouble("JumpscareActive");
+			JumpscareTimer = nbt.getDouble("JumpscareTimer");
+			JumpscareRandom = nbt.getDouble("JumpscareRandom");
 		}
 	}
 
@@ -326,6 +351,13 @@ public class MidnightlurkerModVariables {
 					variables.DeathJumpShake = message.data.DeathJumpShake;
 					variables.ScreenShake = message.data.ScreenShake;
 					variables.CloseSpawnTimer = message.data.CloseSpawnTimer;
+					variables.InsanityStage = message.data.InsanityStage;
+					variables.InsanityTimer = message.data.InsanityTimer;
+					variables.InsanityAktive = message.data.InsanityAktive;
+					variables.InsanityReset = message.data.InsanityReset;
+					variables.JumpscareActive = message.data.JumpscareActive;
+					variables.JumpscareTimer = message.data.JumpscareTimer;
+					variables.JumpscareRandom = message.data.JumpscareRandom;
 				}
 			});
 			context.setPacketHandled(true);

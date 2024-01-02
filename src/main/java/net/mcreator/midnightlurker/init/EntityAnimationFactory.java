@@ -8,6 +8,7 @@ import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
@@ -164,6 +165,13 @@ public class EntityAnimationFactory {
 				}
 			}
 			if (event.getEntity() instanceof MidnightlurkerNEEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof MidnightLurkerWatcherEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");

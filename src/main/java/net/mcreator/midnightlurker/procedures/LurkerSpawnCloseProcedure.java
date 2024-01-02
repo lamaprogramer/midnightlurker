@@ -21,6 +21,7 @@ import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
@@ -80,9 +81,13 @@ public class LurkerSpawnCloseProcedure {
 						if (!(!world.getEntitiesOfClass(MidnightLurkerShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())
 								&& !(!world.getEntitiesOfClass(MidnightLurkerShadowEyesEntity.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty())) {
 							if (entity instanceof Player) {
-								if ((entity.getPersistentData().getDouble("InsanityStage") == 1 || entity.getPersistentData().getDouble("InsanityStage") == 2 || entity.getPersistentData().getDouble("InsanityStage") == 3
-										|| entity.getPersistentData().getDouble("InsanityStage") == 4 || entity.getPersistentData().getDouble("InsanityStage") == 5 || entity.getPersistentData().getDouble("InsanityStage") == 6) && y > 0
-										&& ((world instanceof Level _lvl12 && _lvl12.isDay()) == false || world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0) && (entity.level.dimension()) == Level.OVERWORLD) {
+								if (((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 1
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 2
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 3
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 4
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 5
+										|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6) && y > 0
+										&& ((world instanceof Level _lvl6 && _lvl6.isDay()) == false || world.getMaxLocalRawBrightness(BlockPos.containing(x, y, z)) == 0) && (entity.level.dimension()) == Level.OVERWORLD) {
 									if (!(!world.getEntitiesOfClass(MidnightLurkerBackturnedEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerHiderEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerInvisibleEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -90,7 +95,8 @@ public class LurkerSpawnCloseProcedure {
 											&& !(!world.getEntitiesOfClass(MidnightLurkerSeenAngressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerStalkingEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
-											&& !(!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
+											&& !(!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
+											&& !(!world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
 										spawnx = x + Mth.nextInt(RandomSource.create(), -30, 30);
 										spawny = y + Mth.nextInt(RandomSource.create(), -30, 30);
 										spawnz = z + Mth.nextInt(RandomSource.create(), -30, 30);
@@ -102,7 +108,8 @@ public class LurkerSpawnCloseProcedure {
 											&& !(!world.getEntitiesOfClass(MidnightLurkerSeenAngressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerStalkingEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
 											&& !(!world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
-											&& !(!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
+											&& !(!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())
+											&& !(!world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
 										Spawndeterminer = Mth.nextInt(RandomSource.create(), 1, 9);
 									}
 									if (Spawndeterminer == 1 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
@@ -193,6 +200,18 @@ public class LurkerSpawnCloseProcedure {
 											&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
 										if (world instanceof ServerLevel _level) {
 											Entity entityToSpawn = new MidnightLurkerUnprovokedEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get(), _level);
+											entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
+											entityToSpawn.setYBodyRot(0);
+											entityToSpawn.setYHeadRot(0);
+											entityToSpawn.setDeltaMovement(0, 0, 0);
+											if (entityToSpawn instanceof Mob _mobToSpawn)
+												_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+											_level.addFreshEntity(entityToSpawn);
+										}
+									} else if (Spawndeterminer == 9 && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz))
+											&& world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz)) && !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
+										if (world instanceof ServerLevel _level) {
+											Entity entityToSpawn = new MidnightLurkerWatcherEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER.get(), _level);
 											entityToSpawn.moveTo(spawnx, spawny, spawnz, 0, 0);
 											entityToSpawn.setYBodyRot(0);
 											entityToSpawn.setYHeadRot(0);
