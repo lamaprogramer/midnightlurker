@@ -95,16 +95,14 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 					((MidnightLurkerBackturnedEntity) entity).setAnimation("teleport5");
 				}
 				MidnightlurkerMod.queueServerWork(13, () -> {
-					if (!world.getEntitiesOfClass(MidnightLurkerBackturnedEntity.class, AABB.ofSize(new Vec3(x, y, z), 4, 4, 4), e -> true).isEmpty()) {
-						if (!entity.level.isClientSide())
-							entity.discard();
-					}
+					if (!entity.level.isClientSide())
+						entity.discard();
 				});
 			});
 		}
-		if (entity.getPersistentData().getDouble("SlownessEffect") <= 0 && entity instanceof LivingEntity _livEnt79 && _livEnt79.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+		if (entity.getPersistentData().getDouble("SlownessEffect") <= 0 && entity instanceof LivingEntity _livEnt78 && _livEnt78.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
 			entity.setShiftKeyDown(true);
-		} else if (entity.getPersistentData().getDouble("SlownessEffect") >= 1 && entity instanceof LivingEntity _livEnt82 && _livEnt82.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+		} else if (entity.getPersistentData().getDouble("SlownessEffect") >= 1 && entity instanceof LivingEntity _livEnt81 && _livEnt81.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
 			MidnightlurkerMod.queueServerWork(2, () -> {
 				entity.setShiftKeyDown(false);
 			});

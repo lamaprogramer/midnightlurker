@@ -627,41 +627,6 @@
       }
     },
     {
-      "name": "Lurkerangytimer",
-      "type": "procedure",
-      "sortid": 40,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "lurkerangytimer",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/midnightlurker/procedures/LurkerangytimerProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "SpookyambienceentityOnEntityTickUpdate",
       "type": "procedure",
       "sortid": 42,
@@ -756,6 +721,18 @@
           {
             "name": "entity",
             "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
           },
           {
             "name": "world",
@@ -2359,6 +2336,18 @@
           "src/main/java/net/mcreator/midnightlurker/procedures/NeutralrunrandomrunawayProcedure.java"
         ],
         "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
           {
             "name": "world",
             "type": "world"
@@ -6112,6 +6101,71 @@
           }
         ]
       }
+    },
+    {
+      "name": "MidnightlurkerNEEntityDies",
+      "type": "procedure",
+      "sortid": 347,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "midnightlurker_ne_entity_dies",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/MidnightlurkerNEEntityDiesProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InsanityReduce",
+      "type": "procedure",
+      "sortid": 348,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "insanity_reduce",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InsanityReduceProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InsanityFoodReduce",
+      "type": "procedure",
+      "sortid": 349,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "insanity_food_reduce",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InsanityFoodReduceProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "itemstack",
+            "type": "itemstack"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -7666,7 +7720,7 @@
   "workspaceSettings": {
     "modid": "midnightlurker",
     "modName": "The Midnight Lurker",
-    "version": "2.4.9",
+    "version": "2.5.2",
     "description": "A small mod that adds a new horrifying entity to Minecraft.",
     "author": "Voxla",
     "websiteURL": "https://modrinth.com/mod/the-midnight-lurker - https://www.curseforge.com/minecraft/mc-mods/the-midnight-lurker",

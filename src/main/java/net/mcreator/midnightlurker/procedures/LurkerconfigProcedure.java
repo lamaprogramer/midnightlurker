@@ -40,7 +40,7 @@ public class LurkerconfigProcedure {
 				exception.printStackTrace();
 			}
 			mainjsonobject.addProperty("lurker_chase_music", false);
-			mainjsonobject.addProperty("lurker_spawn_rate", 5);
+			mainjsonobject.addProperty("lurker_spawn_rate", 3);
 			mainjsonobject.addProperty("the spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			mainjsonobject.addProperty("pop_up_jumpscare", true);
 			mainjsonobject.addProperty("jumpscare_sound", true);
@@ -50,12 +50,12 @@ public class LurkerconfigProcedure {
 			mainjsonobject.addProperty("insanity_progress_effect", true);
 			mainjsonobject.addProperty("insanity_countdown_time", 2);
 			mainjsonobject.addProperty("the insanity countdown time determines how long the timer is for insanity. 1 is 5mins, 2 is 10mins, 3 is 20mins, and 4 is 30mins.", 0);
-			mainjsonobject.addProperty("lurker_invulnerable", true);
+			mainjsonobject.addProperty("lurker_invulnerable", false);
 			mainjsonobject.addProperty("lurker_spawn_close", false);
 			mainjsonobject.addProperty("shadow_spawn_close", true);
 			mainjsonobject.addProperty("faker_spawn_close", true);
 			mainjsonobject.addProperty("spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to", 0);
-			mainjsonobject.addProperty("nether_lurker_spawn_rate", 5);
+			mainjsonobject.addProperty("nether_lurker_spawn_rate", 4);
 			mainjsonobject.addProperty("the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();

@@ -243,7 +243,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerAggressiveEntityDiesProcedure.execute(this.level, this);
+		MidnightLurkerAggressiveEntityDiesProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	@Override

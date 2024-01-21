@@ -75,10 +75,8 @@ public class MidnightLurkerUnprovokedOnEntityTickUpdateProcedure {
 					((MidnightLurkerUnprovokedEntity) entity).setAnimation("teleport5");
 				}
 				MidnightlurkerMod.queueServerWork(13, () -> {
-					if (!world.getEntitiesOfClass(MidnightLurkerUnprovokedEntity.class, AABB.ofSize(new Vec3(x, y, z), 4, 4, 4), e -> true).isEmpty()) {
-						if (!entity.level.isClientSide())
-							entity.discard();
-					}
+					if (!entity.level.isClientSide())
+						entity.discard();
 				});
 			});
 		}

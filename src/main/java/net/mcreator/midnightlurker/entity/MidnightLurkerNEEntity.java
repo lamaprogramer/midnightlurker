@@ -54,13 +54,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.procedures.MidnightlurkerNEThisEntityKillsAnotherOneProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightlurkerNEEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNENaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveBoundingBoxScaleProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerfightbackProcedure;
@@ -240,7 +240,7 @@ public class MidnightlurkerNEEntity extends Monster implements GeoEntity {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerAggressiveEntityDiesProcedure.execute(this.level, this);
+		MidnightlurkerNEEntityDiesProcedure.execute(this.level, this);
 	}
 
 	@Override

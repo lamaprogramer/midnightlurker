@@ -101,7 +101,7 @@
       "value": "CUSTOM:lurkerchasesteps"
     },
     "whenMobDies": {
-      "name": "MidnightLurkerAggressiveEntityDies"
+      "name": "MidnightlurkerNEEntityDies"
     },
     "whenMobIsHurt": {
       "name": "MidnightLurkerAggressiveEntityIsHurt"
