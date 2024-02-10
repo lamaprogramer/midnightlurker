@@ -35,7 +35,7 @@ public class Destroytex4Entity extends PathfinderMob {
 
 	public Destroytex4Entity(EntityType<Destroytex4Entity> type, Level world) {
 		super(type, world);
-		maxUpStep = 0f;
+		setMaxUpStep(0f);
 		xpReward = 0;
 		setNoAi(false);
 	}
@@ -101,7 +101,7 @@ public class Destroytex4Entity extends PathfinderMob {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		DestroytexOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		DestroytexOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	@Override

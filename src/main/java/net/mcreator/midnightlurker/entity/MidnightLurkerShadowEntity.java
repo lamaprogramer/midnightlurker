@@ -119,7 +119,7 @@ public class MidnightLurkerShadowEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerShadowEntity.this.getY();
 				double z = MidnightLurkerShadowEntity.this.getZ();
 				Entity entity = MidnightLurkerShadowEntity.this;
-				Level world = MidnightLurkerShadowEntity.this.level;
+				Level world = MidnightLurkerShadowEntity.this.level();
 				return super.canUse() && ShadowAttckProcProcedure.execute(world, x, y, z);
 			}
 
@@ -129,7 +129,7 @@ public class MidnightLurkerShadowEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerShadowEntity.this.getY();
 				double z = MidnightLurkerShadowEntity.this.getZ();
 				Entity entity = MidnightLurkerShadowEntity.this;
-				Level world = MidnightLurkerShadowEntity.this.level;
+				Level world = MidnightLurkerShadowEntity.this.level();
 				return super.canContinueToUse() && ShadowAttckProcProcedure.execute(world, x, y, z);
 			}
 
@@ -203,7 +203,7 @@ public class MidnightLurkerShadowEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerShadowOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerShadowOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -240,7 +240,7 @@ public class MidnightLurkerShadowEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

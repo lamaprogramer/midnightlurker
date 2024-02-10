@@ -87,7 +87,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgatenomouth");
 	}
 
 	public void setTexture(String texture) {
@@ -140,7 +140,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this);
+		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getEntity());
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -173,7 +173,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerEntityDiesProcedure.execute(this.level, this);
+		MidnightLurkerEntityDiesProcedure.execute(this.level(), this);
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerStalkingOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerStalkingOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -232,7 +232,7 @@ public class MidnightLurkerStalkingEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

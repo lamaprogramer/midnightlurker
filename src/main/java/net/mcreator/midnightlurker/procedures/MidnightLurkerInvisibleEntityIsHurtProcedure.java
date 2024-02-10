@@ -24,7 +24,7 @@ public class MidnightLurkerInvisibleEntityIsHurtProcedure {
 					_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
 				}
 			}
-			if (!entity.level.isClientSide())
+			if (!entity.level().isClientSide())
 				entity.discard();
 		}
 	}

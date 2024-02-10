@@ -5,13 +5,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 
 public class MidnightLurkerShapeshifterRightClickedOnEntityProcedure {
 	public static void execute(LevelAccessor world, Entity entity) {
@@ -20,16 +19,16 @@ public class MidnightLurkerShapeshifterRightClickedOnEntityProcedure {
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
 			if (world instanceof ServerLevel _level)
 				_level.sendParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
-			if (!entity.level.isClientSide())
+			if (!entity.level().isClientSide())
 				entity.discard();
 			if (world instanceof ServerLevel _level) {
-				Entity entityToSpawn = new MidnightLurkerUnprovokedEntity(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get(), _level);
-				entityToSpawn.moveTo((entity.getX()), (entity.getY()), (entity.getZ()), entity.getYRot(), entity.getXRot());
-				entityToSpawn.setYBodyRot(entity.getYRot());
-				entityToSpawn.setYHeadRot(entity.getYRot());
-				if (entityToSpawn instanceof Mob _mobToSpawn)
-					_mobToSpawn.finalizeSpawn(_level, _level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-				_level.addFreshEntity(entityToSpawn);
+				Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
+				if (entityToSpawn != null) {
+					entityToSpawn.setYRot(entity.getYRot());
+					entityToSpawn.setYBodyRot(entity.getYRot());
+					entityToSpawn.setYHeadRot(entity.getYRot());
+					entityToSpawn.setXRot(entity.getXRot());
+				}
 			}
 		}
 	}

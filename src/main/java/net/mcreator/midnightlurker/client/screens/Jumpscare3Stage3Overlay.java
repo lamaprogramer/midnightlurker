@@ -40,7 +40,7 @@ public class Jumpscare3Stage3Overlay {
 		double z = 0;
 		Player entity = Minecraft.getInstance().player;
 		if (entity != null) {
-			world = entity.level;
+			world = entity.level();
 			x = entity.getX();
 			y = entity.getY();
 			z = entity.getZ();
@@ -53,28 +53,22 @@ public class Jumpscare3Stage3Overlay {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		if (ShowJump3Stage3Procedure.execute(entity)) {
 			if (JumpscareFrame15Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird4stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird4stage3.png"), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
 			}
 			if (JumpscareFrame14Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird3stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird3stage3.png"), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
 			}
 			if (JumpscareFrame13Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird2stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird2stage3.png"), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
 			}
 			if (JumpscareFrame12Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird1stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird1stage3.png"), posX + -513, posY + -121, 0, 0, 1023, 528, 1023, 528);
 			}
 			if (JumpscareFrame16Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird5stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -211, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird5stage3.png"), posX + -513, posY + -211, 0, 0, 1023, 528, 1023, 528);
 			}
 			if (JumpscareFrame17Procedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/jumpscarethird6stage3.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -513, posY + -391, 0, 0, 1023, 528, 1023, 528);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpscarethird6stage3.png"), posX + -513, posY + -391, 0, 0, 1023, 528, 1023, 528);
 			}
 		}
 		RenderSystem.depthMask(true);

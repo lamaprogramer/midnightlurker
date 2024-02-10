@@ -36,7 +36,7 @@ public class DeathJumpscareOverlay {
 			double z = 0;
 			Player entity = Minecraft.getInstance().player;
 			if (entity != null) {
-				world = entity.level;
+				world = entity.level();
 				x = entity.getX();
 				y = entity.getY();
 				z = entity.getZ();
@@ -48,11 +48,9 @@ public class DeathJumpscareOverlay {
 			RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 			if (DeathJumpBackingProcProcedure.execute(entity)) {
-				RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/ideaing1black.png"));
-				Minecraft.getInstance().gui.blit(event.getPoseStack(), 0, 0, 0, 0, w, h, w, h);
+				event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/ideaing1black.png"), 0, 0, 0, 0, w, h, w, h);
 				if (DeathJumpBackingProcProcedure.execute(entity)) {
-					RenderSystem.setShaderTexture(0, new ResourceLocation("midnightlurker:textures/screens/ideaing1.png"));
-					Minecraft.getInstance().gui.blit(event.getPoseStack(), posX + -90, posY + -85, 0, 0, 162, 171, 162, 171);
+					event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/ideaing1.png"), posX + -90, posY + -85, 0, 0, 162, 171, 162, 171);
 				}
 			}
 			RenderSystem.depthMask(true);

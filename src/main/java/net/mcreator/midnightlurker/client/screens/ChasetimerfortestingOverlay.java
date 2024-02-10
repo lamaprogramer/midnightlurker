@@ -18,8 +18,6 @@ import net.mcreator.midnightlurker.procedures.VoidrandomnumberthingProcedure;
 import net.mcreator.midnightlurker.procedures.InsanitytimerdisplayProcedure;
 import net.mcreator.midnightlurker.procedures.InsanitystagedisplayProcedure;
 import net.mcreator.midnightlurker.procedures.HealthboostnumberProcedure;
-import net.mcreator.midnightlurker.procedures.CloseTimerdisplayProcedure;
-import net.mcreator.midnightlurker.procedures.ChasetimerthingProcedure;
 import net.mcreator.midnightlurker.procedures.ChasetimerfortestingDisplayOverlayIngameProcedure;
 
 @Mod.EventBusSubscriber({Dist.CLIENT})
@@ -36,36 +34,28 @@ public class ChasetimerfortestingOverlay {
 		double z = 0;
 		Player entity = Minecraft.getInstance().player;
 		if (entity != null) {
-			world = entity.level;
+			world = entity.level();
 			x = entity.getX();
 			y = entity.getY();
 			z = entity.getZ();
 		}
 		if (ChasetimerfortestingDisplayOverlayIngameProcedure.execute(world)) {
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font,
 
-					ChasetimerthingProcedure.execute(world), posX + -207, posY + -103, -6750157);
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
+					VoidrandomnumberthingProcedure.execute(world), posX + -207, posY + -94, -3355444, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font,
 
-					VoidrandomnumberthingProcedure.execute(world), posX + -207, posY + -76, -3355444);
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
+					InsanitytimerdisplayProcedure.execute(entity), posX + -207, posY + -67, -39322, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font,
 
-					InsanitytimerdisplayProcedure.execute(entity), posX + -207, posY + -49, -39322);
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
+					InsanitystagedisplayProcedure.execute(entity), posX + -207, posY + -40, -39271, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font, Component.translatable("gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number"), posX + -207, posY + -103, -3355444, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font, Component.translatable("gui.midnightlurker.chasetimerfortesting.label_insanity_timer"), posX + -207, posY + -76, -39322, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font, Component.translatable("gui.midnightlurker.chasetimerfortesting.label_insanity_stage"), posX + -207, posY + -49, -39271, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font, Component.translatable("gui.midnightlurker.chasetimerfortesting.label_healthboost"), posX + -207, posY + -22, -13395712, false);
+			event.getGuiGraphics().drawString(Minecraft.getInstance().font,
 
-					InsanitystagedisplayProcedure.execute(entity), posX + -207, posY + -22, -39271);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_chase_timer"), posX + -207, posY + -112, -6750157);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number"), posX + -207, posY + -85, -3355444);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_insanity_timer"), posX + -207, posY + -58, -39322);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_insanity_stage"), posX + -207, posY + -31, -39271);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_healthboost"), posX + -207, posY + -4, -13395712);
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
-
-					HealthboostnumberProcedure.execute(world), posX + -207, posY + 5, -13395712);
-			Minecraft.getInstance().font.draw(event.getPoseStack(), Component.translatable("gui.midnightlurker.chasetimerfortesting.label_closespawntimer"), posX + -207, posY + 23, -16724788);
-			Minecraft.getInstance().font.draw(event.getPoseStack(),
-
-					CloseTimerdisplayProcedure.execute(entity), posX + -207, posY + 32, -16724788);
+					HealthboostnumberProcedure.execute(world), posX + -207, posY + -13, -13395712, false);
 		}
 	}
 }

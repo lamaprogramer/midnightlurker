@@ -118,7 +118,7 @@ public class MidnightLurkerFakerWatcherEntity extends Monster implements GeoEnti
 				double y = MidnightLurkerFakerWatcherEntity.this.getY();
 				double z = MidnightLurkerFakerWatcherEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerWatcherEntity.this;
-				Level world = MidnightLurkerFakerWatcherEntity.this.level;
+				Level world = MidnightLurkerFakerWatcherEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -128,7 +128,7 @@ public class MidnightLurkerFakerWatcherEntity extends Monster implements GeoEnti
 				double y = MidnightLurkerFakerWatcherEntity.this.getY();
 				double z = MidnightLurkerFakerWatcherEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerWatcherEntity.this;
-				Level world = MidnightLurkerFakerWatcherEntity.this.level;
+				Level world = MidnightLurkerFakerWatcherEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -193,7 +193,7 @@ public class MidnightLurkerFakerWatcherEntity extends Monster implements GeoEnti
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerFakerWatcherOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerFakerWatcherOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -230,7 +230,7 @@ public class MidnightLurkerFakerWatcherEntity extends Monster implements GeoEnti
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

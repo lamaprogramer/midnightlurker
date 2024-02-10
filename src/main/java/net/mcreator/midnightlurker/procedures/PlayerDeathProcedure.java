@@ -21,7 +21,7 @@ public class PlayerDeathProcedure {
 	@SubscribeEvent
 	public static void onEntityDeath(LivingDeathEvent event) {
 		if (event != null && event.getEntity() != null) {
-			execute(event, event.getEntity().level, event.getEntity());
+			execute(event, event.getEntity().level(), event.getEntity());
 		}
 	}
 

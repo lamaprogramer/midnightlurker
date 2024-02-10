@@ -146,10 +146,13 @@
     "rangedAttackInterval": 20,
     "rangedAttackRadius": 10.0,
     "height": 1.0,
-    "spawnThisMob": false,
-    "doesDespawnWhenIdle": false,
+    "spawnThisMob": true,
+    "doesDespawnWhenIdle": true,
+    "spawningCondition": {
+      "name": "MidnightLurkerShapeshifterNaturalEntitySpawningCondition"
+    },
     "spawningProbability": 7,
-    "mobSpawningType": "creature",
+    "mobSpawningType": "ambient",
     "minNumberOfMobsPerGroup": 1,
     "maxNumberOfMobsPerGroup": 1,
     "restrictionBiomes": [],

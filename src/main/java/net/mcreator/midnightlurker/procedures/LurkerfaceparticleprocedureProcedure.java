@@ -29,7 +29,7 @@ public class LurkerfaceparticleprocedureProcedure {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player.level, event.player);
+			execute(event, event.player.level(), event.player);
 		}
 	}
 
@@ -63,9 +63,9 @@ public class LurkerfaceparticleprocedureProcedure {
 									|| (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6)
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive == 1) {
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY.get(), 55, 0, false, false));
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES.get(), 55, 0, false, false));
 					}
 				}
@@ -74,7 +74,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive == 1) {
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES.get(), 55, 0, false, false));
 					}
 				}
@@ -83,7 +83,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive == 1) {
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES.get(), 55, 0, false, false));
 					}
 				}
@@ -92,7 +92,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive == 1) {
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES.get(), 55, 0, false, false));
 					}
 				}
@@ -101,7 +101,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 6
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive == 1) {
-						if (entity instanceof LivingEntity _entity && !_entity.level.isClientSide())
+						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES.get(), 55, 0, false, false));
 					}
 				}

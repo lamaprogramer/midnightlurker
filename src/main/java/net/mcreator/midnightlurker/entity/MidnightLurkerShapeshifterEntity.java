@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.network.NetworkHooks;
 
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.projectile.ThrownPotion;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.MobType;
@@ -50,6 +52,7 @@ import net.minecraft.network.protocol.Packet;
 import net.mcreator.midnightlurker.procedures.ShapeshiftermoveindoorsatnightProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterRightClickedOnEntityProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
@@ -71,7 +74,6 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 		super(type, world);
 		xpReward = 0;
 		setNoAi(false);
-		setPersistenceRequired();
 	}
 
 	@Override
@@ -109,7 +111,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 				double y = MidnightLurkerShapeshifterEntity.this.getY();
 				double z = MidnightLurkerShapeshifterEntity.this.getZ();
 				Entity entity = MidnightLurkerShapeshifterEntity.this;
-				Level world = MidnightLurkerShapeshifterEntity.this.level;
+				Level world = MidnightLurkerShapeshifterEntity.this.level();
 				return super.canUse() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
 			}
 
@@ -119,7 +121,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 				double y = MidnightLurkerShapeshifterEntity.this.getY();
 				double z = MidnightLurkerShapeshifterEntity.this.getZ();
 				Entity entity = MidnightLurkerShapeshifterEntity.this;
-				Level world = MidnightLurkerShapeshifterEntity.this.level;
+				Level world = MidnightLurkerShapeshifterEntity.this.level();
 				return super.canContinueToUse() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
 			}
 		});
@@ -130,11 +132,6 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	@Override
 	public MobType getMobType() {
 		return MobType.UNDEFINED;
-	}
-
-	@Override
-	public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-		return false;
 	}
 
 	@Override
@@ -154,7 +151,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerShapeshifterEntityIsHurtProcedure.execute(this.level, this);
+		MidnightLurkerShapeshifterEntityIsHurtProcedure.execute(this.level(), this);
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -187,13 +184,13 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	@Override
 	public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
 		ItemStack itemstack = sourceentity.getItemInHand(hand);
-		InteractionResult retval = InteractionResult.sidedSuccess(this.level.isClientSide());
+		InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 		super.mobInteract(sourceentity, hand);
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
 		Entity entity = this;
-		Level world = this.level;
+		Level world = this.level();
 
 		MidnightLurkerShapeshifterRightClickedOnEntityProcedure.execute(world, entity);
 		return retval;
@@ -202,7 +199,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerShapeshifterOnEntityTickUpdateProcedure.execute(this.level, this);
+		MidnightLurkerShapeshifterOnEntityTickUpdateProcedure.execute(this.level(), this);
 		this.refreshDimensions();
 	}
 
@@ -218,6 +215,12 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	}
 
 	public static void init() {
+		SpawnPlacements.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			return MidnightLurkerShapeshifterNaturalEntitySpawningConditionProcedure.execute(world, x, y, z);
+		});
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -244,7 +247,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

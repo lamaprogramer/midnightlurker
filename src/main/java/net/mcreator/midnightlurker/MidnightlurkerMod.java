@@ -13,8 +13,6 @@
  */
 package net.mcreator.midnightlurker;
 
-import software.bernie.geckolib.GeckoLib;
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -31,6 +29,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.mcreator.midnightlurker.init.MidnightlurkerModTabs;
 import net.mcreator.midnightlurker.init.MidnightlurkerModSounds;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
@@ -59,11 +58,12 @@ public class MidnightlurkerMod {
 		MidnightlurkerModItems.REGISTRY.register(bus);
 		MidnightlurkerModEntities.REGISTRY.register(bus);
 
+		MidnightlurkerModTabs.REGISTRY.register(bus);
+
 		MidnightlurkerModMobEffects.REGISTRY.register(bus);
 
 		MidnightlurkerModParticleTypes.REGISTRY.register(bus);
 
-		GeckoLib.initialize();
 	}
 
 	private static final String PROTOCOL_VERSION = "1";

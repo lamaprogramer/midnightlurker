@@ -50,8 +50,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.nbt.CompoundTag;
 
+import net.mcreator.midnightlurker.procedures.MidnightLurkerWatcherOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawnProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
@@ -84,7 +84,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgatenomouth");
 	}
 
 	public void setTexture(String texture) {
@@ -118,7 +118,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerWatcherEntity.this.getY();
 				double z = MidnightLurkerWatcherEntity.this.getZ();
 				Entity entity = MidnightLurkerWatcherEntity.this;
-				Level world = MidnightLurkerWatcherEntity.this.level;
+				Level world = MidnightLurkerWatcherEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -128,7 +128,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerWatcherEntity.this.getY();
 				double z = MidnightLurkerWatcherEntity.this.getZ();
 				Entity entity = MidnightLurkerWatcherEntity.this;
-				Level world = MidnightLurkerWatcherEntity.this.level;
+				Level world = MidnightLurkerWatcherEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -151,7 +151,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerEntityIsHurtProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerEntityIsHurtProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -191,7 +191,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerWatcherOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -239,7 +239,7 @@ public class MidnightLurkerWatcherEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

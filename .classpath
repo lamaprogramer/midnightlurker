@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker1\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/main" kind="src" path="src/main/resources">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker1\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/test" kind="src" path="src/test/java">
@@ -19,7 +20,7 @@
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker1\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry output="bin/test" kind="src" path="src/test/resources">
@@ -27,27 +28,26 @@
 			<attribute name="gradle_scope" value="test"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker1\build\natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:\Users\legol\MCreatorWorkspaces\midnightlurker\build\natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/deobf_dependencies/software/bernie/geckolib/geckolib-forge-1.19.4/4.1.3_mapped_official_1.19.4/geckolib-forge-1.19.4-4.1.3_mapped_official_1.19.4-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/deobf_dependencies/software/bernie/geckolib/geckolib-forge-1.19.4/4.1.3_mapped_official_1.19.4/geckolib-forge-1.19.4-4.1.3_mapped_official_1.19.4.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/deobf_dependencies/software/bernie/geckolib/geckolib-forge-1.20.1/4.2.2_mapped_official_1.20.1/geckolib-forge-1.20.1-4.2.2_mapped_official_1.20.1-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/deobf_dependencies/software/bernie/geckolib/geckolib-forge-1.20.1/4.2.2_mapped_official_1.20.1/geckolib-forge-1.20.1-4.2.2_mapped_official_1.20.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.4-45.1.0_mapped_official_1.19.4/forge-1.19.4-45.1.0_mapped_official_1.19.4-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.4-45.1.0_mapped_official_1.19.4/forge-1.19.4-45.1.0_mapped_official_1.19.4-recomp.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_official_1.20.1/forge-1.20.1-47.1.0_mapped_official_1.20.1-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.1.0_mapped_official_1.20.1/forge-1.20.1-47.1.0_mapped_official_1.20.1-recomp.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_repo/versions/1.19.4/client-extra.jar">
+	<classpathentry kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/minecraft_repo/versions/1.20.1/client-extra.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlloader/1.19.4-45.1.0/eec55269d7635734b8ff2437e45f35736c9e795f/fmlloader-1.19.4-45.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlloader/1.19.4-45.1.0/19f2cac18253bfe899117e601fcbef66d28ebe08/fmlloader-1.19.4-45.1.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlloader/1.20.1-47.1.0/feb00a92723915fc1c448b6c31fb1b51c70d5686/fmlloader-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlloader/1.20.1-47.1.0/f7b5e4ef130d184e0ea48e6d8bf0a2d90757e8c6/fmlloader-1.20.1-47.1.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -77,24 +77,29 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/7.0.1/c8298f054a2aa1de8cf83c0406c806143c289bb9/forgespi-7.0.1-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/7.0.1/3b4972a0cdb135853dba219be61a79b22cff1309/forgespi-7.0.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mergetool/1.1.5/43e6a124292079d99f7f20fb57b8c8b17dc28c8e/mergetool-1.1.5-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mergetool/1.1.5/f3da18e12c696d35a47c82cbb2cc8b5aa15e1154/mergetool-1.1.5-api.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/ca5088d615accaabd2aa956b10b236a4e75cfccb/annotations-23.0.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/24.0.1/2f9be7fbab3157633befe74c684bd3badb28a876/annotations-24.0.1-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/24.0.1/13c5c75c4206580aa4d683bffee658caae6c9f43/annotations-24.0.1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.6/adee41f0720b5502e368c60bac8bb714dce51f21/securejarhandler-2.1.6-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.6/66c15fc1f522b586476e9e4cccd0cbe192554e8a/securejarhandler-2.1.6.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.10/96331802dca7d09fd109500a708200ae758ff412/securejarhandler-2.1.10-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/securejarhandler/2.1.10/51e6a22c6c716beb11e244bf5b8be480f51dd6b5/securejarhandler-2.1.10.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.8/798829d8a90337242531eb3afd0778af9430ba2f/modlauncher-10.0.8-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.8/658c4ddb704aeeaa94ff3e668785a5eebddd0cb5/modlauncher-10.0.8.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.9/3a731130cea80690b50d02303e3a0bd5c2a808fc/modlauncher-10.0.9-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.9/6d9443f56f50bb85cea383686ff9c867391458b/modlauncher-10.0.9.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.openjdk.nashorn/nashorn-core/15.3/d1b08eaf27fa4468ea714555377d74079b8b9e99/nashorn-core-15.3-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/org.openjdk.nashorn/nashorn-core/15.3/43977e804697048fc8d81d333a36c17d07a5b3dd/nashorn-core-15.3.jar">
@@ -142,17 +147,12 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.19.4-45.1.0/bc670ac841be421beefbc4cd26f0303e2cf76c17/fmlcore-1.19.4-45.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.19.4-45.1.0/c21da731e12998ed3a9fddba965c75c42c63404e/fmlcore-1.19.4-45.1.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.1.0/fa3a353b05f516c12555b25a97f8dcc40067cece/fmlcore-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.1.0/69ca36ae5b8d45c377a5485dc38a7343e5ebf33c/fmlcore-1.20.1-47.1.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/6.0.3/daa1254e3b62f3ca68d1a741d3ed9869fab1e751/eventbus-6.0.3-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/6.0.3/42fe522ace1bbcbcbba9c880c42411857baf36a9/eventbus-6.0.3.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/6.0.0/967492de644e97862394821789c938e6ec2291ed/forgespi-6.0.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/forgespi/6.0.0/4a2004591666531f8b30d3402317b1ff6411bd3e/forgespi-6.0.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/6.0.5/9e63113e81f9d25c5082ba61df851935d510957/eventbus-6.0.5-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/eventbus/6.0.5/699143dd438431d06b57416944f7cedbe52e1475/eventbus-6.0.5.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -182,7 +182,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.8.3/98f84f353457629e81cc6827224871b1a8faa7af/typetools-0.8.3.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.6.3/de30205cf0153746a489a53203c41fa3766d7d24/typetools-0.6.3-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.jodah/typetools/0.6.3/a01aaa6ddaea9ec07ec4f209487b7a46a526283a/typetools-0.6.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -217,17 +217,22 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.19.4-45.1.0/ea58407d4483d5362e3e8de4f0cc72ba6bd07c03/javafmllanguage-1.19.4-45.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.19.4-45.1.0/b0e84ca3a357ff3c21236b9cff29dc11728c2fc1/javafmllanguage-1.19.4-45.1.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlearlydisplay/1.20.1-47.1.0/74bb8d28053064a13bf6c5606949a868fa41b01d/fmlearlydisplay-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlearlydisplay/1.20.1-47.1.0/faf61a8a8cc80e82a5691fac00149f06eeaf0438/fmlearlydisplay-1.20.1-47.1.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.19.4-45.1.0/1067140c8a6824db0c4a2918edf4a7952b493758/lowcodelanguage-1.19.4-45.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.19.4-45.1.0/ab850b1d43a0870a58cd14eef8007e7a9f2d5d24/lowcodelanguage-1.19.4-45.1.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.1.0/b210940fe4974ca4813c092720062c7992e4e5d/javafmllanguage-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.1.0/a2cd58d15791eaac9983e30be0995e66bd48633e/javafmllanguage-1.20.1-47.1.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.19.4-45.1.0/da2eeb3b5e1892d23b017495d8f17d8a35743822/mclanguage-1.19.4-45.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.19.4-45.1.0/97118201a6b56edf1c41a03f94b03c5d39980c2f/mclanguage-1.19.4-45.1.0.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.1.0/a6646c9d18d99c3458e955657938b561de323a/lowcodelanguage-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.1.0/f1f11b7217b8320f1b3eb81c746b7b8a70a9ba06/lowcodelanguage-1.20.1-47.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.1.0/2a5a53d45a5b60e1914ba9bd6477270bd809a14d/mclanguage-1.20.1-47.1.0-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.1.0/ff1b8eeb1bd00dfb130263b8952b931f5369252e/mclanguage-1.20.1-47.1.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -252,7 +257,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/authlib/3.18.38/71761d1361695251b3381529aee5e7c2d99fc903/authlib-3.18.38-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/authlib/3.18.38/16106b26bce62bda55bab42785b999e44d77ecb/authlib-3.18.38.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/authlib/4.0.43/d82e437f9964a53d2cda4b120f4cc7698697323b/authlib-4.0.43-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/authlib/4.0.43/2ff9d747a77570a07a60d32ac77eb6162ad2a2d9/authlib-4.0.43.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -262,12 +267,12 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.0.18/f93ce897789cb28518ebb7a8a6bc3946922bc8b6/brigadier-1.0.18-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.0.18/c1ef1234282716483c92183f49bef47b1a89bfa9/brigadier-1.0.18.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.1.8/d876490896dc5d91c01d8fbc8f14f9f1756a9f67/brigadier-1.1.8-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.1.8/5244ce82c3337bba4a196a3ce858bfaecc74404a/brigadier-1.1.8.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/6.0.6/f4b42d17e82deed99a5616f631ff5fd0863e65b1/datafixerupper-6.0.6-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/6.0.6/e38e20946530646e866db03b2b192883d0ea6e84/datafixerupper-6.0.6.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/6.0.8/fd70844ad56424d4d5004c415b47d97313dd723d/datafixerupper-6.0.8-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/6.0.8/3ba4a30557a9b057760af4011f909ba619fc5125/datafixerupper-6.0.8.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -282,7 +287,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.16.7/9b31a4efa417c674b2a25d5ab001e1909a3865bd/text2speech-1.16.7-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.16.7/ee4095669061d1fe4bce5fea23d69d1520bc2d58/text2speech-1.16.7.jar">
+	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.17.9/1898fbfd00a552b7f9a3cc0438623845a91e74ed/text2speech-1.17.9-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.17.9/3cad216e3a7f0c19b4b394388bc9ffc446f13b14/text2speech-1.17.9.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -597,12 +602,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/mcp_repo/net/minecraft/mapping/1.19.4/mapping-1.19.4-mapping.zip">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.9/3a731130cea80690b50d02303e3a0bd5c2a808fc/modlauncher-10.0.9-sources.jar" kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/modules-2/files-2.1/cpw.mods/modlauncher/10.0.9/6d9443f56f50bb85cea383686ff9c867391458b/modlauncher-10.0.9.jar">
+	<classpathentry kind="lib" path="C:/Users/legol/.mcreator/gradle/caches/forge_gradle/mcp_repo/net/minecraft/mapping/1.20.1/mapping-1.20.1-mapping.zip">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>

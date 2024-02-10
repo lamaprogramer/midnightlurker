@@ -25,7 +25,7 @@ public class DeathJumpTimerProcedure {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player.level, event.player);
+			execute(event, event.player.level(), event.player);
 		}
 	}
 

@@ -15,7 +15,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 public class MidnightLurkerRunawayLayer extends GeoRenderLayer<MidnightLurkerRunawayEntity> {
-	private static final ResourceLocation LAYER = new ResourceLocation("midnightlurker", "textures/entities/midnightlurkervoidgateemissive.png");
+	private static final ResourceLocation LAYER = new ResourceLocation("midnightlurker", "textures/entities/midnightlurkervoidgatenomouthglow.png");
 
 	public MidnightLurkerRunawayLayer(GeoRenderer<MidnightLurkerRunawayEntity> entityRenderer) {
 		super(entityRenderer);

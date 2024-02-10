@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.api.distmarker.Dist;
 
+import net.mcreator.midnightlurker.client.renderer.VoidHandsRenderer;
 import net.mcreator.midnightlurker.client.renderer.VoidGatewayRenderer;
 import net.mcreator.midnightlurker.client.renderer.SpookyambienceentityRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightlurkerNERenderer;
@@ -64,5 +65,6 @@ public class MidnightlurkerModEntityRenderers {
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHTLURKER_NE.get(), MidnightlurkerNERenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.VOID_HANDS.get(), VoidHandsRenderer::new);
 	}
 }

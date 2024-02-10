@@ -124,7 +124,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canUse() && StarewatchProcedure.execute(world, x, y, z, entity);
 			}
 
@@ -134,7 +134,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canContinueToUse() && StarewatchProcedure.execute(world, x, y, z, entity);
 			}
 
@@ -151,7 +151,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canUse() && StarerunProcedure.execute(entity);
 			}
 
@@ -161,12 +161,12 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canContinueToUse() && StarerunProcedure.execute(entity);
 			}
 
 		});
-		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 100));
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 150));
 		this.goalSelector.addGoal(6, new FloatGoal(this) {
 			@Override
 			public boolean canUse() {
@@ -174,7 +174,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -184,7 +184,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				Level world = MidnightLurkerStareEntity.this.level;
+				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -212,7 +212,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this);
+		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getEntity());
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -245,7 +245,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerEntityDiesProcedure.execute(this.level, this);
+		MidnightLurkerEntityDiesProcedure.execute(this.level(), this);
 	}
 
 	@Override
@@ -258,13 +258,13 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 	@Override
 	public void awardKillScore(Entity entity, int score, DamageSource damageSource) {
 		super.awardKillScore(entity, score, damageSource);
-		MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure.execute(this.level, entity);
+		MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure.execute(this.level(), entity);
 	}
 
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerStareOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerStareOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -316,7 +316,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

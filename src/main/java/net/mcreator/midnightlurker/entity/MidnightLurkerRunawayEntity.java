@@ -89,7 +89,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(SHOOT, false);
 		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurkervoidgate");
+		this.entityData.define(TEXTURE, "midnightlurkervoidgatenomouth");
 	}
 
 	public void setTexture(String texture) {
@@ -121,7 +121,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canUse() && NeutralrunrandomwalkProcedure.execute(world, x, y, z);
 			}
 
@@ -131,7 +131,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canContinueToUse() && NeutralrunrandomwalkProcedure.execute(world, x, y, z);
 			}
 
@@ -143,7 +143,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canUse() && NeutralrunrandomrunawayProcedure.execute(world, x, y, z);
 			}
 
@@ -153,7 +153,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canContinueToUse() && NeutralrunrandomrunawayProcedure.execute(world, x, y, z);
 			}
 		});
@@ -165,7 +165,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -175,7 +175,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerRunawayEntity.this.getY();
 				double z = MidnightLurkerRunawayEntity.this.getZ();
 				Entity entity = MidnightLurkerRunawayEntity.this;
-				Level world = MidnightLurkerRunawayEntity.this.level;
+				Level world = MidnightLurkerRunawayEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -240,7 +240,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerEntityDiesProcedure.execute(this.level, this);
+		MidnightLurkerEntityDiesProcedure.execute(this.level(), this);
 	}
 
 	@Override
@@ -253,7 +253,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerRunawayOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerRunawayOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -302,7 +302,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

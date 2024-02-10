@@ -131,7 +131,7 @@ public class MidnightLurkerInvisibleEntity extends Monster implements GeoEntity 
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerInvisibleEntityIsHurtProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerInvisibleEntityIsHurtProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -166,7 +166,7 @@ public class MidnightLurkerInvisibleEntity extends Monster implements GeoEntity 
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerEntityDiesProcedure.execute(this.level, this);
+		MidnightLurkerEntityDiesProcedure.execute(this.level(), this);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class MidnightLurkerInvisibleEntity extends Monster implements GeoEntity 
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerInvisibleOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerInvisibleOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -221,7 +221,7 @@ public class MidnightLurkerInvisibleEntity extends Monster implements GeoEntity 
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

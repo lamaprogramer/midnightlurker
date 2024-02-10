@@ -318,5 +318,65 @@
         "stream": false
       }
     ]
+  },
+  "nostepsound": {
+    "sounds": [
+      {
+        "name": "midnightlurker:empty_step1",
+        "stream": false
+      }
+    ]
+  },
+  "voidhands_aggro": {
+    "sounds": [
+      {
+        "name": "midnightlurker:voidhands_aggro1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:voidhands_aggro2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:voidhands_aggro3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:voidhands_aggro4",
+        "stream": false
+      }
+    ]
+  },
+  "voidhands_death": {
+    "sounds": [
+      {
+        "name": "midnightlurker:voidhands_death1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:voidhands_death2",
+        "stream": false
+      }
+    ]
+  },
+  "voidhands_hurt": {
+    "sounds": [
+      {
+        "name": "midnightlurker:voidhands_hurt1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:voidhands_hurt2",
+        "stream": false
+      }
+    ]
+  },
+  "voidhands_shriek": {
+    "sounds": [
+      {
+        "name": "midnightlurker:voidhands_shriek",
+        "stream": false
+      }
+    ]
   }
 }

@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
 
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
@@ -32,16 +33,16 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingAttackEvent event) {
 		if (event != null && event.getEntity() != null) {
-			execute(event, event.getEntity());
+			execute(event, event.getEntity(), event.getSource().getEntity());
 		}
 	}
 
-	public static void execute(Entity entity) {
-		execute(null, entity);
+	public static void execute(Entity entity, Entity sourceentity) {
+		execute(null, entity, sourceentity);
 	}
 
-	private static void execute(@Nullable Event event, Entity entity) {
-		if (entity == null)
+	private static void execute(@Nullable Event event, Entity entity, Entity sourceentity) {
+		if (entity == null || sourceentity == null)
 			return;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
@@ -57,9 +58,9 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean() == true) {
-					if (entity instanceof MidnightLurkerAggressiveEntity || entity instanceof MidnightLurkerBackturnedEntity || entity instanceof MidnightLurkerHiderEntity || entity instanceof MidnightLurkerRuntrueEntity
+					if ((entity instanceof MidnightLurkerAggressiveEntity || entity instanceof MidnightLurkerBackturnedEntity || entity instanceof MidnightLurkerHiderEntity || entity instanceof MidnightLurkerRuntrueEntity
 							|| entity instanceof MidnightLurkerSeenAngressiveEntity || entity instanceof MidnightLurkerStalkingEntity || entity instanceof MidnightLurkerStareEntity || entity instanceof MidnightLurkerUnprovokedEntity
-							|| entity instanceof MidnightlurkerNEEntity) {
+							|| entity instanceof MidnightlurkerNEEntity) && sourceentity instanceof Player) {
 						if (event != null && event.isCancelable()) {
 							event.setCanceled(true);
 						}

@@ -10,12 +10,16 @@ import net.minecraftforge.registries.DeferredRegister;
 
 import net.minecraft.world.effect.MobEffect;
 
+import net.mcreator.midnightlurker.potion.LurkerAngeredMobEffect;
 import net.mcreator.midnightlurker.potion.InsanityMobEffect;
 import net.mcreator.midnightlurker.potion.InsanityFacesMobEffect;
+import net.mcreator.midnightlurker.potion.AmnesiaMobEffect;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 
 public class MidnightlurkerModMobEffects {
 	public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MidnightlurkerMod.MODID);
 	public static final RegistryObject<MobEffect> INSANITY = REGISTRY.register("insanity", () -> new InsanityMobEffect());
 	public static final RegistryObject<MobEffect> INSANITY_FACES = REGISTRY.register("insanity_faces", () -> new InsanityFacesMobEffect());
+	public static final RegistryObject<MobEffect> LURKER_ANGERED = REGISTRY.register("lurker_angered", () -> new LurkerAngeredMobEffect());
+	public static final RegistryObject<MobEffect> AMNESIA = REGISTRY.register("amnesia", () -> new AmnesiaMobEffect());
 }

@@ -4,8 +4,8 @@
   "definition": {
     "mobName": "Midnight Lurker",
     "mobLabel": "",
-    "mobModelTexture": "midnightlurkervoidgate.png",
-    "mobModelGlowTexture": "midnightlurkervoidgateemissive.png",
+    "mobModelTexture": "midnightlurkervoidgatenomouth.png",
+    "mobModelGlowTexture": "midnightlurkervoidgatenomouthglow.png",
     "visualScale": {
       "fixedValue": 0.95
     },
@@ -103,7 +103,7 @@
       "name": "MidnightLurkerEntityIsHurt"
     },
     "onMobTickUpdate": {
-      "name": "MidnightLurkerOnEntityTickUpdate"
+      "name": "MidnightLurkerWatcherOnEntityTickUpdate"
     },
     "onInitialSpawn": {
       "name": "MidnightLurkerOnInitialEntitySpawn"

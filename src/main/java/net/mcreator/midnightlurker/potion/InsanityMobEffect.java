@@ -3,9 +3,12 @@ package net.mcreator.midnightlurker.potion;
 
 import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
+
+import net.mcreator.midnightlurker.procedures.InsanitysoundsProcedure;
 
 public class InsanityMobEffect extends MobEffect {
 	public InsanityMobEffect() {
@@ -15,6 +18,11 @@ public class InsanityMobEffect extends MobEffect {
 	@Override
 	public String getDescriptionId() {
 		return "effect.midnightlurker.insanity";
+	}
+
+	@Override
+	public void applyEffectTick(LivingEntity entity, int amplifier) {
+		InsanitysoundsProcedure.execute(entity.level(), entity);
 	}
 
 	@Override

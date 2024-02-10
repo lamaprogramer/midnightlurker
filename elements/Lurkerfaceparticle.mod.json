@@ -10,12 +10,12 @@
     "scale": 1.95,
     "speedFactor": 0.0,
     "gravity": 0.02,
-    "maxAge": 60,
+    "maxAge": 40,
     "maxAgeDiff": 0,
     "angularVelocity": 0.0,
     "angularAcceleration": 0.0,
     "canCollide": false,
     "alwaysShow": true,
-    "renderType": "TRANSLUCENT"
+    "renderType": "LIT"
   }
 }

@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
+import net.mcreator.midnightlurker.entity.VoidHandsEntity;
 import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
@@ -172,6 +173,13 @@ public class EntityAnimationFactory {
 				}
 			}
 			if (event.getEntity() instanceof MidnightLurkerWatcherEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof VoidHandsEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");

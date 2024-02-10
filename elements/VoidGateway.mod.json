@@ -12,8 +12,8 @@
     "boundingBoxScale": {
       "fixedValue": 1.0
     },
-    "modelWidth": 0.7,
-    "modelHeight": 3.0,
+    "modelWidth": 0.6,
+    "modelHeight": 1.4,
     "modelShadowSize": 0.0,
     "mountedYOffset": 0.0,
     "hasSpawnEgg": true,
@@ -105,9 +105,9 @@
     "onMobTickUpdate": {
       "name": "VoidGatewayOnEntityTickUpdate"
     },
-    "hasAI": true,
+    "hasAI": false,
     "aiBase": "(none)",
-    "aixml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"aitasks_container\" deletable=\"false\" x=\"40\" y=\"40\"><next><block type=\"swim_in_water\"><field name=\"condition\">null,null</field></block></next></block></xml>",
+    "aixml": "<xml xmlns=\"https://developers.google.com/blockly/xml\"><block type=\"aitasks_container\" deletable=\"false\" x=\"40\" y=\"40\"><next><block type=\"swim_in_water\"><field name=\"condition\">VoidFloatProc,VoidFloatProc</field></block></next></block></xml>",
     "model": "voidgateway.geo.json",
     "groupName": "",
     "animation1": "gatewaydarkness",
@@ -149,7 +149,7 @@
       "name": "MidnightLurkerNaturalEntitySpawningCondition"
     },
     "spawningProbability": 6,
-    "mobSpawningType": "creature",
+    "mobSpawningType": "ambient",
     "minNumberOfMobsPerGroup": 1,
     "maxNumberOfMobsPerGroup": 1,
     "restrictionBiomes": [],

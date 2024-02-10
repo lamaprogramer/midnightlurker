@@ -16,6 +16,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Entity;
 
+import net.mcreator.midnightlurker.entity.VoidHandsEntity;
 import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
@@ -78,8 +79,8 @@ public class MidnightlurkerModEntities {
 	public static final RegistryObject<EntityType<MidnightLurkerFakerWatcherEntity>> MIDNIGHT_LURKER_FAKER_WATCHER = register("midnight_lurker_faker_watcher",
 			EntityType.Builder.<MidnightLurkerFakerWatcherEntity>of(MidnightLurkerFakerWatcherEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
 					.setCustomClientFactory(MidnightLurkerFakerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<VoidGatewayEntity>> VOID_GATEWAY = register("void_gateway", EntityType.Builder.<VoidGatewayEntity>of(VoidGatewayEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(VoidGatewayEntity::new).fireImmune().sized(0.7f, 3f));
+	public static final RegistryObject<EntityType<VoidGatewayEntity>> VOID_GATEWAY = register("void_gateway", EntityType.Builder.<VoidGatewayEntity>of(VoidGatewayEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true)
+			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(VoidGatewayEntity::new).fireImmune().sized(0.6f, 1.4f));
 	public static final RegistryObject<EntityType<MidnightLurkerBackturnedEntity>> MIDNIGHT_LURKER_BACKTURNED = register("midnight_lurker_backturned",
 			EntityType.Builder.<MidnightLurkerBackturnedEntity>of(MidnightLurkerBackturnedEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
 					.setCustomClientFactory(MidnightLurkerBackturnedEntity::new).fireImmune().sized(0.7f, 2.5f));
@@ -98,7 +99,7 @@ public class MidnightlurkerModEntities {
 	public static final RegistryObject<EntityType<MidnightLurkerHiderEntity>> MIDNIGHT_LURKER_HIDER = register("midnight_lurker_hider", EntityType.Builder.<MidnightLurkerHiderEntity>of(MidnightLurkerHiderEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerHiderEntity::new).fireImmune().sized(0.7f, 2.5f));
 	public static final RegistryObject<EntityType<MidnightLurkerShapeshifterEntity>> MIDNIGHT_LURKER_SHAPESHIFTER = register("midnight_lurker_shapeshifter",
-			EntityType.Builder.<MidnightLurkerShapeshifterEntity>of(MidnightLurkerShapeshifterEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+			EntityType.Builder.<MidnightLurkerShapeshifterEntity>of(MidnightLurkerShapeshifterEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
 					.setCustomClientFactory(MidnightLurkerShapeshifterEntity::new).fireImmune().sized(0.6f, 1.95f));
 	public static final RegistryObject<EntityType<MidnightLurkerStareEntity>> MIDNIGHT_LURKER_STARE = register("midnight_lurker_stare", EntityType.Builder.<MidnightLurkerStareEntity>of(MidnightLurkerStareEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerStareEntity::new).fireImmune().sized(0.7f, 2.5f));
@@ -106,6 +107,8 @@ public class MidnightlurkerModEntities {
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightlurkerNEEntity::new).fireImmune().sized(0.7f, 2.5f));
 	public static final RegistryObject<EntityType<MidnightLurkerWatcherEntity>> MIDNIGHT_LURKER_WATCHER = register("midnight_lurker_watcher", EntityType.Builder.<MidnightLurkerWatcherEntity>of(MidnightLurkerWatcherEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<VoidHandsEntity>> VOID_HANDS = register("void_hands", EntityType.Builder.<VoidHandsEntity>of(VoidHandsEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
+			.setUpdateInterval(3).setCustomClientFactory(VoidHandsEntity::new).fireImmune().sized(0.6f, 1.4f));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
@@ -139,6 +142,7 @@ public class MidnightlurkerModEntities {
 			MidnightLurkerStareEntity.init();
 			MidnightlurkerNEEntity.init();
 			MidnightLurkerWatcherEntity.init();
+			VoidHandsEntity.init();
 		});
 	}
 
@@ -169,5 +173,6 @@ public class MidnightlurkerModEntities {
 		event.put(MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareEntity.createAttributes().build());
 		event.put(MIDNIGHTLURKER_NE.get(), MidnightlurkerNEEntity.createAttributes().build());
 		event.put(MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherEntity.createAttributes().build());
+		event.put(VOID_HANDS.get(), VoidHandsEntity.createAttributes().build());
 	}
 }

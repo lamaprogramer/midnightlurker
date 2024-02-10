@@ -12,7 +12,9 @@ import java.io.File;
 public class InsanityFacesEffectStartedappliedProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z) {
 		File lurker = new File("");
-		world.addParticle((SimpleParticleType) (MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get()), (x + Mth.nextDouble(RandomSource.create(), -6, 6)), (y + Mth.nextDouble(RandomSource.create(), 0, 6)),
-				(z + Mth.nextDouble(RandomSource.create(), -6, 6)), 0, 0, 0);
+		if (Math.random() > 0.7) {
+			world.addParticle((SimpleParticleType) (MidnightlurkerModParticleTypes.LURKERFACEPARTICLE.get()), (x + Mth.nextDouble(RandomSource.create(), -6, 6)), (y + Mth.nextDouble(RandomSource.create(), 0, 6)),
+					(z + Mth.nextDouble(RandomSource.create(), -6, 6)), 0, 0, 0);
+		}
 	}
 }

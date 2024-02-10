@@ -37,7 +37,7 @@ public class LurkerfaceparticleParticle extends TextureSheetParticle {
 		this.spriteSet = spriteSet;
 		this.setSize(0.2f, 0.2f);
 		this.quadSize *= 1.95f;
-		this.lifetime = 60;
+		this.lifetime = 40;
 		this.gravity = 0.02f;
 		this.hasPhysics = false;
 		this.xd = vx * 0;
@@ -47,15 +47,20 @@ public class LurkerfaceparticleParticle extends TextureSheetParticle {
 	}
 
 	@Override
+	public int getLightColor(float partialTick) {
+		return 15728880;
+	}
+
+	@Override
 	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+		return ParticleRenderType.PARTICLE_SHEET_LIT;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
 		if (!this.removed) {
-			this.setSprite(this.spriteSet.get((this.age / 3) % 21 + 1, 21));
+			this.setSprite(this.spriteSet.get((this.age / 3) % 13 + 1, 13));
 		}
 	}
 }

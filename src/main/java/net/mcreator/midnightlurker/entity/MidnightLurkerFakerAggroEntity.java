@@ -125,7 +125,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 
@@ -135,7 +135,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canContinueToUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 		});
@@ -146,7 +146,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 
@@ -156,7 +156,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canContinueToUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 		});
@@ -167,7 +167,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -177,7 +177,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				Level world = MidnightLurkerFakerAggroEntity.this.level;
+				Level world = MidnightLurkerFakerAggroEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -247,7 +247,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerFakerAggroOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerFakerAggroOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -296,7 +296,7 @@ public class MidnightLurkerFakerAggroEntity extends Monster implements GeoEntity
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

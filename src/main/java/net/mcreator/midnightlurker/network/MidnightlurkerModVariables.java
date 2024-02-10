@@ -51,19 +51,19 @@ public class MidnightlurkerModVariables {
 	public static class EventBusVariableHandlers {
 		@SubscribeEvent
 		public static void onPlayerLoggedInSyncPlayerVariables(PlayerEvent.PlayerLoggedInEvent event) {
-			if (!event.getEntity().level.isClientSide())
+			if (!event.getEntity().level().isClientSide())
 				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
 		}
 
 		@SubscribeEvent
 		public static void onPlayerRespawnedSyncPlayerVariables(PlayerEvent.PlayerRespawnEvent event) {
-			if (!event.getEntity().level.isClientSide())
+			if (!event.getEntity().level().isClientSide())
 				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
 		}
 
 		@SubscribeEvent
 		public static void onPlayerChangedDimensionSyncPlayerVariables(PlayerEvent.PlayerChangedDimensionEvent event) {
-			if (!event.getEntity().level.isClientSide())
+			if (!event.getEntity().level().isClientSide())
 				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
 		}
 
@@ -76,7 +76,6 @@ public class MidnightlurkerModVariables {
 			clone.DeathJumpTimer = original.DeathJumpTimer;
 			clone.DeathJumpShake = original.DeathJumpShake;
 			clone.ScreenShake = original.ScreenShake;
-			clone.CloseSpawnTimer = original.CloseSpawnTimer;
 			clone.InsanityStage = original.InsanityStage;
 			clone.InsanityTimer = original.InsanityTimer;
 			clone.InsanityAktive = original.InsanityAktive;
@@ -90,9 +89,9 @@ public class MidnightlurkerModVariables {
 
 		@SubscribeEvent
 		public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-			if (!event.getEntity().level.isClientSide()) {
-				SavedData mapdata = MapVariables.get(event.getEntity().level);
-				SavedData worlddata = WorldVariables.get(event.getEntity().level);
+			if (!event.getEntity().level().isClientSide()) {
+				SavedData mapdata = MapVariables.get(event.getEntity().level());
+				SavedData worlddata = WorldVariables.get(event.getEntity().level());
 				if (mapdata != null)
 					MidnightlurkerMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new SavedDataSyncMessage(0, mapdata));
 				if (worlddata != null)
@@ -102,8 +101,8 @@ public class MidnightlurkerModVariables {
 
 		@SubscribeEvent
 		public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-			if (!event.getEntity().level.isClientSide()) {
-				SavedData worlddata = WorldVariables.get(event.getEntity().level);
+			if (!event.getEntity().level().isClientSide()) {
+				SavedData worlddata = WorldVariables.get(event.getEntity().level());
 				if (worlddata != null)
 					MidnightlurkerMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new SavedDataSyncMessage(1, worlddata));
 			}
@@ -112,7 +111,6 @@ public class MidnightlurkerModVariables {
 
 	public static class WorldVariables extends SavedData {
 		public static final String DATA_NAME = "midnightlurker_worldvars";
-		public double midnightlurkeroverhauledtimer = 0.0;
 		public double midnightlurkeroverhauledrewardrandom = 0;
 		public double midnightlurkeroverhauledinsanitytimer = 0.0;
 		public double midnightlurkeroverhauledinstage = 0;
@@ -129,7 +127,6 @@ public class MidnightlurkerModVariables {
 		}
 
 		public void read(CompoundTag nbt) {
-			midnightlurkeroverhauledtimer = nbt.getDouble("midnightlurkeroverhauledtimer");
 			midnightlurkeroverhauledrewardrandom = nbt.getDouble("midnightlurkeroverhauledrewardrandom");
 			midnightlurkeroverhauledinsanitytimer = nbt.getDouble("midnightlurkeroverhauledinsanitytimer");
 			midnightlurkeroverhauledinstage = nbt.getDouble("midnightlurkeroverhauledinstage");
@@ -142,7 +139,6 @@ public class MidnightlurkerModVariables {
 
 		@Override
 		public CompoundTag save(CompoundTag nbt) {
-			nbt.putDouble("midnightlurkeroverhauledtimer", midnightlurkeroverhauledtimer);
 			nbt.putDouble("midnightlurkeroverhauledrewardrandom", midnightlurkeroverhauledrewardrandom);
 			nbt.putDouble("midnightlurkeroverhauledinsanitytimer", midnightlurkeroverhauledinsanitytimer);
 			nbt.putDouble("midnightlurkeroverhauledinstage", midnightlurkeroverhauledinstage);
@@ -277,7 +273,6 @@ public class MidnightlurkerModVariables {
 		public double DeathJumpTimer = 0;
 		public double DeathJumpShake = 0;
 		public double ScreenShake = 0;
-		public double CloseSpawnTimer = 0;
 		public double InsanityStage = 0;
 		public double InsanityTimer = 0;
 		public double InsanityAktive = 0;
@@ -297,7 +292,6 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("DeathJumpTimer", DeathJumpTimer);
 			nbt.putDouble("DeathJumpShake", DeathJumpShake);
 			nbt.putDouble("ScreenShake", ScreenShake);
-			nbt.putDouble("CloseSpawnTimer", CloseSpawnTimer);
 			nbt.putDouble("InsanityStage", InsanityStage);
 			nbt.putDouble("InsanityTimer", InsanityTimer);
 			nbt.putDouble("InsanityAktive", InsanityAktive);
@@ -314,7 +308,6 @@ public class MidnightlurkerModVariables {
 			DeathJumpTimer = nbt.getDouble("DeathJumpTimer");
 			DeathJumpShake = nbt.getDouble("DeathJumpShake");
 			ScreenShake = nbt.getDouble("ScreenShake");
-			CloseSpawnTimer = nbt.getDouble("CloseSpawnTimer");
 			InsanityStage = nbt.getDouble("InsanityStage");
 			InsanityTimer = nbt.getDouble("InsanityTimer");
 			InsanityAktive = nbt.getDouble("InsanityAktive");
@@ -350,7 +343,6 @@ public class MidnightlurkerModVariables {
 					variables.DeathJumpTimer = message.data.DeathJumpTimer;
 					variables.DeathJumpShake = message.data.DeathJumpShake;
 					variables.ScreenShake = message.data.ScreenShake;
-					variables.CloseSpawnTimer = message.data.CloseSpawnTimer;
 					variables.InsanityStage = message.data.InsanityStage;
 					variables.InsanityTimer = message.data.InsanityTimer;
 					variables.InsanityAktive = message.data.InsanityAktive;

@@ -15,7 +15,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 public class MidnightLurkerAggressiveLayer extends GeoRenderLayer<MidnightLurkerAggressiveEntity> {
-	private static final ResourceLocation LAYER = new ResourceLocation("midnightlurker", "textures/entities/midnightlurkervoidgateemissive.png");
+	private static final ResourceLocation LAYER = new ResourceLocation("midnightlurker", "textures/entities/midnightlurkervoidgateangryglow.png");
 
 	public MidnightLurkerAggressiveLayer(GeoRenderer<MidnightLurkerAggressiveEntity> entityRenderer) {
 		super(entityRenderer);

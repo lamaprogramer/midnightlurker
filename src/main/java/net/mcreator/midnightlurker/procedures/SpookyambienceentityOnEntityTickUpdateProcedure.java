@@ -14,7 +14,7 @@ public class SpookyambienceentityOnEntityTickUpdateProcedure {
 		File lurker = new File("");
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		MidnightlurkerMod.queueServerWork(2, () -> {
-			if (!entity.level.isClientSide())
+			if (!entity.level().isClientSide())
 				entity.discard();
 		});
 	}

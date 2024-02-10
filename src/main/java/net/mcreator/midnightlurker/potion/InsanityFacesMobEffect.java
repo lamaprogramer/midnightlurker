@@ -8,10 +8,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.GuiGraphics;
 
 import net.mcreator.midnightlurker.procedures.InsanityFacesEffectStartedappliedProcedure;
-
-import com.mojang.blaze3d.vertex.PoseStack;
 
 public class InsanityFacesMobEffect extends MobEffect {
 	public InsanityFacesMobEffect() {
@@ -25,7 +24,7 @@ public class InsanityFacesMobEffect extends MobEffect {
 
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
-		InsanityFacesEffectStartedappliedProcedure.execute(entity.level, entity.getX(), entity.getY(), entity.getZ());
+		InsanityFacesEffectStartedappliedProcedure.execute(entity.level(), entity.getX(), entity.getY(), entity.getZ());
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class InsanityFacesMobEffect extends MobEffect {
 			}
 
 			@Override
-			public boolean renderInventoryText(MobEffectInstance instance, EffectRenderingInventoryScreen<?> screen, PoseStack poseStack, int x, int y, int blitOffset) {
+			public boolean renderInventoryText(MobEffectInstance instance, EffectRenderingInventoryScreen<?> screen, GuiGraphics guiGraphics, int x, int y, int blitOffset) {
 				return false;
 			}
 

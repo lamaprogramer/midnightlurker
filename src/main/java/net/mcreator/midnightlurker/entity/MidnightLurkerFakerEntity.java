@@ -122,7 +122,7 @@ public class MidnightLurkerFakerEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerFakerEntity.this.getY();
 				double z = MidnightLurkerFakerEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerEntity.this;
-				Level world = MidnightLurkerFakerEntity.this.level;
+				Level world = MidnightLurkerFakerEntity.this.level();
 				return super.canUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
@@ -132,7 +132,7 @@ public class MidnightLurkerFakerEntity extends Monster implements GeoEntity {
 				double y = MidnightLurkerFakerEntity.this.getY();
 				double z = MidnightLurkerFakerEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerEntity.this;
-				Level world = MidnightLurkerFakerEntity.this.level;
+				Level world = MidnightLurkerFakerEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -202,7 +202,7 @@ public class MidnightLurkerFakerEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerFakerOnEntityTickUpdateProcedure.execute(this.level, this.getX(), this.getY(), this.getZ(), this);
+		MidnightLurkerFakerOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 
@@ -254,7 +254,7 @@ public class MidnightLurkerFakerEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();

@@ -170,7 +170,7 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		SpookyambienceentityOnEntityTickUpdateProcedure.execute(this.level, this);
+		SpookyambienceentityOnEntityTickUpdateProcedure.execute(this.level(), this);
 		this.refreshDimensions();
 	}
 
@@ -207,7 +207,7 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level;
+		Level world = entity.level();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
