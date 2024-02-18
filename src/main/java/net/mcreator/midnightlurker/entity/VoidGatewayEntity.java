@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -41,6 +42,7 @@ import net.minecraft.network.protocol.Packet;
 
 import net.mcreator.midnightlurker.procedures.VoidGatewayOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.VoidGatewayEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
@@ -61,7 +63,7 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, Level world) {
 		super(type, world);
 		xpReward = 0;
-		setNoAi(true);
+		setNoAi(false);
 	}
 
 	@Override
@@ -83,6 +85,32 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.addGoal(1, new FloatGoal(this) {
+			@Override
+			public boolean canUse() {
+				double x = VoidGatewayEntity.this.getX();
+				double y = VoidGatewayEntity.this.getY();
+				double z = VoidGatewayEntity.this.getZ();
+				Entity entity = VoidGatewayEntity.this;
+				Level world = VoidGatewayEntity.this.level();
+				return super.canUse() && VoidFloatProcProcedure.execute();
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = VoidGatewayEntity.this.getX();
+				double y = VoidGatewayEntity.this.getY();
+				double z = VoidGatewayEntity.this.getZ();
+				Entity entity = VoidGatewayEntity.this;
+				Level world = VoidGatewayEntity.this.level();
+				return super.canContinueToUse() && VoidFloatProcProcedure.execute();
+			}
+		});
 	}
 
 	@Override

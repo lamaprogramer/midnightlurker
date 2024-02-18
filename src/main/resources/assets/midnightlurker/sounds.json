@@ -378,5 +378,13 @@
         "stream": false
       }
     ]
+  },
+  "static": {
+    "sounds": [
+      {
+        "name": "midnightlurker:tvstatic1",
+        "stream": true
+      }
+    ]
   }
 }

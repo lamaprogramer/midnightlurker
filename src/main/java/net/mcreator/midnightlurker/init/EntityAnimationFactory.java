@@ -26,6 +26,11 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
+import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
+import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
+import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
 
 @Mod.EventBusSubscriber
 public class EntityAnimationFactory {
@@ -180,6 +185,41 @@ public class EntityAnimationFactory {
 				}
 			}
 			if (event.getEntity() instanceof VoidHandsEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleFootstepsEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleShadowEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleStaticEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleLurkerFootstepsEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleCaveSoundsEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");

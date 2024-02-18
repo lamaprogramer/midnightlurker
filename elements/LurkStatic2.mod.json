@@ -1,0 +1,30 @@
+{
+  "_fv": 47,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "lurkeyes.png",
+          "use1Xscale": true,
+          "x": 74,
+          "y": 62
+        }
+      }
+    ],
+    "baseTexture": "static2.png",
+    "overlayTarget": "Ingame",
+    "displayCondition": {
+      "name": "LurkStatic2DisplayOverlayIngame"
+    },
+    "gridSettings": {
+      "sx": 17,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": true
+    }
+  }
+}

@@ -41,4 +41,5 @@ public class MidnightlurkerModSounds {
 	public static final RegistryObject<SoundEvent> VOIDHANDS_DEATH = REGISTRY.register("voidhands_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_death")));
 	public static final RegistryObject<SoundEvent> VOIDHANDS_HURT = REGISTRY.register("voidhands_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_hurt")));
 	public static final RegistryObject<SoundEvent> VOIDHANDS_SHRIEK = REGISTRY.register("voidhands_shriek", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_shriek")));
+	public static final RegistryObject<SoundEvent> STATIC = REGISTRY.register("static", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "static")));
 }

@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": {
+    "type": "forge:any"
+  },
+  "spawners": {
+    "type": "midnightlurker:invisible_cave_sounds",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

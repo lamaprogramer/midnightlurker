@@ -83,6 +83,7 @@ public class MidnightlurkerModVariables {
 			clone.JumpscareActive = original.JumpscareActive;
 			clone.JumpscareTimer = original.JumpscareTimer;
 			clone.JumpscareRandom = original.JumpscareRandom;
+			clone.StaticRender = original.StaticRender;
 			if (!event.isWasDeath()) {
 			}
 		}
@@ -280,6 +281,7 @@ public class MidnightlurkerModVariables {
 		public double JumpscareActive = 0;
 		public double JumpscareTimer = 0;
 		public double JumpscareRandom = 0;
+		public double StaticRender = 0;
 
 		public void syncPlayerVariables(Entity entity) {
 			if (entity instanceof ServerPlayer serverPlayer)
@@ -299,6 +301,7 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("JumpscareActive", JumpscareActive);
 			nbt.putDouble("JumpscareTimer", JumpscareTimer);
 			nbt.putDouble("JumpscareRandom", JumpscareRandom);
+			nbt.putDouble("StaticRender", StaticRender);
 			return nbt;
 		}
 
@@ -315,6 +318,7 @@ public class MidnightlurkerModVariables {
 			JumpscareActive = nbt.getDouble("JumpscareActive");
 			JumpscareTimer = nbt.getDouble("JumpscareTimer");
 			JumpscareRandom = nbt.getDouble("JumpscareRandom");
+			StaticRender = nbt.getDouble("StaticRender");
 		}
 	}
 
@@ -350,6 +354,7 @@ public class MidnightlurkerModVariables {
 					variables.JumpscareActive = message.data.JumpscareActive;
 					variables.JumpscareTimer = message.data.JumpscareTimer;
 					variables.JumpscareRandom = message.data.JumpscareRandom;
+					variables.StaticRender = message.data.StaticRender;
 				}
 			});
 			context.setPacketHandled(true);

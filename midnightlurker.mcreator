@@ -5968,6 +5968,481 @@
         ],
         "dependencies": []
       }
+    },
+    {
+      "name": "InvisibleFootsteps",
+      "type": "animatedentity",
+      "sortid": 371,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_footsteps",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/entity/InvisibleFootstepsEntity.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/InvisibleFootstepsModel.java",
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/InvisibleFootstepsRenderer.java",
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/invisible_footsteps_biome_modifier.json"
+        ]
+      }
+    },
+    {
+      "name": "InvisibleFootstepsNaturalEntitySpawningCondition",
+      "type": "procedure",
+      "sortid": 370,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_footsteps_natural_entity_spawning_condition",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleFootstepsNaturalEntitySpawningConditionProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FootstepsWalkToPlayer",
+      "type": "procedure",
+      "sortid": 372,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "footsteps_walk_to_player",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/FootstepsWalkToPlayerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InvisibleFootstepsPlayerCollidesWithThisEntity",
+      "type": "procedure",
+      "sortid": 373,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_footsteps_player_collides_with_this_entity",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleFootstepsPlayerCollidesWithThisEntityProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InvisibleShadow",
+      "type": "animatedentity",
+      "sortid": 374,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_shadow",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/invisible_shadow_biome_modifier.json",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/InvisibleShadowModel.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/InvisibleShadowEntity.java",
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/InvisibleShadowRenderer.java"
+        ]
+      }
+    },
+    {
+      "name": "InvisibleShadowOnEntityTickUpdate",
+      "type": "procedure",
+      "sortid": 375,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_shadow_on_entity_tick_update",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleShadowOnEntityTickUpdateProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StaticEffect",
+      "type": "potioneffect",
+      "sortid": 376,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "static_effect",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/potion/StaticEffectMobEffect.java"
+        ]
+      }
+    },
+    {
+      "name": "LurkStatic1",
+      "type": "overlay",
+      "sortid": 377,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lurk_static_1",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/client/screens/LurkStatic1Overlay.java"
+        ]
+      }
+    },
+    {
+      "name": "LurkStatic2",
+      "type": "overlay",
+      "sortid": 378,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lurk_static_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/client/screens/LurkStatic2Overlay.java"
+        ]
+      }
+    },
+    {
+      "name": "StaticEffectOnEffectActiveTick",
+      "type": "procedure",
+      "sortid": 379,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "static_effect_on_effect_active_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/StaticEffectOnEffectActiveTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LurkStatic1DisplayOverlayIngame",
+      "type": "procedure",
+      "sortid": 380,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lurk_static_1_display_overlay_ingame",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/LurkStatic1DisplayOverlayIngameProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LurkStatic2DisplayOverlayIngame",
+      "type": "procedure",
+      "sortid": 381,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lurk_static_2_display_overlay_ingame",
+      "metadata": {
+        "return_type": "logic",
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/LurkStatic2DisplayOverlayIngameProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StaticEffectEffectExpires",
+      "type": "procedure",
+      "sortid": 382,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "static_effect_effect_expires",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/StaticEffectEffectExpiresProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InvisibleStatic",
+      "type": "animatedentity",
+      "sortid": 384,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_static",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/invisible_static_biome_modifier.json",
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/InvisibleStaticRenderer.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/InvisibleStaticModel.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/InvisibleStaticEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "InvisibleStaticPlayerCollidesWithThisEntity",
+      "type": "procedure",
+      "sortid": 383,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_static_player_collides_with_this_entity",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleStaticPlayerCollidesWithThisEntityProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InvisibleLurkerFootsteps",
+      "type": "animatedentity",
+      "sortid": 386,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_lurker_footsteps",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/InvisibleLurkerFootstepsRenderer.java",
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/invisible_lurker_footsteps_biome_modifier.json",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/InvisibleLurkerFootstepsModel.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/InvisibleLurkerFootstepsEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "InvisibleLurkerFootstepsPlayerCollidesWithThisEntity",
+      "type": "procedure",
+      "sortid": 385,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_lurker_footsteps_player_collides_with_this_entity",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleLurkerFootstepsPlayerCollidesWithThisEntityProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InvisibleCaveSounds",
+      "type": "animatedentity",
+      "sortid": 387,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_cave_sounds",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/midnightlurker/forge/biome_modifier/invisible_cave_sounds_biome_modifier.json",
+          "src/main/java/net/mcreator/midnightlurker/entity/model/InvisibleCaveSoundsModel.java",
+          "src/main/java/net/mcreator/midnightlurker/entity/InvisibleCaveSoundsEntity.java",
+          "src/main/java/net/mcreator/midnightlurker/client/renderer/InvisibleCaveSoundsRenderer.java"
+        ]
+      }
+    },
+    {
+      "name": "InvisibleCaveSoundsOnEntityTickUpdate",
+      "type": "procedure",
+      "sortid": 388,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "invisible_cave_sounds_on_entity_tick_update",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/InvisibleCaveSoundsOnEntityTickUpdateProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Triestosleepwhilemonstersnear",
+      "type": "procedure",
+      "sortid": 389,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "triestosleepwhilemonstersnear",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/midnightlurker/procedures/TriestosleepwhilemonstersnearProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "blockstate",
+            "type": "blockstate"
+          },
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -6081,6 +6556,12 @@
     },
     {
       "name": "JumpscareRandom",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "StaticRender",
       "type": "number",
       "scope": "player_persistent",
       "value": "0"
@@ -6337,6 +6818,14 @@
       ],
       "category": "hostile",
       "subtitle": ""
+    },
+    {
+      "name": "static",
+      "files": [
+        "tvstatic1"
+      ],
+      "category": "record",
+      "subtitle": ""
     }
   ],
   "language_map": {
@@ -6359,11 +6848,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Midnight Lurker",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Midnight Lurker",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Midnight Lurker",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Ógildar hendur",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Midnight Lurker",
       "effect.midnightlurker.amnesia": "Minnisleysi",
@@ -6371,6 +6862,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Midnight Lurker Shapeshifter Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Midnight Lurker Spawn Egg",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -6395,23 +6887,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Midnight Lurker",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Midnight Lurker",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Midnight Lurker",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Midnight Lurker",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Midnight Lurker",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Midnight Lurker",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Midnight Lurker Spawn Egg",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -6429,11 +6926,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Midnight Lurker Spawn Egg",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Midnight Lurker Spawn Egg",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Midnight Lurker",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Midnight Lurker Spawn Egg",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -6487,11 +6988,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Lurker di mezzanotte",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Lurker di mezzanotte",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Lurker di mezzanotte",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Mani Vuote",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Lurker di mezzanotte",
       "effect.midnightlurker.amnesia": "Amnesia",
@@ -6499,6 +7002,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -6523,23 +7027,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Lurker di mezzanotte",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Lurker di mezzanotte",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Lurker di mezzanotte",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Lurker di mezzanotte",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Lurker di mezzanotte",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Lurker di mezzanotte",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -6557,11 +7066,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Lurker di mezzanotte",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Uovo di generazione del Lurker di mezzanotte",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -6597,7 +7110,7 @@
       "entity.midnightlurkeroverhauled.midnight_lurker_seen_angressive": "Lurker di mezzanotte"
     },
     "ru_ru": {
-      "item.midnightlurkeroverhauled.destroytex_4_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurkeroverhauled.destroytex_4_spawn_egg": "Яйцо призыва текстуры разрушения 4",
       "item.midnightlurker.midnight_lurker_unprovoked_spawn_egg": "Яйцо призыва Бабая",
       "subtitles.insanityambience": "",
       "item.midnightlurker.midnight_lurker_runtrue_spawn_egg": "Яйцо призыва Бабая",
@@ -6615,18 +7128,21 @@
       "entity.midnightlurker.midnight_lurkertpose": "Бабай",
       "entity.midnightlurker.destroytex_4": "Разрушение",
       "entity.midnightlurker.midnight_lurker_shadow": "Бабай",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Случайное число врат пустоты",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Значение пугающего экрана:",
       "entity.midnightlurker.midnight_lurker_runaway": "Бабай",
-      "entity.midnightlurker.void_gateway": "voidgateway",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Значение пугающего экрана:",
+      "entity.midnightlurker.void_hands": "Руки пустоты",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
+      "entity.midnightlurker.void_gateway": "Врата пустоты",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Бабай",
       "effect.midnightlurker.amnesia": "Амнезия",
       "entity.midnightlurker.midnight_lurker_watcher": "Бабай",
-      "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "Яйцо призыва текстуры разрушения",
-      "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Яйцо призыва Бабая-оборотня",
+      "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "Яйцо призыва текстуры разрушения 3",
+      "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Яйцо призыва Бабая",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Яйцо призыва Бабая",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Яйцо призыва Бабая",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -6635,7 +7151,7 @@
       "item.midnightlurker.midnight_lurker_seen_angressive_spawn_egg": "Яйцо призыва Бабая",
       "entity.midnightlurker.midnight_lurker_unprovoked": "Бабай",
       "effect.midnightlurker.insanity_faces": "Безумие",
-      "item.midnightlurker.destroytex_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurker.destroytex_spawn_egg": "Яйцо призыва текстуры разрушения 1",
       "entity.midnightlurkeroverhauled.spookyambienceentity": "Бабай-призрак",
       "subtitles.lurkerscream": "",
       "item.midnightlurkeroverhauled.spookyambienceentity_spawn_egg": "Яйцо призыва Бабая-призрака",
@@ -6651,23 +7167,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Яйцо призыва Бабая",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Яйцо призыва Бабая",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Бабай",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Бабай",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Бабай",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Таймер погони:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Яйцо призыва Бабая",
       "subtitles.spookyambience": "",
-      "item.midnightlurker.destroytex_4_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurker.destroytex_4_spawn_egg": "Яйцо призыва текстуры разрушения 4",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Яйцо призыва Бабая",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "Разрушение",
       "entity.midnightlurker.spookyambienceentity": "Бабай",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Бабай",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Стадия безумия:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Бабай",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Яйцо призыва Бабая",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -6685,30 +7206,34 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Яйцо призыва Бабая",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Яйцо призыва Бабая",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Яйцо призыва Бабая",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Значение пугающего экрана:",
-      "entity.midnightlurker.midnight_lurker_shapeshifter": "Бабай-оборотень",
+      "entity.midnightlurker.midnight_lurker_shapeshifter": "Бабай",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Яйцо призыва Бабая",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Яйцо призыва Бабая",
-      "item.midnightlurker.destroytex_2_spawn_egg": "Яйцо призыва текстуры разрушения",
-      "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurker.destroytex_2_spawn_egg": "Яйцо призыва текстуры разрушения 2",
+      "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Яйцо призыва текстуры разрушения 1",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_aggro_spawn_egg": "Яйцо призыва Бабая",
       "entity.midnightlurker.midnight_lurker_faker_aggro": "Бабай",
       "subtitles.lurkerdeathjumpscare": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_timer": "Таймер безумия:",
-      "item.midnightlurker.destroytex_3_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurker.destroytex_3_spawn_egg": "Яйцо призыва текстуры разрушения 3",
       "gui.midnightlurker.chasetimerfortesting.label_jumpscare_animation": "Анимация пугающего экрана:",
       "item.midnightlurker.midnight_lurker_hider_spawn_egg": "Яйцо призыва Бабая",
       "entity.midnightlurkeroverhauled.destroytex": "Разрушение",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_insanity_timer": "Таймер безумия:",
-      "item.midnightlurkeroverhauled.destroytex_2_spawn_egg": "Яйцо призыва текстуры разрушения",
+      "item.midnightlurkeroverhauled.destroytex_2_spawn_egg": "Яйцо призыва текстуры разрушения 2",
       "entity.midnightlurkeroverhauled.midnight_lurker_aggressive": "Бабай",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_chase_timer": "Таймер погони:",
       "entity.midnightlurker.midnight_lurker_faker": "Бабай",
-      "effect.midnightlurker.lurker_angered": "Lurker Angered",
-      "gui.midnightlurker.chasetimerfortesting.label_closespawntimer": "CloseSpawnTimer:",
-      "item.midnightlurker.void_hands_spawn_egg": "Lurands Spawn Egg",
+      "effect.midnightlurker.lurker_angered": "Гнев Бабая",
+      "gui.midnightlurker.chasetimerfortesting.label_closespawntimer": "Таймер близкого появления:",
+      "item.midnightlurker.void_hands_spawn_egg": "Яйцо призыва рук пустоты",
       "item.midnightlurker.midnight_lurker_backturned_spawn_egg": "Яйцо призыва Бабая",
       "gui.midnightlurker.chasetimerfortesting.label_healthboost": "Значение прилива здоровья Бабая:",
       "entity.midnightlurker.midnight_lurker_seen_angressive": "Бабай",
@@ -6743,11 +7268,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Midnight Lurker",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Midnight Lurker",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleCaveSounds Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Void Hands",
-      "entity.midnightlurker.midnight_lurker_runaway": "Midnight Lurker",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.midnight_lurker_runaway": "Midnight Lurker",
+      "entity.midnightlurker.void_hands": "Void Hands",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleShadow Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Midnight Lurker",
       "effect.midnightlurker.amnesia": "Amnesia",
@@ -6755,6 +7282,7 @@
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Midnight Lurker Shapeshifter Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Midnight Lurker Spawn Egg",
+      "entity.midnightlurker.invisible_static": "InvisibleStatic",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -6779,24 +7307,29 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Midnight Lurker Spawn Egg",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Midnight Lurker",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleLurkerFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Midnight Lurker",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Midnight Lurker",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleLurkerFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "spookyambienceentity",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Midnight Lurker",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Midnight Lurker",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Midnight Lurker Spawn Egg",
       "subtitles.lurkeranger": "",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleStatic Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -6815,11 +7348,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Midnight Lurker Spawn Egg",
+      "entity.midnightlurker.invisible_shadow": "InvisibleShadow",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Midnight Lurker Spawn Egg",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Midnight Lurker Shapeshifter",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleCaveSounds",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Midnight Lurker Spawn Egg",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Midnight Lurker Spawn Egg",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "destroytex1 Spawn Egg",
@@ -6874,11 +7411,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Acechador de medianoche",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Acechador de medianoche",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Acechador de medianoche",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Manos vacías",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Acechador de medianoche",
       "effect.midnightlurker.amnesia": "Amnesia",
@@ -6886,6 +7425,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Huevo de generación del acechador de medianoche",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Huevo de generación del acechador de medianoche",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Huevo de generación del acechador de medianoche",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -6910,23 +7450,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Huevo de generación del acechador de medianoche",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Huevo de generación del acechador de medianoche",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Acechador de medianoche",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Acechador de medianoche",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Acechador de medianoche",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Huevo de generación del acechador de medianoche",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Huevo de generación del acechador de medianoche",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Acechador de medianoche",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Acechador de medianoche",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Acechador de medianoche",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Huevo de generación del acechador de medianoche",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -6944,11 +7489,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Huevo de generación del acechador de medianoche",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Huevo de generación del acechador de medianoche",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Huevo de generación del acechador de medianoche",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Acechador de medianoche",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Huevo de generación del acechador de medianoche",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Huevo de generación del acechador de medianoche",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7002,11 +7551,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Rôdeur de minuit",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Rôdeur de minuit",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Rôdeur de minuit",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Mains vides",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Rôdeur de minuit",
       "effect.midnightlurker.amnesia": "Amnésie",
@@ -7014,6 +7565,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -7038,23 +7590,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Rôdeur de minuit",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Rôdeur de minuit",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Rôdeur de minuit",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Rôdeur de minuit",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Rôdeur de minuit",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Rôdeur de minuit",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -7072,11 +7629,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Rôdeur de minuit",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Oeuf d\u0027apparition du rôdeur de minuit",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7130,11 +7691,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "ミッドナイト・ラーカー",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "ミッドナイト・ラーカー",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "ミッドナイト・ラーカー",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "ボイドハンド",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "ミッドナイト・ラーカー",
       "effect.midnightlurker.amnesia": "健忘症",
@@ -7142,6 +7705,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -7166,23 +7730,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "ミッドナイト・ラーカー",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "ミッドナイト・ラーカー",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "ミッドナイト・ラーカー",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "ミッドナイト・ラーカー",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "ミッドナイト・ラーカー",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "ミッドナイト・ラーカー",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -7200,11 +7769,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "ミッドナイト・ラーカー",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "ミッドナイトラーカーのスポーンエッグ",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7258,11 +7831,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Middernacht Loer",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Middernacht Loer",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Middernacht Loer",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Leegte handen",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Middernacht Loer",
       "effect.midnightlurker.amnesia": "Geheugenverlies",
@@ -7270,6 +7845,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Middernacht Lurker Spawn-ei",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Middernacht Lurker Spawn-ei",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Middernacht Lurker Spawn-ei",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -7294,23 +7870,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Middernacht Lurker Spawn-ei",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Middernacht Lurker Spawn-ei",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Middernacht Loer",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Middernacht Loer",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Middernacht Loer",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Middernacht Lurker Spawn-ei",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Middernacht Lurker Spawn-ei",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Middernacht Loer",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Middernacht Loer",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Middernacht Loer",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Middernacht Lurker Spawn-ei",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -7328,11 +7909,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Middernacht Lurker Spawn-ei",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Middernacht Lurker Spawn-ei",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Middernacht Lurker Spawn-ei",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Middernacht Loer",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Middernacht Lurker Spawn-ei",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Middernacht Lurker Spawn-ei",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7386,11 +7971,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Mitternachtslurker",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Mitternachtslurker",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Mitternachtslurker",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Leere Hände",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Mitternachtslurker",
       "effect.midnightlurker.amnesia": "Amnesie",
@@ -7398,6 +7985,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -7422,23 +8010,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Mitternachtslurker",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Mitternachtslurker",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Mitternachtslurker",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Mitternachtslurker",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Mitternachtslurker",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Mitternachtslurker",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -7456,11 +8049,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Mitternachtslurker",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Mitternachtslurker-Spawn-Ei",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Mitternachtslurker-Spawn-Ei",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7514,11 +8111,13 @@
       "entity.midnightlurker.midnight_lurkertpose": "Espreitador da meia-noite",
       "entity.midnightlurker.destroytex_4": "destroytex1",
       "entity.midnightlurker.midnight_lurker_shadow": "Espreitador da meia-noite",
+      "item.midnightlurker.invisible_cave_sounds_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "gui.midnightlurker.chasetimerfortesting.label_void_gateway_random_number": "Void Gateway Random Number",
       "subtitles.lurkerdistantscream": "",
-      "entity.midnightlurker.void_hands": "Lurands",
-      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
       "entity.midnightlurker.midnight_lurker_runaway": "Espreitador da meia-noite",
+      "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_number": "Jumpscare Number:",
+      "entity.midnightlurker.void_hands": "Mãos Vazias",
+      "item.midnightlurker.invisible_shadow_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "entity.midnightlurker.void_gateway": "voidgateway",
       "entity.midnightlurker.midnight_lurker_faker_watcher": "Espreitador da meia-noite",
       "effect.midnightlurker.amnesia": "Amnésia",
@@ -7526,6 +8125,7 @@
       "item.midnightlurkeroverhauled.destroytex_3_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurker.midnight_lurker_shapeshifter_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "item.midnightlurker.midnight_lurker_faker_watcher_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+      "entity.midnightlurker.invisible_static": "InvisibleFootsteps",
       "item.midnightlurkeroverhauled.midnight_lurker_faker_watcher_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "subtitles.lurkerdeath": "",
       "subtitles.voidhands_hurt": "",
@@ -7550,23 +8150,28 @@
       "item.midnightlurkeroverhauled.midnight_lurker_seen_angressive_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "item.midnightlurkeroverhauled.midnight_lurker_aggressive_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_aggro": "Espreitador da meia-noite",
+      "entity.midnightlurker.invisible_lurker_footsteps": "InvisibleFootsteps",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker": "Espreitador da meia-noite",
       "entity.midnightlurkeroverhauled.midnight_lurker_faker_watcher": "Espreitador da meia-noite",
       "gui.midnightlurker.chasetimerfortesting.label_chase_timer": "Chase Timer:",
       "item.midnightlurkeroverhauled.midnight_lurker_invisible_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "subtitles.spookyambience": "",
       "item.midnightlurker.destroytex_4_spawn_egg": "destroytex1 Spawn Egg",
+      "item.midnightlurker.invisible_lurker_footsteps_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "item.midnightlurker.midnight_lurkertpose_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "subtitles.lurkerbreakingblock": "",
       "subtitles.voidhands_death": "",
       "entity.midnightlurker.destroytex": "destroytex1",
       "entity.midnightlurker.spookyambienceentity": "Espreitador da meia-noite",
       "entity.midnightlurkeroverhauled.midnight_lurker_ne": "Espreitador da meia-noite",
+      "subtitles.static": "",
       "gui.midnightlurker.chasetimerfortesting.label_insanity_stage": "Insanity Stage:",
       "subtitles.lurkerchasesteps": "",
       "subtitles.lurkerprefinalbreak": "",
+      "entity.midnightlurker.invisible_footsteps": "voidgateway",
       "entity.midnightlurkeroverhauled.midnight_lurker_stalking": "Espreitador da meia-noite",
       "item.midnightlurker.midnight_lurker_invisible_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+      "item.midnightlurker.invisible_static_spawn_egg": "InvisibleFootsteps Spawn Egg",
       "subtitles.insanitygoesbacksound": "",
       "subtitles.lurkerfinalbreak": "",
       "subtitles.voidhands_shriek": "",
@@ -7584,11 +8189,15 @@
       "subtitles.lurkerfootsteps": "",
       "item.midnightlurker.midnightlurker_ne_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "item.midnightlurker.midnight_lurker_stare_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+      "entity.midnightlurker.invisible_shadow": "InvisibleFootsteps",
       "item.midnightlurker.midnight_lurker_faker_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "gui.midnightlurkeroverhauled.chasetimerfortesting.label_jumpscare_animation": "Jumpscare Animation:",
       "entity.midnightlurker.midnight_lurker_shapeshifter": "Espreitador da meia-noite",
+      "entity.midnightlurker.invisible_cave_sounds": "InvisibleFootsteps",
       "subtitles.lurkerambient": "",
+      "item.midnightlurker.invisible_footsteps_spawn_egg": "voidgateway Spawn Egg",
       "item.midnightlurker.midnight_lurker_faker_aggro_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
+      "effect.midnightlurker.static_effect": "Static Effect",
       "item.midnightlurkeroverhauled.midnight_lurker_spawn_egg": "Ovo de desova do Espreitador da Meia-Noite",
       "item.midnightlurker.destroytex_2_spawn_egg": "destroytex1 Spawn Egg",
       "item.midnightlurkeroverhauled.destroytex_spawn_egg": "Destroytex Spawn Egg",
@@ -7645,7 +8254,7 @@
   "workspaceSettings": {
     "modid": "midnightlurker",
     "modName": "The Midnight Lurker",
-    "version": "2.8.6",
+    "version": "2.9.7",
     "description": "A small mod that adds a new horrifying entity to Minecraft.",
     "author": "Voxla",
     "websiteURL": "https://modrinth.com/mod/the-midnight-lurker - https://www.curseforge.com/minecraft/mc-mods/the-midnight-lurker",

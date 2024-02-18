@@ -38,6 +38,11 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
+import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
+import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
+import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
 import net.mcreator.midnightlurker.entity.DestroytexEntity;
 import net.mcreator.midnightlurker.entity.Destroytex4Entity;
 import net.mcreator.midnightlurker.entity.Destroytex3Entity;
@@ -109,6 +114,17 @@ public class MidnightlurkerModEntities {
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
 	public static final RegistryObject<EntityType<VoidHandsEntity>> VOID_HANDS = register("void_hands", EntityType.Builder.<VoidHandsEntity>of(VoidHandsEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
 			.setUpdateInterval(3).setCustomClientFactory(VoidHandsEntity::new).fireImmune().sized(0.6f, 1.4f));
+	public static final RegistryObject<EntityType<InvisibleFootstepsEntity>> INVISIBLE_FOOTSTEPS = register("invisible_footsteps", EntityType.Builder.<InvisibleFootstepsEntity>of(InvisibleFootstepsEntity::new, MobCategory.AMBIENT)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleFootstepsEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<InvisibleShadowEntity>> INVISIBLE_SHADOW = register("invisible_shadow", EntityType.Builder.<InvisibleShadowEntity>of(InvisibleShadowEntity::new, MobCategory.AMBIENT)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleShadowEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<InvisibleStaticEntity>> INVISIBLE_STATIC = register("invisible_static", EntityType.Builder.<InvisibleStaticEntity>of(InvisibleStaticEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleStaticEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<InvisibleLurkerFootstepsEntity>> INVISIBLE_LURKER_FOOTSTEPS = register("invisible_lurker_footsteps",
+			EntityType.Builder.<InvisibleLurkerFootstepsEntity>of(InvisibleLurkerFootstepsEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+					.setCustomClientFactory(InvisibleLurkerFootstepsEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<InvisibleCaveSoundsEntity>> INVISIBLE_CAVE_SOUNDS = register("invisible_cave_sounds", EntityType.Builder.<InvisibleCaveSoundsEntity>of(InvisibleCaveSoundsEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleCaveSoundsEntity::new).fireImmune().sized(0.5f, 0.4f));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
@@ -143,6 +159,11 @@ public class MidnightlurkerModEntities {
 			MidnightlurkerNEEntity.init();
 			MidnightLurkerWatcherEntity.init();
 			VoidHandsEntity.init();
+			InvisibleFootstepsEntity.init();
+			InvisibleShadowEntity.init();
+			InvisibleStaticEntity.init();
+			InvisibleLurkerFootstepsEntity.init();
+			InvisibleCaveSoundsEntity.init();
 		});
 	}
 
@@ -174,5 +195,10 @@ public class MidnightlurkerModEntities {
 		event.put(MIDNIGHTLURKER_NE.get(), MidnightlurkerNEEntity.createAttributes().build());
 		event.put(MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherEntity.createAttributes().build());
 		event.put(VOID_HANDS.get(), VoidHandsEntity.createAttributes().build());
+		event.put(INVISIBLE_FOOTSTEPS.get(), InvisibleFootstepsEntity.createAttributes().build());
+		event.put(INVISIBLE_SHADOW.get(), InvisibleShadowEntity.createAttributes().build());
+		event.put(INVISIBLE_STATIC.get(), InvisibleStaticEntity.createAttributes().build());
+		event.put(INVISIBLE_LURKER_FOOTSTEPS.get(), InvisibleLurkerFootstepsEntity.createAttributes().build());
+		event.put(INVISIBLE_CAVE_SOUNDS.get(), InvisibleCaveSoundsEntity.createAttributes().build());
 	}
 }

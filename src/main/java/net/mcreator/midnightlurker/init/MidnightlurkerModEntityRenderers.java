@@ -31,6 +31,11 @@ import net.mcreator.midnightlurker.client.renderer.MidnightLurkerFakerRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerFakerAggroRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerBackturnedRenderer;
 import net.mcreator.midnightlurker.client.renderer.MidnightLurkerAggressiveRenderer;
+import net.mcreator.midnightlurker.client.renderer.InvisibleStaticRenderer;
+import net.mcreator.midnightlurker.client.renderer.InvisibleShadowRenderer;
+import net.mcreator.midnightlurker.client.renderer.InvisibleLurkerFootstepsRenderer;
+import net.mcreator.midnightlurker.client.renderer.InvisibleFootstepsRenderer;
+import net.mcreator.midnightlurker.client.renderer.InvisibleCaveSoundsRenderer;
 import net.mcreator.midnightlurker.client.renderer.DestroytexRenderer;
 import net.mcreator.midnightlurker.client.renderer.Destroytex4Renderer;
 import net.mcreator.midnightlurker.client.renderer.Destroytex3Renderer;
@@ -66,5 +71,10 @@ public class MidnightlurkerModEntityRenderers {
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHTLURKER_NE.get(), MidnightlurkerNERenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherRenderer::new);
 		event.registerEntityRenderer(MidnightlurkerModEntities.VOID_HANDS.get(), VoidHandsRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS.get(), InvisibleFootstepsRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_SHADOW.get(), InvisibleShadowRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_STATIC.get(), InvisibleStaticRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_LURKER_FOOTSTEPS.get(), InvisibleLurkerFootstepsRenderer::new);
+		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS.get(), InvisibleCaveSoundsRenderer::new);
 	}
 }

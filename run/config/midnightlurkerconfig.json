@@ -17,5 +17,6 @@
   "spawn_close option might also make the Lurker spawn more frequently depending on what your spawn_rate is set to": 0,
   "nether_lurker_spawn_rate": 4,
   "the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.": 0,
-  "amnesia": true
+  "amnesia": true,
+  "invisible_entities_spawning": true
 }

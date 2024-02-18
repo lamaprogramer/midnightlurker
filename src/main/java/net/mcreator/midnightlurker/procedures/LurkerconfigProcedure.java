@@ -54,6 +54,7 @@ public class LurkerconfigProcedure {
 			mainjsonobject.addProperty("nether_lurker_spawn_rate", 4);
 			mainjsonobject.addProperty("the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.", 0);
 			mainjsonobject.addProperty("amnesia", true);
+			mainjsonobject.addProperty("invisible_entities_spawning", true);
 			{
 				Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 				try {
@@ -116,6 +117,19 @@ public class LurkerconfigProcedure {
 				}
 				if (lurker.exists() && !mainjsonobject.has("amnesia")) {
 					mainjsonobject.addProperty("amnesia", true);
+					{
+						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
+						try {
+							FileWriter fileWriter = new FileWriter(lurker);
+							fileWriter.write(mainGSONBuilderVariable.toJson(mainjsonobject));
+							fileWriter.close();
+						} catch (IOException exception) {
+							exception.printStackTrace();
+						}
+					}
+				}
+				if (lurker.exists() && !mainjsonobject.has("invisible_entities_spawning")) {
+					mainjsonobject.addProperty("invisible_entities_spawning", true);
 					{
 						Gson mainGSONBuilderVariable = new GsonBuilder().setPrettyPrinting().create();
 						try {
