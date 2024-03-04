@@ -28,6 +28,7 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 
@@ -76,11 +77,18 @@ public class SpookyambienceentityOnInitialEntitySpawnProcedure {
 							|| !world.getEntitiesOfClass(MidnightLurkertposeEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()
 							|| !world.getEntitiesOfClass(MidnightlurkerNEEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()
 							|| !world.getEntitiesOfClass(MidnightLurkerStareEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()
-							|| !world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()) {
+							|| !world.getEntitiesOfClass(MidnightLurkerWatcherEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()
+							|| !world.getEntitiesOfClass(MidnightLurkerCreepEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty()) {
 						if (world instanceof ServerLevel _level)
 							_level.getServer().getCommands().performPrefixedCommand(
 									new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
 									"/playsound midnightlurker:spookyambience record @a ~ ~ ~ 500 1");
+						if (Math.random() >= 0.8) {
+							if (world instanceof ServerLevel _level)
+								_level.getServer().getCommands().performPrefixedCommand(
+										new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
+										"/playsound midnightlurker:thirteen_ambient record @a ~ ~ ~ 500 1");
+						}
 					}
 				}
 			} catch (IOException e) {

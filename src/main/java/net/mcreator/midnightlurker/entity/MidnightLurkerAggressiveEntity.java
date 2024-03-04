@@ -115,10 +115,16 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2, true) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
+				return 2.25;
+			}
+		});
+		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.2, true) {
+			@Override
+			protected double getAttackReachSqr(LivingEntity entity) {
 				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, (float) 100) {
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 100) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightLurkerAggressiveEntity.this.getX();
@@ -139,7 +145,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 				return super.canContinueToUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 		});
-		this.goalSelector.addGoal(5, new FloatGoal(this) {
+		this.goalSelector.addGoal(6, new FloatGoal(this) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightLurkerAggressiveEntity.this.getX();
@@ -265,7 +271,7 @@ public class MidnightLurkerAggressiveEntity extends Monster implements GeoEntity
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
-		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.5);
+		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.7);
 		return builder;
 	}
 

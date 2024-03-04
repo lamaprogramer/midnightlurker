@@ -60,4 +60,6 @@ public class MidnightlurkerModItems {
 	public static final RegistryObject<Item> MIDNIGHT_LURKER_WATCHER_SPAWN_EGG = REGISTRY.register("midnight_lurker_watcher_spawn_egg",
 			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, -13421773, -3355444, new Item.Properties()));
 	public static final RegistryObject<Item> VOID_HANDS_SPAWN_EGG = REGISTRY.register("void_hands_spawn_egg", () -> new ForgeSpawnEggItem(MidnightlurkerModEntities.VOID_HANDS, -16777216, -16777216, new Item.Properties()));
+	public static final RegistryObject<Item> MIDNIGHT_LURKER_CREEP_SPAWN_EGG = REGISTRY.register("midnight_lurker_creep_spawn_egg",
+			() -> new ForgeSpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP, -13421773, -3355444, new Item.Properties()));
 }

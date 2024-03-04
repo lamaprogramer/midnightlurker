@@ -1,0 +1,62 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.midnightlurkerphantomhead.idle": {
+			"loop": true,
+			"animation_length": 0.04
+		},
+		"animation.midnightlurkerphantomhead.close": {
+			"loop": true,
+			"animation_length": 0.52,
+			"bones": {
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 3, 0]
+						},
+						"0.04": {
+							"vector": [0, -3, 0]
+						},
+						"0.08": {
+							"vector": [0, 3, 0]
+						},
+						"0.12": {
+							"vector": [0, -3, 0]
+						},
+						"0.16": {
+							"vector": [0, 3, 0]
+						},
+						"0.2": {
+							"vector": [0, -3, 0]
+						},
+						"0.24": {
+							"vector": [0, 3, 0]
+						},
+						"0.28": {
+							"vector": [0, -3, 0]
+						},
+						"0.32": {
+							"vector": [0, 3, 0]
+						},
+						"0.36": {
+							"vector": [0, -3, 0]
+						},
+						"0.4": {
+							"vector": [0, 3, 0]
+						},
+						"0.44": {
+							"vector": [0, -3, 0]
+						},
+						"0.48": {
+							"vector": [0, 3, 0]
+						},
+						"0.52": {
+							"vector": [0, -3, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
-import net.mcreator.midnightlurker.entity.MidnightLurkerStareEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerSeenAngressiveEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerRuntrueEntity;
@@ -59,10 +58,21 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean() == true) {
 					if ((entity instanceof MidnightLurkerAggressiveEntity || entity instanceof MidnightLurkerBackturnedEntity || entity instanceof MidnightLurkerHiderEntity || entity instanceof MidnightLurkerRuntrueEntity
-							|| entity instanceof MidnightLurkerSeenAngressiveEntity || entity instanceof MidnightLurkerStalkingEntity || entity instanceof MidnightLurkerStareEntity || entity instanceof MidnightLurkerUnprovokedEntity
-							|| entity instanceof MidnightlurkerNEEntity) && sourceentity instanceof Player) {
+							|| entity instanceof MidnightLurkerSeenAngressiveEntity || entity instanceof MidnightLurkerStalkingEntity || entity instanceof MidnightLurkerUnprovokedEntity || entity instanceof MidnightlurkerNEEntity)
+							&& sourceentity instanceof Player) {
 						if (event != null && event.isCancelable()) {
 							event.setCanceled(true);
+						}
+					}
+				} else if (mainjsonobject.get("lurker_invulnerable").getAsBoolean() == false) {
+					if ((entity instanceof MidnightLurkerUnprovokedEntity || entity instanceof MidnightlurkerNEEntity) && sourceentity instanceof Player) {
+						if (entity.getPersistentData().getBoolean("Stunned") == false) {
+							entity.getPersistentData().putBoolean("Stunned", true);
+						}
+						if (entity.getPersistentData().getDouble("StunTimer") > 0) {
+							if (event != null && event.isCancelable()) {
+								event.setCanceled(true);
+							}
 						}
 					}
 				}

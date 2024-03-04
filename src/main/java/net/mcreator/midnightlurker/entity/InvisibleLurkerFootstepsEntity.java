@@ -89,6 +89,11 @@ public class InvisibleLurkerFootstepsEntity extends Monster implements GeoEntity
 	}
 
 	@Override
+	protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+		return 1.4F;
+	}
+
+	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}

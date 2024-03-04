@@ -211,26 +211,6 @@
       }
     ]
   },
-  "lurkerfootsteps": {
-    "sounds": [
-      {
-        "name": "midnightlurker:lurker_footstep1",
-        "stream": false
-      },
-      {
-        "name": "midnightlurker:lurker_footstep2",
-        "stream": false
-      },
-      {
-        "name": "midnightlurker:lurker_footstep3",
-        "stream": false
-      },
-      {
-        "name": "midnightlurker:lurker_footstep4",
-        "stream": false
-      }
-    ]
-  },
   "lurkerchasesteps": {
     "sounds": [
       {
@@ -384,6 +364,94 @@
       {
         "name": "midnightlurker:tvstatic1",
         "stream": true
+      }
+    ]
+  },
+  "phantom_head_scream": {
+    "sounds": [
+      {
+        "name": "midnightlurker:ph_scream1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:ph_scream2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:ph_scream3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:ph_scream4",
+        "stream": false
+      }
+    ]
+  },
+  "lurkerfootsteps": {
+    "sounds": [
+      {
+        "name": "midnightlurker:lurker_footstep1",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep2",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep3",
+        "stream": false
+      },
+      {
+        "name": "midnightlurker:lurker_footstep4",
+        "stream": false
+      }
+    ]
+  },
+  "thirteen_ambient": {
+    "sounds": [
+      {
+        "name": "midnightlurker:13_1",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:13_2",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:13_3",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:13_4",
+        "stream": true
+      },
+      {
+        "name": "midnightlurker:13_5",
+        "stream": true
+      }
+    ]
+  },
+  "lurker_stunned": {
+    "sounds": [
+      {
+        "name": "midnightlurker:lurkerstunned",
+        "stream": false
+      }
+    ]
+  },
+  "lurker_taunt": {
+    "sounds": [
+      {
+        "name": "midnightlurker:lurkertaunt",
+        "stream": false
+      }
+    ]
+  },
+  "lurker_stun_over": {
+    "sounds": [
+      {
+        "name": "midnightlurker:lurkerstunover",
+        "stream": false
       }
     ]
   }

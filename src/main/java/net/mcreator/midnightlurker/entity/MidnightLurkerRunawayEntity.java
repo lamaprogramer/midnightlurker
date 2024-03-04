@@ -57,8 +57,8 @@ import net.mcreator.midnightlurker.procedures.NeutralrunrandomwalkProcedure;
 import net.mcreator.midnightlurker.procedures.NeutralrunrandomrunawayProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerRunawayOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerRunawayOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerRunawayEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
@@ -240,7 +240,7 @@ public class MidnightLurkerRunawayEntity extends Monster implements GeoEntity {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		MidnightLurkerEntityDiesProcedure.execute(this.level(), this);
+		MidnightLurkerRunawayEntityDiesProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 	}
 
 	@Override

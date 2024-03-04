@@ -32,7 +32,6 @@ public class MidnightlurkerModSounds {
 	public static final RegistryObject<SoundEvent> LURKERDEATHJUMPSCARE = REGISTRY.register("lurkerdeathjumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdeathjumpscare")));
 	public static final RegistryObject<SoundEvent> LURKERSCREAM = REGISTRY.register("lurkerscream", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerscream")));
 	public static final RegistryObject<SoundEvent> LURKERAMBIENT = REGISTRY.register("lurkerambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerambient")));
-	public static final RegistryObject<SoundEvent> LURKERFOOTSTEPS = REGISTRY.register("lurkerfootsteps", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerfootsteps")));
 	public static final RegistryObject<SoundEvent> LURKERCHASESTEPS = REGISTRY.register("lurkerchasesteps", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchasesteps")));
 	public static final RegistryObject<SoundEvent> LURKERJUMPSCARE = REGISTRY.register("lurkerjumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerjumpscare")));
 	public static final RegistryObject<SoundEvent> LURKERHURT = REGISTRY.register("lurkerhurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerhurt")));
@@ -42,4 +41,10 @@ public class MidnightlurkerModSounds {
 	public static final RegistryObject<SoundEvent> VOIDHANDS_HURT = REGISTRY.register("voidhands_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_hurt")));
 	public static final RegistryObject<SoundEvent> VOIDHANDS_SHRIEK = REGISTRY.register("voidhands_shriek", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_shriek")));
 	public static final RegistryObject<SoundEvent> STATIC = REGISTRY.register("static", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "static")));
+	public static final RegistryObject<SoundEvent> PHANTOM_HEAD_SCREAM = REGISTRY.register("phantom_head_scream", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "phantom_head_scream")));
+	public static final RegistryObject<SoundEvent> LURKERFOOTSTEPS = REGISTRY.register("lurkerfootsteps", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerfootsteps")));
+	public static final RegistryObject<SoundEvent> THIRTEEN_AMBIENT = REGISTRY.register("thirteen_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "thirteen_ambient")));
+	public static final RegistryObject<SoundEvent> LURKER_STUNNED = REGISTRY.register("lurker_stunned", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_stunned")));
+	public static final RegistryObject<SoundEvent> LURKER_TAUNT = REGISTRY.register("lurker_taunt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_taunt")));
+	public static final RegistryObject<SoundEvent> LURKER_STUN_OVER = REGISTRY.register("lurker_stun_over", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_stun_over")));
 }

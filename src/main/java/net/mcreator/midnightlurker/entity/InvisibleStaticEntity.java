@@ -88,6 +88,11 @@ public class InvisibleStaticEntity extends Monster implements GeoEntity {
 	}
 
 	@Override
+	protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+		return 1.4F;
+	}
+
+	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
@@ -219,7 +224,7 @@ public class InvisibleStaticEntity extends Monster implements GeoEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.2);
+		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
 		builder = builder.add(Attributes.MAX_HEALTH, 5);
 		builder = builder.add(Attributes.ARMOR, 0);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 0);

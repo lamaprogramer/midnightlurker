@@ -22,6 +22,10 @@ import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -60,6 +64,7 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawnin
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.procedures.LurkerKillAnimalsProcProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import javax.annotation.Nullable;
@@ -113,11 +118,17 @@ public class MidnightLurkerUnprovokedEntity extends Monster implements GeoEntity
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
+				return 2.25;
+			}
+		});
+		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.2, false) {
+			@Override
+			protected double getAttackReachSqr(LivingEntity entity) {
 				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, (float) 100));
-		this.goalSelector.addGoal(5, new FloatGoal(this) {
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 100));
+		this.goalSelector.addGoal(6, new FloatGoal(this) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightLurkerUnprovokedEntity.this.getX();
@@ -136,6 +147,90 @@ public class MidnightLurkerUnprovokedEntity extends Monster implements GeoEntity
 				Entity entity = MidnightLurkerUnprovokedEntity.this;
 				Level world = MidnightLurkerUnprovokedEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
+			}
+		});
+		this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Pig.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Cow.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Sheep.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Chicken.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerUnprovokedEntity.this.getX();
+				double y = MidnightLurkerUnprovokedEntity.this.getY();
+				double z = MidnightLurkerUnprovokedEntity.this.getZ();
+				Entity entity = MidnightLurkerUnprovokedEntity.this;
+				Level world = MidnightLurkerUnprovokedEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
 		});
 	}

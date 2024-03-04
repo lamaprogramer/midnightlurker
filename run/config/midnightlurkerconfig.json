@@ -18,5 +18,6 @@
   "nether_lurker_spawn_rate": 4,
   "the nether spawn rate can range from 1 to 5, with 1 being the lowest and 5 being the highest.": 0,
   "amnesia": true,
-  "invisible_entities_spawning": true
+  "invisible_entities_spawning": true,
+  "encounters_progress_stages": true
 }

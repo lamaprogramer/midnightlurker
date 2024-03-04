@@ -133,7 +133,7 @@
     "tameable": false,
     "disableDeathRotation": false,
     "headMovement": false,
-    "eyeHeight": false,
+    "eyeHeight": true,
     "breedTriggerItems": [],
     "ranged": false,
     "rangedAttackItem": {
@@ -142,7 +142,7 @@
     "rangedItemType": "Default item",
     "rangedAttackInterval": 20,
     "rangedAttackRadius": 10.0,
-    "height": 0.0,
+    "height": 1.4,
     "spawnThisMob": true,
     "doesDespawnWhenIdle": true,
     "spawningCondition": {

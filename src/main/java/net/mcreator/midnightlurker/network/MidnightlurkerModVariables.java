@@ -85,6 +85,7 @@ public class MidnightlurkerModVariables {
 			clone.JumpscareRandom = original.JumpscareRandom;
 			clone.StaticRender = original.StaticRender;
 			if (!event.isWasDeath()) {
+				clone.encounternumber = original.encounternumber;
 			}
 		}
 
@@ -282,6 +283,7 @@ public class MidnightlurkerModVariables {
 		public double JumpscareTimer = 0;
 		public double JumpscareRandom = 0;
 		public double StaticRender = 0;
+		public double encounternumber = 0;
 
 		public void syncPlayerVariables(Entity entity) {
 			if (entity instanceof ServerPlayer serverPlayer)
@@ -302,6 +304,7 @@ public class MidnightlurkerModVariables {
 			nbt.putDouble("JumpscareTimer", JumpscareTimer);
 			nbt.putDouble("JumpscareRandom", JumpscareRandom);
 			nbt.putDouble("StaticRender", StaticRender);
+			nbt.putDouble("encounternumber", encounternumber);
 			return nbt;
 		}
 
@@ -319,6 +322,7 @@ public class MidnightlurkerModVariables {
 			JumpscareTimer = nbt.getDouble("JumpscareTimer");
 			JumpscareRandom = nbt.getDouble("JumpscareRandom");
 			StaticRender = nbt.getDouble("StaticRender");
+			encounternumber = nbt.getDouble("encounternumber");
 		}
 	}
 
@@ -355,6 +359,7 @@ public class MidnightlurkerModVariables {
 					variables.JumpscareTimer = message.data.JumpscareTimer;
 					variables.JumpscareRandom = message.data.JumpscareRandom;
 					variables.StaticRender = message.data.StaticRender;
+					variables.encounternumber = message.data.encounternumber;
 				}
 			});
 			context.setPacketHandled(true);

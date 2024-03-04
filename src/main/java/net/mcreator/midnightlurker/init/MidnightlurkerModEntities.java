@@ -19,7 +19,10 @@ import net.minecraft.world.entity.Entity;
 import net.mcreator.midnightlurker.entity.VoidHandsEntity;
 import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
+import net.mcreator.midnightlurker.entity.ShapeshifterPigEntity;
+import net.mcreator.midnightlurker.entity.ShapeShifterCowEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
+import net.mcreator.midnightlurker.entity.MidnightPhantomHeadEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
@@ -36,6 +39,7 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
@@ -43,6 +47,7 @@ import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
 import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
 import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
 import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleAnimalKillerEntity;
 import net.mcreator.midnightlurker.entity.DestroytexEntity;
 import net.mcreator.midnightlurker.entity.Destroytex4Entity;
 import net.mcreator.midnightlurker.entity.Destroytex3Entity;
@@ -125,6 +130,16 @@ public class MidnightlurkerModEntities {
 					.setCustomClientFactory(InvisibleLurkerFootstepsEntity::new).fireImmune().sized(0.5f, 0.4f));
 	public static final RegistryObject<EntityType<InvisibleCaveSoundsEntity>> INVISIBLE_CAVE_SOUNDS = register("invisible_cave_sounds", EntityType.Builder.<InvisibleCaveSoundsEntity>of(InvisibleCaveSoundsEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleCaveSoundsEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<MidnightLurkerCreepEntity>> MIDNIGHT_LURKER_CREEP = register("midnight_lurker_creep", EntityType.Builder.<MidnightLurkerCreepEntity>of(MidnightLurkerCreepEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerCreepEntity::new).fireImmune().sized(0.7f, 2.5f));
+	public static final RegistryObject<EntityType<MidnightPhantomHeadEntity>> MIDNIGHT_PHANTOM_HEAD = register("midnight_phantom_head", EntityType.Builder.<MidnightPhantomHeadEntity>of(MidnightPhantomHeadEntity::new, MobCategory.MONSTER)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightPhantomHeadEntity::new).fireImmune().sized(0.4f, 0.5f));
+	public static final RegistryObject<EntityType<InvisibleAnimalKillerEntity>> INVISIBLE_ANIMAL_KILLER = register("invisible_animal_killer", EntityType.Builder.<InvisibleAnimalKillerEntity>of(InvisibleAnimalKillerEntity::new, MobCategory.AMBIENT)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleAnimalKillerEntity::new).fireImmune().sized(0.5f, 0.4f));
+	public static final RegistryObject<EntityType<ShapeshifterPigEntity>> SHAPESHIFTER_PIG = register("shapeshifter_pig", EntityType.Builder.<ShapeshifterPigEntity>of(ShapeshifterPigEntity::new, MobCategory.CREATURE)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(ShapeshifterPigEntity::new).fireImmune().sized(0.9f, 0.9f));
+	public static final RegistryObject<EntityType<ShapeShifterCowEntity>> SHAPE_SHIFTER_COW = register("shape_shifter_cow", EntityType.Builder.<ShapeShifterCowEntity>of(ShapeShifterCowEntity::new, MobCategory.CREATURE)
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(ShapeShifterCowEntity::new).fireImmune().sized(0.9f, 1.4f));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
@@ -164,6 +179,11 @@ public class MidnightlurkerModEntities {
 			InvisibleStaticEntity.init();
 			InvisibleLurkerFootstepsEntity.init();
 			InvisibleCaveSoundsEntity.init();
+			MidnightLurkerCreepEntity.init();
+			MidnightPhantomHeadEntity.init();
+			InvisibleAnimalKillerEntity.init();
+			ShapeshifterPigEntity.init();
+			ShapeShifterCowEntity.init();
 		});
 	}
 
@@ -200,5 +220,10 @@ public class MidnightlurkerModEntities {
 		event.put(INVISIBLE_STATIC.get(), InvisibleStaticEntity.createAttributes().build());
 		event.put(INVISIBLE_LURKER_FOOTSTEPS.get(), InvisibleLurkerFootstepsEntity.createAttributes().build());
 		event.put(INVISIBLE_CAVE_SOUNDS.get(), InvisibleCaveSoundsEntity.createAttributes().build());
+		event.put(MIDNIGHT_LURKER_CREEP.get(), MidnightLurkerCreepEntity.createAttributes().build());
+		event.put(MIDNIGHT_PHANTOM_HEAD.get(), MidnightPhantomHeadEntity.createAttributes().build());
+		event.put(INVISIBLE_ANIMAL_KILLER.get(), InvisibleAnimalKillerEntity.createAttributes().build());
+		event.put(SHAPESHIFTER_PIG.get(), ShapeshifterPigEntity.createAttributes().build());
+		event.put(SHAPE_SHIFTER_COW.get(), ShapeShifterCowEntity.createAttributes().build());
 	}
 }

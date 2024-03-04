@@ -8,6 +8,7 @@ import net.mcreator.midnightlurker.entity.VoidHandsEntity;
 import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
 import net.mcreator.midnightlurker.entity.SpookyambienceentityEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
+import net.mcreator.midnightlurker.entity.MidnightPhantomHeadEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkertposeEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
@@ -24,6 +25,7 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
+import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
@@ -31,6 +33,7 @@ import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
 import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
 import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
 import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
+import net.mcreator.midnightlurker.entity.InvisibleAnimalKillerEntity;
 
 @Mod.EventBusSubscriber
 public class EntityAnimationFactory {
@@ -220,6 +223,27 @@ public class EntityAnimationFactory {
 				}
 			}
 			if (event.getEntity() instanceof InvisibleCaveSoundsEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof MidnightLurkerCreepEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof MidnightPhantomHeadEntity syncable) {
+				String animation = syncable.getSyncedAnimation();
+				if (!animation.equals("undefined")) {
+					syncable.setAnimation("undefined");
+					syncable.animationprocedure = animation;
+				}
+			}
+			if (event.getEntity() instanceof InvisibleAnimalKillerEntity syncable) {
 				String animation = syncable.getSyncedAnimation();
 				if (!animation.equals("undefined")) {
 					syncable.setAnimation("undefined");

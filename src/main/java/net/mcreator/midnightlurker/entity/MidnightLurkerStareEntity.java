@@ -22,6 +22,10 @@ import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -55,13 +59,14 @@ import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.procedures.StarewatchProcedure;
 import net.mcreator.midnightlurker.procedures.StarerunProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerStareThisEntityKillsAnotherOneProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerStareOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerStareOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerStareEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.procedures.LurkerKillAnimalsProcProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import javax.annotation.Nullable;
@@ -142,6 +147,33 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
+				return 2.25;
+			}
+
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canUse() && StarerunProcedure.execute(entity);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canContinueToUse() && StarerunProcedure.execute(entity);
+			}
+
+		});
+		this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2, false) {
+			@Override
+			protected double getAttackReachSqr(LivingEntity entity) {
 				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 
@@ -166,8 +198,8 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 			}
 
 		});
-		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 150));
-		this.goalSelector.addGoal(6, new FloatGoal(this) {
+		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, (float) 150));
+		this.goalSelector.addGoal(7, new FloatGoal(this) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightLurkerStareEntity.this.getX();
@@ -186,6 +218,90 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 				Entity entity = MidnightLurkerStareEntity.this;
 				Level world = MidnightLurkerStareEntity.this.level();
 				return super.canContinueToUse() && LurkerinwaterconditionProcedure.execute(entity);
+			}
+		});
+		this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Pig.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Cow.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Sheep.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+		});
+		this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Chicken.class, false, false) {
+			@Override
+			public boolean canUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
+			}
+
+			@Override
+			public boolean canContinueToUse() {
+				double x = MidnightLurkerStareEntity.this.getX();
+				double y = MidnightLurkerStareEntity.this.getY();
+				double z = MidnightLurkerStareEntity.this.getZ();
+				Entity entity = MidnightLurkerStareEntity.this;
+				Level world = MidnightLurkerStareEntity.this.level();
+				return super.canContinueToUse() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
 		});
 	}
@@ -212,7 +328,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getEntity());
+		MidnightLurkerStareEntityIsHurtProcedure.execute(this, source.getEntity());
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -258,7 +374,7 @@ public class MidnightLurkerStareEntity extends Monster implements GeoEntity {
 	@Override
 	public void awardKillScore(Entity entity, int score, DamageSource damageSource) {
 		super.awardKillScore(entity, score, damageSource);
-		MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure.execute(this.level(), entity);
+		MidnightLurkerStareThisEntityKillsAnotherOneProcedure.execute(this.level(), entity);
 	}
 
 	@Override

@@ -55,8 +55,9 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawn
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderThisEntityKillsAnotherOneProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderBoundingBoxScaleProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.HiderWatchProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
@@ -177,7 +178,7 @@ public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getEntity());
+		MidnightLurkerHiderEntityIsHurtProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this, source.getEntity());
 		if (source.is(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getDirectEntity() instanceof AbstractArrow)
@@ -235,7 +236,12 @@ public class MidnightLurkerHiderEntity extends Monster implements GeoEntity {
 
 	@Override
 	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
+		Entity entity = this;
+		Level world = this.level();
+		double x = this.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
+		return super.getDimensions(p_33597_).scale((float) MidnightLurkerHiderBoundingBoxScaleProcedure.execute(entity));
 	}
 
 	@Override

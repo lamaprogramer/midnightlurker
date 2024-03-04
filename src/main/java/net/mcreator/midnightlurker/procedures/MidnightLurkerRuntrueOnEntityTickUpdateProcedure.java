@@ -21,6 +21,8 @@ import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.entity.MidnightLurkerRuntrueEntity;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 
+import java.util.Comparator;
+
 public class MidnightLurkerRuntrueOnEntityTickUpdateProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
@@ -31,7 +33,7 @@ public class MidnightLurkerRuntrueOnEntityTickUpdateProcedure {
 			entity.stopRiding();
 		}
 		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 20, 20, 20), e -> true).isEmpty()) {
-			MidnightlurkerMod.queueServerWork(400, () -> {
+			MidnightlurkerMod.queueServerWork(200, () -> {
 				if (entity.getPersistentData().getDouble("SoundActivate2") < 3 && !world.getEntitiesOfClass(MidnightLurkerRuntrueEntity.class, AABB.ofSize(new Vec3(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
 					entity.getPersistentData().putDouble("SoundActivate2", (entity.getPersistentData().getDouble("SoundActivate2") + 1));
 				}
@@ -63,6 +65,16 @@ public class MidnightLurkerRuntrueOnEntityTickUpdateProcedure {
 				&& !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 20, 20, 20), e -> true).isEmpty()) {
 			if (entity instanceof LivingEntity _entity)
 				_entity.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
+		}
+		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 70, 70, 70), e -> true).isEmpty()) {
+			if (((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 70, 70, 70), e -> true).stream().sorted(new Object() {
+				Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
+					return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
+				}
+			}.compareDistOf(x, y, z)).findFirst().orElse(null)).isPassenger()) {
+				if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
+					_entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 60, 255, false, false));
+			}
 		}
 	}
 }

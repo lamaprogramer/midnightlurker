@@ -100,7 +100,7 @@
       "value": "CUSTOM:lurkerfootsteps"
     },
     "whenMobDies": {
-      "name": "MidnightLurkerEntityDies"
+      "name": "MidnightLurkerRunawayEntityDies"
     },
     "onMobTickUpdate": {
       "name": "MidnightLurkerRunawayOnEntityTickUpdate"

@@ -576,6 +576,12 @@
         "value": "Blocks.MANGROVE_PRESSURE_PLATE"
       },
       {
+        "value": "Blocks.TORCHFLOWER"
+      },
+      {
+        "value": "Blocks.PINK_PETALS"
+      },
+      {
         "value": "Blocks.CHERRY_SAPLING"
       },
       {
@@ -585,37 +591,10 @@
         "value": "Blocks.CHERRY_WALL_SIGN"
       },
       {
-        "value": "Blocks.CHERRY_HANGING_SIGN"
-      },
-      {
-        "value": "Blocks.CHERRY_WALL_HANGING_SIGN"
-      },
-      {
         "value": "Blocks.CHERRY_BUTTON"
       },
       {
         "value": "Blocks.CHERRY_PRESSURE_PLATE"
-      },
-      {
-        "value": "Blocks.BAMBOO_SIGN"
-      },
-      {
-        "value": "Blocks.BAMBOO_WALL_SIGN"
-      },
-      {
-        "value": "Blocks.BAMBOO_HANGING_SIGN"
-      },
-      {
-        "value": "Blocks.BAMBOO_WALL_HANGING_SIGN"
-      },
-      {
-        "value": "Blocks.BAMBOO_BUTTON"
-      },
-      {
-        "value": "Blocks.BAMBOO_PRESSURE_PLATE"
-      },
-      {
-        "value": "Blocks.BAMBOO"
       },
       {
         "value": "Blocks.STANDING_SIGN"
@@ -636,6 +615,9 @@
         "value": "Blocks.DARK_OAK_SIGN"
       },
       {
+        "value": "Blocks.BAMBOO_SIGN"
+      },
+      {
         "value": "Blocks.WALL_SIGN"
       },
       {
@@ -652,6 +634,9 @@
       },
       {
         "value": "Blocks.DARK_OAK_WALL_SIGN"
+      },
+      {
+        "value": "Blocks.BAMBOO_WALL_SIGN"
       },
       {
         "value": "Blocks.OAK_HANGING_SIGN"
@@ -681,6 +666,12 @@
         "value": "Blocks.MANGROVE_HANGING_SIGN"
       },
       {
+        "value": "Blocks.CHERRY_HANGING_SIGN"
+      },
+      {
+        "value": "Blocks.BAMBOO_HANGING_SIGN"
+      },
+      {
         "value": "Blocks.OAK_WALL_HANGING_SIGN"
       },
       {
@@ -706,6 +697,12 @@
       },
       {
         "value": "Blocks.MANGROVE_WALL_HANGING_SIGN"
+      },
+      {
+        "value": "Blocks.CHERRY_WALL_HANGING_SIGN"
+      },
+      {
+        "value": "Blocks.BAMBOO_WALL_HANGING_SIGN"
       }
     ],
     "functions": [],

@@ -54,11 +54,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.midnightlurker.procedures.MidnightlurkerNEThisEntityKillsAnotherOneProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightlurkerNEOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightlurkerNEEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNENaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveBoundingBoxScaleProcedure;
@@ -117,10 +117,16 @@ public class MidnightlurkerNEEntity extends Monster implements GeoEntity {
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2, true) {
 			@Override
 			protected double getAttackReachSqr(LivingEntity entity) {
+				return 2.25;
+			}
+		});
+		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.2, true) {
+			@Override
+			protected double getAttackReachSqr(LivingEntity entity) {
 				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
 			}
 		});
-		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, (float) 100) {
+		this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, (float) 100) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightlurkerNEEntity.this.getX();
@@ -141,7 +147,7 @@ public class MidnightlurkerNEEntity extends Monster implements GeoEntity {
 				return super.canContinueToUse() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
 		});
-		this.goalSelector.addGoal(5, new FloatGoal(this) {
+		this.goalSelector.addGoal(6, new FloatGoal(this) {
 			@Override
 			public boolean canUse() {
 				double x = MidnightlurkerNEEntity.this.getX();
@@ -238,7 +244,7 @@ public class MidnightlurkerNEEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerAggressiveOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+		MidnightlurkerNEOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
 		this.refreshDimensions();
 	}
 

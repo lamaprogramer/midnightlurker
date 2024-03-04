@@ -10,7 +10,8 @@
       "fixedValue": 0.95
     },
     "boundingBoxScale": {
-      "fixedValue": 1.0
+      "fixedValue": 1.0,
+      "name": "MidnightLurkerHiderBoundingBoxScale"
     },
     "modelWidth": 0.7,
     "modelHeight": 2.5,
@@ -103,7 +104,7 @@
       "name": "MidnightLurkerEntityDies"
     },
     "whenMobIsHurt": {
-      "name": "MidnightLurkerAggressiveEntityIsHurt"
+      "name": "MidnightLurkerHiderEntityIsHurt"
     },
     "whenThisMobKillsAnother": {
       "name": "MidnightLurkerHiderThisEntityKillsAnotherOne"
