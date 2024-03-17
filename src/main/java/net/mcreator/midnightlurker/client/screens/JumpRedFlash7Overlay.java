@@ -1,40 +1,37 @@
 
 package net.mcreator.midnightlurker.client.screens;
 
-import org.checkerframework.checker.units.qual.h;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.api.distmarker.Dist;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.gui.DrawContext;
 
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.Minecraft;
+
+import net.minecraft.world.World;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.MinecraftClient;
 
 import net.mcreator.midnightlurker.procedures.RedJumpFrame24Procedure;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-@Mod.EventBusSubscriber({Dist.CLIENT})
-public class JumpRedFlash7Overlay {
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public static void eventHandler(RenderGuiEvent.Pre event) {
-		int w = event.getWindow().getGuiScaledWidth();
-		int h = event.getWindow().getGuiScaledHeight();
+
+public class JumpRedFlash7Overlay implements HudRenderCallback {
+	
+	public void onHudRender(DrawContext drawContext, float tickDelta) {
+		int w = drawContext.getScaledWindowWidth();
+		int h = drawContext.getScaledWindowHeight();
 		int posX = w / 2;
 		int posY = h / 2;
-		Level world = null;
+		World world = null;
 		double x = 0;
 		double y = 0;
 		double z = 0;
-		Player entity = Minecraft.getInstance().player;
+		PlayerEntity entity = MinecraftClient.getInstance().player;
 		if (entity != null) {
-			world = entity.level();
+			world = entity.getWorld();
 			x = entity.getX();
 			y = entity.getY();
 			z = entity.getZ();
@@ -42,11 +39,11 @@ public class JumpRedFlash7Overlay {
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		if (RedJumpFrame24Procedure.execute(entity)) {
-			event.getGuiGraphics().blit(new ResourceLocation("midnightlurker:textures/screens/jumpred7.png"), 0, 0, 0, 0, w, h, w, h);
+			drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpred7.png"), 0, 0, 0, 0, w, h, w, h);
 		}
 		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();

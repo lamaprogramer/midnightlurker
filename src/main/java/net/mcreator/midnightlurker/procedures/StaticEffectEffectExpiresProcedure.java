@@ -1,8 +1,9 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
 public class StaticEffectEffectExpiresProcedure {
 	public static void execute(Entity entity) {
@@ -10,10 +11,8 @@ public class StaticEffectEffectExpiresProcedure {
 			return;
 		{
 			double _setval = 0;
-			entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-				capability.StaticRender = _setval;
-				capability.syncPlayerVariables(entity);
-			});
+			((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
+			((IEntityDataSaver)entity).syncPlayerVariables(entity);
 		}
 	}
 }

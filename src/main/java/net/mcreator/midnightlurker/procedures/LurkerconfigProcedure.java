@@ -1,37 +1,17 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-
-import javax.annotation.Nullable;
-
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.File;
-import java.io.BufferedReader;
-
-import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+import java.io.*;
+
+
 public class LurkerconfigProcedure {
-	@SubscribeEvent
-	public static void init(FMLCommonSetupEvent event) {
-		execute();
-	}
-
 	public static void execute() {
-		execute(null);
-	}
-
-	private static void execute(@Nullable Event event) {
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
+		lurker = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
 		if (!lurker.exists()) {
 			try {
 				lurker.getParentFile().mkdirs();

@@ -1,14 +1,12 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.Entity;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
 
 public class StarerunProcedure {
 	public static boolean execute(Entity entity) {
 		if (entity == null)
 			return false;
-		if (entity.getPersistentData().getDouble("StareCountdown") == 401) {
-			return true;
-		}
-		return false;
-	}
+        return ((IEntityDataSaver) entity).getPersistentData().getDouble("StareCountdown") == 401;
+    }
 }

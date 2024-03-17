@@ -1,14 +1,11 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
 public class LurkerinwaterconditionProcedure {
 	public static boolean execute(Entity entity) {
 		if (entity == null)
 			return false;
-		if (entity.isInWater()) {
-			return true;
-		}
-		return false;
-	}
+        return entity.isTouchingWater();
+    }
 }

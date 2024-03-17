@@ -4,47 +4,84 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
 public class MidnightlurkerModSounds {
-	public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MidnightlurkerMod.MODID);
-	public static final RegistryObject<SoundEvent> LURKERANGER = REGISTRY.register("lurkeranger", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkeranger")));
-	public static final RegistryObject<SoundEvent> LURKERDISAPPEAR = REGISTRY.register("lurkerdisappear", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdisappear")));
-	public static final RegistryObject<SoundEvent> LURKERCHASE = REGISTRY.register("lurkerchase", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchase")));
-	public static final RegistryObject<SoundEvent> LURKERINVISIBLEJUMPSCARE = REGISTRY.register("lurkerinvisiblejumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerinvisiblejumpscare")));
-	public static final RegistryObject<SoundEvent> LURKERCHASE2 = REGISTRY.register("lurkerchase2", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchase2")));
-	public static final RegistryObject<SoundEvent> LURKERPREFINALBREAK = REGISTRY.register("lurkerprefinalbreak", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerprefinalbreak")));
-	public static final RegistryObject<SoundEvent> LURKERFINALBREAK = REGISTRY.register("lurkerfinalbreak", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerfinalbreak")));
-	public static final RegistryObject<SoundEvent> SPOOKYAMBIENCE = REGISTRY.register("spookyambience", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "spookyambience")));
-	public static final RegistryObject<SoundEvent> INSANITYGOESBACKSOUND = REGISTRY.register("insanitygoesbacksound", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "insanitygoesbacksound")));
-	public static final RegistryObject<SoundEvent> INSANITYAMBIENCE = REGISTRY.register("insanityambience", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "insanityambience")));
-	public static final RegistryObject<SoundEvent> INSANITYCHASE = REGISTRY.register("insanitychase", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "insanitychase")));
-	public static final RegistryObject<SoundEvent> LURKERBREAKINGBLOCK = REGISTRY.register("lurkerbreakingblock", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerbreakingblock")));
-	public static final RegistryObject<SoundEvent> LURKERDISTANTSCREAM = REGISTRY.register("lurkerdistantscream", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdistantscream")));
-	public static final RegistryObject<SoundEvent> LURKERDEATH = REGISTRY.register("lurkerdeath", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdeath")));
-	public static final RegistryObject<SoundEvent> LURKERDEATHJUMPSCARE = REGISTRY.register("lurkerdeathjumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerdeathjumpscare")));
-	public static final RegistryObject<SoundEvent> LURKERSCREAM = REGISTRY.register("lurkerscream", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerscream")));
-	public static final RegistryObject<SoundEvent> LURKERAMBIENT = REGISTRY.register("lurkerambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerambient")));
-	public static final RegistryObject<SoundEvent> LURKERCHASESTEPS = REGISTRY.register("lurkerchasesteps", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerchasesteps")));
-	public static final RegistryObject<SoundEvent> LURKERJUMPSCARE = REGISTRY.register("lurkerjumpscare", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerjumpscare")));
-	public static final RegistryObject<SoundEvent> LURKERHURT = REGISTRY.register("lurkerhurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerhurt")));
-	public static final RegistryObject<SoundEvent> NOSTEPSOUND = REGISTRY.register("nostepsound", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "nostepsound")));
-	public static final RegistryObject<SoundEvent> VOIDHANDS_AGGRO = REGISTRY.register("voidhands_aggro", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_aggro")));
-	public static final RegistryObject<SoundEvent> VOIDHANDS_DEATH = REGISTRY.register("voidhands_death", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_death")));
-	public static final RegistryObject<SoundEvent> VOIDHANDS_HURT = REGISTRY.register("voidhands_hurt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_hurt")));
-	public static final RegistryObject<SoundEvent> VOIDHANDS_SHRIEK = REGISTRY.register("voidhands_shriek", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "voidhands_shriek")));
-	public static final RegistryObject<SoundEvent> STATIC = REGISTRY.register("static", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "static")));
-	public static final RegistryObject<SoundEvent> PHANTOM_HEAD_SCREAM = REGISTRY.register("phantom_head_scream", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "phantom_head_scream")));
-	public static final RegistryObject<SoundEvent> LURKERFOOTSTEPS = REGISTRY.register("lurkerfootsteps", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurkerfootsteps")));
-	public static final RegistryObject<SoundEvent> THIRTEEN_AMBIENT = REGISTRY.register("thirteen_ambient", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "thirteen_ambient")));
-	public static final RegistryObject<SoundEvent> LURKER_STUNNED = REGISTRY.register("lurker_stunned", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_stunned")));
-	public static final RegistryObject<SoundEvent> LURKER_TAUNT = REGISTRY.register("lurker_taunt", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_taunt")));
-	public static final RegistryObject<SoundEvent> LURKER_STUN_OVER = REGISTRY.register("lurker_stun_over", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("midnightlurker", "lurker_stun_over")));
+	public static final Identifier LURKERANGER = new Identifier("midnightlurker", "lurkeranger");
+	public static final Identifier LURKERDISAPPEAR = new Identifier("midnightlurker", "lurkerdisappear");
+	public static final Identifier LURKERCHASE = new Identifier("midnightlurker", "lurkerchase");
+	public static final Identifier LURKERINVISIBLEJUMPSCARE = new Identifier("midnightlurker", "lurkerinvisiblejumpscare");
+	public static final Identifier LURKERCHASE2 = new Identifier("midnightlurker", "lurkerchase2");
+	public static final Identifier LURKERPREFINALBREAK = new Identifier("midnightlurker", "lurkerprefinalbreak");
+	public static final Identifier LURKERFINALBREAK = new Identifier("midnightlurker", "lurkerfinalbreak");
+	public static final Identifier SPOOKYAMBIENCE = new Identifier("midnightlurker", "spookyambience");
+	public static final Identifier INSANITYGOESBACKSOUND = new Identifier("midnightlurker", "insanitygoesbacksound");
+	public static final Identifier INSANITYAMBIENCE = new Identifier("midnightlurker", "insanityambience");
+	public static final Identifier INSANITYCHASE = new Identifier("midnightlurker", "insanitychase");
+	public static final Identifier LURKERBREAKINGBLOCK = new Identifier("midnightlurker", "lurkerbreakingblock");
+	public static final Identifier LURKERDISTANTSCREAM = new Identifier("midnightlurker", "lurkerdistantscream");
+	public static final Identifier LURKERDEATH = new Identifier("midnightlurker", "lurkerdeath");
+	public static final Identifier LURKERDEATHJUMPSCARE = new Identifier("midnightlurker", "lurkerdeathjumpscare");
+	public static final Identifier LURKERSCREAM = new Identifier("midnightlurker", "lurkerscream");
+	public static final Identifier LURKERAMBIENT = new Identifier("midnightlurker", "lurkerambient");
+	public static final Identifier LURKERCHASESTEPS = new Identifier("midnightlurker", "lurkerchasesteps");
+	public static final Identifier LURKERJUMPSCARE = new Identifier("midnightlurker", "lurkerjumpscare");
+	public static final Identifier LURKERHURT = new Identifier("midnightlurker", "lurkerhurt");
+	public static final Identifier NOSTEPSOUND = new Identifier("midnightlurker", "nostepsound");
+	public static final Identifier VOIDHANDS_AGGRO = new Identifier("midnightlurker", "voidhands_aggro");
+	public static final Identifier VOIDHANDS_DEATH = new Identifier("midnightlurker", "voidhands_death");
+	public static final Identifier VOIDHANDS_HURT = new Identifier("midnightlurker", "voidhands_hurt");
+	public static final Identifier VOIDHANDS_SHRIEK = new Identifier("midnightlurker", "voidhands_shriek");
+	public static final Identifier STATIC = new Identifier("midnightlurker", "static");
+	public static final Identifier PHANTOM_HEAD_SCREAM = new Identifier("midnightlurker", "phantom_head_scream");
+	public static final Identifier LURKERFOOTSTEPS = new Identifier("midnightlurker", "lurkerfootsteps");
+	public static final Identifier THIRTEEN_AMBIENT = new Identifier("midnightlurker", "thirteen_ambient");
+	public static final Identifier LURKER_STUNNED = new Identifier("midnightlurker", "lurker_stunned");
+	public static final Identifier LURKER_TAUNT = new Identifier("midnightlurker", "lurker_taunt");
+	public static final Identifier LURKER_STUN_OVER = new Identifier("midnightlurker", "lurker_stun_over");
+	
+	public static void init() {
+		register(LURKERANGER, SoundEvent.of(LURKERANGER));
+		register(LURKERDISAPPEAR, SoundEvent.of(LURKERDISAPPEAR));
+		register(LURKERCHASE, SoundEvent.of(LURKERCHASE));
+		register(LURKERINVISIBLEJUMPSCARE, SoundEvent.of(LURKERINVISIBLEJUMPSCARE));
+		register(LURKERCHASE2, SoundEvent.of(LURKERCHASE2));
+		register(LURKERPREFINALBREAK, SoundEvent.of(LURKERPREFINALBREAK));
+		register(LURKERFINALBREAK, SoundEvent.of(LURKERFINALBREAK));
+		register(SPOOKYAMBIENCE, SoundEvent.of(SPOOKYAMBIENCE));
+		register(INSANITYGOESBACKSOUND, SoundEvent.of(INSANITYGOESBACKSOUND));
+		register(INSANITYAMBIENCE, SoundEvent.of(INSANITYAMBIENCE));
+		register(INSANITYCHASE, SoundEvent.of(INSANITYCHASE));
+		register(LURKERBREAKINGBLOCK, SoundEvent.of(LURKERBREAKINGBLOCK));
+		register(LURKERDISTANTSCREAM, SoundEvent.of(LURKERDISTANTSCREAM));
+		register(LURKERDEATH, SoundEvent.of(LURKERDEATH));
+		register(LURKERDEATHJUMPSCARE, SoundEvent.of(LURKERDEATHJUMPSCARE));
+		register(LURKERSCREAM, SoundEvent.of(LURKERSCREAM));
+		register(LURKERAMBIENT, SoundEvent.of(LURKERAMBIENT));
+		register(LURKERCHASESTEPS, SoundEvent.of(LURKERCHASESTEPS));
+		register(LURKERJUMPSCARE, SoundEvent.of(LURKERJUMPSCARE));
+		register(LURKERHURT, SoundEvent.of(LURKERHURT));
+		register(NOSTEPSOUND, SoundEvent.of(NOSTEPSOUND));
+		register(VOIDHANDS_AGGRO, SoundEvent.of(VOIDHANDS_AGGRO));
+		register(VOIDHANDS_DEATH, SoundEvent.of(VOIDHANDS_DEATH));
+		register(VOIDHANDS_HURT, SoundEvent.of(VOIDHANDS_HURT));
+		register(VOIDHANDS_SHRIEK, SoundEvent.of(VOIDHANDS_SHRIEK));
+		register(STATIC, SoundEvent.of(STATIC));
+		register(PHANTOM_HEAD_SCREAM, SoundEvent.of(PHANTOM_HEAD_SCREAM));
+		register(LURKERFOOTSTEPS, SoundEvent.of(LURKERFOOTSTEPS));
+		register(THIRTEEN_AMBIENT, SoundEvent.of(THIRTEEN_AMBIENT));
+		register(LURKER_STUNNED, SoundEvent.of(LURKER_STUNNED));
+		register(LURKER_TAUNT, SoundEvent.of(LURKER_TAUNT));
+		register(LURKER_STUN_OVER, SoundEvent.of(LURKER_STUN_OVER));
+
+
+	}
+	private static void register(Identifier id, SoundEvent event) {
+		Registry.register(Registries.SOUND_EVENT, id, event);
+	}
 }

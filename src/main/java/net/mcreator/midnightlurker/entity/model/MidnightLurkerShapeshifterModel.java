@@ -1,37 +1,36 @@
 package net.mcreator.midnightlurker.entity.model;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.data.EntityModelData;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.Minecraft;
-
 import net.mcreator.midnightlurker.entity.MidnightLurkerShapeshifterEntity;
 
 public class MidnightLurkerShapeshifterModel extends GeoModel<MidnightLurkerShapeshifterEntity> {
 	@Override
-	public ResourceLocation getAnimationResource(MidnightLurkerShapeshifterEntity entity) {
-		return new ResourceLocation("midnightlurker", "animations/midnightlurkershapeshifter.animation.json");
+	public Identifier getAnimationResource(MidnightLurkerShapeshifterEntity entity) {
+		return new Identifier("midnightlurker", "animations/midnightlurkershapeshifter.animation.json");
 	}
 
 	@Override
-	public ResourceLocation getModelResource(MidnightLurkerShapeshifterEntity entity) {
-		return new ResourceLocation("midnightlurker", "geo/midnightlurkershapeshifter.geo.json");
+	public Identifier getModelResource(MidnightLurkerShapeshifterEntity entity) {
+		return new Identifier("midnightlurker", "geo/midnightlurkershapeshifter.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(MidnightLurkerShapeshifterEntity entity) {
-		return new ResourceLocation("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+	public Identifier getTextureResource(MidnightLurkerShapeshifterEntity entity) {
+		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 	@Override
 	public void setCustomAnimations(MidnightLurkerShapeshifterEntity animatable, long instanceId, AnimationState animationState) {
 		CoreGeoBone head = getAnimationProcessor().getBone("head");
 		if (head != null) {
-			int unpausedMultiplier = !Minecraft.getInstance().isPaused() ? 1 : 0;
+			int unpausedMultiplier = !MinecraftClient.getInstance().isPaused() ? 1 : 0;
 			EntityModelData entityData = (EntityModelData) animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 			head.setRotX(entityData.headPitch() * ((float) Math.PI / 180F) * unpausedMultiplier);
 			head.setRotY(entityData.netHeadYaw() * ((float) Math.PI / 180F) * unpausedMultiplier);

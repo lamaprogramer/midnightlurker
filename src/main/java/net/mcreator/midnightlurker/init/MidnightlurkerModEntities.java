@@ -4,17 +4,15 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Entity;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 import net.mcreator.midnightlurker.entity.VoidHandsEntity;
 import net.mcreator.midnightlurker.entity.VoidGatewayEntity;
@@ -52,178 +50,168 @@ import net.mcreator.midnightlurker.entity.DestroytexEntity;
 import net.mcreator.midnightlurker.entity.Destroytex4Entity;
 import net.mcreator.midnightlurker.entity.Destroytex3Entity;
 import net.mcreator.midnightlurker.entity.Destroytex2Entity;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MidnightlurkerModEntities {
-	public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MidnightlurkerMod.MODID);
-	public static final RegistryObject<EntityType<MidnightLurkerAggressiveEntity>> MIDNIGHT_LURKER_AGGRESSIVE = register("midnight_lurker_aggressive",
-			EntityType.Builder.<MidnightLurkerAggressiveEntity>of(MidnightLurkerAggressiveEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerAggressiveEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkertposeEntity>> MIDNIGHT_LURKERTPOSE = register("midnight_lurkertpose", EntityType.Builder.<MidnightLurkertposeEntity>of(MidnightLurkertposeEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkertposeEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerStalkingEntity>> MIDNIGHT_LURKER_STALKING = register("midnight_lurker_stalking",
-			EntityType.Builder.<MidnightLurkerStalkingEntity>of(MidnightLurkerStalkingEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerStalkingEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerInvisibleEntity>> MIDNIGHT_LURKER_INVISIBLE = register("midnight_lurker_invisible",
-			EntityType.Builder.<MidnightLurkerInvisibleEntity>of(MidnightLurkerInvisibleEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerInvisibleEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<SpookyambienceentityEntity>> SPOOKYAMBIENCEENTITY = register("spookyambienceentity", EntityType.Builder.<SpookyambienceentityEntity>of(SpookyambienceentityEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(SpookyambienceentityEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerSeenAngressiveEntity>> MIDNIGHT_LURKER_SEEN_ANGRESSIVE = register("midnight_lurker_seen_angressive",
-			EntityType.Builder.<MidnightLurkerSeenAngressiveEntity>of(MidnightLurkerSeenAngressiveEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerSeenAngressiveEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<DestroytexEntity>> DESTROYTEX = register("destroytex", EntityType.Builder.<DestroytexEntity>of(DestroytexEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
-			.setUpdateInterval(3).setCustomClientFactory(DestroytexEntity::new).fireImmune().sized(0.7f, 3f));
-	public static final RegistryObject<EntityType<Destroytex2Entity>> DESTROYTEX_2 = register("destroytex_2", EntityType.Builder.<Destroytex2Entity>of(Destroytex2Entity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(Destroytex2Entity::new).fireImmune().sized(0.7f, 3f));
-	public static final RegistryObject<EntityType<Destroytex3Entity>> DESTROYTEX_3 = register("destroytex_3", EntityType.Builder.<Destroytex3Entity>of(Destroytex3Entity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(Destroytex3Entity::new).fireImmune().sized(0.7f, 3f));
-	public static final RegistryObject<EntityType<Destroytex4Entity>> DESTROYTEX_4 = register("destroytex_4", EntityType.Builder.<Destroytex4Entity>of(Destroytex4Entity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(Destroytex4Entity::new).fireImmune().sized(0.7f, 3f));
-	public static final RegistryObject<EntityType<MidnightLurkerFakerAggroEntity>> MIDNIGHT_LURKER_FAKER_AGGRO = register("midnight_lurker_faker_aggro",
-			EntityType.Builder.<MidnightLurkerFakerAggroEntity>of(MidnightLurkerFakerAggroEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerFakerAggroEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerFakerEntity>> MIDNIGHT_LURKER_FAKER = register("midnight_lurker_faker", EntityType.Builder.<MidnightLurkerFakerEntity>of(MidnightLurkerFakerEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerFakerEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerFakerWatcherEntity>> MIDNIGHT_LURKER_FAKER_WATCHER = register("midnight_lurker_faker_watcher",
-			EntityType.Builder.<MidnightLurkerFakerWatcherEntity>of(MidnightLurkerFakerWatcherEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerFakerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<VoidGatewayEntity>> VOID_GATEWAY = register("void_gateway", EntityType.Builder.<VoidGatewayEntity>of(VoidGatewayEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(VoidGatewayEntity::new).fireImmune().sized(0.6f, 1.4f));
-	public static final RegistryObject<EntityType<MidnightLurkerBackturnedEntity>> MIDNIGHT_LURKER_BACKTURNED = register("midnight_lurker_backturned",
-			EntityType.Builder.<MidnightLurkerBackturnedEntity>of(MidnightLurkerBackturnedEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerBackturnedEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerShadowEyesEntity>> MIDNIGHT_LURKER_SHADOW_EYES = register("midnight_lurker_shadow_eyes",
-			EntityType.Builder.<MidnightLurkerShadowEyesEntity>of(MidnightLurkerShadowEyesEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerShadowEyesEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerShadowEntity>> MIDNIGHT_LURKER_SHADOW = register("midnight_lurker_shadow", EntityType.Builder.<MidnightLurkerShadowEntity>of(MidnightLurkerShadowEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerShadowEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerUnprovokedEntity>> MIDNIGHT_LURKER_UNPROVOKED = register("midnight_lurker_unprovoked",
-			EntityType.Builder.<MidnightLurkerUnprovokedEntity>of(MidnightLurkerUnprovokedEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerUnprovokedEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerRunawayEntity>> MIDNIGHT_LURKER_RUNAWAY = register("midnight_lurker_runaway", EntityType.Builder.<MidnightLurkerRunawayEntity>of(MidnightLurkerRunawayEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerRunawayEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerRuntrueEntity>> MIDNIGHT_LURKER_RUNTRUE = register("midnight_lurker_runtrue", EntityType.Builder.<MidnightLurkerRuntrueEntity>of(MidnightLurkerRuntrueEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerRuntrueEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerHiderEntity>> MIDNIGHT_LURKER_HIDER = register("midnight_lurker_hider", EntityType.Builder.<MidnightLurkerHiderEntity>of(MidnightLurkerHiderEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerHiderEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerShapeshifterEntity>> MIDNIGHT_LURKER_SHAPESHIFTER = register("midnight_lurker_shapeshifter",
-			EntityType.Builder.<MidnightLurkerShapeshifterEntity>of(MidnightLurkerShapeshifterEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(MidnightLurkerShapeshifterEntity::new).fireImmune().sized(0.6f, 1.95f));
-	public static final RegistryObject<EntityType<MidnightLurkerStareEntity>> MIDNIGHT_LURKER_STARE = register("midnight_lurker_stare", EntityType.Builder.<MidnightLurkerStareEntity>of(MidnightLurkerStareEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerStareEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightlurkerNEEntity>> MIDNIGHTLURKER_NE = register("midnightlurker_ne", EntityType.Builder.<MidnightlurkerNEEntity>of(MidnightlurkerNEEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightlurkerNEEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightLurkerWatcherEntity>> MIDNIGHT_LURKER_WATCHER = register("midnight_lurker_watcher", EntityType.Builder.<MidnightLurkerWatcherEntity>of(MidnightLurkerWatcherEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerWatcherEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<VoidHandsEntity>> VOID_HANDS = register("void_hands", EntityType.Builder.<VoidHandsEntity>of(VoidHandsEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
-			.setUpdateInterval(3).setCustomClientFactory(VoidHandsEntity::new).fireImmune().sized(0.6f, 1.4f));
-	public static final RegistryObject<EntityType<InvisibleFootstepsEntity>> INVISIBLE_FOOTSTEPS = register("invisible_footsteps", EntityType.Builder.<InvisibleFootstepsEntity>of(InvisibleFootstepsEntity::new, MobCategory.AMBIENT)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleFootstepsEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<InvisibleShadowEntity>> INVISIBLE_SHADOW = register("invisible_shadow", EntityType.Builder.<InvisibleShadowEntity>of(InvisibleShadowEntity::new, MobCategory.AMBIENT)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleShadowEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<InvisibleStaticEntity>> INVISIBLE_STATIC = register("invisible_static", EntityType.Builder.<InvisibleStaticEntity>of(InvisibleStaticEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleStaticEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<InvisibleLurkerFootstepsEntity>> INVISIBLE_LURKER_FOOTSTEPS = register("invisible_lurker_footsteps",
-			EntityType.Builder.<InvisibleLurkerFootstepsEntity>of(InvisibleLurkerFootstepsEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
-					.setCustomClientFactory(InvisibleLurkerFootstepsEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<InvisibleCaveSoundsEntity>> INVISIBLE_CAVE_SOUNDS = register("invisible_cave_sounds", EntityType.Builder.<InvisibleCaveSoundsEntity>of(InvisibleCaveSoundsEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleCaveSoundsEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<MidnightLurkerCreepEntity>> MIDNIGHT_LURKER_CREEP = register("midnight_lurker_creep", EntityType.Builder.<MidnightLurkerCreepEntity>of(MidnightLurkerCreepEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightLurkerCreepEntity::new).fireImmune().sized(0.7f, 2.5f));
-	public static final RegistryObject<EntityType<MidnightPhantomHeadEntity>> MIDNIGHT_PHANTOM_HEAD = register("midnight_phantom_head", EntityType.Builder.<MidnightPhantomHeadEntity>of(MidnightPhantomHeadEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(MidnightPhantomHeadEntity::new).fireImmune().sized(0.4f, 0.5f));
-	public static final RegistryObject<EntityType<InvisibleAnimalKillerEntity>> INVISIBLE_ANIMAL_KILLER = register("invisible_animal_killer", EntityType.Builder.<InvisibleAnimalKillerEntity>of(InvisibleAnimalKillerEntity::new, MobCategory.AMBIENT)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(InvisibleAnimalKillerEntity::new).fireImmune().sized(0.5f, 0.4f));
-	public static final RegistryObject<EntityType<ShapeshifterPigEntity>> SHAPESHIFTER_PIG = register("shapeshifter_pig", EntityType.Builder.<ShapeshifterPigEntity>of(ShapeshifterPigEntity::new, MobCategory.CREATURE)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(ShapeshifterPigEntity::new).fireImmune().sized(0.9f, 0.9f));
-	public static final RegistryObject<EntityType<ShapeShifterCowEntity>> SHAPE_SHIFTER_COW = register("shape_shifter_cow", EntityType.Builder.<ShapeShifterCowEntity>of(ShapeShifterCowEntity::new, MobCategory.CREATURE)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(ShapeShifterCowEntity::new).fireImmune().sized(0.9f, 1.4f));
+	public static EntityType<MidnightLurkerAggressiveEntity> MIDNIGHT_LURKER_AGGRESSIVE = register(new Identifier("midnightlurker", "midnight_lurker_aggressive"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerAggressiveEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerAggressiveEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkertposeEntity> MIDNIGHT_LURKERTPOSE = register(new Identifier("midnightlurker", "midnight_lurkertpose"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkertposeEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkertposeEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerStalkingEntity> MIDNIGHT_LURKER_STALKING = register(new Identifier("midnightlurker", "midnight_lurker_stalking"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerStalkingEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerStalkingEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerInvisibleEntity> MIDNIGHT_LURKER_INVISIBLE = register(new Identifier("midnightlurker", "midnight_lurker_invisible"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerInvisibleEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerInvisibleEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<SpookyambienceentityEntity> SPOOKYAMBIENCEENTITY = register(new Identifier("midnightlurker", "spookyambienceentity"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SpookyambienceentityEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(SpookyambienceentityEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerSeenAngressiveEntity> MIDNIGHT_LURKER_SEEN_ANGRESSIVE = register(new Identifier("midnightlurker", "midnight_lurker_seen_angressive"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerSeenAngressiveEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerSeenAngressiveEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<DestroytexEntity> DESTROYTEX = register(new Identifier("midnightlurker", "destroytex"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DestroytexEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64)
+			.trackedUpdateRate(3).entityFactory(DestroytexEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 3f)).build());
+	public static EntityType<Destroytex2Entity> DESTROYTEX_2 = register(new Identifier("midnightlurker", "destroytex_2"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, Destroytex2Entity::new).forceTrackedVelocityUpdates(true)
+			.trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(Destroytex2Entity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 3f)).build());
+	public static EntityType<Destroytex3Entity> DESTROYTEX_3 = register(new Identifier("midnightlurker", "destroytex_3"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, Destroytex3Entity::new).forceTrackedVelocityUpdates(true)
+			.trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(Destroytex3Entity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 3f)).build());
+	public static EntityType<Destroytex4Entity> DESTROYTEX_4 = register(new Identifier("midnightlurker", "destroytex_4"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, Destroytex4Entity::new).forceTrackedVelocityUpdates(true)
+			.trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(Destroytex4Entity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 3f)).build());
+	public static EntityType<MidnightLurkerFakerAggroEntity> MIDNIGHT_LURKER_FAKER_AGGRO = register(new Identifier("midnightlurker", "midnight_lurker_faker_aggro"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerFakerAggroEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerFakerAggroEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerFakerEntity> MIDNIGHT_LURKER_FAKER = register(new Identifier("midnightlurker", "midnight_lurker_faker"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerFakerEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerFakerEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerFakerWatcherEntity> MIDNIGHT_LURKER_FAKER_WATCHER = register(new Identifier("midnightlurker", "midnight_lurker_faker_watcher"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerFakerWatcherEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerFakerWatcherEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<VoidGatewayEntity> VOID_GATEWAY = register(new Identifier("midnightlurker", "void_gateway"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, VoidGatewayEntity::new).forceTrackedVelocityUpdates(true)
+			.trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(VoidGatewayEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.6f, 1.4f)).build());
+	public static EntityType<MidnightLurkerBackturnedEntity> MIDNIGHT_LURKER_BACKTURNED = register(new Identifier("midnightlurker", "midnight_lurker_backturned"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerBackturnedEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerBackturnedEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerShadowEyesEntity> MIDNIGHT_LURKER_SHADOW_EYES = register(new Identifier("midnightlurker", "midnight_lurker_shadow_eyes"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerShadowEyesEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerShadowEyesEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerShadowEntity> MIDNIGHT_LURKER_SHADOW = register(new Identifier("midnightlurker", "midnight_lurker_shadow"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerShadowEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerShadowEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerUnprovokedEntity> MIDNIGHT_LURKER_UNPROVOKED = register(new Identifier("midnightlurker", "midnight_lurker_unprovoked"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerUnprovokedEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerUnprovokedEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerRunawayEntity> MIDNIGHT_LURKER_RUNAWAY = register(new Identifier("midnightlurker", "midnight_lurker_runaway"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerRunawayEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerRunawayEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerRuntrueEntity> MIDNIGHT_LURKER_RUNTRUE = register(new Identifier("midnightlurker", "midnight_lurker_runtrue"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerRuntrueEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerRuntrueEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerHiderEntity> MIDNIGHT_LURKER_HIDER = register(new Identifier("midnightlurker", "midnight_lurker_hider"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerHiderEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerHiderEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerShapeshifterEntity> MIDNIGHT_LURKER_SHAPESHIFTER = register(new Identifier("midnightlurker", "midnight_lurker_shapeshifter"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerShapeshifterEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(MidnightLurkerShapeshifterEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
+	public static EntityType<MidnightLurkerStareEntity> MIDNIGHT_LURKER_STARE = register(new Identifier("midnightlurker", "midnight_lurker_stare"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerStareEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerStareEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightlurkerNEEntity> MIDNIGHTLURKER_NE = register(new Identifier("midnightlurker", "midnightlurker_ne"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightlurkerNEEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightlurkerNEEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightLurkerWatcherEntity> MIDNIGHT_LURKER_WATCHER = register(new Identifier("midnightlurker", "midnight_lurker_watcher"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerWatcherEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerWatcherEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<VoidHandsEntity> VOID_HANDS = register(new Identifier("midnightlurker", "void_hands"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, VoidHandsEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64)
+			.trackedUpdateRate(3).entityFactory(VoidHandsEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.6f, 1.4f)).build());
+	public static EntityType<InvisibleFootstepsEntity> INVISIBLE_FOOTSTEPS = register(new Identifier("midnightlurker", "invisible_footsteps"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, InvisibleFootstepsEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(InvisibleFootstepsEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<InvisibleShadowEntity> INVISIBLE_SHADOW = register(new Identifier("midnightlurker", "invisible_shadow"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, InvisibleShadowEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(InvisibleShadowEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<InvisibleStaticEntity> INVISIBLE_STATIC = register(new Identifier("midnightlurker", "invisible_static"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, InvisibleStaticEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(InvisibleStaticEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<InvisibleLurkerFootstepsEntity> INVISIBLE_LURKER_FOOTSTEPS = register(new Identifier("midnightlurker", "invisible_lurker_footsteps"),
+			FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, InvisibleLurkerFootstepsEntity::new).forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3)
+					.entityFactory(InvisibleLurkerFootstepsEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<InvisibleCaveSoundsEntity> INVISIBLE_CAVE_SOUNDS = register(new Identifier("midnightlurker", "invisible_cave_sounds"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, InvisibleCaveSoundsEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(InvisibleCaveSoundsEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<MidnightLurkerCreepEntity> MIDNIGHT_LURKER_CREEP = register(new Identifier("midnightlurker", "midnight_lurker_creep"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightLurkerCreepEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightLurkerCreepEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.7f, 2.5f)).build());
+	public static EntityType<MidnightPhantomHeadEntity> MIDNIGHT_PHANTOM_HEAD = register(new Identifier("midnightlurker", "midnight_phantom_head"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MidnightPhantomHeadEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(MidnightPhantomHeadEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.4f, 0.5f)).build());
+	public static EntityType<InvisibleAnimalKillerEntity> INVISIBLE_ANIMAL_KILLER = register(new Identifier("midnightlurker", "invisible_animal_killer"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, InvisibleAnimalKillerEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(InvisibleAnimalKillerEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.5f, 0.4f)).build());
+	public static EntityType<ShapeshifterPigEntity> SHAPESHIFTER_PIG = register(new Identifier("midnightlurker", "shapeshifter_pig"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ShapeshifterPigEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(ShapeshifterPigEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.9f, 0.9f)).build());
+	public static EntityType<ShapeShifterCowEntity> SHAPE_SHIFTER_COW = register(new Identifier("midnightlurker", "shape_shifter_cow"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ShapeShifterCowEntity::new)
+			.forceTrackedVelocityUpdates(true).trackRangeBlocks(64).trackedUpdateRate(3).entityFactory(ShapeShifterCowEntity::new).fireImmune().dimensions(EntityDimensions.fixed(0.9f, 1.4f)).build());
 
-	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
-		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
+	private static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> typeBuilder) {
+		return Registry.register(Registries.ENTITY_TYPE, id, typeBuilder);
 	}
+	public static void init() {
+		MidnightLurkerAggressiveEntity.init();
+		MidnightLurkertposeEntity.init();
+		MidnightLurkerStalkingEntity.init();
+		MidnightLurkerInvisibleEntity.init();
+		SpookyambienceentityEntity.init();
+		MidnightLurkerSeenAngressiveEntity.init();
+		DestroytexEntity.init();
+		Destroytex2Entity.init();
+		Destroytex3Entity.init();
+		Destroytex4Entity.init();
+		MidnightLurkerFakerAggroEntity.init();
+		MidnightLurkerFakerEntity.init();
+		MidnightLurkerFakerWatcherEntity.init();
+		VoidGatewayEntity.init();
+		MidnightLurkerBackturnedEntity.init();
+		MidnightLurkerShadowEyesEntity.init();
+		MidnightLurkerShadowEntity.init();
+		MidnightLurkerUnprovokedEntity.init();
+		MidnightLurkerRunawayEntity.init();
+		MidnightLurkerRuntrueEntity.init();
+		MidnightLurkerHiderEntity.init();
+		MidnightLurkerShapeshifterEntity.init();
+		MidnightLurkerStareEntity.init();
+		MidnightlurkerNEEntity.init();
+		MidnightLurkerWatcherEntity.init();
+		VoidHandsEntity.init();
+		InvisibleFootstepsEntity.init();
+		InvisibleShadowEntity.init();
+		InvisibleStaticEntity.init();
+		InvisibleLurkerFootstepsEntity.init();
+		InvisibleCaveSoundsEntity.init();
+		MidnightLurkerCreepEntity.init();
+		MidnightPhantomHeadEntity.init();
+		InvisibleAnimalKillerEntity.init();
+		ShapeshifterPigEntity.init();
+		ShapeShifterCowEntity.init();
 
-	@SubscribeEvent
-	public static void init(FMLCommonSetupEvent event) {
-		event.enqueueWork(() -> {
-			MidnightLurkerAggressiveEntity.init();
-			MidnightLurkertposeEntity.init();
-			MidnightLurkerStalkingEntity.init();
-			MidnightLurkerInvisibleEntity.init();
-			SpookyambienceentityEntity.init();
-			MidnightLurkerSeenAngressiveEntity.init();
-			DestroytexEntity.init();
-			Destroytex2Entity.init();
-			Destroytex3Entity.init();
-			Destroytex4Entity.init();
-			MidnightLurkerFakerAggroEntity.init();
-			MidnightLurkerFakerEntity.init();
-			MidnightLurkerFakerWatcherEntity.init();
-			VoidGatewayEntity.init();
-			MidnightLurkerBackturnedEntity.init();
-			MidnightLurkerShadowEyesEntity.init();
-			MidnightLurkerShadowEntity.init();
-			MidnightLurkerUnprovokedEntity.init();
-			MidnightLurkerRunawayEntity.init();
-			MidnightLurkerRuntrueEntity.init();
-			MidnightLurkerHiderEntity.init();
-			MidnightLurkerShapeshifterEntity.init();
-			MidnightLurkerStareEntity.init();
-			MidnightlurkerNEEntity.init();
-			MidnightLurkerWatcherEntity.init();
-			VoidHandsEntity.init();
-			InvisibleFootstepsEntity.init();
-			InvisibleShadowEntity.init();
-			InvisibleStaticEntity.init();
-			InvisibleLurkerFootstepsEntity.init();
-			InvisibleCaveSoundsEntity.init();
-			MidnightLurkerCreepEntity.init();
-			MidnightPhantomHeadEntity.init();
-			InvisibleAnimalKillerEntity.init();
-			ShapeshifterPigEntity.init();
-			ShapeShifterCowEntity.init();
-		});
-	}
-
-	@SubscribeEvent
-	public static void registerAttributes(EntityAttributeCreationEvent event) {
-		event.put(MIDNIGHT_LURKER_AGGRESSIVE.get(), MidnightLurkerAggressiveEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKERTPOSE.get(), MidnightLurkertposeEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_STALKING.get(), MidnightLurkerStalkingEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_INVISIBLE.get(), MidnightLurkerInvisibleEntity.createAttributes().build());
-		event.put(SPOOKYAMBIENCEENTITY.get(), SpookyambienceentityEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_SEEN_ANGRESSIVE.get(), MidnightLurkerSeenAngressiveEntity.createAttributes().build());
-		event.put(DESTROYTEX.get(), DestroytexEntity.createAttributes().build());
-		event.put(DESTROYTEX_2.get(), Destroytex2Entity.createAttributes().build());
-		event.put(DESTROYTEX_3.get(), Destroytex3Entity.createAttributes().build());
-		event.put(DESTROYTEX_4.get(), Destroytex4Entity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_FAKER_AGGRO.get(), MidnightLurkerFakerAggroEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_FAKER.get(), MidnightLurkerFakerEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_FAKER_WATCHER.get(), MidnightLurkerFakerWatcherEntity.createAttributes().build());
-		event.put(VOID_GATEWAY.get(), VoidGatewayEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_BACKTURNED.get(), MidnightLurkerBackturnedEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_SHADOW_EYES.get(), MidnightLurkerShadowEyesEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_SHADOW.get(), MidnightLurkerShadowEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_UNPROVOKED.get(), MidnightLurkerUnprovokedEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_RUNAWAY.get(), MidnightLurkerRunawayEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_RUNTRUE.get(), MidnightLurkerRuntrueEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_HIDER.get(), MidnightLurkerHiderEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_SHAPESHIFTER.get(), MidnightLurkerShapeshifterEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareEntity.createAttributes().build());
-		event.put(MIDNIGHTLURKER_NE.get(), MidnightlurkerNEEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherEntity.createAttributes().build());
-		event.put(VOID_HANDS.get(), VoidHandsEntity.createAttributes().build());
-		event.put(INVISIBLE_FOOTSTEPS.get(), InvisibleFootstepsEntity.createAttributes().build());
-		event.put(INVISIBLE_SHADOW.get(), InvisibleShadowEntity.createAttributes().build());
-		event.put(INVISIBLE_STATIC.get(), InvisibleStaticEntity.createAttributes().build());
-		event.put(INVISIBLE_LURKER_FOOTSTEPS.get(), InvisibleLurkerFootstepsEntity.createAttributes().build());
-		event.put(INVISIBLE_CAVE_SOUNDS.get(), InvisibleCaveSoundsEntity.createAttributes().build());
-		event.put(MIDNIGHT_LURKER_CREEP.get(), MidnightLurkerCreepEntity.createAttributes().build());
-		event.put(MIDNIGHT_PHANTOM_HEAD.get(), MidnightPhantomHeadEntity.createAttributes().build());
-		event.put(INVISIBLE_ANIMAL_KILLER.get(), InvisibleAnimalKillerEntity.createAttributes().build());
-		event.put(SHAPESHIFTER_PIG.get(), ShapeshifterPigEntity.createAttributes().build());
-		event.put(SHAPE_SHIFTER_COW.get(), ShapeShifterCowEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_AGGRESSIVE, MidnightLurkerAggressiveEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKERTPOSE, MidnightLurkertposeEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_STALKING, MidnightLurkerStalkingEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_INVISIBLE, MidnightLurkerInvisibleEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(SPOOKYAMBIENCEENTITY, SpookyambienceentityEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_SEEN_ANGRESSIVE, MidnightLurkerSeenAngressiveEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(DESTROYTEX, DestroytexEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(DESTROYTEX_2, Destroytex2Entity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(DESTROYTEX_3, Destroytex3Entity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(DESTROYTEX_4, Destroytex4Entity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER_AGGRO, MidnightLurkerFakerAggroEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER, MidnightLurkerFakerEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER_WATCHER, MidnightLurkerFakerWatcherEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(VOID_GATEWAY, VoidGatewayEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_BACKTURNED, MidnightLurkerBackturnedEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_SHADOW_EYES, MidnightLurkerShadowEyesEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_SHADOW, MidnightLurkerShadowEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_UNPROVOKED, MidnightLurkerUnprovokedEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_RUNAWAY, MidnightLurkerRunawayEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_RUNTRUE, MidnightLurkerRuntrueEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_HIDER, MidnightLurkerHiderEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_SHAPESHIFTER, MidnightLurkerShapeshifterEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_STARE, MidnightLurkerStareEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHTLURKER_NE, MidnightlurkerNEEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_WATCHER, MidnightLurkerWatcherEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(VOID_HANDS, VoidHandsEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_FOOTSTEPS, InvisibleFootstepsEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_SHADOW, InvisibleShadowEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_STATIC, InvisibleStaticEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_LURKER_FOOTSTEPS, InvisibleLurkerFootstepsEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_CAVE_SOUNDS, InvisibleCaveSoundsEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_CREEP, MidnightLurkerCreepEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(MIDNIGHT_PHANTOM_HEAD, MidnightPhantomHeadEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(INVISIBLE_ANIMAL_KILLER, InvisibleAnimalKillerEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(SHAPESHIFTER_PIG, ShapeshifterPigEntity.createAttributes().build());
+		FabricDefaultAttributeRegistry.register(SHAPE_SHIFTER_COW, ShapeShifterCowEntity.createAttributes().build());
 	}
 }

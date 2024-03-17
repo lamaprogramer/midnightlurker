@@ -1,66 +1,49 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.Mth;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-
-import java.util.Comparator;
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.EntityUtil;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.biome.BiomeKeys;
 
 public class MidnightLurkerRunawayOnInitialEntitySpawnProcedure {
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (world.getBiome(BlockPos.containing(x, y, z)).is(new ResourceLocation("mushroom_fields"))) {
+		if (world.getBiome(BlockPos.ofFloored(x, y, z)).matchesKey(BiomeKeys.MUSHROOM_FIELDS)) {
 			MidnightlurkerMod.queueServerWork(1, () -> {
-				if (!entity.level().isClientSide())
+				if (!entity.getWorld().isClient())
 					entity.discard();
 			});
 		}
-		if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-			_entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 99999, 250, false, false));
-		MidnightlurkerModVariables.WorldVariables.get(world).NeutralrunRandom = Mth.nextDouble(RandomSource.create(), 1, 10);
+		if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+			_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 99999, 250, false, false));
+		MidnightlurkerModVariables.WorldVariables.get(world).NeutralrunRandom = MathHelper.nextDouble(Random.create(), 1, 10);
 		MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive < 1) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 1;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 		}
-		if ((((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300), e -> true).stream().sorted(new Object() {
-			Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-				return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-			}
-		}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)).getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null)
-				.orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityAktive < 1) {
+		IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300);
+		if (dataSaver.getPersistentData().getDouble("InsanityAktive") < 1) {
 			{
 				double _setval = 1;
-				((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300), e -> true).stream().sorted(new Object() {
-					Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-						return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-					}
-				}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)).getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.InsanityAktive = _setval;
-					capability.syncPlayerVariables(((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300), e -> true).stream().sorted(new Object() {
-						Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-							return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-						}
-					}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)));
-				});
+				dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
+				dataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300));
 			}
 		}
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost == 5) {
-			if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-				_entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 99999, 1, false, false));
+			if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+				_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 99999, 1, false, false));
 		}
 	}
 }

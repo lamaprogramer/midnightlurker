@@ -4,10 +4,8 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.api.distmarker.Dist;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+
 
 import net.mcreator.midnightlurker.client.renderer.VoidHandsRenderer;
 import net.mcreator.midnightlurker.client.renderer.VoidGatewayRenderer;
@@ -46,45 +44,44 @@ import net.mcreator.midnightlurker.client.renderer.Destroytex4Renderer;
 import net.mcreator.midnightlurker.client.renderer.Destroytex3Renderer;
 import net.mcreator.midnightlurker.client.renderer.Destroytex2Renderer;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class MidnightlurkerModEntityRenderers {
-	@SubscribeEvent
-	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_AGGRESSIVE.get(), MidnightLurkerAggressiveRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE.get(), MidnightLurkertposeRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING.get(), MidnightLurkerStalkingRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE.get(), MidnightLurkerInvisibleRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY.get(), SpookyambienceentityRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE.get(), MidnightLurkerSeenAngressiveRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.DESTROYTEX.get(), DestroytexRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.DESTROYTEX_2.get(), Destroytex2Renderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.DESTROYTEX_3.get(), Destroytex3Renderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.DESTROYTEX_4.get(), Destroytex4Renderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO.get(), MidnightLurkerFakerAggroRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER.get(), MidnightLurkerFakerRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_WATCHER.get(), MidnightLurkerFakerWatcherRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.VOID_GATEWAY.get(), VoidGatewayRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_BACKTURNED.get(), MidnightLurkerBackturnedRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES.get(), MidnightLurkerShadowEyesRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW.get(), MidnightLurkerShadowRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get(), MidnightLurkerUnprovokedRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNAWAY.get(), MidnightLurkerRunawayRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE.get(), MidnightLurkerRuntrueRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIDER.get(), MidnightLurkerHiderRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER.get(), MidnightLurkerShapeshifterRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE.get(), MidnightLurkerStareRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHTLURKER_NE.get(), MidnightlurkerNERenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER.get(), MidnightLurkerWatcherRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.VOID_HANDS.get(), VoidHandsRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS.get(), InvisibleFootstepsRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_SHADOW.get(), InvisibleShadowRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_STATIC.get(), InvisibleStaticRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_LURKER_FOOTSTEPS.get(), InvisibleLurkerFootstepsRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS.get(), InvisibleCaveSoundsRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP.get(), MidnightLurkerCreepRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.MIDNIGHT_PHANTOM_HEAD.get(), MidnightPhantomHeadRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.INVISIBLE_ANIMAL_KILLER.get(), InvisibleAnimalKillerRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.SHAPESHIFTER_PIG.get(), ShapeshifterPigRenderer::new);
-		event.registerEntityRenderer(MidnightlurkerModEntities.SHAPE_SHIFTER_COW.get(), ShapeShifterCowRenderer::new);
+	
+	public static void init() {
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_AGGRESSIVE, MidnightLurkerAggressiveRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE, MidnightLurkertposeRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING, MidnightLurkerStalkingRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, MidnightLurkerInvisibleRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, SpookyambienceentityRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE, MidnightLurkerSeenAngressiveRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.DESTROYTEX, DestroytexRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.DESTROYTEX_2, Destroytex2Renderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.DESTROYTEX_3, Destroytex3Renderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.DESTROYTEX_4, Destroytex4Renderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO, MidnightLurkerFakerAggroRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER, MidnightLurkerFakerRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_WATCHER, MidnightLurkerFakerWatcherRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.VOID_GATEWAY, VoidGatewayRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_BACKTURNED, MidnightLurkerBackturnedRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES, MidnightLurkerShadowEyesRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW, MidnightLurkerShadowRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, MidnightLurkerUnprovokedRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNAWAY, MidnightLurkerRunawayRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE, MidnightLurkerRuntrueRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIDER, MidnightLurkerHiderRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER, MidnightLurkerShapeshifterRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE, MidnightLurkerStareRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHTLURKER_NE, MidnightlurkerNERenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, MidnightLurkerWatcherRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.VOID_HANDS, VoidHandsRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS, InvisibleFootstepsRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_SHADOW, InvisibleShadowRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_STATIC, InvisibleStaticRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_LURKER_FOOTSTEPS, InvisibleLurkerFootstepsRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, InvisibleCaveSoundsRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP, MidnightLurkerCreepRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.MIDNIGHT_PHANTOM_HEAD, MidnightPhantomHeadRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.INVISIBLE_ANIMAL_KILLER, InvisibleAnimalKillerRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG, ShapeshifterPigRenderer::new);
+		EntityRendererRegistry.register(MidnightlurkerModEntities.SHAPE_SHIFTER_COW, ShapeShifterCowRenderer::new);
 	}
 }

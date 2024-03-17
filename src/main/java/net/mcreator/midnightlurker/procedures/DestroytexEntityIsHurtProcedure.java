@@ -1,36 +1,32 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
-import net.minecraft.world.entity.Entity;
-
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.mcreator.midnightlurker.entity.DestroytexEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
+public class DestroytexEntityIsHurtProcedure implements AttackEntityCallback {
 
-@Mod.EventBusSubscriber
-public class DestroytexEntityIsHurtProcedure {
-	@SubscribeEvent
-	public static void onEntityAttacked(LivingAttackEvent event) {
-		if (event != null && event.getEntity() != null) {
-			execute(event, event.getEntity());
-		}
-	}
+    @Override
+    public ActionResult interact(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
+        if (entity != null) {
+            return execute(entity);
+        }
+        return ActionResult.PASS;
+    }
 
-	public static void execute(Entity entity) {
-		execute(null, entity);
-	}
-
-	private static void execute(@Nullable Event event, Entity entity) {
-		if (entity == null)
-			return;
-		if (entity instanceof DestroytexEntity) {
-			if (event != null && event.isCancelable()) {
-				event.setCanceled(true);
-			}
-		}
-	}
+    public static ActionResult execute(Entity entity) {
+        if (entity == null)
+            return ActionResult.PASS;
+        if (entity instanceof DestroytexEntity) {
+            return ActionResult.FAIL;
+        }
+        return ActionResult.PASS;
+    }
 }

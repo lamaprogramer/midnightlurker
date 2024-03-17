@@ -1,38 +1,38 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.item.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
 
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 public class ShapeShifterCowRightClickedOnEntityProcedure {
-	public static void execute(LevelAccessor world, Entity entity, Entity sourceentity) {
+	public static void execute(WorldAccess world, Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
 			return;
-		if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == Items.BUCKET
-				|| (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem() == Items.BUCKET) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
-				if (world instanceof ServerLevel _level)
-					_level.sendParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
-				if (!entity.level().isClientSide())
+		if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandStack() : ItemStack.EMPTY).getItem() == Items.BUCKET
+				|| (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffHandStack() : ItemStack.EMPTY).getItem() == Items.BUCKET) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
+				if (world instanceof ServerWorld _level)
+					_level.spawnParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
+				if (!entity.getWorld().isClient())
 					entity.discard();
-				if (world instanceof ServerLevel _level) {
-					Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
+				if (world instanceof ServerWorld _level) {
+					Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE.spawn(_level, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
 					if (entityToSpawn != null) {
-						entityToSpawn.setYRot(entity.getYRot());
-						entityToSpawn.setYBodyRot(entity.getYRot());
-						entityToSpawn.setYHeadRot(entity.getYRot());
-						entityToSpawn.setXRot(entity.getXRot());
+						entityToSpawn.setYaw(entity.getYaw());
+						entityToSpawn.setBodyYaw(entity.getYaw());
+						entityToSpawn.setHeadYaw(entity.getYaw());
+						entityToSpawn.setPitch(entity.getPitch());
 					}
 				}
 			}

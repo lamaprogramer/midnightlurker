@@ -1,11 +1,10 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.level.LevelAccessor;
-
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.minecraft.world.WorldAccess;
 
 public class VoidrandomnumberthingProcedure {
-	public static String execute(LevelAccessor world) {
-		return new java.text.DecimalFormat("##").format(MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledrewardrandom) + "";
+	public static String execute(WorldAccess world) {
+		return new java.text.DecimalFormat("##").format(MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkeroverhauledrewardrandom);
 	}
 }

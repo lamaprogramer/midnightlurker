@@ -1,56 +1,37 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
-
-import javax.annotation.Nullable;
-
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.File;
-import java.io.BufferedReader;
-
 import com.google.gson.Gson;
+import net.fabricmc.loader.api.FabricLoader;
+import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
-@Mod.EventBusSubscriber
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 public class MidnightLurkerHiderEntityIsHurtProcedure {
-	@SubscribeEvent
-	public static void onEntityAttacked(LivingAttackEvent event) {
-		if (event != null && event.getEntity() != null) {
-			execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity(), event.getSource().getEntity());
-		}
-	}
 
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
-		execute(null, world, x, y, z, entity, sourceentity);
-	}
-
-	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
 			return;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
+		lurker = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
 		{
 			try {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(lurker));
@@ -61,37 +42,33 @@ public class MidnightLurkerHiderEntityIsHurtProcedure {
 				}
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
-				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean() == true) {
-					if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof Player) {
-						if (event != null && event.isCancelable()) {
-							event.setCanceled(true);
-						}
+				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean()) {
+					if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof PlayerEntity) {
+
 					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof Player) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
-				if (!entity.level().isClientSide())
+		if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof PlayerEntity) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
+				if (!entity.getWorld().isClient())
 					entity.discard();
-				if (world instanceof Level _level) {
-					if (!_level.isClientSide()) {
-						_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+				if (world instanceof World _level) {
+					if (!_level.isClient()) {
+						_level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 					} else {
-						_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+						_level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1, false);
 					}
 				}
-				if (entity instanceof MidnightLurkerHiderEntity) {
-					((MidnightLurkerHiderEntity) entity).setAnimation("teleport8");
-				}
-				if (!((world.getBlockState(BlockPos.containing(x, y - 1, z))).getBlock() == Blocks.WATER) || !((world.getBlockState(BlockPos.containing(x, y - 1, z))).getBlock() == Blocks.WATER)
-						|| !((world.getBlockState(BlockPos.containing(x, y - 0, z))).getBlock() == Blocks.WATER) || !((world.getBlockState(BlockPos.containing(x, y - 0, z))).getBlock() == Blocks.WATER)) {
-					if (world instanceof ServerLevel _level) {
-						Entity entityToSpawn = MidnightlurkerModEntities.VOID_GATEWAY.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
+                ((MidnightLurkerHiderEntity) entity).setAnimation("teleport8");
+                if (!((world.getBlockState(BlockPos.ofFloored(x, y - 1, z))).getBlock() == Blocks.WATER) || !((world.getBlockState(BlockPos.ofFloored(x, y - 1, z))).getBlock() == Blocks.WATER)
+						|| !((world.getBlockState(BlockPos.ofFloored(x, y - 0, z))).getBlock() == Blocks.WATER) || !((world.getBlockState(BlockPos.ofFloored(x, y - 0, z))).getBlock() == Blocks.WATER)) {
+					if (world instanceof ServerWorld _level) {
+						Entity entityToSpawn = MidnightlurkerModEntities.VOID_GATEWAY.spawn(_level, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
 						if (entityToSpawn != null) {
-							entityToSpawn.setYRot(world.getRandom().nextFloat() * 360F);
+							entityToSpawn.setYaw(world.getRandom().nextFloat() * 360F);
 						}
 					}
 				}

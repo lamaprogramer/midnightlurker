@@ -10,44 +10,44 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.registry.Registries;
 
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.world.entity.ai.goal.MoveBackToVillageGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+
+
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import net.minecraft.item.ItemStack;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LongDoorInteractGoal;
+import net.minecraft.entity.ai.goal.WanderAroundPointOfInterestGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 
 import net.mcreator.midnightlurker.procedures.ShapeshiftermoveindoorsatnightProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterRightClickedOnEntityProcedure;
@@ -56,141 +56,136 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterNaturalE
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
-public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements GeoEntity {
-	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(MidnightLurkerShapeshifterEntity.class, EntityDataSerializers.BOOLEAN);
-	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(MidnightLurkerShapeshifterEntity.class, EntityDataSerializers.STRING);
-	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(MidnightLurkerShapeshifterEntity.class, EntityDataSerializers.STRING);
+public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements GeoEntity {
+	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerShapeshifterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerShapeshifterEntity.class, TrackedDataHandlerRegistry.STRING);
+	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerShapeshifterEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
 	public String animationprocedure = "empty";
-
-	public MidnightLurkerShapeshifterEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER.get(), world);
-	}
-
-	public MidnightLurkerShapeshifterEntity(EntityType<MidnightLurkerShapeshifterEntity> type, Level world) {
+	public MidnightLurkerShapeshifterEntity(EntityType<MidnightLurkerShapeshifterEntity> type, World world) {
 		super(type, world);
-		xpReward = 0;
-		setNoAi(false);
+		
+		setAiDisabled(false);
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(SHOOT, false);
-		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "baseshapeshifter");
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SHOOT, false);
+		this.dataTracker.startTracking(ANIMATION, "undefined");
+		this.dataTracker.startTracking(TEXTURE, "baseshapeshifter");
 	}
 
 	public void setTexture(String texture) {
-		this.entityData.set(TEXTURE, texture);
+		this.dataTracker.set(TEXTURE, texture);
 	}
 
 	public String getTexture() {
-		return this.entityData.get(TEXTURE);
+		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientPlayPacketListener> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1));
-		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, (float) 100));
-		this.goalSelector.addGoal(3, new OpenDoorGoal(this, true));
-		this.goalSelector.addGoal(4, new OpenDoorGoal(this, false));
-		this.goalSelector.addGoal(5, new MoveBackToVillageGoal(this, 0.6, false) {
+	protected void initGoals() {
+		super.initGoals();
+		this.goalSelector.add(1, new WanderAroundGoal(this, 1));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, (float) 100));
+		this.goalSelector.add(3, new LongDoorInteractGoal(this, true));
+		this.goalSelector.add(4, new LongDoorInteractGoal(this, false));
+		this.goalSelector.add(5, new WanderAroundPointOfInterestGoal(this, 0.6, false) {
 			@Override
-			public boolean canUse() {
+			public boolean canStart() {
 				double x = MidnightLurkerShapeshifterEntity.this.getX();
 				double y = MidnightLurkerShapeshifterEntity.this.getY();
 				double z = MidnightLurkerShapeshifterEntity.this.getZ();
 				Entity entity = MidnightLurkerShapeshifterEntity.this;
-				Level world = MidnightLurkerShapeshifterEntity.this.level();
-				return super.canUse() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
+				World world = MidnightLurkerShapeshifterEntity.this.getWorld();
+				return super.canStart() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
 			}
 
 			@Override
-			public boolean canContinueToUse() {
+			public boolean shouldContinue() {
 				double x = MidnightLurkerShapeshifterEntity.this.getX();
 				double y = MidnightLurkerShapeshifterEntity.this.getY();
 				double z = MidnightLurkerShapeshifterEntity.this.getZ();
 				Entity entity = MidnightLurkerShapeshifterEntity.this;
-				Level world = MidnightLurkerShapeshifterEntity.this.level();
-				return super.canContinueToUse() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
+				World world = MidnightLurkerShapeshifterEntity.this.getWorld();
+				return super.shouldContinue() && ShapeshiftermoveindoorsatnightProcedure.execute(world);
 			}
 		});
-		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
-		this.goalSelector.addGoal(7, new FloatGoal(this));
+		this.goalSelector.add(6, new LookAroundGoal(this));
+		this.goalSelector.add(7, new SwimGoal(this));
 	}
 
 	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
+	public EntityGroup getGroup() {
+		return EntityGroup.DEFAULT;
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.villager.ambient"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.ambient"));
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.villager.hurt"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.villager.death"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.death"));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
-		MidnightLurkerShapeshifterEntityIsHurtProcedure.execute(this.level(), this);
-		if (source.is(DamageTypes.IN_FIRE))
+	public boolean damage(DamageSource source, float amount) {
+		MidnightLurkerShapeshifterEntityIsHurtProcedure.execute(this.getWorld(), this);
+		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		if (source.getSource() instanceof PersistentProjectileEntity)
 			return false;
-		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source.isOf(DamageTypes.FALL))
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source.isOf(DamageTypes.CACTUS))
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source.isOf(DamageTypes.DROWN))
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isOf(DamageTypes.EXPLOSION))
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.isOf(DamageTypes.TRIDENT))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source.isOf(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source.isOf(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source.isOf(DamageTypes.WITHER))
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
-		return super.hurt(source, amount);
+		return super.damage(source, amount);
 	}
 
 	@Override
-	public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
-		ItemStack itemstack = sourceentity.getItemInHand(hand);
-		InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
-		super.mobInteract(sourceentity, hand);
+	public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
+		ItemStack itemstack = sourceentity.getStackInHand(hand);
+		ActionResult retval = ActionResult.success(this.getWorld().isClient());
+		super.interactMob(sourceentity, hand);
 		double x = this.getX();
 		double y = this.getY();
 		double z = this.getZ();
 		Entity entity = this;
-		Level world = this.level();
+		World world = this.getWorld();
 
 		MidnightLurkerShapeshifterRightClickedOnEntityProcedure.execute(world, entity);
 		return retval;
@@ -199,23 +194,23 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		MidnightLurkerShapeshifterOnEntityTickUpdateProcedure.execute(this.level(), this);
-		this.refreshDimensions();
+		MidnightLurkerShapeshifterOnEntityTickUpdateProcedure.execute(this.getWorld(), this);
+		this.calculateDimensions();
 	}
 
 	@Override
-	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
+	public EntityDimensions getDimensions(EntityPose p_33597_) {
+		return super.getDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
-	public void aiStep() {
-		super.aiStep();
-		this.updateSwingTime();
+	public void tickMovement() {
+		super.tickMovement();
+		this.tickHandSwing();
 	}
 
 	public static void init() {
-		SpawnPlacements.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
@@ -223,13 +218,13 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 		});
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
-		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.25);
-		builder = builder.add(Attributes.MAX_HEALTH, 200);
-		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
-		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		DefaultAttributeContainer.Builder builder = MobEntity.createMobAttributes();
+		builder = builder.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+		builder = builder.add(EntityAttributes.GENERIC_MAX_HEALTH, 200);
+		builder = builder.add(EntityAttributes.GENERIC_ARMOR, 0);
+		builder = builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
+		builder = builder.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100);
 		return builder;
 	}
 
@@ -247,7 +242,7 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level();
+		World world = entity.getWorld();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
@@ -274,20 +269,20 @@ public class MidnightLurkerShapeshifterEntity extends PathfinderMob implements G
 	}
 
 	@Override
-	protected void tickDeath() {
+	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightLurkerShapeshifterEntity.RemovalReason.KILLED);
-			this.dropExperience();
+			this.dropXp();
 		}
 	}
 
 	public String getSyncedAnimation() {
-		return this.entityData.get(ANIMATION);
+		return this.dataTracker.get(ANIMATION);
 	}
 
 	public void setAnimation(String animation) {
-		this.entityData.set(ANIMATION, animation);
+		this.dataTracker.set(ANIMATION, animation);
 	}
 
 	@Override

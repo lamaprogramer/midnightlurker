@@ -1,168 +1,51 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.registries.ForgeRegistries;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-
-import java.util.Comparator;
+import net.mcreator.midnightlurker.util.BlockUtil;
+import net.mcreator.midnightlurker.util.EntityUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class AmnesiaOnEffectActiveTickProcedure {
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+		
 		if (entity == null)
 			return;
 		double raytrace_distance = 0;
-		String found_entity_name = "";
 		boolean entity_found = false;
-		raytrace_distance = 0;
-		entity_found = false;
-		for (int index0 = 0; index0 < 30; index0++) {
-			if (!world
-					.getEntitiesOfClass(Monster.class,
-							AABB.ofSize(new Vec3(
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getX()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-											entity)).getBlockPos().getY()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(
-											1f).add(
-													entity.getViewVector(1f).scale(raytrace_distance)),
-											ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ())),
-									25, 25, 25),
-							e -> true)
-					.isEmpty()
-					&& !(((Entity) world
-							.getEntitiesOfClass(Monster.class,
-									AABB.ofSize(
-											new Vec3(
-													(entity.level()
-															.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-																	entity))
-															.getBlockPos().getX()),
-													(entity.level()
-															.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-																	entity))
-															.getBlockPos().getY()),
-													(entity.level().clip(
-															new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-															.getBlockPos().getZ())),
-											25, 25, 25),
-									e -> true)
-							.stream().sorted(new Object() {
-								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-									return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-								}
-							}.compareDistOf(
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getX()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getY()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getZ())))
-							.findFirst().orElse(null)) == entity)) {
+		BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
+        for (int index0 = 0; index0 < 30; index0++) {
+			if (!world.getEntitiesByClass(HostileEntity.class, Box.of(new Vec3d((blockHit.getBlockPos().getX()), (blockHit.getBlockPos().getY()), (blockHit.getBlockPos().getZ())), 25, 25, 25), e -> true).isEmpty()
+					&& !(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == entity)) {
 				entity_found = true;
-				if (!(((Entity) world.getEntitiesOfClass(Monster.class,
-						AABB.ofSize(new Vec3(
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getX()),
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getY()),
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getZ())),
-								25, 25, 25),
-						e -> true).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-							}
-						}.compareDistOf(
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getX()),
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getY()),
-								(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-										.getBlockPos().getZ())))
-						.findFirst().orElse(null)) == (null))) {
-					found_entity_name = ((Entity) world
-							.getEntitiesOfClass(Monster.class,
-									AABB.ofSize(
-											new Vec3(
-													(entity.level()
-															.clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE,
-																	entity))
-															.getBlockPos().getX()),
-													(entity.level()
-															.clip(new ClipContext(
-																	entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-															.getBlockPos().getY()),
-													(entity.level().clip(
-															new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-															.getBlockPos().getZ())),
-											25, 25, 25),
-									e -> true)
-							.stream().sorted(new Object() {
-								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-									return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-								}
-							}.compareDistOf(
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getX()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getY()),
-									(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity))
-											.getBlockPos().getZ())))
-							.findFirst().orElse(null)).getDisplayName().getString();
-				}
 			} else {
 				entity_found = false;
-				raytrace_distance = raytrace_distance + 1;
+				raytrace_distance++;
 			}
 		}
-		if (entity_found == true) {
-			if (!(((Entity) world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3(
-					(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
-					(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
-					(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ())),
-					25, 25, 25), e -> true).stream().sorted(new Object() {
-						Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-							return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-						}
-					}.compareDistOf(
-							(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
-									.getX()),
-							(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
-									.getY()),
-							(entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(raytrace_distance)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getBlockPos()
-									.getZ())))
-					.findFirst().orElse(null)) == (null))) {
-				if (world instanceof Level _level) {
-					if (!_level.isClientSide()) {
-						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 0, 0);
+		if (entity_found) {
+			if (!(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == (null))) {
+				if (world instanceof World _level) {
+					if (!_level.isClient()) {
+						_level.playSound(null, BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 0, 0);
 					} else {
-						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 0, 0, false);
+						_level.playSoundAtBlockCenter(BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 0, 0, false);
 					}
 				}
 			}
-		} else if (entity_found == false) {
-			if (!(!world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty())) {
-				if (!world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30), e -> true).isEmpty()) {
-					if (!((Entity) world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30), e -> true).stream().sorted(new Object() {
-						Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-							return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-						}
-					}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)).level().isClientSide())
-						((Entity) world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30), e -> true).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-							}
-						}.compareDistOf((entity.getX()), (entity.getY()), (entity.getZ()))).findFirst().orElse(null)).discard();
+		} else {
+			if ((world.getEntitiesByClass(HostileEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty())) {
+				if (!world.getEntitiesByClass(HostileEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30), e -> true).isEmpty()) {
+					if (!EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30).getWorld().isClient())
+						EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 30, 30, 30).discard();
 				}
 			}
 		}

@@ -10,35 +10,35 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.registry.Registries;
 
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+
+
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 
 import net.mcreator.midnightlurker.procedures.VoidGatewayOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.VoidGatewayEntityIsHurtProcedure;
@@ -46,130 +46,126 @@ import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
-public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
-	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(VoidGatewayEntity.class, EntityDataSerializers.BOOLEAN);
-	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(VoidGatewayEntity.class, EntityDataSerializers.STRING);
-	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(VoidGatewayEntity.class, EntityDataSerializers.STRING);
+public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
+	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<String> ANIMATION = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.STRING);
+	public static final TrackedData<String> TEXTURE = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
 	public String animationprocedure = "empty";
 
-	public VoidGatewayEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(MidnightlurkerModEntities.VOID_GATEWAY.get(), world);
-	}
-
-	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, Level world) {
+	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, World world) {
 		super(type, world);
-		xpReward = 0;
-		setNoAi(false);
+		
+		setAiDisabled(false);
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(SHOOT, false);
-		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "voidgateway");
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SHOOT, false);
+		this.dataTracker.startTracking(ANIMATION, "undefined");
+		this.dataTracker.startTracking(TEXTURE, "voidgateway");
 	}
 
 	public void setTexture(String texture) {
-		this.entityData.set(TEXTURE, texture);
+		this.dataTracker.set(TEXTURE, texture);
 	}
 
 	public String getTexture() {
-		return this.entityData.get(TEXTURE);
+		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientPlayPacketListener> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(1, new FloatGoal(this) {
+	protected void initGoals() {
+		super.initGoals();
+		this.goalSelector.add(1, new SwimGoal(this) {
 			@Override
-			public boolean canUse() {
+			public boolean canStart() {
 				double x = VoidGatewayEntity.this.getX();
 				double y = VoidGatewayEntity.this.getY();
 				double z = VoidGatewayEntity.this.getZ();
 				Entity entity = VoidGatewayEntity.this;
-				Level world = VoidGatewayEntity.this.level();
-				return super.canUse() && VoidFloatProcProcedure.execute();
+				World world = VoidGatewayEntity.this.getWorld();
+				return super.canStart() && VoidFloatProcProcedure.execute();
 			}
 
 			@Override
-			public boolean canContinueToUse() {
+			public boolean shouldContinue() {
 				double x = VoidGatewayEntity.this.getX();
 				double y = VoidGatewayEntity.this.getY();
 				double z = VoidGatewayEntity.this.getZ();
 				Entity entity = VoidGatewayEntity.this;
-				Level world = VoidGatewayEntity.this.level();
-				return super.canContinueToUse() && VoidFloatProcProcedure.execute();
+				World world = VoidGatewayEntity.this.getWorld();
+				return super.shouldContinue() && VoidFloatProcProcedure.execute();
 			}
 		});
 	}
 
 	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
+	public EntityGroup getGroup() {
+		return EntityGroup.DEFAULT;
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean damage(DamageSource source, float amount) {
 		VoidGatewayEntityIsHurtProcedure.execute(this);
-		if (source.is(DamageTypes.IN_FIRE))
+		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		if (source.getSource() instanceof PersistentProjectileEntity)
 			return false;
-		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source.isOf(DamageTypes.FALL))
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source.isOf(DamageTypes.CACTUS))
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source.isOf(DamageTypes.DROWN))
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isOf(DamageTypes.EXPLOSION))
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.isOf(DamageTypes.TRIDENT))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source.isOf(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source.isOf(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source.isOf(DamageTypes.WITHER))
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
-		return super.hurt(source, amount);
+		return super.damage(source, amount);
 	}
 
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		VoidGatewayOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
-		this.refreshDimensions();
+		VoidGatewayOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
+		this.calculateDimensions();
 	}
 
 	@Override
-	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
+	public EntityDimensions getDimensions(EntityPose p_33597_) {
+		return super.getDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
@@ -178,21 +174,21 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 	}
 
 	@Override
-	protected void doPush(Entity entityIn) {
+	protected void pushAway(Entity entity) {
 	}
 
 	@Override
-	protected void pushEntities() {
+	protected void tickCramming() {
 	}
 
 	@Override
-	public void aiStep() {
-		super.aiStep();
-		this.updateSwingTime();
+	public void tickMovement() {
+		super.tickMovement();
+		this.tickHandSwing();
 	}
 
 	public static void init() {
-		SpawnPlacements.register(MidnightlurkerModEntities.VOID_GATEWAY.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.VOID_GATEWAY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
@@ -200,14 +196,14 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 		});
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
-		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0);
-		builder = builder.add(Attributes.MAX_HEALTH, 5);
-		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
-		builder = builder.add(Attributes.FOLLOW_RANGE, 16);
-		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 5);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		DefaultAttributeContainer.Builder builder = MobEntity.createMobAttributes();
+		builder = builder.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0);
+		builder = builder.add(EntityAttributes.GENERIC_MAX_HEALTH, 5);
+		builder = builder.add(EntityAttributes.GENERIC_ARMOR, 0);
+		builder = builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
+		builder = builder.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16);
+		builder = builder.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 5);
 		return builder;
 	}
 
@@ -220,7 +216,7 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level();
+		World world = entity.getWorld();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
@@ -247,20 +243,20 @@ public class VoidGatewayEntity extends PathfinderMob implements GeoEntity {
 	}
 
 	@Override
-	protected void tickDeath() {
+	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(VoidGatewayEntity.RemovalReason.KILLED);
-			this.dropExperience();
+			this.dropXp();
 		}
 	}
 
 	public String getSyncedAnimation() {
-		return this.entityData.get(ANIMATION);
+		return this.dataTracker.get(ANIMATION);
 	}
 
 	public void setAnimation(String animation) {
-		this.entityData.set(ANIMATION, animation);
+		this.dataTracker.set(ANIMATION, animation);
 	}
 
 	@Override

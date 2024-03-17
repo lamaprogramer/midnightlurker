@@ -1,68 +1,57 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.command.CommandOutput;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.GameType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.Mth;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.client.Minecraft;
 
-import javax.annotation.Nullable;
-
-@Mod.EventBusSubscriber
-public class TriestosleepwhilemonstersnearProcedure {
-	@SubscribeEvent
-	public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-		if (event.getHand() != event.getEntity().getUsedItemHand())
-			return;
-		execute(event, event.getLevel(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), event.getLevel().getBlockState(event.getPos()), event.getEntity());
-	}
-
-	public static void execute(LevelAccessor world, double x, double y, double z, BlockState blockstate, Entity entity) {
-		execute(null, world, x, y, z, blockstate, entity);
-	}
-
-	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, BlockState blockstate, Entity entity) {
-		if (entity == null)
-			return;
-		if (blockstate.is(BlockTags.create(new ResourceLocation("beds")))) {
-			if (!(new Object() {
-				public boolean checkGamemode(Entity _ent) {
-					if (_ent instanceof ServerPlayer _serverPlayer) {
-						return _serverPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE;
-					} else if (_ent.level().isClientSide() && _ent instanceof Player _player) {
-						return Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()) != null
-								&& Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()).getGameMode() == GameType.CREATIVE;
-					}
-					return false;
-				}
-			}.checkGamemode(entity))) {
-				if (!world.getEntitiesOfClass(Monster.class, AABB.ofSize(new Vec3(x, y, z), 16, 16, 16), e -> true).isEmpty()) {
-					if (Mth.nextInt(RandomSource.create(), 1, 10) == 2) {
-						if (world instanceof ServerLevel _level)
-							_level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-									"/playsound minecraft:ambient.cave ambient @p ~ ~ ~ 50 0.8");
-					}
-				}
-			}
-		}
-	}
+public class TriestosleepwhilemonstersnearProcedure implements UseBlockCallback {
+    @Override
+    public ActionResult interact(PlayerEntity entity, World world, Hand hand, BlockHitResult hitResult) {
+        if (entity == null)
+            return ActionResult.PASS;
+        BlockState blockState = world.getBlockState(hitResult.getBlockPos());
+        if (blockState.isIn(TagKey.of(RegistryKeys.BLOCK, new Identifier("beds")))) {
+            if (!(new Object() {
+                public boolean checkGamemode(Entity _ent) {
+                    if (_ent instanceof ServerPlayerEntity _serverPlayer) {
+                        return _serverPlayer.interactionManager.getGameMode() == GameMode.CREATIVE;
+                    } else if (_ent.getWorld().isClient() && _ent instanceof PlayerEntity _player) {
+                        return MinecraftClient.getInstance().getNetworkHandler().getPlayerListEntry(_player.getGameProfile().getId()) != null
+                                && MinecraftClient.getInstance().getNetworkHandler().getPlayerListEntry(_player.getGameProfile().getId()).getGameMode() == GameMode.CREATIVE;
+                    }
+                    return false;
+                }
+            }.checkGamemode(entity))) {
+                if (!world.getEntitiesByClass(HostileEntity.class, Box.of(entity.getPos(), 16, 16, 16), e -> true).isEmpty()) {
+                    if (MathHelper.nextInt(Random.create(), 1, 10) == 2) {
+                        if (world instanceof ServerWorld _level)
+                            _level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, entity.getPos(), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+                                    "/playsound minecraft:ambient.cave ambient @p ~ ~ ~ 50 0.8");
+                    }
+                }
+            }
+        }
+        return ActionResult.SUCCESS;
+    }
 }

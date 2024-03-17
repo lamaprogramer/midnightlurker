@@ -1,46 +1,25 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.TickEvent;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.effect.MobEffectInstance;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
+import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldAccess;
 
-import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber
 public class AggroPotionAddTickProcedure {
-	@SubscribeEvent
-	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			execute(event, event.player.level(), event.player.getX(), event.player.getY(), event.player.getZ(), event.player);
-		}
-	}
-
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
-		execute(null, world, x, y, z, entity);
-	}
-
-	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		double spawnx = 0;
-		double spawny = 0;
-		double spawnz = 0;
-		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage == 7) {
-			if (!(!world.getEntitiesOfClass(MidnightLurkerAggressiveEntity.class, AABB.ofSize(new Vec3(x, y, z), 700, 700, 700), e -> true).isEmpty())) {
-				if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-					_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.LURKER_ANGERED.get(), 2, 0, false, false));
+		//IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
+		if (((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") == 7) {
+			if (world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) {
+				if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+					_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.LURKER_ANGERED, 2, 0, false, false));
 			}
 		}
 	}

@@ -1,45 +1,40 @@
 package net.mcreator.midnightlurker.client.model;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.EntityModel;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.Identifier;
 
 // Made with Blockbench 4.8.3
-// Exported for Minecraft version 1.17 or later with Mojang mappings
+// Exported for MinecraftClient version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 public class Modeldestroytex<T extends Entity> extends EntityModel<T> {
-	// This layer location should be baked with EntityRendererProvider.Context in
+	// This layer location should be baked with EntityRendererFactory.Context in
 	// the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("midnightlurker", "modeldestroytex"), "main");
+
+	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier("midnightlurker", "modeldestroytex"), "main");
 	public final ModelPart bb_main;
 
 	public Modeldestroytex(ModelPart root) {
 		this.bb_main = root.getChild("bb_main");
 	}
 
-	public static LayerDefinition createBodyLayer() {
-		MeshDefinition meshdefinition = new MeshDefinition();
-		PartDefinition partdefinition = meshdefinition.getRoot();
-		PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create().texOffs(-1, -1).addBox(-8.5F, -48.5F, -8.5F, 17.0F, 49.0F, 17.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
-		return LayerDefinition.create(meshdefinition, 64, 64);
+	public static TexturedModelData createBodyLayer() {
+		ModelData meshdefinition = new ModelData();
+		ModelPartData partdefinition = meshdefinition.getRoot();
+		ModelPartData bb_main = partdefinition.addChild("bb_main", ModelPartBuilder.create().uv(-1, -1).cuboid(-8.5F, -48.5F, -8.5F, 17.0F, 49.0F, 17.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		return TexturedModelData.of(meshdefinition, 64, 64);
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+		bb_main.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
-
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Override
+	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 	}
 }

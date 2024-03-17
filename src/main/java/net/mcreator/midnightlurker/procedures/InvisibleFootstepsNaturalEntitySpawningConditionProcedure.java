@@ -1,16 +1,6 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.fml.loading.FMLPaths;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-
+import net.fabricmc.loader.api.FabricLoader;
 import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
 import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
 import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
@@ -23,12 +13,20 @@ import java.io.File;
 import java.io.BufferedReader;
 
 import com.google.gson.Gson;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
-	public static boolean execute(LevelAccessor world, double x, double y, double z) {
+	public static boolean execute(WorldAccess world, double x, double y, double z) {
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
-		lurker = new File((FMLPaths.GAMEDIR.get().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
+		lurker = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
 		{
 			try {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(lurker));
@@ -39,20 +37,20 @@ public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
 				}
 				bufferedReader.close();
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
-				if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean() == true) {
-					if (world instanceof Level _level) {
-						if (!_level.isClientSide()) {
-							_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0);
+				if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean()) {
+					if (world instanceof World _level) {
+						if (!_level.isClient()) {
+							_level.playSound(null, BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchase")), SoundCategory.NEUTRAL, 0, 0);
 						} else {
-							_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0, false);
+							_level.playSoundAtBlockCenter(BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchase")), SoundCategory.NEUTRAL, 0, 0, false);
 						}
 					}
-				} else if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean() == false) {
-					if (world instanceof Level _level) {
-						if (!_level.isClientSide()) {
-							_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0);
+				} else if (!mainjsonobject.get("invisible_entities_spawning").getAsBoolean()) {
+					if (world instanceof World _level) {
+						if (!_level.isClient()) {
+							_level.playSound(null, BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchase")), SoundCategory.NEUTRAL, 0, 0);
 						} else {
-							_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerchase")), SoundSource.NEUTRAL, 0, 0, false);
+							_level.playSoundAtBlockCenter(BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchase")), SoundCategory.NEUTRAL, 0, 0, false);
 						}
 					}
 				}
@@ -60,16 +58,14 @@ public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
 				e.printStackTrace();
 			}
 		}
-		if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean() == false) {
+		if (!mainjsonobject.get("invisible_entities_spawning").getAsBoolean()) {
 			return false;
-		} else if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean() == true) {
-			if (!(!world.getEntitiesOfClass(InvisibleFootstepsEntity.class, AABB.ofSize(new Vec3(x, y, z), 800, 800, 800), e -> true).isEmpty())
-					&& !(!world.getEntitiesOfClass(InvisibleShadowEntity.class, AABB.ofSize(new Vec3(x, y, z), 800, 800, 800), e -> true).isEmpty())
-					&& !(!world.getEntitiesOfClass(InvisibleStaticEntity.class, AABB.ofSize(new Vec3(x, y, z), 800, 800, 800), e -> true).isEmpty())
-					&& !(!world.getEntitiesOfClass(InvisibleLurkerFootstepsEntity.class, AABB.ofSize(new Vec3(x, y, z), 800, 800, 800), e -> true).isEmpty())
-					&& !(!world.getEntitiesOfClass(InvisibleCaveSoundsEntity.class, AABB.ofSize(new Vec3(x, y, z), 800, 800, 800), e -> true).isEmpty()) && (world instanceof Level _lvl ? _lvl.dimension() : Level.OVERWORLD) == Level.OVERWORLD) {
-				return true;
-			}
+		} else if (mainjsonobject.get("invisible_entities_spawning").getAsBoolean()) {
+            return world.getEntitiesByClass(InvisibleFootstepsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
+                    && world.getEntitiesByClass(InvisibleShadowEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
+                    && world.getEntitiesByClass(InvisibleStaticEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
+                    && world.getEntitiesByClass(InvisibleLurkerFootstepsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
+                    && world.getEntitiesByClass(InvisibleCaveSoundsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD;
 		}
 		return false;
 	}

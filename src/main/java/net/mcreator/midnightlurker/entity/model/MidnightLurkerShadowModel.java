@@ -1,25 +1,24 @@
 package net.mcreator.midnightlurker.entity.model;
 
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
-
-import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.midnightlurker.entity.MidnightLurkerShadowEntity;
 
 public class MidnightLurkerShadowModel extends GeoModel<MidnightLurkerShadowEntity> {
 	@Override
-	public ResourceLocation getAnimationResource(MidnightLurkerShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "animations/midnightlurkershadow.animation.json");
+	public Identifier getAnimationResource(MidnightLurkerShadowEntity entity) {
+		return new Identifier("midnightlurker", "animations/midnightlurkershadow.animation.json");
 	}
 
 	@Override
-	public ResourceLocation getModelResource(MidnightLurkerShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "geo/midnightlurkershadow.geo.json");
+	public Identifier getModelResource(MidnightLurkerShadowEntity entity) {
+		return new Identifier("midnightlurker", "geo/midnightlurkershadow.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(MidnightLurkerShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+	public Identifier getTextureResource(MidnightLurkerShadowEntity entity) {
+		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 }

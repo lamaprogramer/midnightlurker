@@ -1,37 +1,36 @@
 
 package net.mcreator.midnightlurker.client.renderer;
 
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
+
 
 import net.mcreator.midnightlurker.entity.model.InvisibleCaveSoundsModel;
 import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.PoseStack;
-
 public class InvisibleCaveSoundsRenderer extends GeoEntityRenderer<InvisibleCaveSoundsEntity> {
-	public InvisibleCaveSoundsRenderer(EntityRendererProvider.Context renderManager) {
+	public InvisibleCaveSoundsRenderer(EntityRendererFactory.Context renderManager) {
 		super(renderManager, new InvisibleCaveSoundsModel());
 		this.shadowRadius = 0f;
 	}
 
 	@Override
-	public RenderType getRenderType(InvisibleCaveSoundsEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-		return RenderType.entityTranslucent(getTextureLocation(animatable));
+	public RenderLayer getRenderType(InvisibleCaveSoundsEntity animatable, Identifier texture, VertexConsumerProvider bufferSource, float partialTick) {
+		return RenderLayer.getEntityTranslucent(getTextureLocation(animatable));
 	}
 
 	@Override
-	public void preRender(PoseStack poseStack, InvisibleCaveSoundsEntity entity, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red,
-			float green, float blue, float alpha) {
+	public void preRender(MatrixStack poseStack, InvisibleCaveSoundsEntity animatable, BakedGeoModel model, VertexConsumerProvider bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		float scale = 1f;
 		this.scaleHeight = scale;
 		this.scaleWidth = scale;
-		super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+		super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

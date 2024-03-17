@@ -1,181 +1,114 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.registries.ForgeRegistries;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.Mth;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.CommandSource;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
-import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-
-import java.util.Comparator;
+import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
+import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
+import net.mcreator.midnightlurker.util.EntityUtil;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.server.command.CommandOutput;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
 		double spawnx = 0;
 		double spawnz = 0;
 		double spawny = 0;
-		double yaw = 0;
-		double yawlurker = 0;
-		if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-			_entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 60, 0, false, false));
-		if (entity.isPassenger()) {
+		if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+			_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 60, 0, false, false));
+		if (entity.hasVehicle()) {
 			entity.stopRiding();
 		}
-		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty()) {
-			spawnx = ((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).stream().sorted(new Object() {
-				Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-					return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-				}
-			}.compareDistOf(x, y, z)).findFirst().orElse(null)).getX() + Mth.nextInt(RandomSource.create(), -10, 10);
-			spawny = ((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).stream().sorted(new Object() {
-				Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-					return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-				}
-			}.compareDistOf(x, y, z)).findFirst().orElse(null)).getY() + Mth.nextInt(RandomSource.create(), -2, 2);
-			spawnz = ((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).stream().sorted(new Object() {
-				Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-					return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-				}
-			}.compareDistOf(x, y, z)).findFirst().orElse(null)).getZ() + Mth.nextInt(RandomSource.create(), -10, 10);
+		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 300, 300, 300), e -> true).isEmpty()) {
+			spawnx = EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 300, 300, 300).getX() + MathHelper.nextInt(Random.create(), -10, 10);
+			spawny = EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 300, 300, 300).getY() + MathHelper.nextInt(Random.create(), -2, 2);
+			spawnz = EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 300, 300, 300).getZ() + MathHelper.nextInt(Random.create(), -10, 10);
 		}
-		if (world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 0, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 2, spawnz)) && world.isEmptyBlock(BlockPos.containing(spawnx, spawny + 3, spawnz))
-				&& !world.isEmptyBlock(BlockPos.containing(spawnx, spawny - 1, spawnz))) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty() && !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 20, 20, 20), e -> true).isEmpty())) {
-				if (entity instanceof LivingEntity _livEnt19 && _livEnt19.hasEffect(MobEffects.INVISIBILITY)) {
+		if (world.isAir(BlockPos.ofFloored(spawnx, spawny + 0, spawnz)) && world.isAir(BlockPos.ofFloored(spawnx, spawny + 2, spawnz)) && world.isAir(BlockPos.ofFloored(spawnx, spawny + 3, spawnz))
+				&& !world.isAir(BlockPos.ofFloored(spawnx, spawny - 1, spawnz))) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 300, 300, 300), e -> true).isEmpty() && world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 20, 20, 20), e -> true).isEmpty()) {
+				if (entity instanceof LivingEntity _livEnt19 && _livEnt19.hasStatusEffect(StatusEffects.INVISIBILITY)) {
 					{
-						Entity _ent = entity;
-						_ent.teleportTo(spawnx, spawny, spawnz);
-						if (_ent instanceof ServerPlayer _serverPlayer)
-							_serverPlayer.connection.teleport(spawnx, spawny, spawnz, _ent.getYRot(), _ent.getXRot());
+                        entity.teleport(spawnx, spawny, spawnz);
+						if (entity instanceof ServerPlayerEntity _serverPlayer)
+							_serverPlayer.networkHandler.requestTeleport(spawnx, spawny, spawnz, entity.getYaw(), entity.getPitch());
 					}
 				}
 			}
 		}
-		if (entity instanceof LivingEntity _livEnt21 && _livEnt21.hasEffect(MobEffects.INVISIBILITY)) {
-			if (entity.getPersistentData().getDouble("Disalol") < 2) {
-				entity.getPersistentData().putDouble("Disalol", (entity.getPersistentData().getDouble("Disalol") + 1));
+		
+		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
+		if (entity instanceof LivingEntity _livEnt21 && _livEnt21.hasStatusEffect(StatusEffects.INVISIBILITY)) {
+			if (dataSaver.getPersistentData().getDouble("Disalol") < 2) {
+				dataSaver.getPersistentData().putDouble("Disalol", (dataSaver.getPersistentData().getDouble("Disalol") + 1));
 			}
-			if (entity.getPersistentData().getDouble("Disalol") == 1) {
-				if (world instanceof ServerLevel _level)
-					_level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
+			if (dataSaver.getPersistentData().getDouble("Disalol") == 1) {
+				if (world instanceof ServerWorld _level)
+					_level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
 							"/playsound midnightlurker:lurkerdisappear neutral @a ~ ~ ~ 1 1");
-				if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 70, 70, 70), e -> true).isEmpty()) {
+				if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 70, 70, 70), e -> true).isEmpty()) {
 					if (Math.random() > 0.7) {
-						if (((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 70, 70, 70), e -> true).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-							}
-						}.compareDistOf(x, y, z)).findFirst().orElse(null)) instanceof LivingEntity _entity && !_entity.level().isClientSide())
-							_entity.addEffect(new MobEffectInstance(MidnightlurkerModMobEffects.STATIC_EFFECT.get(), 46, 0, false, false));
+						if (EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 70, 70, 70) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.STATIC_EFFECT, 46, 0, false, false));
 					}
 				}
 			}
-			if ((entity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.INVISIBILITY) ? _livEnt.getEffect(MobEffects.INVISIBILITY).getDuration() : 0) == 1) {
-				if (world instanceof ServerLevel _level)
-					_level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
+            if ((_livEnt21.hasStatusEffect(StatusEffects.INVISIBILITY) ? _livEnt21.getStatusEffect(StatusEffects.INVISIBILITY).getDuration() : 0) == 1) {
+				if (world instanceof ServerWorld _level)
+					_level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
 							"/playsound midnightlurker:lurkerdisappear neutral @a ~ ~ ~ 1 1");
 			}
 		}
-		if (!(entity instanceof LivingEntity _livEnt32 && _livEnt32.hasEffect(MobEffects.INVISIBILITY))) {
-			if (entity.getPersistentData().getDouble("Disalol") > 0) {
-				entity.getPersistentData().putDouble("Disalol", 0);
+		if (!(entity instanceof LivingEntity _livEnt32 && _livEnt32.hasStatusEffect(StatusEffects.INVISIBILITY))) {
+			if (dataSaver.getPersistentData().getDouble("Disalol") > 0) {
+				dataSaver.getPersistentData().putDouble("Disalol", 0);
 			}
 		}
-		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).isEmpty() && !(!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 20, 20, 20), e -> true).isEmpty())) {
-			if (entity.getPersistentData().getBoolean("InvisLogic") == false) {
-				if ((new Object() {
-					public Entity func(Entity player, double entityReach) {
-						double distance = entityReach * entityReach;
-						Vec3 eyePos = player.getEyePosition(1.0f);
-						HitResult hitResult = entity.pick(entityReach, 1.0f, false);
-						if (hitResult != null && hitResult.getType() != HitResult.Type.MISS) {
-							distance = hitResult.getLocation().distanceToSqr(eyePos);
-							double blockReach = 5;
-							if (distance > blockReach * blockReach) {
-								Vec3 pos = hitResult.getLocation();
-								hitResult = BlockHitResult.miss(pos, Direction.getNearest(eyePos.x, eyePos.y, eyePos.z), BlockPos.containing(pos));
-							}
-						}
-						Vec3 viewVec = player.getViewVector(1.0F);
-						Vec3 toVec = eyePos.add(viewVec.x * entityReach, viewVec.y * entityReach, viewVec.z * entityReach);
-						AABB aabb = entity.getBoundingBox().expandTowards(viewVec.scale(entityReach)).inflate(1.0D, 1.0D, 1.0D);
-						EntityHitResult entityhitresult = ProjectileUtil.getEntityHitResult(player, eyePos, toVec, aabb, (p_234237_) -> {
-							return !p_234237_.isSpectator();
-						}, distance);
-						if (entityhitresult != null) {
-							Entity entity1 = entityhitresult.getEntity();
-							Vec3 targetPos = entityhitresult.getLocation();
-							double distanceToTarget = eyePos.distanceToSqr(targetPos);
-							if (distanceToTarget > distance || distanceToTarget > entityReach * entityReach) {
-								hitResult = BlockHitResult.miss(targetPos, Direction.getNearest(viewVec.x, viewVec.y, viewVec.z), BlockPos.containing(targetPos));
-							} else if (distanceToTarget < distance) {
-								hitResult = entityhitresult;
-							}
-						}
-						if (hitResult.getType() == HitResult.Type.ENTITY) {
-							return ((EntityHitResult) hitResult).getEntity();
-						}
-						return null;
-					}
-				}.func(((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 300, 300, 300), e -> true).stream().sorted(new Object() {
-					Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-						return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-					}
-				}.compareDistOf(x, y, z)).findFirst().orElse(null)), 300)) instanceof MidnightLurkerCreepEntity) {
+		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 300, 300, 300), e -> true).isEmpty() && world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 20, 20, 20), e -> true).isEmpty()) {
+			if (!((IEntityDataSaver) entity).getPersistentData().getBoolean("InvisLogic")) {
+				if (EntityUtil.getEntityWithRaycast(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 300, 300, 300), entity, 300) instanceof MidnightLurkerCreepEntity) {
 					if (entity instanceof MidnightLurkerCreepEntity) {
 						((MidnightLurkerCreepEntity) entity).setAnimation("releport1122");
 					}
 					MidnightlurkerMod.queueServerWork(13, () -> {
-						if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-							_entity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 25, 0, false, false));
+						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+							_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 25, 0, false, false));
 					});
 				}
 			}
 		}
-		if (entity.getPersistentData().getDouble("CreepDespawn") >= 3) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 4, 4, 4), e -> true).isEmpty()) {
-				if (entity.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesOfClass(MidnightLurkerCreepEntity.class, AABB.ofSize(new Vec3(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
-					entity.getPersistentData().putDouble("SoundActivate", (entity.getPersistentData().getDouble("SoundActivate") + 1));
+		if (dataSaver.getPersistentData().getDouble("CreepDespawn") >= 3) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 4, 4, 4), e -> true).isEmpty()) {
+				if (dataSaver.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
+					dataSaver.getPersistentData().putDouble("SoundActivate", (dataSaver.getPersistentData().getDouble("SoundActivate") + 1));
 				}
-				if (entity.getPersistentData().getDouble("SoundActivate") == 1) {
+				if (dataSaver.getPersistentData().getDouble("SoundActivate") == 1) {
 					MidnightlurkerMod.queueServerWork(2, () -> {
-						if (world instanceof Level _level) {
-							if (!_level.isClientSide()) {
-								_level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1);
+						if (world instanceof World _level) {
+							if (!_level.isClient()) {
+								_level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 							} else {
-								_level.playLocalSound((entity.getX()), (entity.getY()), (entity.getZ()), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkerdisappear")), SoundSource.NEUTRAL, 1, 1, false);
+								_level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1, false);
 							}
 						}
 					});
@@ -184,75 +117,57 @@ public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
 					((MidnightLurkerCreepEntity) entity).setAnimation("teleport11");
 				}
 				MidnightlurkerMod.queueServerWork(13, () -> {
-					if (!entity.level().isClientSide())
+					if (!entity.getWorld().isClient())
 						entity.discard();
 				});
 			}
 		}
-		if (entity.getPersistentData().getDouble("CreepDespawn") <= 2) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), 4, 4, 4), e -> true).isEmpty()) {
-				if (world instanceof Level _level) {
-					if (!_level.isClientSide()) {
-						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1);
+		if (dataSaver.getPersistentData().getDouble("CreepDespawn") <= 2) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 4, 4, 4), e -> true).isEmpty()) {
+				if (world instanceof World _level) {
+					if (!_level.isClient()) {
+						_level.playSound(null, BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 1, 1);
 					} else {
-						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("midnightlurker:lurkeranger")), SoundSource.NEUTRAL, 1, 1, false);
+						_level.playSoundAtBlockCenter(BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 1, 1, false);
 					}
 				}
-				if (!entity.level().isClientSide())
+				if (!entity.getWorld().isClient())
 					entity.discard();
-				if (world instanceof ServerLevel _level) {
-					Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
+				if (world instanceof ServerWorld _level) {
+					Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.spawn(_level, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
 					if (entityToSpawn != null) {
-						entityToSpawn.setYRot(entity.getYRot());
-						entityToSpawn.setYBodyRot(entity.getYRot());
-						entityToSpawn.setYHeadRot(entity.getYRot());
-						entityToSpawn.setXRot(entity.getXRot());
+						entityToSpawn.setYaw(entity.getYaw());
+						entityToSpawn.setBodyYaw(entity.getYaw());
+						entityToSpawn.setHeadYaw(entity.getYaw());
+						entityToSpawn.setPitch(entity.getPitch());
 					}
 				}
 			}
 		}
 		if (Math.random() > 0.9) {
-			if (world instanceof ServerLevel _level)
-				_level.sendParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT.get()), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
+			if (world instanceof ServerWorld _level)
+				_level.spawnParticles(MidnightlurkerModParticleTypes.VOID_DOT, x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
 		}
-		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) {
-			if (entity.getPersistentData().getDouble("encount") < 2) {
-				entity.getPersistentData().putDouble("encount", (entity.getPersistentData().getDouble("encount") + 1));
+		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 8, 8, 8), e -> true).isEmpty()) {
+			if (dataSaver.getPersistentData().getDouble("encount") < 2) {
+				dataSaver.getPersistentData().putDouble("encount", (dataSaver.getPersistentData().getDouble("encount") + 1));
 			}
 		}
-		if (entity.getPersistentData().getDouble("encount") == 1) {
-			if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).isEmpty()) {
-				if ((((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).stream().sorted(new Object() {
-					Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-						return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-					}
-				}.compareDistOf(x, y, z)).findFirst().orElse(null)).getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).encounternumber < 6) {
+		if (dataSaver.getPersistentData().getDouble("encount") == 1) {
+			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 8, 8, 8), e -> true).isEmpty()) {
+				if (((IEntityDataSaver)EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8)).getPersistentData().getDouble("encounternumber") < 6) {
 					{
-						double _setval = (((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-							}
-						}.compareDistOf(x, y, z)).findFirst().orElse(null)).getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).encounternumber + 1;
-						((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).stream().sorted(new Object() {
-							Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-								return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-							}
-						}.compareDistOf(x, y, z)).findFirst().orElse(null)).getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-							capability.encounternumber = _setval;
-							capability.syncPlayerVariables(((Entity) world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 8, 8, 8), e -> true).stream().sorted(new Object() {
-								Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-									return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-								}
-							}.compareDistOf(x, y, z)).findFirst().orElse(null)));
-						});
+						double _setval = ((IEntityDataSaver)EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8)).getPersistentData().getDouble("encounternumber") + 1;
+						dataSaver.getPersistentData().putDouble("encounternumber", _setval);
+						dataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8));
 					}
 				}
 			}
 		}
-		if (entity instanceof LivingEntity _livEnt85 && _livEnt85.hasEffect(MobEffects.INVISIBILITY)) {
-			entity.getPersistentData().putBoolean("InvisLogic", true);
-		} else if (!(entity instanceof LivingEntity _livEnt87 && _livEnt87.hasEffect(MobEffects.INVISIBILITY))) {
-			entity.getPersistentData().putBoolean("InvisLogic", false);
+		if (entity instanceof LivingEntity _livEnt85 && _livEnt85.hasStatusEffect(StatusEffects.INVISIBILITY)) {
+			dataSaver.getPersistentData().putBoolean("InvisLogic", true);
+		} else if (!(entity instanceof LivingEntity _livEnt87 && _livEnt87.hasStatusEffect(StatusEffects.INVISIBILITY))) {
+			dataSaver.getPersistentData().putBoolean("InvisLogic", false);
 		}
 	}
 }

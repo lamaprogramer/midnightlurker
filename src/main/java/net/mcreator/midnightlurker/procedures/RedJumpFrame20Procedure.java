@@ -1,17 +1,14 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
 public class RedJumpFrame20Procedure {
 	public static boolean execute(Entity entity) {
 		if (entity == null)
 			return false;
-		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 27
-				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1) {
-			return true;
-		}
-		return false;
-	}
+        return ((IEntityDataSaver) entity).getPersistentData().getDouble("JumpscareTimer") == 27
+                && ((IEntityDataSaver) entity).getPersistentData().getDouble("JumpscareActive") == 1;
+    }
 }

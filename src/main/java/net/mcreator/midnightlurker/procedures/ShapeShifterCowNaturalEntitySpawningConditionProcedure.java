@@ -1,17 +1,14 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.entity.passive.CowEntity;
 
 import net.mcreator.midnightlurker.entity.ShapeShifterCowEntity;
 
 public class ShapeShifterCowNaturalEntitySpawningConditionProcedure {
-	public static boolean execute(LevelAccessor world, double x, double y, double z) {
-		if (!world.getEntitiesOfClass(Cow.class, AABB.ofSize(new Vec3(x, y, z), 100, 100, 100), e -> true).isEmpty() && !(!world.getEntitiesOfClass(ShapeShifterCowEntity.class, AABB.ofSize(new Vec3(x, y, z), 200, 200, 200), e -> true).isEmpty())) {
-			return true;
-		}
-		return false;
-	}
+	public static boolean execute(WorldAccess world, double x, double y, double z) {
+        return !world.getEntitiesByClass(CowEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty() && (world.getEntitiesByClass(ShapeShifterCowEntity.class, Box.of(new Vec3d(x, y, z), 200, 200, 200), e -> true).isEmpty());
+    }
 }

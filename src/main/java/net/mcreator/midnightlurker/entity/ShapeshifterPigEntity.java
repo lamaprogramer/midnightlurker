@@ -1,125 +1,122 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.registry.Registries;
 
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.core.BlockPos;
+
+
+import net.minecraft.world.Heightmap;
+import net.minecraft.block.BlockState;
+import net.minecraft.world.World;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.util.math.BlockPos;
 
 import net.mcreator.midnightlurker.procedures.ShapeshifterPigNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
-public class ShapeshifterPigEntity extends PathfinderMob {
-	public ShapeshifterPigEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(MidnightlurkerModEntities.SHAPESHIFTER_PIG.get(), world);
-	}
+public class ShapeshifterPigEntity extends PathAwareEntity {
 
-	public ShapeshifterPigEntity(EntityType<ShapeshifterPigEntity> type, Level world) {
+	public ShapeshifterPigEntity(EntityType<ShapeshifterPigEntity> type, World world) {
 		super(type, world);
-		setMaxUpStep(0.6f);
-		xpReward = 0;
-		setNoAi(false);
+		setStepHeight(0.6f);
+		
+		setAiDisabled(false);
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientPlayPacketListener> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1));
-		this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, (float) 100));
-		this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-		this.goalSelector.addGoal(4, new FloatGoal(this));
+	protected void initGoals() {
+		super.initGoals();
+		this.goalSelector.add(1, new WanderAroundGoal(this, 1));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, (float) 100));
+		this.goalSelector.add(3, new LookAroundGoal(this));
+		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
 	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
+	public EntityGroup getGroup() {
+		return EntityGroup.DEFAULT;
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pig.ambient"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.ambient"));
 	}
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pig.step")), 0.15f, 1);
+		this.playSound(Registries.SOUND_EVENT.get(new Identifier("entity.pig.step")), 0.15f, 1);
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pig.hurt"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.pig.death"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.death"));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
-		ShapeshifterPigEntityIsHurtProcedure.execute(this.level(), this);
-		if (source.is(DamageTypes.IN_FIRE))
+	public boolean damage(DamageSource source, float amount) {
+		ShapeshifterPigEntityIsHurtProcedure.execute(this.getWorld(), this);
+		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		if (source.getSource() instanceof PersistentProjectileEntity)
 			return false;
-		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source.isOf(DamageTypes.FALL))
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source.isOf(DamageTypes.CACTUS))
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source.isOf(DamageTypes.DROWN))
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isOf(DamageTypes.EXPLOSION))
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.isOf(DamageTypes.TRIDENT))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source.isOf(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source.isOf(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source.isOf(DamageTypes.WITHER))
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
-		return super.hurt(source, amount);
+		return super.damage(source, amount);
 	}
 
 	public static void init() {
-		SpawnPlacements.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
@@ -127,13 +124,13 @@ public class ShapeshifterPigEntity extends PathfinderMob {
 		});
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
-		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.25);
-		builder = builder.add(Attributes.MAX_HEALTH, 30);
-		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
-		builder = builder.add(Attributes.FOLLOW_RANGE, 16);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		DefaultAttributeContainer.Builder builder = MobEntity.createMobAttributes();
+		builder = builder.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+		builder = builder.add(EntityAttributes.GENERIC_MAX_HEALTH, 30);
+		builder = builder.add(EntityAttributes.GENERIC_ARMOR, 0);
+		builder = builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
+		builder = builder.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16);
 		return builder;
 	}
 }

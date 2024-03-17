@@ -4,24 +4,18 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-
-import net.minecraft.world.effect.MobEffect;
-
-import net.mcreator.midnightlurker.potion.StaticEffectMobEffect;
-import net.mcreator.midnightlurker.potion.LurkerAngeredMobEffect;
-import net.mcreator.midnightlurker.potion.InsanityMobEffect;
-import net.mcreator.midnightlurker.potion.InsanityFacesMobEffect;
-import net.mcreator.midnightlurker.potion.AmnesiaMobEffect;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.potion.*;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 public class MidnightlurkerModMobEffects {
-	public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MidnightlurkerMod.MODID);
-	public static final RegistryObject<MobEffect> INSANITY = REGISTRY.register("insanity", () -> new InsanityMobEffect());
-	public static final RegistryObject<MobEffect> INSANITY_FACES = REGISTRY.register("insanity_faces", () -> new InsanityFacesMobEffect());
-	public static final RegistryObject<MobEffect> LURKER_ANGERED = REGISTRY.register("lurker_angered", () -> new LurkerAngeredMobEffect());
-	public static final RegistryObject<MobEffect> AMNESIA = REGISTRY.register("amnesia", () -> new AmnesiaMobEffect());
-	public static final RegistryObject<MobEffect> STATIC_EFFECT = REGISTRY.register("static_effect", () -> new StaticEffectMobEffect());
+	public static final StatusEffect INSANITY = Registry.register(Registries.STATUS_EFFECT, "midnightlurker:insanity", new InsanityMobEffect());
+	public static final StatusEffect INSANITY_FACES = Registry.register(Registries.STATUS_EFFECT, "midnightlurker:insanity_faces", new InsanityFacesMobEffect());
+	public static final StatusEffect LURKER_ANGERED = Registry.register(Registries.STATUS_EFFECT, "midnightlurker:lurker_angered", new LurkerAngeredMobEffect());
+	public static final StatusEffect AMNESIA = Registry.register(Registries.STATUS_EFFECT, "midnightlurker:amnesia", new AmnesiaMobEffect());
+	public static final StatusEffect STATIC_EFFECT = Registry.register(Registries.STATUS_EFFECT, "midnightlurker:static_effect", new StaticEffectMobEffect());
+
+	public static void init() {}
+
 }

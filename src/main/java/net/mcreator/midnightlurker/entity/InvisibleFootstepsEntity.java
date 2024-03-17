@@ -1,259 +1,208 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
-
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
-
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
-
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsPlayerCollidesWithThisEntityProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
+import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.procedures.InvisibleFootstepsPlayerCollidesWithThisEntityProcedure;
+import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class InvisibleFootstepsEntity extends Monster implements GeoEntity {
-	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(InvisibleFootstepsEntity.class, EntityDataSerializers.BOOLEAN);
-	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(InvisibleFootstepsEntity.class, EntityDataSerializers.STRING);
-	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(InvisibleFootstepsEntity.class, EntityDataSerializers.STRING);
+public class InvisibleFootstepsEntity extends HostileEntity implements GeoEntity {
+	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleFootstepsEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<String> ANIMATION = DataTracker.registerData(InvisibleFootstepsEntity.class, TrackedDataHandlerRegistry.STRING);
+	public static final TrackedData<String> TEXTURE = DataTracker.registerData(InvisibleFootstepsEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
 	public String animationprocedure = "empty";
-
-	public InvisibleFootstepsEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS.get(), world);
-	}
-
-	public InvisibleFootstepsEntity(EntityType<InvisibleFootstepsEntity> type, Level world) {
+	
+	public InvisibleFootstepsEntity(EntityType<InvisibleFootstepsEntity> type, World world) {
 		super(type, world);
-		xpReward = 0;
-		setNoAi(false);
-	}
-
-	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(SHOOT, false);
-		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "nothing");
+		setAiDisabled(false);
 	}
 
 	public void setTexture(String texture) {
-		this.entityData.set(TEXTURE, texture);
+		this.dataTracker.set(TEXTURE, texture);
 	}
 
 	public String getTexture() {
-		return this.entityData.get(TEXTURE);
+		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
-	protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+	public float getEyeHeight(EntityPose pose) {
 		return 1.4F;
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientPlayPacketListener> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, false, false) {
+	protected void initGoals() {
+		super.initGoals();
+		this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, false, false) {
 			@Override
-			public boolean canUse() {
+			public boolean canStart() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 
 			@Override
-			public boolean canContinueToUse() {
+			public boolean shouldContinue() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canContinueToUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 		});
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1, false) {
+		this.goalSelector.add(2, new MeleeAttackGoal(this, 1, false) {
 			@Override
-			protected double getAttackReachSqr(LivingEntity entity) {
-				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-			}
-
-			@Override
-			public boolean canUse() {
+			public boolean canStart() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 
 			@Override
-			public boolean canContinueToUse() {
+			public boolean shouldContinue() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canContinueToUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 
 		});
-		this.goalSelector.addGoal(3, new FloatGoal(this) {
+		this.goalSelector.add(3, new SwimGoal(this) {
 			@Override
-			public boolean canUse() {
-				double x = InvisibleFootstepsEntity.this.getX();
-				double y = InvisibleFootstepsEntity.this.getY();
-				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canUse() && VoidFloatProcProcedure.execute();
+			public boolean canStart() {
+				return super.canStart() && VoidFloatProcProcedure.execute();
 			}
 
 			@Override
-			public boolean canContinueToUse() {
-				double x = InvisibleFootstepsEntity.this.getX();
-				double y = InvisibleFootstepsEntity.this.getY();
-				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canContinueToUse() && VoidFloatProcProcedure.execute();
+			public boolean shouldContinue() {
+				return super.shouldContinue() && VoidFloatProcProcedure.execute();
 			}
 		});
-		this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1) {
+		this.goalSelector.add(4, new WanderAroundGoal(this, 1) {
 			@Override
-			public boolean canUse() {
+			public boolean canStart() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 
 			@Override
-			public boolean canContinueToUse() {
+			public boolean shouldContinue() {
 				double x = InvisibleFootstepsEntity.this.getX();
 				double y = InvisibleFootstepsEntity.this.getY();
 				double z = InvisibleFootstepsEntity.this.getZ();
-				Entity entity = InvisibleFootstepsEntity.this;
-				Level world = InvisibleFootstepsEntity.this.level();
-				return super.canContinueToUse() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				World world = InvisibleFootstepsEntity.this.getWorld();
+				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
 			}
 		});
 	}
 
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
-	}
-
-	@Override
+    @Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		return Registries.SOUND_EVENT.get(new Identifier(""));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(""));
+		return Registries.SOUND_EVENT.get(new Identifier(""));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
-		if (source.is(DamageTypes.IN_FIRE))
+	public boolean damage(DamageSource source, float amount) {
+		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		if (source.getSource() instanceof PersistentProjectileEntity)
 			return false;
-		if (source.getDirectEntity() instanceof Player)
+		if (source.getSource() instanceof PlayerEntity)
 			return false;
-		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source.isOf(DamageTypes.FALL))
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source.isOf(DamageTypes.CACTUS))
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source.isOf(DamageTypes.DROWN))
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isOf(DamageTypes.EXPLOSION))
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.isOf(DamageTypes.TRIDENT))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source.isOf(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source.isOf(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source.isOf(DamageTypes.WITHER))
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
-		return super.hurt(source, amount);
+		return super.damage(source, amount);
 	}
 
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		this.refreshDimensions();
+		this.calculateDimensions();
 	}
 
 	@Override
-	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
+	public EntityDimensions getDimensions(EntityPose p_33597_) {
+		return super.getDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
-	public void playerTouch(Player sourceentity) {
-		super.playerTouch(sourceentity);
+	public void onPlayerCollision(PlayerEntity player) {
+		super.onPlayerCollision(player);
 		InvisibleFootstepsPlayerCollidesWithThisEntityProcedure.execute(this);
 	}
 
@@ -263,15 +212,15 @@ public class InvisibleFootstepsEntity extends Monster implements GeoEntity {
 	}
 
 	@Override
-	protected void doPush(Entity entityIn) {
+	protected void pushAway(Entity entity) {
 	}
 
 	@Override
-	protected void pushEntities() {
+	protected void tickCramming() {
 	}
 
 	public static void init() {
-		SpawnPlacements.register(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
@@ -279,14 +228,14 @@ public class InvisibleFootstepsEntity extends Monster implements GeoEntity {
 		});
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
-		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.3);
-		builder = builder.add(Attributes.MAX_HEALTH, 5);
-		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 0);
-		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
-		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 5);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		DefaultAttributeContainer.Builder builder = PathAwareEntity.createMobAttributes();
+		builder = builder.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3);
+		builder = builder.add(EntityAttributes.GENERIC_MAX_HEALTH, 5);
+		builder = builder.add(EntityAttributes.GENERIC_ARMOR, 0);
+		builder = builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0);
+		builder = builder.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100);
+		builder = builder.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 5);
 		return builder;
 	}
 
@@ -299,11 +248,7 @@ public class InvisibleFootstepsEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level();
 		boolean loop = false;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
 		if (!loop && this.lastloop) {
 			this.lastloop = false;
 			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
@@ -326,20 +271,20 @@ public class InvisibleFootstepsEntity extends Monster implements GeoEntity {
 	}
 
 	@Override
-	protected void tickDeath() {
+	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(InvisibleFootstepsEntity.RemovalReason.KILLED);
-			this.dropExperience();
+			this.dropXp();
 		}
 	}
 
 	public String getSyncedAnimation() {
-		return this.entityData.get(ANIMATION);
+		return this.dataTracker.get(ANIMATION);
 	}
 
 	public void setAnimation(String animation) {
-		this.entityData.set(ANIMATION, animation);
+		this.dataTracker.set(ANIMATION, animation);
 	}
 
 	@Override

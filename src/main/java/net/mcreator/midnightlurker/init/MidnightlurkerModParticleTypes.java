@@ -4,18 +4,25 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.particles.ParticleType;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.registry.Registries;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 
 public class MidnightlurkerModParticleTypes {
-	public static final DeferredRegister<ParticleType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MidnightlurkerMod.MODID);
-	public static final RegistryObject<SimpleParticleType> VOID_GATEWAY_PARTICLE = REGISTRY.register("void_gateway_particle", () -> new SimpleParticleType(true));
-	public static final RegistryObject<SimpleParticleType> VOID_DOT = REGISTRY.register("void_dot", () -> new SimpleParticleType(true));
-	public static final RegistryObject<SimpleParticleType> LURKERFACEPARTICLE = REGISTRY.register("lurkerfaceparticle", () -> new SimpleParticleType(true));
+	public static final DefaultParticleType VOID_GATEWAY_PARTICLE = FabricParticleTypes.simple();
+	public static final DefaultParticleType VOID_DOT = FabricParticleTypes.simple();
+	public static final DefaultParticleType LURKERFACEPARTICLE = FabricParticleTypes.simple();
+
+	public static void init() {
+		register(new Identifier(MidnightlurkerMod.MODID, "void_gateway_particle"), VOID_GATEWAY_PARTICLE);
+		register(new Identifier(MidnightlurkerMod.MODID, "void_dot"), VOID_DOT);
+		register(new Identifier(MidnightlurkerMod.MODID, "lurkerfaceparticle"), LURKERFACEPARTICLE);
+	}
+	private static void register(Identifier id, DefaultParticleType particleType) {
+		Registry.register(Registries.PARTICLE_TYPE, id, particleType);
+	}
 }

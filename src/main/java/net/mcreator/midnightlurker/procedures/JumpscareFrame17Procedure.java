@@ -1,15 +1,15 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
 public class JumpscareFrame17Procedure {
 	public static boolean execute(Entity entity) {
 		if (entity == null)
 			return false;
-		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareTimer == 30
-				&& (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).JumpscareActive == 1) {
+		if (((IEntityDataSaver)entity).getPersistentData().getDouble("JumpscareTimer") == 30
+				&& ((IEntityDataSaver) entity).getPersistentData().getDouble("JumpscareActive") == 1) {
 			return true;
 		}
 		return false;

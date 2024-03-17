@@ -10,159 +10,150 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.registry.Registries;
 
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.projectile.ThrownPotion;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.nbt.CompoundTag;
+
+
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.nbt.NbtCompound;
 
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
-public class SpookyambienceentityEntity extends Monster implements GeoEntity {
-	public static final EntityDataAccessor<Boolean> SHOOT = SynchedEntityData.defineId(SpookyambienceentityEntity.class, EntityDataSerializers.BOOLEAN);
-	public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(SpookyambienceentityEntity.class, EntityDataSerializers.STRING);
-	public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(SpookyambienceentityEntity.class, EntityDataSerializers.STRING);
+public class SpookyambienceentityEntity extends HostileEntity implements GeoEntity {
+	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(SpookyambienceentityEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<String> ANIMATION = DataTracker.registerData(SpookyambienceentityEntity.class, TrackedDataHandlerRegistry.STRING);
+	public static final TrackedData<String> TEXTURE = DataTracker.registerData(SpookyambienceentityEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 	private boolean swinging;
 	private boolean lastloop;
 	private long lastSwing;
 	public String animationprocedure = "empty";
 
-	public SpookyambienceentityEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY.get(), world);
-	}
-
-	public SpookyambienceentityEntity(EntityType<SpookyambienceentityEntity> type, Level world) {
+	public SpookyambienceentityEntity(EntityType<SpookyambienceentityEntity> type, World world) {
 		super(type, world);
-		xpReward = 0;
-		setNoAi(false);
+		
+		setAiDisabled(false);
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(SHOOT, false);
-		this.entityData.define(ANIMATION, "undefined");
-		this.entityData.define(TEXTURE, "midnightlurkervoidgateemissive");
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SHOOT, false);
+		this.dataTracker.startTracking(ANIMATION, "undefined");
+		this.dataTracker.startTracking(TEXTURE, "midnightlurkervoidgateemissive");
 	}
 
 	public void setTexture(String texture) {
-		this.entityData.set(TEXTURE, texture);
+		this.dataTracker.set(TEXTURE, texture);
 	}
 
 	public String getTexture() {
-		return this.entityData.get(TEXTURE);
+		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientPlayPacketListener> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, false, false));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, false) {
-			@Override
-			protected double getAttackReachSqr(LivingEntity entity) {
-				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-			}
-		});
-		this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, (float) 100));
-		this.goalSelector.addGoal(4, new FloatGoal(this));
+	protected void initGoals() {
+		super.initGoals();
+		this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, false, false));
+		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, false));
+		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, (float) 100));
+		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
 	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
+	public EntityGroup getGroup() {
+		return EntityGroup.DEFAULT;
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
-		if (source.is(DamageTypes.IN_FIRE))
+	public boolean damage(DamageSource source, float amount) {
+		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
-		if (source.getDirectEntity() instanceof AbstractArrow)
+		if (source.getSource() instanceof PersistentProjectileEntity)
 			return false;
-		if (source.getDirectEntity() instanceof Player)
+		if (source.getSource() instanceof PlayerEntity)
 			return false;
-		if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
+		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.is(DamageTypes.FALL))
+		if (source.isOf(DamageTypes.FALL))
 			return false;
-		if (source.is(DamageTypes.CACTUS))
+		if (source.isOf(DamageTypes.CACTUS))
 			return false;
-		if (source.is(DamageTypes.DROWN))
+		if (source.isOf(DamageTypes.DROWN))
 			return false;
-		if (source.is(DamageTypes.LIGHTNING_BOLT))
+		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
 			return false;
-		if (source.is(DamageTypes.EXPLOSION))
+		if (source.isOf(DamageTypes.EXPLOSION))
 			return false;
-		if (source.is(DamageTypes.TRIDENT))
+		if (source.isOf(DamageTypes.TRIDENT))
 			return false;
-		if (source.is(DamageTypes.FALLING_ANVIL))
+		if (source.isOf(DamageTypes.FALLING_ANVIL))
 			return false;
-		if (source.is(DamageTypes.DRAGON_BREATH))
+		if (source.isOf(DamageTypes.DRAGON_BREATH))
 			return false;
-		if (source.is(DamageTypes.WITHER))
+		if (source.isOf(DamageTypes.WITHER))
 			return false;
-		if (source.is(DamageTypes.WITHER_SKULL))
+		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
-		return super.hurt(source, amount);
+		return super.damage(source, amount);
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData livingdata, @Nullable CompoundTag tag) {
-		SpawnGroupData retval = super.finalizeSpawn(world, difficulty, reason, livingdata, tag);
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason, @Nullable EntityData livingdata, @Nullable NbtCompound tag) {
+		EntityData retval = super.initialize(world, difficulty, reason, livingdata, tag);
 		SpookyambienceentityOnInitialEntitySpawnProcedure.execute(world, this.getX(), this.getY(), this.getZ(), this);
 		return retval;
 	}
@@ -170,17 +161,17 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		SpookyambienceentityOnEntityTickUpdateProcedure.execute(this.level(), this);
-		this.refreshDimensions();
+		SpookyambienceentityOnEntityTickUpdateProcedure.execute(this.getWorld(), this);
+		this.calculateDimensions();
 	}
 
 	@Override
-	public EntityDimensions getDimensions(Pose p_33597_) {
-		return super.getDimensions(p_33597_).scale((float) 1);
+	public EntityDimensions getDimensions(EntityPose p_33597_) {
+		return super.getDimensions(p_33597_).scaled((float) 1);
 	}
 
 	public static void init() {
-		SpawnPlacements.register(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
@@ -188,13 +179,13 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 		});
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
-		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0);
-		builder = builder.add(Attributes.MAX_HEALTH, 200);
-		builder = builder.add(Attributes.ARMOR, 0);
-		builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
-		builder = builder.add(Attributes.FOLLOW_RANGE, 100);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		DefaultAttributeContainer.Builder builder = MobEntity.createMobAttributes();
+		builder = builder.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0);
+		builder = builder.add(EntityAttributes.GENERIC_MAX_HEALTH, 200);
+		builder = builder.add(EntityAttributes.GENERIC_ARMOR, 0);
+		builder = builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
+		builder = builder.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 100);
 		return builder;
 	}
 
@@ -207,7 +198,7 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 
 	private PlayState procedurePredicate(AnimationState event) {
 		Entity entity = this;
-		Level world = entity.level();
+		World world = entity.getWorld();
 		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
@@ -234,20 +225,20 @@ public class SpookyambienceentityEntity extends Monster implements GeoEntity {
 	}
 
 	@Override
-	protected void tickDeath() {
+	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(SpookyambienceentityEntity.RemovalReason.KILLED);
-			this.dropExperience();
+			this.dropXp();
 		}
 	}
 
 	public String getSyncedAnimation() {
-		return this.entityData.get(ANIMATION);
+		return this.dataTracker.get(ANIMATION);
 	}
 
 	public void setAnimation(String animation) {
-		this.entityData.set(ANIMATION, animation);
+		this.dataTracker.set(ANIMATION, animation);
 	}
 
 	@Override

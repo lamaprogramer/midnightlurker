@@ -1,21 +1,21 @@
 
 package net.mcreator.midnightlurker.client.renderer;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.CowEntityModel;
 
 import net.mcreator.midnightlurker.entity.ShapeShifterCowEntity;
 
-public class ShapeShifterCowRenderer extends MobRenderer<ShapeShifterCowEntity, CowModel<ShapeShifterCowEntity>> {
-	public ShapeShifterCowRenderer(EntityRendererProvider.Context context) {
-		super(context, new CowModel(context.bakeLayer(ModelLayers.COW)), 0.7f);
+public class ShapeShifterCowRenderer extends MobEntityRenderer<ShapeShifterCowEntity, CowEntityModel<ShapeShifterCowEntity>> {
+	public ShapeShifterCowRenderer(EntityRendererFactory.Context context) {
+		super(context, new CowEntityModel(context.getPart(EntityModelLayers.COW)), 0.7f);
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(ShapeShifterCowEntity entity) {
-		return new ResourceLocation("midnightlurker:textures/entities/shapeshiftercow.png");
+	public Identifier getTexture(ShapeShifterCowEntity entity) {
+		return new Identifier("midnightlurker:textures/entities/shapeshiftercow.png");
 	}
 }

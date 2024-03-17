@@ -1,43 +1,41 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.event.entity.player.ItemFishedEvent;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.Entity;
 
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-@Mod.EventBusSubscriber
-public class InsanityReduceProcedure {
-	@SubscribeEvent
-	public static void onPlayerFishItem(ItemFishedEvent event) {
-		execute(event, event.getEntity());
-	}
 
-	public static void execute(Entity entity) {
-		execute(null, entity);
-	}
-
-	private static void execute(@Nullable Event event, Entity entity) {
-		if (entity == null)
-			return;
-		File lurker = new File("");
-		if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityStage < 7) {
-			if ((entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityTimer >= 400) {
-				{
-					double _setval = (entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new MidnightlurkerModVariables.PlayerVariables())).InsanityTimer - 200;
-					entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-						capability.InsanityTimer = _setval;
-						capability.syncPlayerVariables(entity);
-					});
-				}
-			}
-		}
-	}
-}
+//public class InsanityReduceProcedure {
+//
+//	public static void onPlayerFishItem(ItemFishedEvent event) {
+//		execute(event, event.getEntity());
+//	}
+//
+//	public static void execute(Entity entity) {
+//		execute(null, entity);
+//	}
+//
+//	private static void execute(@Nullable Event event, Entity entity) {
+//		if (entity == null)
+//			return;
+//		File lurker = new File("");
+//		if (((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") < 7) {
+//			if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 400) {
+//				{
+//					double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 200;
+//					entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+//						dataSaver.getPersistentData().putDouble("InsanityTimer", _setval);
+//						capability.syncPlayerVariables(entity);
+//					});
+//				}
+//			}
+//		}
+//	}
+//}

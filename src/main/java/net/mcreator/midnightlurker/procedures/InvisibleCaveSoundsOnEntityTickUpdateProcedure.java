@@ -1,38 +1,40 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraftforge.registries.ForgeRegistries;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.registry.Registries;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.Mth;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 public class InvisibleCaveSoundsOnEntityTickUpdateProcedure {
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (!world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 15, 15, 15), e -> true).isEmpty()) {
-			if (!entity.level().isClientSide())
+		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 15, 15, 15), e -> true).isEmpty()) {
+			if (!entity.getWorld().isClient())
 				entity.discard();
 		}
-		if (entity.getPersistentData().getDouble("CaveSoundTime") < 1200) {
-			entity.getPersistentData().putDouble("CaveSoundTime", (entity.getPersistentData().getDouble("CaveSoundTime") + 1));
+		if (((IEntityDataSaver)entity).getPersistentData().getDouble("CaveSoundTime") < 1200) {
+			((IEntityDataSaver)entity).getPersistentData().putDouble("CaveSoundTime", (((IEntityDataSaver)entity).getPersistentData().getDouble("CaveSoundTime") + 1));
 		}
-		if (entity.getPersistentData().getDouble("CaveSoundTime") == 1200) {
-			entity.getPersistentData().putDouble("CaveSoundTime", 0);
+		if (((IEntityDataSaver)entity).getPersistentData().getDouble("CaveSoundTime") == 1200) {
+			((IEntityDataSaver)entity).getPersistentData().putDouble("CaveSoundTime", 0);
 			if (Math.random() > 0.5) {
-				if (world instanceof Level _level) {
-					if (!_level.isClientSide()) {
-						_level.playSound(null, BlockPos.containing(x, y, z), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("ambient.cave")), SoundSource.AMBIENT, 50, (float) Mth.nextDouble(RandomSource.create(), 0.2, 1));
+				if (world instanceof World _level) {
+					if (!_level.isClient()) {
+						_level.playSound(null, BlockPos.ofFloored(x, y, z), SoundEvents.AMBIENT_CAVE.value(), SoundCategory.AMBIENT, 50, (float) MathHelper.nextDouble(Random.create(), 0.2, 1));
 					} else {
-						_level.playLocalSound(x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("ambient.cave")), SoundSource.AMBIENT, 50, (float) Mth.nextDouble(RandomSource.create(), 0.2, 1), false);
+						_level.playSoundAtBlockCenter(BlockPos.ofFloored(x, y, z), SoundEvents.AMBIENT_CAVE.value(), SoundCategory.AMBIENT, 50, (float) MathHelper.nextDouble(Random.create(), 0.2, 1), false);
 					}
 				}
 			}

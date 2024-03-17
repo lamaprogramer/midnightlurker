@@ -1,30 +1,26 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.CommandSource;
-
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.minecraft.entity.Entity;
+import net.minecraft.server.command.CommandOutput;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.WorldAccess;
 
 public class MidnightlurkerNEEntityDiesProcedure {
-	public static void execute(LevelAccessor world, Entity entity) {
+	public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
-		double raytrace_distance = 0;
-		String found_entity_name = "";
-		boolean entity_found = false;
-		if (world instanceof ServerLevel _level)
-			_level.getServer().getCommands().performPrefixedCommand(
-					new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
+		if (world instanceof ServerWorld _level)
+			_level.getServer().getCommandManager().executeWithPrefix(
+					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
 					"/stopsound @a * midnightlurker:lurkerchase");
-		if (world instanceof ServerLevel _level)
-			_level.getServer().getCommands().performPrefixedCommand(
-					new CommandSourceStack(CommandSource.NULL, new Vec3((entity.getX()), (entity.getY()), (entity.getZ())), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
+		if (world instanceof ServerWorld _level)
+			_level.getServer().getCommandManager().executeWithPrefix(
+					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
 					"/stopsound @a * midnightlurker:lurkerchase2");
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive > 0) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;

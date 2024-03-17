@@ -1,13 +1,10 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.World;
 
 public class ShapeshiftermoveindoorsatnightProcedure {
-	public static boolean execute(LevelAccessor world) {
-		if (!(world instanceof Level _lvl0 && _lvl0.isDay())) {
-			return true;
-		}
-		return false;
-	}
+	public static boolean execute(WorldAccess world) {
+        return !(world instanceof World _lvl0 && _lvl0.isDay());
+    }
 }

@@ -1,25 +1,24 @@
 package net.mcreator.midnightlurker.entity.model;
 
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
-
-import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
 
 public class InvisibleShadowModel extends GeoModel<InvisibleShadowEntity> {
 	@Override
-	public ResourceLocation getAnimationResource(InvisibleShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "animations/voidgateway.animation.json");
+	public Identifier getAnimationResource(InvisibleShadowEntity entity) {
+		return new Identifier("midnightlurker", "animations/voidgateway.animation.json");
 	}
 
 	@Override
-	public ResourceLocation getModelResource(InvisibleShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "geo/voidgateway.geo.json");
+	public Identifier getModelResource(InvisibleShadowEntity entity) {
+		return new Identifier("midnightlurker", "geo/voidgateway.geo.json");
 	}
 
 	@Override
-	public ResourceLocation getTextureResource(InvisibleShadowEntity entity) {
-		return new ResourceLocation("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+	public Identifier getTextureResource(InvisibleShadowEntity entity) {
+		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 }

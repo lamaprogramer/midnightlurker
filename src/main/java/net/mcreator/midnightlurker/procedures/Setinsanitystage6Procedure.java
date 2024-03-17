@@ -1,21 +1,20 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
 public class Setinsanitystage6Procedure {
 	public static void execute(Entity entity) {
 		if (entity == null)
 			return;
-		if (entity instanceof Player) {
+		if (entity instanceof PlayerEntity) {
 			{
 				double _setval = 6;
-				entity.getCapability(MidnightlurkerModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.InsanityStage = _setval;
-					capability.syncPlayerVariables(entity);
-				});
+				((IEntityDataSaver)entity).getPersistentData().putDouble("InsanityStage", _setval);
+				((IEntityDataSaver)entity).syncPlayerVariables(entity);
 			}
 		}
 	}
