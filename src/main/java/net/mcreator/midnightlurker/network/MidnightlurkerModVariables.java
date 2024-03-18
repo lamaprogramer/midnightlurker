@@ -30,59 +30,12 @@ public class MidnightlurkerModVariables {
 	}
 
 	public static class EventBusVariableHandlers {
-
-//		public static void onPlayerLoggedInSyncPlayerVariables(PlayerEvent.PlayerLoggedInEvent event) {
-//			if (!event.getEntity().getWorld().isClient())
-//				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
-//		}
-//
-//
-//		public static void onPlayerRespawnedSyncPlayerVariables(PlayerEvent.PlayerRespawnEvent event) {
-//			if (!event.getEntity().getWorld().isClient())
-//				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
-//		}
-//
-//
 //		public static void onPlayerChangedDimensionSyncPlayerVariables(PlayerEvent.PlayerChangedDimensionEvent event) {
 //			if (!event.getEntity().getWorld().isClient())
 //				((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables())).syncPlayerVariables(event.getEntity());
 //		}
-//
-//
-//		public static void clonePlayer(PlayerEvent.Clone event) {
-//			event.getOriginal().revive();
-//			PlayerVariables original = ((PlayerVariables) event.getOriginal().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables()));
-//			PlayerVariables clone = ((PlayerVariables) event.getEntity().getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElse(new PlayerVariables()));
-//			clone.DeathJumpActive = original.DeathJumpActive;
-//			clone.DeathJumpTimer = original.DeathJumpTimer;
-//			clone.DeathJumpShake = original.DeathJumpShake;
-//			clone.ScreenShake = original.ScreenShake;
-//			clone.InsanityStage = original.InsanityStage;
-//			clone.InsanityTimer = original.InsanityTimer;
-//			clone.InsanityAktive = original.InsanityAktive;
-//			clone.InsanityReset = original.InsanityReset;
-//			clone.JumpscareActive = original.JumpscareActive;
-//			clone.JumpscareTimer = original.JumpscareTimer;
-//			clone.JumpscareRandom = original.JumpscareRandom;
-//			clone.StaticRender = original.StaticRender;
-//			if (!event.isWasDeath()) {
-//				clone.encounternumber = original.encounternumber;
-//			}
-//		}
-//
-//
-//		public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-//			if (!event.getEntity().getWorld().isClient()) {
-//				PersistentState mapdata = MapVariables.get(event.getEntity().level());
-//				PersistentState worlddata = WorldVariables.get(event.getEntity().level());
-//				if (mapdata != null)
-//					MidnightlurkerMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntity()), new SavedDataSyncMessage(0, mapdata));
-//				if (worlddata != null)
-//					MidnightlurkerMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getEntity()), new SavedDataSyncMessage(1, worlddata));
-//			}
-//		}
-//
-//
+
+
 //		public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
 //			if (!event.getEntity().getWorld().isClient()) {
 //				PersistentState worlddata = WorldVariables.get(event.getEntity().level());
@@ -186,28 +139,6 @@ public class MidnightlurkerModVariables {
 	}
 
 	public static class SavedDataSyncMessage {
-//		public int type;
-//		public PersistentState data;
-//
-//		public SavedDataSyncMessage(PacketByteBuf buffer) {
-//			this.type = buffer.readInt();
-//			this.data = this.type == 0 ? new MapVariables() : new WorldVariables();
-//			if (this.data instanceof MapVariables _mapvars)
-//				_mapvars.read(buffer.readNbt());
-//			else if (this.data instanceof WorldVariables _worldvars)
-//				_worldvars.read(buffer.readNbt());
-//		}
-//
-//		public SavedDataSyncMessage(int type, PersistentState data) {
-//			this.type = type;
-//			this.data = data;
-//		}
-//
-//		public static void buffer(SavedDataSyncMessage message, PacketByteBuf buffer) {
-//			buffer.writeInt(message.type);
-//			buffer.writeNbt(message.data.writeNbt(new NbtCompound()));
-//		}
-
 		public static void handler(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int type = buf.readInt();
 			PersistentState data = type == 0 ? new MapVariables() : new WorldVariables();
@@ -226,79 +157,7 @@ public class MidnightlurkerModVariables {
 		}
 	}
 
-//	public static class PlayerVariables {
-//		public double DeathJumpActive = 0;
-//		public double DeathJumpTimer = 0;
-//		public double DeathJumpShake = 0;
-//		public double ScreenShake = 0;
-//		public double InsanityStage = 0;
-//		public double InsanityTimer = 0;
-//		public double InsanityAktive = 0;
-//		public double InsanityReset = 0;
-//		public double JumpscareActive = 0;
-//		public double JumpscareTimer = 0;
-//		public double JumpscareRandom = 0;
-//		public double StaticRender = 0;
-//		public double encounternumber = 0;
-//
-//		public void syncPlayerVariables(Entity entity) {
-//			if (entity instanceof ServerPlayerEntity serverPlayer)
-//				ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this));
-//				MidnightlurkerMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerVariablesSyncMessage(this));
-//		}
-//
-//		public NbtElement writeNBT() {
-//			NbtCompound nbt = new NbtCompound();
-//			nbt.putDouble("DeathJumpActive", DeathJumpActive);
-//			nbt.putDouble("DeathJumpTimer", DeathJumpTimer);
-//			nbt.putDouble("DeathJumpShake", DeathJumpShake);
-//			nbt.putDouble("ScreenShake", ScreenShake);
-//			nbt.putDouble("InsanityStage", InsanityStage);
-//			nbt.putDouble("InsanityTimer", InsanityTimer);
-//			nbt.putDouble("InsanityAktive", InsanityAktive);
-//			nbt.putDouble("InsanityReset", InsanityReset);
-//			nbt.putDouble("JumpscareActive", JumpscareActive);
-//			nbt.putDouble("JumpscareTimer", JumpscareTimer);
-//			nbt.putDouble("JumpscareRandom", JumpscareRandom);
-//			nbt.putDouble("StaticRender", StaticRender);
-//			nbt.putDouble("encounternumber", encounternumber);
-//			return nbt;
-//		}
-//
-//		public void readNBT(NbtElement NbtElement) {
-//			NbtCompound nbt = (NbtCompound) NbtElement;
-//			DeathJumpActive = nbt.getDouble("DeathJumpActive");
-//			DeathJumpTimer = nbt.getDouble("DeathJumpTimer");
-//			DeathJumpShake = nbt.getDouble("DeathJumpShake");
-//			ScreenShake = nbt.getDouble("ScreenShake");
-//			InsanityStage = nbt.getDouble("InsanityStage");
-//			InsanityTimer = nbt.getDouble("InsanityTimer");
-//			InsanityAktive = nbt.getDouble("InsanityAktive");
-//			InsanityReset = nbt.getDouble("InsanityReset");
-//			JumpscareActive = nbt.getDouble("JumpscareActive");
-//			JumpscareTimer = nbt.getDouble("JumpscareTimer");
-//			JumpscareRandom = nbt.getDouble("JumpscareRandom");
-//			StaticRender = nbt.getDouble("StaticRender");
-//			encounternumber = nbt.getDouble("encounternumber");
-//		}
-//	}
-
 	public static class PlayerVariablesSyncMessage {
-//		public PlayerVariables data;
-//
-//		public PlayerVariablesSyncMessage(PacketByteBuf buffer) {
-//			this.data = new PlayerVariables();
-//			this.data.readNBT(buffer.readNbt());
-//		}
-//
-//		public PlayerVariablesSyncMessage(PlayerVariables data) {
-//			this.data = data;
-//		}
-//
-//		public static void buffer(PlayerVariablesSyncMessage message, PacketByteBuf buffer) {
-//			buffer.writeNbt((NbtCompound) message.data.writeNBT());
-//		}
-
 		public static void handler(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			NbtCompound nbt = buf.readNbt();
 			IEntityDataSaver variables = (IEntityDataSaver) MinecraftClient.getInstance().player;

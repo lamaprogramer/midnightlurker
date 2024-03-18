@@ -4,6 +4,7 @@
   "version": "${version}",
 
   "name": "Midnight Lurker",
+  "accessWidener": "midnightlurker.accesswidener",
   "description": "A small mod that adds a new horrifying entity to Minecraft.",
   "authors": [
     "Iamaprogrammer"

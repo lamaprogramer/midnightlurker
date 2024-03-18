@@ -95,6 +95,7 @@ public class LivingEntityMixin implements IEntityDataSaver {
         PlayerHitByAggroProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
     }
 
+
     @Override
     public void syncPlayerVariables(Entity entity) {
         if (entity instanceof ServerPlayerEntity serverPlayer) {

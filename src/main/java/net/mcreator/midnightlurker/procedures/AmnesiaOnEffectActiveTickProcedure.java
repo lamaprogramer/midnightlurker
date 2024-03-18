@@ -32,7 +32,7 @@ public class AmnesiaOnEffectActiveTickProcedure {
 			}
 		}
 		if (entity_found) {
-			if (!(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == (null))) {
+			if (!(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == null)) {
 				if (world instanceof World _level) {
 					if (!_level.isClient()) {
 						_level.playSound(null, BlockPos.ofFloored(x, y, z), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 0, 0);
