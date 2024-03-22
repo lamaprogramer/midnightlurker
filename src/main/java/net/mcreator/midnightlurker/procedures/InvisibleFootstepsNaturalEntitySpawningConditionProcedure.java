@@ -21,6 +21,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.dimension.DimensionTypes;
 
 public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {
@@ -65,7 +66,7 @@ public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
                     && world.getEntitiesByClass(InvisibleShadowEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
                     && world.getEntitiesByClass(InvisibleStaticEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
                     && world.getEntitiesByClass(InvisibleLurkerFootstepsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
-                    && world.getEntitiesByClass(InvisibleCaveSoundsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD;
+                    && world.getEntitiesByClass(InvisibleCaveSoundsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD;
 		}
 		return false;
 	}

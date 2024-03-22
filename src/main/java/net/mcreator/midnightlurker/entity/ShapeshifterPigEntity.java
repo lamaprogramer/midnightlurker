@@ -1,6 +1,9 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.entity.*;
 import net.minecraft.registry.Registries;
 
 
@@ -17,12 +20,8 @@ import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.sound.SoundEvent;
@@ -41,6 +40,7 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 		super(type, world);
 		setStepHeight(0.6f);
 		
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -116,6 +116,7 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SHAPESHIFTER_PIG, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

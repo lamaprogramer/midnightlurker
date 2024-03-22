@@ -9,6 +9,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.minecraft.registry.Registries;
 
@@ -68,6 +70,7 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 	public MidnightLurkertposeEntity(EntityType<MidnightLurkertposeEntity> type, World world) {
 		super(type, world);
 		
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 

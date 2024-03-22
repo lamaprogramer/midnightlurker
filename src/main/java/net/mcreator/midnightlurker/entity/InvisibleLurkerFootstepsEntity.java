@@ -1,6 +1,8 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
@@ -52,6 +54,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 
 	public InvisibleLurkerFootstepsEntity(EntityType<InvisibleLurkerFootstepsEntity> type, World world) {
 		super(type, world);
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -215,6 +218,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_LURKER_FOOTSTEPS, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_LURKER_FOOTSTEPS, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

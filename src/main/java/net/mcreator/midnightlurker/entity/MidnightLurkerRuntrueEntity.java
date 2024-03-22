@@ -9,6 +9,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.minecraft.registry.Registries;
 
@@ -72,6 +74,7 @@ public class MidnightLurkerRuntrueEntity extends HostileEntity implements GeoEnt
 	public MidnightLurkerRuntrueEntity(EntityType<MidnightLurkerRuntrueEntity> type, World world) {
 		super(type, world);
 		this.experiencePoints = 25;
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 

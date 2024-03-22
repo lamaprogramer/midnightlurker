@@ -1,6 +1,8 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
@@ -51,7 +53,16 @@ public class InvisibleFootstepsEntity extends HostileEntity implements GeoEntity
 	
 	public InvisibleFootstepsEntity(EntityType<InvisibleFootstepsEntity> type, World world) {
 		super(type, world);
+		setGlowing(true);
 		setAiDisabled(false);
+	}
+
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SHOOT, false);
+		this.dataTracker.startTracking(ANIMATION, "undefined");
+		this.dataTracker.startTracking(TEXTURE, "nothing");
 	}
 
 	public void setTexture(String texture) {
@@ -220,6 +231,7 @@ public class InvisibleFootstepsEntity extends HostileEntity implements GeoEntity
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_FOOTSTEPS, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

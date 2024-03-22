@@ -31,6 +31,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -51,6 +53,7 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity {
 
 	public InvisibleStaticEntity(EntityType<InvisibleStaticEntity> type, World world) {
 		super(type, world);
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -190,7 +193,8 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity {
 	protected void tickCramming() {
 	}
 	public static void init() {
-		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_STATIC, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_STATIC, 1, 1, 1);
+		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_STATIC, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

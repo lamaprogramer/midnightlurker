@@ -1,6 +1,7 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.minecraft.entity.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -9,6 +10,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.minecraft.registry.Registries;
 
@@ -21,15 +24,8 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.sound.SoundEvent;
@@ -59,6 +55,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, World world) {
 		super(type, world);
 		
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -188,6 +185,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.VOID_GATEWAY, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.VOID_GATEWAY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

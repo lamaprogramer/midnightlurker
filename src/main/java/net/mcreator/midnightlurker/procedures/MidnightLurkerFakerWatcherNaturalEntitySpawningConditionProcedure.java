@@ -14,6 +14,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.dimension.DimensionTypes;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -99,19 +100,19 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 		}
 		IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 1000, 1000, 1000);
 		if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 1 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.9 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 2 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.8 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 3 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.6 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 4 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.4 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 5 && mainjsonobject.get("multi_spawning").getAsBoolean() && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		}
 		if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 1 && !mainjsonobject.get("multi_spawning").getAsBoolean()
@@ -127,7 +128,7 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.9 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 2 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -142,7 +143,7 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.8 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 3 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -157,7 +158,7 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.6 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 4 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -172,7 +173,7 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.4 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
             return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 5 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -187,7 +188,7 @@ public class MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 1000, 1000, 1000), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return dataSaver.getPersistentData().getDouble("InsanityStage") == 6;
 		}
 		return false;

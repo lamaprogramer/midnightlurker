@@ -1,7 +1,13 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.mcreator.midnightlurker.procedures.*;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
+import net.mcreator.midnightlurker.procedures.InvisibleCaveSoundsOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -28,16 +34,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
-
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -51,6 +55,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 
 	public InvisibleCaveSoundsEntity(EntityType<InvisibleCaveSoundsEntity> type, World world) {
 		super(type, world);
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -227,7 +232,8 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	}
 
 	public static void init() {
-		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, 1, 1, 1);
+		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

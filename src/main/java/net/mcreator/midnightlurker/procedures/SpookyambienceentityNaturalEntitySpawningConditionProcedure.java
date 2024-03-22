@@ -23,12 +23,13 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerFakerEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerAggroEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerCreepEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
+import net.minecraft.world.dimension.DimensionTypes;
 
 import java.io.File;
 
 public class SpookyambienceentityNaturalEntitySpawningConditionProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {
-        return (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD && Math.random() > 0.9
+        return (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD && Math.random() > 0.9
                 && (!world.getEntitiesByClass(MidnightLurkerFakerEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()
                 || !world.getEntitiesByClass(MidnightLurkerFakerAggroEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()
                 || !world.getEntitiesByClass(MidnightLurkerFakerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()

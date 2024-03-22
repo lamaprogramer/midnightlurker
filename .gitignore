@@ -40,3 +40,4 @@ replay_*.log
 *.jfr
 /gradle/wrapper/gradle-wrapper.jar
 /gradle/wrapper/gradle-wrapper.properties
+/.gradle/

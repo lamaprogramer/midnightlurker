@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.BufferedReader;
 
 import com.google.gson.Gson;
+import net.minecraft.world.dimension.DimensionTypes;
 
 public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {
@@ -109,22 +110,22 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 			}
 		}
 		if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 1 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.9 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 2 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.8 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 3 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.6 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 4 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.4 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
 		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 5 && mainjsonobject.get("multi_spawning").getAsBoolean() && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z)) && y < 65
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
 		}
-		if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 1 && mainjsonobject.get("multi_spawning").getAsBoolean()
+		if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 1 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerSeenAngressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerStalkingEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -137,9 +138,9 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.9 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
-		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 2 && mainjsonobject.get("multi_spawning").getAsBoolean()
+		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 2 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerSeenAngressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerStalkingEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -152,9 +153,9 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.8 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
-		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 3 && mainjsonobject.get("multi_spawning").getAsBoolean()
+		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 3 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerSeenAngressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerStalkingEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -167,9 +168,9 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.6 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
-		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 4 && mainjsonobject.get("multi_spawning").getAsBoolean()
+		} else if (mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 4 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerSeenAngressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerStalkingEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -182,9 +183,9 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
 				&& (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
 				&& (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.4 && y < 65 && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z))
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD) {
 			return true;
-		} else return mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 5 && mainjsonobject.get("multi_spawning").getAsBoolean()
+		} else return mainjsonobject.get("lurker_spawn_rate").getAsDouble() == 5 && !mainjsonobject.get("multi_spawning").getAsBoolean()
                 && (world.getEntitiesByClass(MidnightLurkerInvisibleEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
                 && (world.getEntitiesByClass(MidnightLurkerSeenAngressiveEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
                 && (world.getEntitiesByClass(MidnightLurkerStalkingEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
@@ -197,6 +198,6 @@ public class MidnightLurkerShadowNaturalEntitySpawningConditionProcedure {
                 && (world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
                 && (world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty())
                 && (world.getEntitiesByClass(MidnightLurkerCreepEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && !world.isSkyVisibleAllowingSea(BlockPos.ofFloored(x, y, z)) && y < 65
-                && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.OVERWORLD;
+                && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD;
     }
 }

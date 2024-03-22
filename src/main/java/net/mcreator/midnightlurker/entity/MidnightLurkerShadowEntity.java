@@ -1,6 +1,7 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.minecraft.entity.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -9,6 +10,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.GeoEntity;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.minecraft.registry.Registries;
 
@@ -29,17 +32,7 @@ import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.LocalDifficulty;
@@ -75,6 +68,7 @@ public class MidnightLurkerShadowEntity extends HostileEntity implements GeoEnti
 	public MidnightLurkerShadowEntity(EntityType<MidnightLurkerShadowEntity> type, World world) {
 		super(type, world);
 		
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -201,6 +195,7 @@ public class MidnightLurkerShadowEntity extends HostileEntity implements GeoEnti
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

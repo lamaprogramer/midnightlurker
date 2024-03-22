@@ -28,6 +28,7 @@ public class Destroytex3Entity extends PathAwareEntity {
 		super(type, world);
 		setStepHeight(0f);
 		//
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 

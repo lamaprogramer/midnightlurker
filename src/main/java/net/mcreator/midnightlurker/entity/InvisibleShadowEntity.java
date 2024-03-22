@@ -1,15 +1,10 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
-
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -35,13 +30,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleShadowOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsPlayerCollidesWithThisEntityProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class InvisibleShadowEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleShadowEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -55,6 +51,7 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity {
 
 	public InvisibleShadowEntity(EntityType<InvisibleShadowEntity> type, World world) {
 		super(type, world);
+		setGlowing(true);
 		setAiDisabled(false);
 	}
 
@@ -237,6 +234,7 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity {
 	}
 
 	public static void init() {
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_SHADOW, 1, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_SHADOW, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
