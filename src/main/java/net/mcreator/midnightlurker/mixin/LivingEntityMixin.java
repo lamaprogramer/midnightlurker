@@ -10,8 +10,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -93,6 +95,13 @@ public class LivingEntityMixin implements IEntityDataSaver {
     @Inject(method = "damage", at = @At("HEAD"))
     private void updateDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerHitByAggroProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
+    }
+
+    @Inject(method = "applyFoodEffects", at = @At("HEAD"))
+    private void updateDamage(ItemStack stack, World world, LivingEntity targetEntity, CallbackInfo ci) {
+        if (THIS instanceof PlayerEntity) {
+            InsanityFoodReduceProcedure.execute(stack, (PlayerEntity) targetEntity);
+        }
     }
 
 

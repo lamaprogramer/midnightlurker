@@ -1,31 +1,17 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
-
-import net.minecraft.item.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.Entity;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
-import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-
-
-public class InsanityFoodReduceProcedure implements UseItemCallback {
-    @Override
-    public TypedActionResult<ItemStack> interact(PlayerEntity entity, World world, Hand hand) {
+public class InsanityFoodReduceProcedure {
+    public static void execute(ItemStack itemStack, PlayerEntity entity) {
         if (entity == null)
-            return TypedActionResult.pass(null);
+            return;
         IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
-        if (entity.getMainHandStack().getItem() == Items.GOLDEN_APPLE) {
+        if (itemStack.getItem() == Items.GOLDEN_APPLE) {
             if (((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") < 7
                     && ((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") > 0) {
                 {
@@ -34,7 +20,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     dataSaver.syncPlayerVariables(entity);
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
+        } else if (itemStack.getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
             if (((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") < 7
                     && ((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") > 2) {
                 {
@@ -63,7 +49,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.GOLDEN_CARROT) {
+        } else if (itemStack.getItem() == Items.GOLDEN_CARROT) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 2200) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 2000;
@@ -73,7 +59,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.CARROT || entity.getMainHandStack().getItem() == Items.BREAD) {
+        } else if (itemStack.getItem() == Items.CARROT || itemStack.getItem() == Items.BREAD) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 400) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 200;
@@ -83,7 +69,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.BAKED_POTATO || entity.getMainHandStack().getItem() == Items.POTATO) {
+        } else if (itemStack.getItem() == Items.BAKED_POTATO || itemStack.getItem() == Items.POTATO) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 300) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 100;
@@ -93,7 +79,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.PUMPKIN_PIE) {
+        } else if (itemStack.getItem() == Items.PUMPKIN_PIE) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 1800) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 1600;
@@ -103,7 +89,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.BEETROOT_SOUP || entity.getMainHandStack().getItem() == Items.MUSHROOM_STEW || entity.getMainHandStack().getItem() == Items.RABBIT_STEW) {
+        } else if (itemStack.getItem() == Items.BEETROOT_SOUP || itemStack.getItem() == Items.MUSHROOM_STEW || itemStack.getItem() == Items.RABBIT_STEW) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 1800) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 1600;
@@ -113,7 +99,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.GLOW_BERRIES || entity.getMainHandStack().getItem() == Items.SWEET_BERRIES || entity.getMainHandStack().getItem() == Items.MELON_SLICE || entity.getMainHandStack().getItem() == Items.DRIED_KELP || entity.getMainHandStack().getItem() == Items.BEETROOT) {
+        } else if (itemStack.getItem() == Items.GLOW_BERRIES || itemStack.getItem() == Items.SWEET_BERRIES || itemStack.getItem() == Items.MELON_SLICE || itemStack.getItem() == Items.DRIED_KELP || itemStack.getItem() == Items.BEETROOT) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 300) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 100;
@@ -123,7 +109,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.APPLE) {
+        } else if (itemStack.getItem() == Items.APPLE) {
             if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 4200) {
                 {
                     double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 4000;
@@ -133,7 +119,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                     
                 }
             }
-        } else if (entity.getMainHandStack().getItem() == Items.PUFFERFISH) {
+        } else if (itemStack.getItem() == Items.PUFFERFISH) {
             {
                 double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") + 2000;
                 
@@ -141,7 +127,7 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                 dataSaver.syncPlayerVariables(entity);
                 
             }
-        } else if (entity.getMainHandStack().getItem() == Items.ROTTEN_FLESH || entity.getMainHandStack().getItem() == Items.SPIDER_EYE) {
+        } else if (itemStack.getItem() == Items.ROTTEN_FLESH || itemStack.getItem() == Items.SPIDER_EYE) {
             {
                 double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") + 1000;
                 
@@ -149,13 +135,12 @@ public class InsanityFoodReduceProcedure implements UseItemCallback {
                 dataSaver.syncPlayerVariables(entity);
                 
             }
-        } else if (entity.getMainHandStack().getItem() == Items.POISONOUS_POTATO) {
+        } else if (itemStack.getItem() == Items.POISONOUS_POTATO) {
             {
                 double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") + 1500;
                 dataSaver.getPersistentData().putDouble("InsanityTimer", _setval);
                 dataSaver.syncPlayerVariables(entity);
             }
         }
-        return TypedActionResult.pass(entity.getMainHandStack());
     }
 }

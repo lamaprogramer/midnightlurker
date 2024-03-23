@@ -25,8 +25,6 @@ public class MidnightlurkerCallbacks {
         AttackEntityCallback.EVENT.register(new Destroytex3EntityIsHurtProcedure());
         AttackEntityCallback.EVENT.register(new Destroytex4EntityIsHurtProcedure());
 
-        UseItemCallback.EVENT.register(new InsanityFoodReduceProcedure());
-
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             IEntityDataSaver original = (IEntityDataSaver)  oldPlayer;
             IEntityDataSaver clone = (IEntityDataSaver)  newPlayer;
