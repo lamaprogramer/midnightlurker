@@ -4,6 +4,9 @@ import net.mcreator.midnightlurker.util.BlockUtil;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -16,22 +19,25 @@ import net.minecraft.world.WorldAccess;
 
 public class AmnesiaOnEffectActiveTickProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
-		
 		if (entity == null)
 			return;
 		double raytrace_distance = 0;
 		boolean entity_found = false;
-		BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
         for (int index0 = 0; index0 < 30; index0++) {
+			BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
 			if (!world.getEntitiesByClass(HostileEntity.class, Box.of(new Vec3d((blockHit.getBlockPos().getX()), (blockHit.getBlockPos().getY()), (blockHit.getBlockPos().getZ())), 25, 25, 25), e -> true).isEmpty()
 					&& !(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == entity)) {
 				entity_found = true;
 			} else {
+//				if (Math.random() < 0.25) {
+//					world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (blockHit.getBlockPos().getX()), (blockHit.getBlockPos().getY()), (blockHit.getBlockPos().getZ()), 0, 0, 0);
+//				}
 				entity_found = false;
 				raytrace_distance++;
 			}
 		}
 		if (entity_found) {
+			BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
 			if (!(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == null)) {
 				if (world instanceof World _level) {
 					if (!_level.isClient()) {
