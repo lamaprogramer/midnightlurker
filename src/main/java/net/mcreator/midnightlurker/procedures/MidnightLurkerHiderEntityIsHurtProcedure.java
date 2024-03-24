@@ -26,9 +26,9 @@ import java.io.IOException;
 
 public class MidnightLurkerHiderEntityIsHurtProcedure {
 
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity, Entity sourceentity) {
+	public static boolean execute(WorldAccess world, double x, double y, double z, Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
-			return;
+			return true;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
 		lurker = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
@@ -44,7 +44,7 @@ public class MidnightLurkerHiderEntityIsHurtProcedure {
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean()) {
 					if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof PlayerEntity) {
-
+						return false;
 					}
 				}
 			} catch (IOException e) {
@@ -74,5 +74,6 @@ public class MidnightLurkerHiderEntityIsHurtProcedure {
 				}
 			}
 		}
+		return true;
 	}
 }

@@ -14,9 +14,9 @@ import java.io.IOException;
 
 
 public class MidnightLurkerAggressiveEntityIsHurtProcedure {
-	public static void execute(Entity entity, Entity sourceentity) {
+	public static boolean execute(Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
-			return;
+			return true;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
 		lurker = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
@@ -34,7 +34,7 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 					if ((entity instanceof MidnightLurkerAggressiveEntity || entity instanceof MidnightLurkerBackturnedEntity || entity instanceof MidnightLurkerHiderEntity || entity instanceof MidnightLurkerRuntrueEntity
 							|| entity instanceof MidnightLurkerSeenAngressiveEntity || entity instanceof MidnightLurkerStalkingEntity || entity instanceof MidnightLurkerUnprovokedEntity || entity instanceof MidnightlurkerNEEntity)
 							&& sourceentity instanceof PlayerEntity) {
-
+						return false;
 					}
 				} else if (!mainjsonobject.get("lurker_invulnerable").getAsBoolean()) {
 					if ((entity instanceof MidnightLurkerUnprovokedEntity || entity instanceof MidnightlurkerNEEntity) && sourceentity instanceof PlayerEntity) {
@@ -42,7 +42,7 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 							((IEntityDataSaver)entity).getPersistentData().putBoolean("Stunned", true);
 						}
 						if (((IEntityDataSaver)entity).getPersistentData().getDouble("StunTimer") > 0) {
-
+							return false;
 						}
 					}
 				}
@@ -50,5 +50,6 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 				e.printStackTrace();
 			}
 		}
+		return true;
 	}
 }

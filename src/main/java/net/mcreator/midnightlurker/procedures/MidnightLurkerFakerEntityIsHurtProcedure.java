@@ -6,10 +6,9 @@ import net.minecraft.entity.Entity;
 
 public class MidnightLurkerFakerEntityIsHurtProcedure {
 
-    public static void execute(Entity entity) {
+    public static boolean execute(Entity entity) {
 		if (entity == null)
-			return;
-		if (entity instanceof MidnightLurkerFakerEntity) {
-		}
-	}
+			return true;
+        return !(entity instanceof MidnightLurkerFakerEntity);
+    }
 }

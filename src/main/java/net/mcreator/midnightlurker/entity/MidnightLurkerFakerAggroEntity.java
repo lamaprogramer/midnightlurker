@@ -1,63 +1,45 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.minecraft.entity.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.Heightmap;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.procedures.MidnightLurkerFakerSpawnmainProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerFakerAggroOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerFakerAggroEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
-import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
-import net.mcreator.midnightlurker.procedures.AggrowatchplayerProcedure;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MidnightLurkerFakerAggroEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerFakerAggroEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -190,7 +172,8 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		MidnightLurkerFakerAggroEntityIsHurtProcedure.execute(this);
+		if (!MidnightLurkerFakerAggroEntityIsHurtProcedure.execute(this))
+			return false;
 		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getSource() instanceof PersistentProjectileEntity)

@@ -15,9 +15,9 @@ import java.io.IOException;
 
 public class MidnightLurkerStareEntityIsHurtProcedure {
 
-	public static void execute(Entity entity, Entity sourceentity) {
+	public static boolean execute(Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
-			return;
+			return true;
 		com.google.gson.JsonObject mainjsonobject = new com.google.gson.JsonObject();
 		File lurker = new File("");
 		if (entity instanceof MidnightLurkerStareEntity && sourceentity instanceof PlayerEntity) {
@@ -36,7 +36,7 @@ public class MidnightLurkerStareEntityIsHurtProcedure {
 				mainjsonobject = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
 				if (mainjsonobject.get("lurker_invulnerable").getAsBoolean()) {
 					if (entity instanceof MidnightLurkerStareEntity && sourceentity instanceof PlayerEntity) {
-
+						return false;
 					}
 				} else if (mainjsonobject.get("lurker_invulnerable").getAsBoolean()) {
 					if (entity instanceof MidnightLurkerStareEntity && sourceentity instanceof PlayerEntity) {
@@ -44,7 +44,7 @@ public class MidnightLurkerStareEntityIsHurtProcedure {
 							((IEntityDataSaver)entity).getPersistentData().putBoolean("Stunned", true);
 						}
 						if (((IEntityDataSaver)entity).getPersistentData().getDouble("StunTimer") > 0) {
-
+							return false;
 						}
 					}
 				}
@@ -52,5 +52,6 @@ public class MidnightLurkerStareEntityIsHurtProcedure {
 				e.printStackTrace();
 			}
 		}
+		return true;
 	}
 }

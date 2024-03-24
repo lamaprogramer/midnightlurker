@@ -1,30 +1,14 @@
 package net.mcreator.midnightlurker.init;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.PersistentState;
 
 
 public class MidnightlurkerCallbacks {
     public static void init() {
-        AttackEntityCallback.EVENT.register(new DestroytexEntityIsHurtProcedure());
-        AttackEntityCallback.EVENT.register(new Destroytex2EntityIsHurtProcedure());
-        AttackEntityCallback.EVENT.register(new Destroytex3EntityIsHurtProcedure());
-        AttackEntityCallback.EVENT.register(new Destroytex4EntityIsHurtProcedure());
-
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
             IEntityDataSaver original = (IEntityDataSaver)  oldPlayer;
             IEntityDataSaver clone = (IEntityDataSaver)  newPlayer;

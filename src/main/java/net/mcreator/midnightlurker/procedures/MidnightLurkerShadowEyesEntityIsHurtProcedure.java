@@ -6,11 +6,9 @@ import net.minecraft.entity.Entity;
 
 public class MidnightLurkerShadowEyesEntityIsHurtProcedure {
 
-	public static void execute(Entity entity) {
+	public static boolean execute(Entity entity) {
 		if (entity == null)
-			return;
-		if (entity instanceof MidnightLurkerShadowEyesEntity) {
-
-		}
-	}
+			return true;
+        return !(entity instanceof MidnightLurkerShadowEyesEntity);
+    }
 }

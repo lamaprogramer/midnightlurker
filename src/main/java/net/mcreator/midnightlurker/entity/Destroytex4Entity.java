@@ -1,8 +1,6 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.Destroytex2EntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.Destroytex4EntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.DestroytexOnEntityTickUpdateProcedure;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -54,7 +52,9 @@ public class Destroytex4Entity extends PathAwareEntity {
 	}
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		Destroytex4EntityIsHurtProcedure.execute(this);
+		//Destroytex4EntityIsHurtProcedure.execute(this);
+		if (!Destroytex4EntityIsHurtProcedure.execute(this))
+			return false;
 		if (source.isOf(DamageTypes.IN_FIRE))
 			return false;
 		if (source.getSource() instanceof ArrowEntity)
