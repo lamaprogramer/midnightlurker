@@ -4,6 +4,7 @@
   "package": "net.mcreator.midnightlurker.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "FishingBobberEntityMixin",
     "LivingEntityMixin"
   ],
   "injectors": {
