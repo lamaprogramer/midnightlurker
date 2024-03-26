@@ -46,7 +46,7 @@ public class MidnightlurkerMod implements ModInitializer {
 		MidnightlurkerModMobEffects.init();
 		MidnightlurkerModTabs.buildTabContentsVanilla();
 
-		MidnightlurkerModVariables.init();
+		MidnightlurkerModVariables.initServer();
 		MidnightlurkerCallbacks.init();
 
 		ServerTickEvents.END_SERVER_TICK.register((MinecraftServer server) -> {

@@ -112,6 +112,6 @@ public class LivingEntityMixin implements IEntityDataSaver {
         }
     }
     public NbtCompound getPersistentData() {
-        return persistantData;
+        return this.persistantData;
     }
 }

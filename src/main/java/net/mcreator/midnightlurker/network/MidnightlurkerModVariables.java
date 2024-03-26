@@ -9,10 +9,9 @@ import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.datafixer.DataFixTypes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
@@ -24,9 +23,12 @@ import java.util.Objects;
 
 public class MidnightlurkerModVariables {
 
-	public static void init() {
-		ServerPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID_VARIABLES, SavedDataSyncMessage::handler);
+	public static void initServer() {
+
+	}
+	public static void initClient() {
 		ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID, PlayerVariablesSyncMessage::handler);
+		ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID_VARIABLES, SavedDataSyncMessage::handler);
 	}
 
 	public static class EventBusVariableHandlers {
@@ -88,8 +90,11 @@ public class MidnightlurkerModVariables {
 
 		public void syncData(WorldAccess world) {
 			this.setDirty(true);
-			if (world instanceof World level && !level.isClient())
-				ClientPlayNetworking.send(MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(1).writeNbt(this.writeNbt(new NbtCompound())));
+			if (world instanceof World level && !level.isClient()) {
+				for (PlayerEntity player : level.getPlayers()) {
+					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(1).writeNbt(this.writeNbt(new NbtCompound())));
+				}
+			}
 		}
 
 		static WorldVariables clientSide = new WorldVariables();
@@ -123,8 +128,11 @@ public class MidnightlurkerModVariables {
 
 		public void syncData(WorldAccess world) {
 			this.setDirty(true);
-			if (world instanceof World && !world.isClient())
-				ClientPlayNetworking.send(MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(0).writeNbt(new NbtCompound()));
+			if (world instanceof World level && !level.isClient()) {
+				for (PlayerEntity player : level.getPlayers()) {
+					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(0).writeNbt(this.writeNbt(new NbtCompound())));
+				}
+			}
 		}
 
 		static MapVariables clientSide = new MapVariables();
@@ -139,7 +147,7 @@ public class MidnightlurkerModVariables {
 	}
 
 	public static class SavedDataSyncMessage {
-		public static void handler(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+		public static void handler(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int type = buf.readInt();
 			PersistentState data = type == 0 ? new MapVariables() : new WorldVariables();
 
@@ -161,7 +169,7 @@ public class MidnightlurkerModVariables {
 		public static void handler(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			NbtCompound nbt = buf.readNbt();
 			IEntityDataSaver variables = (IEntityDataSaver) MinecraftClient.getInstance().player;
-			
+
 			variables.getPersistentData().putDouble("DeathJumpActive", nbt.getDouble("DeathJumpActive"));
 			variables.getPersistentData().putDouble("DeathJumpTimer", nbt.getDouble("DeathJumpTimer"));
 			variables.getPersistentData().putDouble("DeathJumpShake", nbt.getDouble("DeathJumpShake"));
