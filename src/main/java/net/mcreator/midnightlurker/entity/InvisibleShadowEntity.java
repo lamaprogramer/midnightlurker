@@ -234,7 +234,7 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity {
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_SHADOW, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_SHADOW, 4, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_SHADOW, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

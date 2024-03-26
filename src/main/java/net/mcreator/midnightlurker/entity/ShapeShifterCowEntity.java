@@ -134,7 +134,7 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SHAPE_SHIFTER_COW, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SHAPE_SHIFTER_COW, 6, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.SHAPE_SHIFTER_COW, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

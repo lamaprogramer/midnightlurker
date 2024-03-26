@@ -43,6 +43,14 @@ dependencies {
 
 loom {
 	accessWidenerPath = file("src/main/resources/midnightlurker.accesswidener")
+	runs {
+		client {
+			vmArg "-Dgeckolib.disable_examples=true"
+		}
+		server {
+			vmArg "-Dgeckolib.disable_examples=true"
+		}
+	}
 }
 
 processResources {

@@ -186,7 +186,7 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, 15, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

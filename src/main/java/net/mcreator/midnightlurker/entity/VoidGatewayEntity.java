@@ -181,7 +181,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.VOID_GATEWAY, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.VOID_GATEWAY, 6, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.VOID_GATEWAY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

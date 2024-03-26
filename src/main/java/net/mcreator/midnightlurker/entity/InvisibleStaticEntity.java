@@ -193,7 +193,7 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity {
 	protected void tickCramming() {
 	}
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_STATIC, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_STATIC, 4, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_STATIC, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

@@ -283,7 +283,7 @@ public class MidnightLurkerUnprovokedEntity extends HostileEntity implements Geo
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, 15, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

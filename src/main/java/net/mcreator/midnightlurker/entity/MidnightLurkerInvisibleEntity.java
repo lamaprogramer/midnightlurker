@@ -175,7 +175,7 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, 9, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();

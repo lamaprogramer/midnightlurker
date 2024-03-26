@@ -232,7 +232,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	}
 
 	public static void init() {
-		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, 1, 1, 1);
+		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, 3, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_CAVE_SOUNDS, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
