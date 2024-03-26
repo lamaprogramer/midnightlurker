@@ -1,6 +1,8 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleStaticPlayerCollidesWithThisEntityProcedure;
@@ -53,7 +55,7 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity {
 
 	public InvisibleStaticEntity(EntityType<InvisibleStaticEntity> type, World world) {
 		super(type, world);
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

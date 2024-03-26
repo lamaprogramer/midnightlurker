@@ -3,6 +3,8 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
@@ -50,7 +52,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

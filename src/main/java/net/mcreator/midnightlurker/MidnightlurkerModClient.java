@@ -11,7 +11,6 @@ import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 public class MidnightlurkerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        //File config = new File((FabricLoader.getInstance().getGameDir().toString() + "/config/"), File.separator + "midnightlurkerconfig.json");
         LurkerconfigProcedure.execute();
 
         MidnightlurkerModVariables.initClient();

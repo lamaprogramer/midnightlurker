@@ -5,6 +5,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;

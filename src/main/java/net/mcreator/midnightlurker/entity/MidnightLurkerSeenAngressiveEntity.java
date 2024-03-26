@@ -48,6 +48,8 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawn
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -65,7 +67,7 @@ public class MidnightLurkerSeenAngressiveEntity extends HostileEntity implements
 	public MidnightLurkerSeenAngressiveEntity(EntityType<MidnightLurkerSeenAngressiveEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

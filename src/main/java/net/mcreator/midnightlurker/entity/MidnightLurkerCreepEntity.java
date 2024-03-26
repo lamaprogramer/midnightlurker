@@ -48,6 +48,8 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityIsHurtProcedur
 import net.mcreator.midnightlurker.procedures.MidnightLurkerCreepOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerCreepOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -65,7 +67,7 @@ public class MidnightLurkerCreepEntity extends HostileEntity implements GeoEntit
 	public MidnightLurkerCreepEntity(EntityType<MidnightLurkerCreepEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

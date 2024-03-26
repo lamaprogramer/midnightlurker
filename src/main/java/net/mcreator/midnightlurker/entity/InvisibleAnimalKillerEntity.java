@@ -3,6 +3,8 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.InvisibleAnimalKillerOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
@@ -57,7 +59,7 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 
 	public InvisibleAnimalKillerEntity(EntityType<InvisibleAnimalKillerEntity> type, World world) {
 		super(type, world);
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

@@ -53,6 +53,8 @@ import net.mcreator.midnightlurker.procedures.MidnightPhantomHeadOnInitialEntity
 import net.mcreator.midnightlurker.procedures.MidnightPhantomHeadOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerFakerSpawnmainProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -72,7 +74,7 @@ public class MidnightPhantomHeadEntity extends HostileEntity implements GeoEntit
 	public MidnightPhantomHeadEntity(EntityType<MidnightPhantomHeadEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 		this.moveControl = new FlightMoveControl(this, 10, true);
 	}

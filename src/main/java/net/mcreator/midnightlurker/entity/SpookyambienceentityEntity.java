@@ -46,6 +46,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -63,7 +65,7 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 	public SpookyambienceentityEntity(EntityType<SpookyambienceentityEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

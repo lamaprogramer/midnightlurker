@@ -3,6 +3,8 @@ package net.mcreator.midnightlurker.procedures;
 import com.google.gson.Gson;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mcreator.midnightlurker.entity.MidnightLurkerHiderEntity;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;

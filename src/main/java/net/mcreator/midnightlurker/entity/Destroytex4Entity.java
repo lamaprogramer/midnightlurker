@@ -1,6 +1,7 @@
 
 package net.mcreator.midnightlurker.entity;
 
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.procedures.Destroytex4EntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.DestroytexOnEntityTickUpdateProcedure;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -27,7 +28,7 @@ public class Destroytex4Entity extends PathAwareEntity {
 		super(type, world);
 		setStepHeight(0f);
 		//
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

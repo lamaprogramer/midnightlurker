@@ -2,6 +2,8 @@ package net.mcreator.midnightlurker.procedures;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.MidnightLurkerStalkingEntity;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;

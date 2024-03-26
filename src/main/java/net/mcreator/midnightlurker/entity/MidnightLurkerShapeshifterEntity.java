@@ -50,6 +50,8 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterRightCli
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerShapeshifterEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements GeoEntity {
@@ -64,7 +66,7 @@ public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements
 	public MidnightLurkerShapeshifterEntity(EntityType<MidnightLurkerShapeshifterEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

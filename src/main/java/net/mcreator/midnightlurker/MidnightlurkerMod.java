@@ -28,12 +28,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MidnightlurkerMod implements ModInitializer {
 	public static final String MODID = "midnightlurker";
+	public static final boolean DEBUG_MODE = false;
 	public static final Identifier CHANNEL_ID_VARIABLES = new Identifier(MODID, MODID + "_vars");
 	public static final Identifier CHANNEL_ID = new Identifier(MODID, MODID);
 
 	private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 	public static void queueServerWork(int tick, Runnable action) {
-		//workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
 		action.run();
 	}
 

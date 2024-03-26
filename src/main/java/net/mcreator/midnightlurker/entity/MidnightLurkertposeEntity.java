@@ -53,6 +53,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.mcreator.midnightlurker.procedures.MidnightLurkertposeOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +72,7 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 	public MidnightLurkertposeEntity(EntityType<MidnightLurkertposeEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

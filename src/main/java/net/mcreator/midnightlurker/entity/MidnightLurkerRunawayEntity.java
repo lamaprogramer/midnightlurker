@@ -53,6 +53,8 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerRunawayOnEntityTickU
 import net.mcreator.midnightlurker.procedures.MidnightLurkerRunawayEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +72,7 @@ public class MidnightLurkerRunawayEntity extends HostileEntity implements GeoEnt
 	public MidnightLurkerRunawayEntity(EntityType<MidnightLurkerRunawayEntity> type, World world) {
 		super(type, world);
 		this.experiencePoints = 25;
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

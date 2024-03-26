@@ -3,6 +3,8 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
@@ -54,7 +56,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 
 	public InvisibleLurkerFootstepsEntity(EntityType<InvisibleLurkerFootstepsEntity> type, World world) {
 		super(type, world);
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

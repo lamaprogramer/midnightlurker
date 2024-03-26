@@ -43,6 +43,8 @@ import net.minecraft.util.math.BlockPos;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.LurandsattackplayerProcedure;
 import net.mcreator.midnightlurker.procedures.LurandsOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 public class VoidHandsEntity extends HostileEntity implements GeoEntity {
@@ -58,7 +60,7 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 	public VoidHandsEntity(EntityType<VoidHandsEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

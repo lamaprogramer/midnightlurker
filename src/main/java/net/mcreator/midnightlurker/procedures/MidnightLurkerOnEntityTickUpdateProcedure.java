@@ -1,5 +1,7 @@
 package net.mcreator.midnightlurker.procedures;
 
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.minecraft.entity.Entity;

@@ -36,6 +36,8 @@ import net.minecraft.util.math.BlockPos;
 import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.ShapeShifterCowRightClickedOnEntityProcedure;
 import net.mcreator.midnightlurker.procedures.ShapeShifterCowNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 public class ShapeShifterCowEntity extends PathAwareEntity {
@@ -43,7 +45,7 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 		super(type, world);
 		setStepHeight(0.6f);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

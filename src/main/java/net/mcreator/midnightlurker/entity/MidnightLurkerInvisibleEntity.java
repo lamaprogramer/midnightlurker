@@ -48,6 +48,8 @@ import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawnin
 import net.mcreator.midnightlurker.procedures.MidnightLurkerInvisibleOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerInvisibleEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 
 import org.jetbrains.annotations.Nullable;
@@ -66,7 +68,7 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 	public MidnightLurkerInvisibleEntity(EntityType<MidnightLurkerInvisibleEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 

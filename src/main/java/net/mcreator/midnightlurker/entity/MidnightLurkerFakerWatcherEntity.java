@@ -3,6 +3,8 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.entity.*;
@@ -55,7 +57,7 @@ public class MidnightLurkerFakerWatcherEntity extends HostileEntity implements G
 	public MidnightLurkerFakerWatcherEntity(EntityType<MidnightLurkerFakerWatcherEntity> type, World world) {
 		super(type, world);
 		
-		setGlowing(true);
+		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 
