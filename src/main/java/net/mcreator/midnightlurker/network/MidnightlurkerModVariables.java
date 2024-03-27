@@ -1,5 +1,6 @@
 package net.mcreator.midnightlurker.network;
 
+import com.mojang.datafixers.types.Type;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -92,7 +93,7 @@ public class MidnightlurkerModVariables {
 			this.setDirty(true);
 			if (world instanceof World level && !level.isClient()) {
 				for (PlayerEntity player : level.getPlayers()) {
-					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(1).writeNbt(this.writeNbt(new NbtCompound())));
+					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeVarInt(1).writeNbt(this.writeNbt(new NbtCompound())));
 				}
 			}
 		}
@@ -101,8 +102,7 @@ public class MidnightlurkerModVariables {
 
 		public static WorldVariables get(WorldAccess world) {
 			if (world instanceof ServerWorld level) {
-				return level.getPersistentStateManager().getOrCreate(
-                        new Type<>(WorldVariables::new, WorldVariables::load, DataFixTypes.LEVEL), DATA_NAME);
+				return level.getPersistentStateManager().getOrCreate(WorldVariables::load, WorldVariables::new, DATA_NAME);
 			} else {
 				return clientSide;
 			}
@@ -130,7 +130,7 @@ public class MidnightlurkerModVariables {
 			this.setDirty(true);
 			if (world instanceof World level && !level.isClient()) {
 				for (PlayerEntity player : level.getPlayers()) {
-					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(0).writeNbt(this.writeNbt(new NbtCompound())));
+					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeVarInt(0).writeNbt(this.writeNbt(new NbtCompound())));
 				}
 			}
 		}
@@ -139,7 +139,7 @@ public class MidnightlurkerModVariables {
 
 		public static MapVariables get(WorldAccess world) {
 			if (world instanceof ServerWorldAccess serverLevelAcc) {
-				return serverLevelAcc.getServer().getWorld(World.OVERWORLD).getPersistentStateManager().getOrCreate(new Type<>(MapVariables::new, MapVariables::load, DataFixTypes.SAVED_DATA_MAP_DATA), DATA_NAME);
+				return serverLevelAcc.getServer().getWorld(World.OVERWORLD).getPersistentStateManager().getOrCreate(MapVariables::load, MapVariables::new, DATA_NAME);
 			} else {
 				return clientSide;
 			}
@@ -148,7 +148,7 @@ public class MidnightlurkerModVariables {
 
 	public static class SavedDataSyncMessage {
 		public static void handler(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-			int type = buf.readInt();
+			int type = buf.readVarInt();
 			PersistentState data = type == 0 ? new MapVariables() : new WorldVariables();
 
 			if (data instanceof MapVariables _mapvars) {

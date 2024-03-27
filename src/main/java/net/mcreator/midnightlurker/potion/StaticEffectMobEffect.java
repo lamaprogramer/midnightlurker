@@ -25,8 +25,8 @@ public class StaticEffectMobEffect extends StatusEffect {
 	}
 
 	@Override
-	public void onRemoved(AttributeContainer attributeContainer) {
-		super.onRemoved(attributeContainer);
+	public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+		super.onRemoved(entity, attributes, amplifier);
 		//StaticEffectEffectExpiresProcedure.execute();
 	}
 
