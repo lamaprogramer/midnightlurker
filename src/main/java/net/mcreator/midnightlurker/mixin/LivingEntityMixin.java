@@ -1,8 +1,5 @@
 package net.mcreator.midnightlurker.mixin;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.EntityAnimationFactory;
 import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
@@ -12,7 +9,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -107,9 +103,9 @@ public class LivingEntityMixin implements IEntityDataSaver {
 
     @Override
     public void syncPlayerVariables(Entity entity) {
-        if (entity instanceof ServerPlayerEntity serverPlayer) {
-            ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this.persistantData));
-        }
+//        if (entity instanceof ServerPlayerEntity serverPlayer) {
+//            ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this.persistantData));
+//        }
     }
     public NbtCompound getPersistentData() {
         return this.persistantData;
