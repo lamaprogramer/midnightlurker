@@ -107,9 +107,9 @@ public class LivingEntityMixin implements IEntityDataSaver {
 
     @Override
     public void syncPlayerVariables(Entity entity) {
-        if (entity instanceof ServerPlayerEntity serverPlayer) {
-            ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this.persistantData));
-        }
+//        if (entity instanceof ServerPlayerEntity serverPlayer) {
+//            ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this.persistantData));
+//        }
     }
     public NbtCompound getPersistentData() {
         return this.persistantData;
