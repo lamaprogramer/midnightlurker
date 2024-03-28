@@ -170,19 +170,21 @@ public class MidnightlurkerModVariables {
 			NbtCompound nbt = buf.readNbt();
 			IEntityDataSaver variables = (IEntityDataSaver) MinecraftClient.getInstance().player;
 
-			variables.getPersistentData().putDouble("DeathJumpActive", nbt.getDouble("DeathJumpActive"));
-			variables.getPersistentData().putDouble("DeathJumpTimer", nbt.getDouble("DeathJumpTimer"));
-			variables.getPersistentData().putDouble("DeathJumpShake", nbt.getDouble("DeathJumpShake"));
-			variables.getPersistentData().putDouble("ScreenShake", nbt.getDouble("ScreenShake"));
-			variables.getPersistentData().putDouble("InsanityStage", nbt.getDouble("InsanityStage"));
-			variables.getPersistentData().putDouble("InsanityTimer", nbt.getDouble("InsanityTimer"));
-			variables.getPersistentData().putDouble("InsanityAktive", nbt.getDouble("InsanityAktive"));
-			variables.getPersistentData().putDouble("InsanityReset", nbt.getDouble("InsanityReset"));
-			variables.getPersistentData().putDouble("JumpscareActive", nbt.getDouble("JumpscareActive"));
-			variables.getPersistentData().putDouble("JumpscareTimer", nbt.getDouble("JumpscareTimer"));
-			variables.getPersistentData().putDouble("JumpscareRandom", nbt.getDouble("JumpscareRandom"));
-			variables.getPersistentData().putDouble("StaticRender", nbt.getDouble("StaticRender"));
-			variables.getPersistentData().putDouble("encounternumber", nbt.getDouble("encounternumber"));
+			if (variables != null) {
+				variables.getPersistentData().putDouble("DeathJumpActive", nbt.getDouble("DeathJumpActive"));
+				variables.getPersistentData().putDouble("DeathJumpTimer", nbt.getDouble("DeathJumpTimer"));
+				variables.getPersistentData().putDouble("DeathJumpShake", nbt.getDouble("DeathJumpShake"));
+				variables.getPersistentData().putDouble("ScreenShake", nbt.getDouble("ScreenShake"));
+				variables.getPersistentData().putDouble("InsanityStage", nbt.getDouble("InsanityStage"));
+				variables.getPersistentData().putDouble("InsanityTimer", nbt.getDouble("InsanityTimer"));
+				variables.getPersistentData().putDouble("InsanityAktive", nbt.getDouble("InsanityAktive"));
+				variables.getPersistentData().putDouble("InsanityReset", nbt.getDouble("InsanityReset"));
+				variables.getPersistentData().putDouble("JumpscareActive", nbt.getDouble("JumpscareActive"));
+				variables.getPersistentData().putDouble("JumpscareTimer", nbt.getDouble("JumpscareTimer"));
+				variables.getPersistentData().putDouble("JumpscareRandom", nbt.getDouble("JumpscareRandom"));
+				variables.getPersistentData().putDouble("StaticRender", nbt.getDouble("StaticRender"));
+				variables.getPersistentData().putDouble("encounternumber", nbt.getDouble("encounternumber"));
+			}
 		}
 	}
 }
