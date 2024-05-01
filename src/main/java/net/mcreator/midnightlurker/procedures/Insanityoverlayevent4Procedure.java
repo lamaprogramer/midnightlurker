@@ -1,11 +1,10 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Entity;
-
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class Insanityoverlayevent4Procedure {
 	public static boolean execute(Entity entity) {

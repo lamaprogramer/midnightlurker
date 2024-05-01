@@ -1,51 +1,42 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.minecraft.entity.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.Heightmap;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.LurandsattackplayerProcedure;
-import net.mcreator.midnightlurker.procedures.LurandsOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.LurandsOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.LurandsattackplayerProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(VoidHandsEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -65,11 +56,12 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "midnightlurkervoidgateshadowtrue");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "midnightlurkervoidgateshadowtrue")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -102,10 +94,7 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 		});
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -161,8 +150,8 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
-		return super.getDimensions(p_33597_).scaled((float) 1);
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
+		return super.getBaseDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
@@ -180,7 +169,7 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity {
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.VOID_HANDS, 6, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.VOID_HANDS, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.VOID_HANDS, SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

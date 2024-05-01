@@ -4,7 +4,6 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
@@ -31,12 +30,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
@@ -57,11 +53,12 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "voidgateway");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "voidgateway")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -103,10 +100,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		});
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
@@ -159,8 +153,8 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
-		return super.getDimensions(p_33597_).scaled((float) 1);
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
+		return super.getBaseDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
@@ -184,7 +178,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.VOID_GATEWAY, 6, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.VOID_GATEWAY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.VOID_GATEWAY, SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

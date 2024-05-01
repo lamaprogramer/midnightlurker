@@ -1,63 +1,41 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.mob.HostileEntity;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightLurkertposeOnEntityTickUpdateProcedure;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.nbt.NbtCompound;
-
-import net.mcreator.midnightlurker.procedures.MidnightLurkertposeOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerOnInitialEntitySpawnProcedure;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkertposeEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -77,11 +55,12 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "midnightlurker");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "midnightlurker")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -106,10 +85,7 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
@@ -161,8 +137,8 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 	}
 
 	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason, @Nullable EntityData livingdata, @Nullable NbtCompound tag) {
-		EntityData retval = super.initialize(world, difficulty, reason, livingdata, tag);
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData retval = super.initialize(world, difficulty, spawnReason, entityData);
 		MidnightLurkerOnInitialEntitySpawnProcedure.execute(world, this.getX(), this.getY(), this.getZ(), this);
 		return retval;
 	}
@@ -175,8 +151,8 @@ public class MidnightLurkertposeEntity extends HostileEntity implements GeoEntit
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
-		return super.getDimensions(p_33597_).scaled((float) 1);
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
+		return super.getBaseDimensions(p_33597_).scaled((float) 1);
 	}
 
 	public static void init() {

@@ -3,44 +3,39 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.entity.*;
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.Heightmap;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.procedures.ShapeshifterPigNaturalEntitySpawningConditionProcedure;
 import net.minecraft.block.BlockState;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.procedures.ShapeshifterPigNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 
 public class ShapeshifterPigEntity extends PathAwareEntity {
 
 	public ShapeshifterPigEntity(EntityType<ShapeshifterPigEntity> type, World world) {
 		super(type, world);
-		setStepHeight(0.6f);
+		
 		
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
@@ -60,10 +55,7 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public SoundEvent getAmbientSound() {
@@ -119,7 +111,7 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SHAPESHIFTER_PIG, 8, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.SHAPESHIFTER_PIG, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

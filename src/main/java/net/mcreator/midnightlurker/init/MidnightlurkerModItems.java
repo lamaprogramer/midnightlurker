@@ -4,7 +4,6 @@
  */
 package net.mcreator.midnightlurker.init;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
@@ -42,33 +41,33 @@ public class MidnightlurkerModItems {
 
 
 
-	public static final Item MIDNIGHT_LURKER_AGGRESSIVE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_AGGRESSIVE, -13421773, -9624788, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKERTPOSE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_STALKING_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_INVISIBLE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item SPOOKYAMBIENCEENTITY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item DESTROYTEX_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX, -1, -1, new FabricItemSettings());
-	public static final Item DESTROYTEX_2_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_2, -1, -1, new FabricItemSettings());
-	public static final Item DESTROYTEX_3_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_3, -1, -1, new FabricItemSettings());
-	public static final Item DESTROYTEX_4_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_4, -1, -1, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_FAKER_AGGRO_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_FAKER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_FAKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_WATCHER, -13421773, -3355444, new FabricItemSettings());
-	public static final Item VOID_GATEWAY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.VOID_GATEWAY, -16777216, -16777216, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_BACKTURNED_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_BACKTURNED, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_SHADOW_EYES_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_SHADOW_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_UNPROVOKED_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_RUNAWAY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNAWAY, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_RUNTRUE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_HIDER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIDER, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_SHAPESHIFTER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_STARE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHTLURKER_NE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHTLURKER_NE, -13421773, -3355444, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, -13421773, -3355444, new FabricItemSettings());
-	public static final Item VOID_HANDS_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.VOID_HANDS, -16777216, -16777216, new FabricItemSettings());
-	public static final Item MIDNIGHT_LURKER_CREEP_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP, -13421773, -3355444, new FabricItemSettings());
+	public static final Item MIDNIGHT_LURKER_AGGRESSIVE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_AGGRESSIVE, -13421773, -9624788, new Item.Settings());
+	public static final Item MIDNIGHT_LURKERTPOSE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKERTPOSE, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_STALKING_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_STALKING, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_INVISIBLE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, -13421773, -3355444, new Item.Settings());
+	public static final Item SPOOKYAMBIENCEENTITY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE, -13421773, -3355444, new Item.Settings());
+	public static final Item DESTROYTEX_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX, -1, -1, new Item.Settings());
+	public static final Item DESTROYTEX_2_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_2, -1, -1, new Item.Settings());
+	public static final Item DESTROYTEX_3_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_3, -1, -1, new Item.Settings());
+	public static final Item DESTROYTEX_4_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_4, -1, -1, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_FAKER_AGGRO_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_FAKER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_FAKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_WATCHER, -13421773, -3355444, new Item.Settings());
+	public static final Item VOID_GATEWAY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.VOID_GATEWAY, -16777216, -16777216, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_BACKTURNED_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_BACKTURNED, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_SHADOW_EYES_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW_EYES, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_SHADOW_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHADOW, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_UNPROVOKED_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_RUNAWAY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNAWAY, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_RUNTRUE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_HIDER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_HIDER, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_SHAPESHIFTER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SHAPESHIFTER, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_STARE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHTLURKER_NE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHTLURKER_NE, -13421773, -3355444, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, -13421773, -3355444, new Item.Settings());
+	public static final Item VOID_HANDS_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.VOID_HANDS, -16777216, -16777216, new Item.Settings());
+	public static final Item MIDNIGHT_LURKER_CREEP_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP, -13421773, -3355444, new Item.Settings());
 	
 	
 	

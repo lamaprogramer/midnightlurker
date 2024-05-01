@@ -2,6 +2,7 @@ package net.mcreator.midnightlurker.entity.model;
 
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
 
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 

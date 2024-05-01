@@ -3,47 +3,42 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.entity.*;
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.Heightmap;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.ShapeShifterCowNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.procedures.ShapeShifterCowRightClickedOnEntityProcedure;
+import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
 import net.minecraft.block.BlockState;
-import net.minecraft.world.World;
-import net.minecraft.item.ItemStack;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.ShapeShifterCowRightClickedOnEntityProcedure;
-import net.mcreator.midnightlurker.procedures.ShapeShifterCowNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 
 public class ShapeShifterCowEntity extends PathAwareEntity {
 	public ShapeShifterCowEntity(EntityType<ShapeShifterCowEntity> type, World world) {
 		super(type, world);
-		setStepHeight(0.6f);
+		
 		
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
@@ -63,10 +58,7 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public SoundEvent getAmbientSound() {
@@ -137,7 +129,7 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SHAPE_SHIFTER_COW, 6, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.SHAPE_SHIFTER_COW, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.SHAPE_SHIFTER_COW, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

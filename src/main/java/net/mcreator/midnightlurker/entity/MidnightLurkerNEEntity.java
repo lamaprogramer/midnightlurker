@@ -4,7 +4,6 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.block.BlockState;
@@ -22,7 +21,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
@@ -35,12 +33,9 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity {
@@ -61,11 +56,12 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "midnightlurkervoidgate");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "midnightlurkervoidgate")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -132,10 +128,7 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity {
 		});
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -192,8 +185,8 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason, @Nullable EntityData livingdata, @Nullable NbtCompound tag) {
-		EntityData retval = super.initialize(world, difficulty, reason, livingdata, tag);
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData retval = super.initialize(world, difficulty, spawnReason, entityData);
 		MidnightLurkerAggressiveOnInitialEntitySpawnProcedure.execute(world, this);
 		return retval;
 	}
@@ -212,18 +205,18 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
 		Entity entity = this;
 		World world = this.getWorld();
 		double x = this.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		return super.getDimensions(p_33597_).scaled((float) MidnightLurkerAggressiveBoundingBoxScaleProcedure.execute(world, x, y, z));
+		return super.getBaseDimensions(p_33597_).scaled((float) MidnightLurkerAggressiveBoundingBoxScaleProcedure.execute(world, x, y, z));
 	}
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHTLURKER_NE, 1, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHTLURKER_NE, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.MIDNIGHTLURKER_NE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

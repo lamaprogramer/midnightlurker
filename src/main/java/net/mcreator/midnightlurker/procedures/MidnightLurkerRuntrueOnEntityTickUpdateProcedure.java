@@ -1,27 +1,25 @@
 package net.mcreator.midnightlurker.procedures;
 
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.MidnightLurkerRuntrueEntity;
+import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.registry.Registries;
-
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
-import net.mcreator.midnightlurker.entity.MidnightLurkerRuntrueEntity;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerRuntrueOnEntityTickUpdateProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
@@ -60,7 +58,7 @@ public class MidnightLurkerRuntrueOnEntityTickUpdateProcedure {
 		}
 		if (Math.random() > 0.9) {
 			if (world instanceof ServerWorld _level)
-				_level.spawnParticles((DefaultParticleType) (MidnightlurkerModParticleTypes.VOID_DOT), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
+				_level.spawnParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT), x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
 		}
 		if (entity instanceof LivingEntity _livEnt22 && _livEnt22.hasStatusEffect(StatusEffects.SLOWNESS)
 				&& !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 20, 20, 20), e -> true).isEmpty()) {

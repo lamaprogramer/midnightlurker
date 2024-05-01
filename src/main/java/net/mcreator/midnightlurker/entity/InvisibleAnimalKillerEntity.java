@@ -4,7 +4,6 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.InvisibleAnimalKillerOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
@@ -39,12 +38,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEntity {
@@ -64,11 +60,12 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "nothing");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "nothing")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -80,7 +77,7 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 	}
 
 	@Override
-	public float getEyeHeight(EntityPose pose) {
+	public double getEyeY() {
 		return 1.4F;
 	}
 
@@ -110,10 +107,8 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 		});
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
+	
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(Registries.SOUND_EVENT.get(new Identifier("midnightlurker:nostepsound")), 0.15f, 1);
@@ -170,8 +165,8 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
-		return super.getDimensions(p_33597_).scaled((float) 1);
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
+		return super.getBaseDimensions(p_33597_).scaled((float) 1);
 	}
 
 	@Override
@@ -189,7 +184,7 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_ANIMAL_KILLER, 4, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_ANIMAL_KILLER, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_ANIMAL_KILLER, SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

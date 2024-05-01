@@ -1,10 +1,6 @@
 package net.mcreator.midnightlurker.network;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -12,7 +8,7 @@ import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.ServerWorldAccess;
@@ -27,8 +23,8 @@ public class MidnightlurkerModVariables {
 
 	}
 	public static void initClient() {
-		ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID, PlayerVariablesSyncMessage::handler);
-		ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID_VARIABLES, SavedDataSyncMessage::handler);
+		//ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID, PlayerVariablesSyncMessage::handler);
+		//ClientPlayNetworking.registerGlobalReceiver(MidnightlurkerMod.CHANNEL_ID_VARIABLES, SavedDataSyncMessage::handler);
 	}
 
 	public static class EventBusVariableHandlers {
@@ -58,7 +54,7 @@ public class MidnightlurkerModVariables {
 		public double midnighthealthboost = 0;
 		public boolean lurkerdevoverlay = false;
 
-		public static WorldVariables load(NbtCompound tag) {
+		public static WorldVariables load(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 			WorldVariables data = new WorldVariables();
 			data.read(tag);
 			return data;
@@ -75,24 +71,11 @@ public class MidnightlurkerModVariables {
 			lurkerdevoverlay = nbt.getBoolean("lurkerdevoverlay");
 		}
 
-		@Override
-		public NbtCompound writeNbt(NbtCompound nbt) {
-			nbt.putDouble("midnightlurkeroverhauledrewardrandom", midnightlurkeroverhauledrewardrandom);
-			nbt.putDouble("midnightlurkeroverhauledinsanitytimer", midnightlurkeroverhauledinsanitytimer);
-			nbt.putDouble("midnightlurkeroverhauledinstage", midnightlurkeroverhauledinstage);
-			nbt.putDouble("midnightlurkerinsanitytimactivate", midnightlurkerinsanitytimactivate);
-			nbt.putDouble("midnightlurkerinsanityactive", midnightlurkerinsanityactive);
-			nbt.putDouble("NeutralrunRandom", NeutralrunRandom);
-			nbt.putDouble("midnighthealthboost", midnighthealthboost);
-			nbt.putBoolean("lurkerdevoverlay", lurkerdevoverlay);
-			return nbt;
-		}
-
 		public void syncData(WorldAccess world) {
 			this.setDirty(true);
 			if (world instanceof World level && !level.isClient()) {
 				for (PlayerEntity player : level.getPlayers()) {
-					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(1).writeNbt(this.writeNbt(new NbtCompound())));
+					//ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(1).writeNbt(this.writeNbt(new NbtCompound())));
 				}
 			}
 		}
@@ -107,12 +90,25 @@ public class MidnightlurkerModVariables {
 				return clientSide;
 			}
 		}
+
+		@Override
+		public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+			nbt.putDouble("midnightlurkeroverhauledrewardrandom", midnightlurkeroverhauledrewardrandom);
+			nbt.putDouble("midnightlurkeroverhauledinsanitytimer", midnightlurkeroverhauledinsanitytimer);
+			nbt.putDouble("midnightlurkeroverhauledinstage", midnightlurkeroverhauledinstage);
+			nbt.putDouble("midnightlurkerinsanitytimactivate", midnightlurkerinsanitytimactivate);
+			nbt.putDouble("midnightlurkerinsanityactive", midnightlurkerinsanityactive);
+			nbt.putDouble("NeutralrunRandom", NeutralrunRandom);
+			nbt.putDouble("midnighthealthboost", midnighthealthboost);
+			nbt.putBoolean("lurkerdevoverlay", lurkerdevoverlay);
+			return nbt;
+		}
 	}
 
 	public static class MapVariables extends PersistentState {
 		public static final String DATA_NAME = "midnightlurker_mapvars";
 
-		public static MapVariables load(NbtCompound tag) {
+		public static MapVariables load(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
 			MapVariables data = new MapVariables();
 			data.read(tag);
 			return data;
@@ -122,15 +118,16 @@ public class MidnightlurkerModVariables {
 		}
 
 		@Override
-		public NbtCompound writeNbt(NbtCompound nbt) {
+		public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
 			return nbt;
 		}
 
 		public void syncData(WorldAccess world) {
 			this.setDirty(true);
+
 			if (world instanceof World level && !level.isClient()) {
 				for (PlayerEntity player : level.getPlayers()) {
-					ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(0).writeNbt(this.writeNbt(new NbtCompound())));
+					//ServerPlayNetworking.send((ServerPlayerEntity) player, MidnightlurkerMod.CHANNEL_ID_VARIABLES, PacketByteBufs.create().writeInt(0).writeNbt(this.writeNbt(new NbtCompound())));
 				}
 			}
 		}

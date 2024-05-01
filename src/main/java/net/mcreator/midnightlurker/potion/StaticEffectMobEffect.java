@@ -2,7 +2,6 @@
 package net.mcreator.midnightlurker.potion;
 
 
-import net.mcreator.midnightlurker.procedures.StaticEffectEffectExpiresProcedure;
 import net.mcreator.midnightlurker.procedures.StaticEffectOnEffectActiveTickProcedure;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
@@ -20,8 +19,9 @@ public class StaticEffectMobEffect extends StatusEffect {
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		StaticEffectOnEffectActiveTickProcedure.execute(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ(), entity);
+		return true;
 	}
 
 	@Override

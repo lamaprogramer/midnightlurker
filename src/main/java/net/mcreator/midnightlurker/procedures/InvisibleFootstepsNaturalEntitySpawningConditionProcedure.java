@@ -1,18 +1,8 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.mcreator.midnightlurker.entity.InvisibleStaticEntity;
-import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
-import net.mcreator.midnightlurker.entity.InvisibleLurkerFootstepsEntity;
-import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
-import net.mcreator.midnightlurker.entity.InvisibleCaveSoundsEntity;
-
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.File;
-import java.io.BufferedReader;
-
 import com.google.gson.Gson;
+import net.fabricmc.loader.api.FabricLoader;
+import net.mcreator.midnightlurker.entity.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -22,6 +12,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {
@@ -66,7 +61,7 @@ public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
                     && world.getEntitiesByClass(InvisibleShadowEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
                     && world.getEntitiesByClass(InvisibleStaticEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
                     && world.getEntitiesByClass(InvisibleLurkerFootstepsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty()
-                    && world.getEntitiesByClass(InvisibleCaveSoundsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionKey() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD;
+                    && world.getEntitiesByClass(InvisibleCaveSoundsEntity.class, Box.of(new Vec3d(x, y, z), 800, 800, 800), e -> true).isEmpty() && (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : DimensionTypes.OVERWORLD) == DimensionTypes.OVERWORLD;
 		}
 		return false;
 	}

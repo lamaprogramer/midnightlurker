@@ -2,13 +2,10 @@
 package net.mcreator.midnightlurker.potion;
 
 
-
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.effect.StatusEffect;
-
 import net.mcreator.midnightlurker.procedures.InsanitysoundsProcedure;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class InsanityMobEffect extends StatusEffect {
 	public InsanityMobEffect() {
@@ -21,8 +18,9 @@ public class InsanityMobEffect extends StatusEffect {
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		InsanitysoundsProcedure.execute(entity.getWorld(), entity);
+		return true;
 	}
 
 	@Override

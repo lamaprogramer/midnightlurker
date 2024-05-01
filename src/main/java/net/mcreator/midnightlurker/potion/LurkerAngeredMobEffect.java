@@ -2,14 +2,10 @@
 package net.mcreator.midnightlurker.potion;
 
 
-
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.effect.StatusEffect;
-
-
 import net.mcreator.midnightlurker.procedures.AggroSpawnProcedure;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class LurkerAngeredMobEffect extends StatusEffect {
 	public LurkerAngeredMobEffect() {
@@ -22,8 +18,9 @@ public class LurkerAngeredMobEffect extends StatusEffect {
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		AggroSpawnProcedure.execute(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ(), entity);
+		return true;
 	}
 
 	@Override

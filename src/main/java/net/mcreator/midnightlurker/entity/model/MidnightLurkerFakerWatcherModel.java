@@ -1,14 +1,13 @@
 package net.mcreator.midnightlurker.entity.model;
 
+import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib.model.data.EntityModelData;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
-
-import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
 public class MidnightLurkerFakerWatcherModel extends GeoModel<MidnightLurkerFakerWatcherEntity> {
 	@Override
@@ -28,7 +27,7 @@ public class MidnightLurkerFakerWatcherModel extends GeoModel<MidnightLurkerFake
 
 	@Override
 	public void setCustomAnimations(MidnightLurkerFakerWatcherEntity animatable, long instanceId, AnimationState animationState) {
-		CoreGeoBone head = getAnimationProcessor().getBone("head");
+		GeoBone head = getAnimationProcessor().getBone("head");
 		if (head != null) {
 			int unpausedMultiplier = !MinecraftClient.getInstance().isPaused() ? 1 : 0;
 			EntityModelData entityData = (EntityModelData) animationState.getData(DataTickets.ENTITY_MODEL_DATA);

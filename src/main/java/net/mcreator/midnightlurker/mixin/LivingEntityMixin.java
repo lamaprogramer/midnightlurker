@@ -93,10 +93,10 @@ public class LivingEntityMixin implements IEntityDataSaver {
         PlayerHitByAggroProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
     }
 
-    @Inject(method = "applyFoodEffects", at = @At("HEAD"))
-    private void updateDamage(ItemStack stack, World world, LivingEntity targetEntity, CallbackInfo ci) {
+    @Inject(method = "eatFood", at = @At("HEAD"))
+    private void updateDamage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
         if (THIS instanceof PlayerEntity) {
-            InsanityFoodReduceProcedure.execute(stack, (PlayerEntity) targetEntity);
+            InsanityFoodReduceProcedure.execute(stack, (PlayerEntity) THIS);
         }
     }
 

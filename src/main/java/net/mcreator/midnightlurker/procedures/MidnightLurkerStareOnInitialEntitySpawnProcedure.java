@@ -1,16 +1,13 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.world.WorldAccess;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class MidnightLurkerStareOnInitialEntitySpawnProcedure {

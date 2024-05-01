@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MidnightlurkerMod implements ModInitializer {
 	public static final String MODID = "midnightlurker";
-	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE = true;
 	public static final Identifier CHANNEL_ID_VARIABLES = new Identifier(MODID, MODID + "_vars");
 	public static final Identifier CHANNEL_ID = new Identifier(MODID, MODID);
 

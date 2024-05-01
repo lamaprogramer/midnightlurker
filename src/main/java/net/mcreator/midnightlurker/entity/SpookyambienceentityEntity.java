@@ -1,56 +1,45 @@
 
 package net.mcreator.midnightlurker.entity;
 
-import net.minecraft.entity.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.GeoEntity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-
-import net.minecraft.registry.Registries;
-
-
-
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.nbt.NbtCompound;
-
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnInitialEntitySpawnProcedure;
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-
+import net.mcreator.midnightlurker.procedures.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnInitialEntitySpawnProcedure;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class SpookyambienceentityEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(SpookyambienceentityEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -70,11 +59,12 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(SHOOT, false);
-		this.dataTracker.startTracking(ANIMATION, "undefined");
-		this.dataTracker.startTracking(TEXTURE, "midnightlurkervoidgateemissive");
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(SHOOT, false)
+				.add(ANIMATION, "undefined")
+				.add(TEXTURE, "midnightlurkervoidgateemissive")
+		);
 	}
 
 	public void setTexture(String texture) {
@@ -99,10 +89,7 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.DEFAULT;
-	}
+	
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
@@ -148,8 +135,8 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 	}
 
 	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason, @Nullable EntityData livingdata, @Nullable NbtCompound tag) {
-		EntityData retval = super.initialize(world, difficulty, reason, livingdata, tag);
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData retval = super.initialize(world, difficulty, spawnReason, entityData);
 		SpookyambienceentityOnInitialEntitySpawnProcedure.execute(world, this.getX(), this.getY(), this.getZ(), this);
 		return retval;
 	}
@@ -162,13 +149,13 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 	}
 
 	@Override
-	public EntityDimensions getDimensions(EntityPose p_33597_) {
-		return super.getDimensions(p_33597_).scaled((float) 1);
+	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
+		return super.getBaseDimensions(p_33597_).scaled((float) 1);
 	}
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, 2, 1, 1);
-		SpawnRestriction.register(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
+		SpawnRestriction.register(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();

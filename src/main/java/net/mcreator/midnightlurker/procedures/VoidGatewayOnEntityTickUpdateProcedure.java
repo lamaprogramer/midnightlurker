@@ -11,7 +11,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -106,7 +106,7 @@ public class VoidGatewayOnEntityTickUpdateProcedure {
 		}
 		if (Math.random() > 0.9) {
 			if (world instanceof ServerWorld _level)
-				_level.spawnParticles((DefaultParticleType) (MidnightlurkerModParticleTypes.VOID_GATEWAY_PARTICLE), x, y, z, 1, 0.18, 0.2, 0.18, 0.1);
+				_level.spawnParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_GATEWAY_PARTICLE), x, y, z, 1, 0.18, 0.2, 0.18, 0.1);
 		}
 		if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 			_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 60, 255, false, false));

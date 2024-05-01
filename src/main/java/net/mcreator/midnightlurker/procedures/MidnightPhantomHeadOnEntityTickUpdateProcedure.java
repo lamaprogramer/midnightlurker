@@ -10,7 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
@@ -136,7 +136,7 @@ public class MidnightPhantomHeadOnEntityTickUpdateProcedure {
 		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 24, 24, 24), e -> true).isEmpty() && !(entity instanceof LivingEntity _livEnt81 && _livEnt81.hasStatusEffect(StatusEffects.INVISIBILITY))) {
 			if (Math.random() > 0.9) {
 				if (world instanceof ServerWorld _level)
-					_level.spawnParticles((DefaultParticleType) (MidnightlurkerModParticleTypes.VOID_DOT), x, y, z, 2, 0.2, 0.2, 0.2, 0.1);
+					_level.spawnParticles((SimpleParticleType) (MidnightlurkerModParticleTypes.VOID_DOT), x, y, z, 2, 0.2, 0.2, 0.2, 0.1);
 			}
 		}
 		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 11, 11, 11), e -> true).isEmpty()) {

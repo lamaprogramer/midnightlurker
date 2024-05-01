@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 public class Destroytex3Entity extends PathAwareEntity {
 	public Destroytex3Entity(EntityType<Destroytex3Entity> type, World world) {
 		super(type, world);
-		setStepHeight(0f);
+		
 		//
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);

@@ -18,8 +18,9 @@ public class InsanityFacesMobEffect extends StatusEffect {
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+	public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
 		InsanityFacesEffectStartedappliedProcedure.execute(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ());
+		return true;
 	}
 
 	@Override

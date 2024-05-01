@@ -2,24 +2,23 @@
 package net.mcreator.midnightlurker.client.particle;
 
 
-
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.particle.SimpleParticleType;
 
 public class LurkerfaceparticleParticle extends SpriteBillboardParticle {
 	public static LurkerfaceparticleParticleFactory provider(SpriteProvider spriteSet) {
 		return new LurkerfaceparticleParticleFactory(spriteSet);
 	}
 
-	public static class LurkerfaceparticleParticleFactory implements ParticleFactory<DefaultParticleType> {
+	public static class LurkerfaceparticleParticleFactory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider spriteSet;
 
 		public LurkerfaceparticleParticleFactory(SpriteProvider spriteSet) {
 			this.spriteSet = spriteSet;
 		}
 
-		public Particle createParticle(DefaultParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		public Particle createParticle(SimpleParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			return new LurkerfaceparticleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
 		}
 	}

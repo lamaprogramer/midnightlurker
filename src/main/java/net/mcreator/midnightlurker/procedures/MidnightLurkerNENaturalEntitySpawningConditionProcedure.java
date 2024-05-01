@@ -1,24 +1,21 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.registry.Registries;
+import com.google.gson.Gson;
 import net.fabricmc.loader.api.FabricLoader;
-
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.World;
+import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
-import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
-
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.File;
 import java.io.BufferedReader;
-
-import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class MidnightLurkerNENaturalEntitySpawningConditionProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {
@@ -98,37 +95,37 @@ public class MidnightLurkerNENaturalEntitySpawningConditionProcedure {
 			}
 		}
 		if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 1 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.9
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 2 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.8
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 3 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.6
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 4 && mainjsonobject.get("multi_spawning").getAsBoolean() && Math.random() >= 0.4
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
-		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 5 && mainjsonobject.get("multi_spawning").getAsBoolean() && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 5 && mainjsonobject.get("multi_spawning").getAsBoolean() && (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		}
 		if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 1 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.9
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 2 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.8
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 3 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.6
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else if (mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 4 && !mainjsonobject.get("multi_spawning").getAsBoolean()
 				&& (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && Math.random() >= 0.4
-				&& (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER) {
+				&& (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER) {
 			return true;
 		} else return mainjsonobject.get("nether_lurker_spawn_rate").getAsDouble() == 5 && !mainjsonobject.get("multi_spawning").getAsBoolean()
-                && (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && (world instanceof World _lvl ? _lvl.getDimension() : World.OVERWORLD) == World.NETHER;
+                && (world.getEntitiesByClass(MidnightlurkerNEEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()) && (world instanceof World _lvl ? _lvl.getDimensionEntry().getKey().get() : World.OVERWORLD) == World.NETHER;
     }
 }

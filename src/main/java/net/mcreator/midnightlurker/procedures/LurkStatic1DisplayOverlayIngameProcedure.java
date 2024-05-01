@@ -1,11 +1,9 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Entity;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 
 public class LurkStatic1DisplayOverlayIngameProcedure {
 	public static boolean execute(Entity entity) {

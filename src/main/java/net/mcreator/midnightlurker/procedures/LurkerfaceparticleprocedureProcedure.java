@@ -1,26 +1,20 @@
 package net.mcreator.midnightlurker.procedures;
 
+import com.google.gson.Gson;
 import net.fabricmc.loader.api.FabricLoader;
-
-
-import net.minecraft.world.WorldAccess;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-
+import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.WorldAccess;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.File;
 import java.io.BufferedReader;
-
-import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class LurkerfaceparticleprocedureProcedure {
@@ -54,7 +48,7 @@ public class LurkerfaceparticleprocedureProcedure {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 1) {
@@ -63,7 +57,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 2) {
@@ -72,7 +66,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 3) {
@@ -81,7 +75,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 4) {
@@ -90,7 +84,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 					}
 				}
 			} catch (IOException e) {

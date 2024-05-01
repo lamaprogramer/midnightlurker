@@ -26,7 +26,7 @@ public class Destroytex4Entity extends PathAwareEntity {
 
 	public Destroytex4Entity(EntityType<Destroytex4Entity> type, World world) {
 		super(type, world);
-		setStepHeight(0f);
+		
 		//
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
