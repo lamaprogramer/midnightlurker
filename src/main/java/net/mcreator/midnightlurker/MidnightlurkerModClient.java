@@ -11,8 +11,6 @@ import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 public class MidnightlurkerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        LurkerconfigProcedure.execute();
-
         MidnightlurkerModVariables.initClient();
         MidnightlurkerHudRenders.init();
         MidnightlurkerModEntityRenderers.init();

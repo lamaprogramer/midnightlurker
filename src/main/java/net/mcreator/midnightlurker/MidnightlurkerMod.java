@@ -17,6 +17,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.mcreator.midnightlurker.init.*;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
@@ -39,6 +40,8 @@ public class MidnightlurkerMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		LurkerconfigProcedure.execute();
+
 		MidnightlurkerModSounds.init();
 		MidnightlurkerModItems.init();
 		MidnightlurkerModEntities.init();
