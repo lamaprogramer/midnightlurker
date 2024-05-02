@@ -1,20 +1,17 @@
 
 package net.mcreator.midnightlurker.client.renderer;
 
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumerProvider;
-
-import net.mcreator.midnightlurker.entity.model.MidnightlurkerNEModel;
-import net.mcreator.midnightlurker.entity.layer.MidnightlurkerNELayer;
 import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
-
+import net.mcreator.midnightlurker.entity.layer.MidnightlurkerNELayer;
+import net.mcreator.midnightlurker.entity.model.MidnightlurkerNEModel;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MidnightlurkerNERenderer extends GeoEntityRenderer<MidnightlurkerNEEntity> {
 	public MidnightlurkerNERenderer(EntityRendererFactory.Context renderManager) {

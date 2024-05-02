@@ -48,7 +48,7 @@ public class LurkerfaceparticleprocedureProcedure {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 1) {
@@ -57,7 +57,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 2) {
@@ -66,7 +66,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 3) {
@@ -75,7 +75,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
 					}
 				}
 				if (mainjsonobject.get("insanity_countdown_time").getAsDouble() == 4) {
@@ -84,7 +84,7 @@ public class LurkerfaceparticleprocedureProcedure {
 							&& MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1
 							&& dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 						if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 55, 0, false, false));
+							_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY_FACES, 55, 0, false, false));
 					}
 				}
 			} catch (IOException e) {
