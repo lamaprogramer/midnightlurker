@@ -3,7 +3,7 @@ package net.mcreator.midnightlurker.mixin;
 import net.mcreator.midnightlurker.init.EntityAnimationFactory;
 import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.entity.Entity;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,6 +40,10 @@ public class LivingEntityMixin implements IEntityDataSaver {
             nbt.putDouble("JumpscareRandom", persistantData.getDouble("JumpscareRandom"));
             nbt.putDouble("StaticRender", persistantData.getDouble("StaticRender"));
             nbt.putDouble("encounternumber", persistantData.getDouble("encounternumber"));
+        } else {
+            for (String key : this.persistantData.getKeys()) {
+                nbt.put(key, this.persistantData.get(key));
+            }
         }
     }
 
@@ -59,6 +63,10 @@ public class LivingEntityMixin implements IEntityDataSaver {
             persistantData.putDouble("JumpscareRandom", nbt.getDouble("JumpscareRandom"));
             persistantData.putDouble("StaticRender", nbt.getDouble("StaticRender"));
             persistantData.putDouble("encounternumber", nbt.getDouble("encounternumber"));
+        } else {
+            for (String key : nbt.getKeys()) {
+                this.persistantData.put(key, nbt.get(key));
+            }
         }
     }
 
@@ -94,19 +102,12 @@ public class LivingEntityMixin implements IEntityDataSaver {
     }
 
     @Inject(method = "eatFood", at = @At("HEAD"))
-    private void updateDamage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+    private void updateFood(World world, ItemStack stack, FoodComponent foodComponent, CallbackInfoReturnable<ItemStack> cir) {
         if (THIS instanceof PlayerEntity) {
             InsanityFoodReduceProcedure.execute(stack, (PlayerEntity) THIS);
         }
     }
 
-
-    @Override
-    public void syncPlayerVariables(Entity entity) {
-//        if (entity instanceof ServerPlayerEntity serverPlayer) {
-//            ServerPlayNetworking.send(serverPlayer, MidnightlurkerMod.CHANNEL_ID, PacketByteBufs.create().writeNbt(this.persistantData));
-//        }
-    }
     public NbtCompound getPersistentData() {
         return this.persistantData;
     }

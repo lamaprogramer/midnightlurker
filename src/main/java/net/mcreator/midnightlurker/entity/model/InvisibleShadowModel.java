@@ -9,17 +9,17 @@ import net.mcreator.midnightlurker.entity.InvisibleShadowEntity;
 public class InvisibleShadowModel extends GeoModel<InvisibleShadowEntity> {
 	@Override
 	public Identifier getAnimationResource(InvisibleShadowEntity entity) {
-		return new Identifier("midnightlurker", "animations/voidgateway.animation.json");
+		return Identifier.of("midnightlurker", "animations/voidgateway.animation.json");
 	}
 
 	@Override
 	public Identifier getModelResource(InvisibleShadowEntity entity) {
-		return new Identifier("midnightlurker", "geo/voidgateway.geo.json");
+		return Identifier.of("midnightlurker", "geo/voidgateway.geo.json");
 	}
 
 	@Override
 	public Identifier getTextureResource(InvisibleShadowEntity entity) {
-		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+		return Identifier.of("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 }

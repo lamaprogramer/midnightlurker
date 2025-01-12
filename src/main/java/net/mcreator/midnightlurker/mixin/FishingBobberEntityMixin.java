@@ -22,7 +22,6 @@ public class FishingBobberEntityMixin {
 					double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 200;
 
                     ((IEntityDataSaver)entity).getPersistentData().putDouble("InsanityTimer", _setval);
-                    ((IEntityDataSaver)entity).syncPlayerVariables(entity);
 				}
 			}
 		}

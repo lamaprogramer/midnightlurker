@@ -4,6 +4,9 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerShapeshifterEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerShapeshifterNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.entity.tick.MidnightLurkerShapeshifterOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.entity.*;
@@ -24,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -70,8 +74,8 @@ public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -110,17 +114,17 @@ public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.ambient"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.villager.ambient"));
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.villager.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.villager.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.villager.death"));
 	}
 
 	@Override
@@ -253,7 +257,7 @@ public class MidnightLurkerShapeshifterEntity extends PathAwareEntity implements
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightLurkerShapeshifterEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

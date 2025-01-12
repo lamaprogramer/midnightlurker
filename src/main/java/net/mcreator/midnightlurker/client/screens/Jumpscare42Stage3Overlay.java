@@ -2,88 +2,60 @@
 package net.mcreator.midnightlurker.client.screens;
 
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.mcreator.midnightlurker.util.JumpscareFrames;
+import net.mcreator.midnightlurker.util.JumpscareHandler;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-
-
-import net.minecraft.world.World;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.world.World;
 
-import net.mcreator.midnightlurker.procedures.ShowJump2DStage3Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame30Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame29Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame28Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame27Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame26Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame25Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame24Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame23Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame22Procedure;
-import net.mcreator.midnightlurker.procedures.JumpscarerFrame21Procedure;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.platform.GlStateManager;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Jumpscare42Stage3Overlay implements HudRenderCallback {
 	
-	public void onHudRender(DrawContext drawContext, float tickDelta) {
+	public void onHudRender(DrawContext drawContext, RenderTickCounter renderTickCounter) {
 		int w = drawContext.getScaledWindowWidth();
 		int h = drawContext.getScaledWindowHeight();
+
 		int posX = w / 2;
 		int posY = h / 2;
 		World world = null;
-		double x = 0;
-		double y = 0;
-		double z = 0;
 		PlayerEntity entity = MinecraftClient.getInstance().player;
 		if (entity != null) {
 			world = entity.getWorld();
-			x = entity.getX();
-			y = entity.getY();
-			z = entity.getZ();
 		}
+		
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
-		if (ShowJump2DStage3Procedure.execute(entity)) {
-			if (JumpscarerFrame30Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer1stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame29Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer2stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame28Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer3stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame27Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer4stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame26Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer5stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame25Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer6stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame24Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer7stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame23Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer8stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame22Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer9stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-			if (JumpscarerFrame21Procedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/jumpscarer10stage3.png"), posX + -513, posY + -130, 0, 0, 1023, 528, 1023, 528);
-			}
-		}
+
+		Map<List<Integer>, Identifier> frameMap = new HashMap<>();
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_28"), JumpscareFrames.FRAME_MAP.get("FRAME_46")), Identifier.of("midnightlurker:textures/screens/jumpscarer1stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_29"), JumpscareFrames.FRAME_MAP.get("FRAME_45")), Identifier.of("midnightlurker:textures/screens/jumpscarer2stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_30"), JumpscareFrames.FRAME_MAP.get("FRAME_44")), Identifier.of("midnightlurker:textures/screens/jumpscarer3stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_31"), JumpscareFrames.FRAME_MAP.get("FRAME_43")), Identifier.of("midnightlurker:textures/screens/jumpscarer4stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_32"), JumpscareFrames.FRAME_MAP.get("FRAME_42")), Identifier.of("midnightlurker:textures/screens/jumpscarer5stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_33"), JumpscareFrames.FRAME_MAP.get("FRAME_41")), Identifier.of("midnightlurker:textures/screens/jumpscarer6stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_34"), JumpscareFrames.FRAME_MAP.get("FRAME_40")), Identifier.of("midnightlurker:textures/screens/jumpscarer7stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_35"), JumpscareFrames.FRAME_MAP.get("FRAME_39")), Identifier.of("midnightlurker:textures/screens/jumpscarer8stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_36"), JumpscareFrames.FRAME_MAP.get("FRAME_38")), Identifier.of("midnightlurker:textures/screens/jumpscarer9stage3.png"));
+		frameMap.put(List.of(JumpscareFrames.FRAME_MAP.get("FRAME_37")), Identifier.of("midnightlurker:textures/screens/jumpscarer10stage3.png"));
+
+		JumpscareHandler.renderJumpscareWithDuplicateFrames(drawContext, (IEntityDataSaver) entity, JumpscareHandler.shouldJumpscare(entity, 3, -1), frameMap, posX + -513, posY + -130);
+
 		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest();

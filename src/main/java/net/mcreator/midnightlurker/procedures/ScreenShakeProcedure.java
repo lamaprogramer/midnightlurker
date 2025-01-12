@@ -22,7 +22,7 @@ public class ScreenShakeProcedure {
 				{
 					double _setval = dataSaver.getPersistentData().getDouble("ScreenShake") - 1;
 					dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
-					dataSaver.syncPlayerVariables(entity);
+					
 				}
 			}
 		}
@@ -31,7 +31,7 @@ public class ScreenShakeProcedure {
 			{
 				double _setval = 0;
 				dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
-				dataSaver.syncPlayerVariables(entity);
+				
 			}
 		}
 		if (!world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()) {

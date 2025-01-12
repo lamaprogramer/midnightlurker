@@ -4,10 +4,10 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.spawnconditions.init.SpookyambienceentityOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.entity.tick.SpookyambienceentityOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.SpookyambienceentityOnInitialEntitySpawnProcedure;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -28,6 +28,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -76,8 +77,8 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -93,12 +94,12 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.death"));
 	}
 
 	@Override
@@ -213,7 +214,7 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(SpookyambienceentityEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

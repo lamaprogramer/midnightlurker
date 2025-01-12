@@ -19,7 +19,7 @@ public class PlayerDeathProcedure {
 			{
 				double _setval = 0;
                 dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-                dataSaver.syncPlayerVariables(entity);
+                
 			}
 		}
 		if (entity instanceof PlayerEntity && !world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
@@ -27,7 +27,7 @@ public class PlayerDeathProcedure {
 				{
 					double _setval = 1;
                     dataSaver.getPersistentData().putDouble("DeathJumpActive", _setval);
-                    dataSaver.syncPlayerVariables(entity);
+                    
 				}
 			}
 		}

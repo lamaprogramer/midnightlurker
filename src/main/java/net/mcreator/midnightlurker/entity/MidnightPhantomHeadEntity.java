@@ -4,8 +4,14 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightPhantomHeadOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerSpawnmainProcedure;
+import net.mcreator.midnightlurker.entity.tick.MidnightPhantomHeadOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.*;
+import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
+import net.mcreator.midnightlurker.procedures.MidnightPhantomHeadPlayerCollidesWithThisEntityProcedure;
+import net.mcreator.midnightlurker.procedures.PhantomheadattackplayerProcedure;
+import net.mcreator.midnightlurker.procedures.PhantomheadwatchplayerProcedure;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -30,6 +36,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -83,8 +90,8 @@ public class MidnightPhantomHeadEntity extends HostileEntity implements GeoEntit
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -214,12 +221,12 @@ public class MidnightPhantomHeadEntity extends HostileEntity implements GeoEntit
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerhurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerhurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdeath"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdeath"));
 	}
 
 	@Override
@@ -360,7 +367,7 @@ public class MidnightPhantomHeadEntity extends HostileEntity implements GeoEntit
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightPhantomHeadEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

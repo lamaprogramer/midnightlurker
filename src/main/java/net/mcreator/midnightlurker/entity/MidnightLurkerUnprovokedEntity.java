@@ -4,6 +4,10 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerAggressiveEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerUnprovokedOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.entity.tick.MidnightLurkerUnprovokedOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.block.BlockState;
@@ -17,6 +21,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.CowEntity;
@@ -77,8 +82,8 @@ public class MidnightLurkerUnprovokedEntity extends HostileEntity implements Geo
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -200,17 +205,17 @@ public class MidnightLurkerUnprovokedEntity extends HostileEntity implements Geo
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchasesteps")), 0.15f, 1);
+		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerchasesteps")), 0.15f, 1);
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerhurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerhurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdeath"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdeath"));
 	}
 
 	@Override
@@ -352,7 +357,7 @@ public class MidnightLurkerUnprovokedEntity extends HostileEntity implements Geo
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightLurkerUnprovokedEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

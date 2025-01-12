@@ -9,17 +9,17 @@ import net.mcreator.midnightlurker.entity.MidnightLurkerShadowEntity;
 public class MidnightLurkerShadowModel extends GeoModel<MidnightLurkerShadowEntity> {
 	@Override
 	public Identifier getAnimationResource(MidnightLurkerShadowEntity entity) {
-		return new Identifier("midnightlurker", "animations/midnightlurkershadow.animation.json");
+		return Identifier.of("midnightlurker", "animations/midnightlurkershadow.animation.json");
 	}
 
 	@Override
 	public Identifier getModelResource(MidnightLurkerShadowEntity entity) {
-		return new Identifier("midnightlurker", "geo/midnightlurkershadow.geo.json");
+		return Identifier.of("midnightlurker", "geo/midnightlurkershadow.geo.json");
 	}
 
 	@Override
 	public Identifier getTextureResource(MidnightLurkerShadowEntity entity) {
-		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+		return Identifier.of("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 }

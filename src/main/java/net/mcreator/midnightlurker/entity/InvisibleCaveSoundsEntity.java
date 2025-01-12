@@ -4,11 +4,13 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleCaveSoundsOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
+import net.mcreator.midnightlurker.util.EntityUtil;
+import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -30,9 +32,15 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -46,9 +54,8 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
 	private boolean lastloop;
-	private long lastSwing;
+
 	public String animationprocedure = "empty";
 
 	public InvisibleCaveSoundsEntity(EntityType<InvisibleCaveSoundsEntity> type, World world) {
@@ -64,9 +71,6 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "nothing")
 		);
-		
-		
-		
 	}
 
 	public void setTexture(String texture) {
@@ -82,8 +86,9 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 		return 1.4F;
 	}
 
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	@Override
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -162,17 +167,17 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 
     @Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(Registries.SOUND_EVENT.get(new Identifier("midnightlurker:nostepsound")), 0.15f, 1);
+		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:nostepsound")), 0.15f, 1);
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier(""));
+		return Registries.SOUND_EVENT.get(Identifier.of(""));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier(""));
+		return Registries.SOUND_EVENT.get(Identifier.of(""));
 	}
 
 	@Override
@@ -211,7 +216,30 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		InvisibleCaveSoundsOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
+
+		World world = this.getWorld();
+		double x = this.getX();
+		double y = this.getY();
+		double z = this.getZ();
+
+		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 15)) {
+			if (!this.getWorld().isClient()) {
+				this.discard();
+			}
+		}
+
+		IEntityDataSaver entityData = (IEntityDataSaver)this;
+		if (entityData.getPersistentData().getDouble("CaveSoundTime") < 1200) {
+			entityData.getPersistentData().putDouble("CaveSoundTime", (entityData.getPersistentData().getDouble("CaveSoundTime") + 1));
+		}
+
+		if (entityData.getPersistentData().getDouble("CaveSoundTime") == 1200) {
+			entityData.getPersistentData().putDouble("CaveSoundTime", 0);
+			if (Math.random() > 0.5) {
+				SoundUtil.playsound(world, x, y, z, SoundEvents.AMBIENT_CAVE.value(), SoundCategory.AMBIENT, 50, (float) MathHelper.nextDouble(Random.create(), 0.2, 1));
+			}
+		}
+
 		this.calculateDimensions();
 	}
 
@@ -289,7 +317,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(InvisibleCaveSoundsEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

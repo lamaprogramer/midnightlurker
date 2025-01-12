@@ -1,10 +1,8 @@
 package net.mcreator.midnightlurker.procedures;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.Entity;
-
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class Setinsanitystage6Procedure {
 	public static void execute(Entity entity) {
@@ -14,7 +12,6 @@ public class Setinsanitystage6Procedure {
 			{
 				double _setval = 6;
 				((IEntityDataSaver)entity).getPersistentData().putDouble("InsanityStage", _setval);
-				((IEntityDataSaver)entity).syncPlayerVariables(entity);
 			}
 		}
 	}

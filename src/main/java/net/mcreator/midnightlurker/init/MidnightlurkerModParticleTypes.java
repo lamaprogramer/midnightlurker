@@ -17,9 +17,9 @@ public class MidnightlurkerModParticleTypes {
 	public static final SimpleParticleType LURKERFACEPARTICLE = FabricParticleTypes.simple();
 
 	public static void init() {
-		register(new Identifier(MidnightlurkerMod.MODID, "void_gateway_particle"), VOID_GATEWAY_PARTICLE);
-		register(new Identifier(MidnightlurkerMod.MODID, "void_dot"), VOID_DOT);
-		register(new Identifier(MidnightlurkerMod.MODID, "lurkerfaceparticle"), LURKERFACEPARTICLE);
+		register(Identifier.of(MidnightlurkerMod.MODID, "void_gateway_particle"), VOID_GATEWAY_PARTICLE);
+		register(Identifier.of(MidnightlurkerMod.MODID, "void_dot"), VOID_DOT);
+		register(Identifier.of(MidnightlurkerMod.MODID, "lurkerfaceparticle"), LURKERFACEPARTICLE);
 	}
 	private static void register(Identifier id, SimpleParticleType particleType) {
 		Registry.register(Registries.PARTICLE_TYPE, id, particleType);

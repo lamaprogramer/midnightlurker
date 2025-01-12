@@ -6,7 +6,6 @@ import net.mcreator.midnightlurker.client.screens.*;
 
 public class MidnightlurkerHudRenders {
     public static void init() {
-        HudRenderCallback.EVENT.register(new ChasetimerfortestingOverlay());
         ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
             ScreenEvents.afterRender(screen).register(new DeathJumpscareOverlay());
         });

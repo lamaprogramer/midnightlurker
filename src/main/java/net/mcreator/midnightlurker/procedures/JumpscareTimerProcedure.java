@@ -51,26 +51,26 @@ public class JumpscareTimerProcedure {
 				if (mainjsonobject.get("jumpscare_sound").getAsBoolean()) {
 					if (dataSaver.getPersistentData().getDouble("JumpscareTimer") == 31
 							&& dataSaver.getPersistentData().getDouble("JumpscareActive") > 0) {
-						if (world instanceof ServerWorld _level)
-							_level.getServer().getCommandManager().executeWithPrefix(
-									new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+						if (world instanceof ServerWorld level)
+							level.getServer().getCommandManager().executeWithPrefix(
+									new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
 									"/playsound midnightlurker:lurkerjumpscare neutral @p");
 					}
 				}
 				if (mainjsonobject.get("pop_up_jumpscare").getAsBoolean()) {
-					if (world instanceof World _level) {
-						if (!_level.isClient()) {
-							_level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0);
+					if (world instanceof World level) {
+						if (!level.isClient()) {
+							level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0);
 						} else {
-							_level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0, false);
+							level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0, false);
 						}
 					}
 				} else if (mainjsonobject.get("pop_up_jumpscare").getAsBoolean()) {
-					if (world instanceof World _level) {
-						if (!_level.isClient()) {
-							_level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0);
+					if (world instanceof World level) {
+						if (!level.isClient()) {
+							level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0);
 						} else {
-							_level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0, false);
+							level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkeranger")), SoundCategory.NEUTRAL, 0, 0, false);
 						}
 					}
 				}
@@ -83,7 +83,7 @@ public class JumpscareTimerProcedure {
 				{
 					double _setval = 46;
 					dataSaver.getPersistentData().putDouble("JumpscareTimer", _setval);
-					dataSaver.syncPlayerVariables(entity);
+					
 				}
 			}
 		}
@@ -92,19 +92,19 @@ public class JumpscareTimerProcedure {
 			{
 				double _setval = 0;
 				dataSaver.getPersistentData().putDouble("JumpscareActive", _setval);
-				dataSaver.syncPlayerVariables(entity);
+				
 			}
 			{
 				double _setval = MathHelper.nextInt(Random.create(), 0, 2);
 				dataSaver.getPersistentData().putDouble("JumpscareRandom", _setval);
-				dataSaver.syncPlayerVariables(entity);
+				
 			}
 		}
 		if (dataSaver.getPersistentData().getDouble("JumpscareTimer") > 0) {
 			{
 				double _setval = dataSaver.getPersistentData().getDouble("JumpscareTimer") - 1;
 				dataSaver.getPersistentData().putDouble("JumpscareTimer", _setval);
-				dataSaver.syncPlayerVariables(entity);
+				
 			}
 		}
 		if (dataSaver.getPersistentData().getDouble("JumpscareActive") == 1

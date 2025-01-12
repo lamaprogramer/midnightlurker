@@ -14,9 +14,8 @@ public class CreepSoundsEffectStartedappliedProcedure {
 	public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
-		if (world instanceof ServerWorld _level)
-			_level.getServer().getCommandManager().executeWithPrefix(
-					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
-					"/playsound midnightlurker:lurkerdisappear neutral @a ~ ~ ~ 1 1");
+		if (world instanceof ServerWorld level) {
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/playsound midnightlurker:lurkerdisappear neutral @a ~ ~ ~ 1 1");
+		}
 	}
 }

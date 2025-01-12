@@ -31,7 +31,7 @@ public class TriestosleepwhilemonstersnearProcedure implements UseBlockCallback 
         if (entity == null)
             return ActionResult.PASS;
         BlockState blockState = world.getBlockState(hitResult.getBlockPos());
-        if (blockState.isIn(TagKey.of(RegistryKeys.BLOCK, new Identifier("beds")))) {
+        if (blockState.isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of("beds")))) {
             if (!(new Object() {
                 public boolean checkGamemode(Entity _ent) {
                     if (_ent instanceof ServerPlayerEntity _serverPlayer) {
@@ -45,8 +45,8 @@ public class TriestosleepwhilemonstersnearProcedure implements UseBlockCallback 
             }.checkGamemode(entity))) {
                 if (!world.getEntitiesByClass(HostileEntity.class, Box.of(entity.getPos(), 16, 16, 16), e -> true).isEmpty()) {
                     if (MathHelper.nextInt(Random.create(), 1, 10) == 2) {
-                        if (world instanceof ServerWorld _level)
-                            _level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, entity.getPos(), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+                        if (world instanceof ServerWorld level)
+                            level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, entity.getPos(), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
                                     "/playsound minecraft:ambient.cave ambient @p ~ ~ ~ 50 0.8");
                     }
                 }

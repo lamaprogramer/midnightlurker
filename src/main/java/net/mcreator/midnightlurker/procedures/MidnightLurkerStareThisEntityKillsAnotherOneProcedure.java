@@ -17,17 +17,17 @@ public class MidnightLurkerStareThisEntityKillsAnotherOneProcedure {
 	public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
-		if (world instanceof World _level) {
-			if (!_level.isClient()) {
-				_level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
+		if (world instanceof World level) {
+			if (!level.isClient()) {
+				level.playSound(null, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 			} else {
-				_level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1, false);
+				level.playSoundAtBlockCenter(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1, false);
 			}
 		}
 		MidnightlurkerMod.queueServerWork(2, () -> {
 			if (!world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
-				if (!EntityUtil.getEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).getWorld().isClient())
-					EntityUtil.getEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).discard();
+				if (!EntityUtil.getPlayerEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).getWorld().isClient())
+					EntityUtil.getPlayerEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).discard();
 			}
 		});
 	}

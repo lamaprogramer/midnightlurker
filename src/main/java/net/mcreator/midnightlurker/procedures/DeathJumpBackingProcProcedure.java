@@ -7,7 +7,8 @@ public class DeathJumpBackingProcProcedure {
 	public static boolean execute(Entity entity) {
 		if (entity == null)
 			return false;
-        return ((IEntityDataSaver) entity).getPersistentData().getDouble("DeathJumpActive") == 1
-                && ((IEntityDataSaver) entity).getPersistentData().getDouble("DeathJumpActive") >= 40;
+
+		IEntityDataSaver entityData = (IEntityDataSaver) entity;
+        return entityData.getPersistentData().getDouble("DeathJumpActive") == 1 && entityData.getPersistentData().getDouble("DeathJumpActive") >= 40;
     }
 }

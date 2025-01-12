@@ -27,13 +27,10 @@ public class StaticEffectMobEffect extends StatusEffect {
 	@Override
 	public void onRemoved(AttributeContainer attributeContainer) {
 		super.onRemoved(attributeContainer);
-		//StaticEffectEffectExpiresProcedure.execute();
 	}
 
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
 		return true;
 	}
-
-	
 }

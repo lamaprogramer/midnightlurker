@@ -17,7 +17,7 @@ public class InvisibleStaticPlayerCollidesWithThisEntityProcedure {
 		if (!entity.getWorld().isClient())
 			entity.discard();
 		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 5, 5, 5), e -> true).isEmpty()) {
-			if (EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 5, 5, 5) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+			if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 5, 5, 5) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 				_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.STATIC_EFFECT, 46, 0, false, false));
 		}
 	}

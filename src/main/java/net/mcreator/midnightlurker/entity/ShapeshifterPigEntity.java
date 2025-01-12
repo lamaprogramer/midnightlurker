@@ -4,9 +4,9 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.hurt.ShapeshifterPigEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.ShapeshifterPigNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.ShapeshifterPigEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.ShapeshifterPigNaturalEntitySpawningConditionProcedure;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -25,6 +25,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -35,15 +36,13 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 
 	public ShapeshifterPigEntity(EntityType<ShapeshifterPigEntity> type, World world) {
 		super(type, world);
-		
-		
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -55,26 +54,24 @@ public class ShapeshifterPigEntity extends PathAwareEntity {
 		this.goalSelector.add(4, new SwimGoal(this));
 	}
 
-	
-
 	@Override
 	public SoundEvent getAmbientSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.ambient"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.pig.ambient"));
 	}
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(Registries.SOUND_EVENT.get(new Identifier("entity.pig.step")), 0.15f, 1);
+		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("entity.pig.step")), 0.15f, 1);
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.pig.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.pig.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.pig.death"));
 	}
 
 	@Override

@@ -2,7 +2,12 @@
 package net.mcreator.midnightlurker.entity;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerAggressiveEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.entity.tick.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.procedures.*;
+import net.mcreator.midnightlurker.util.EntityUtil;
+import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -21,9 +26,17 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.command.CommandOutput;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.EntityTrackerEntry;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -39,9 +52,7 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerAggressiveEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerAggressiveEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
 	private boolean lastloop;
-	private long lastSwing;
 	public String animationprocedure = "empty";
 
 	public MidnightLurkerAggressiveEntity(EntityType<MidnightLurkerAggressiveEntity> type, World world) {
@@ -70,8 +81,8 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -134,22 +145,21 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
-		this.playSound(Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerchasesteps")), 0.15f, 1);
+		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerchasesteps")), 0.15f, 1);
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerhurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerhurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("midnightlurker:lurkerdeath"));
+		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdeath"));
 	}
 
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		//MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getAttacker());
 		if (!MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getAttacker()))
 			return false;
 		if (source.isOf(DamageTypes.IN_FIRE))
@@ -197,7 +207,20 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 	@Override
 	public void updateKilledAdvancementCriterion(Entity entity, int score, DamageSource damageSource) {
 		super.updateKilledAdvancementCriterion(entity, score, damageSource);
-		MidnightLurkerAggressiveThisEntityKillsAnotherOneProcedure.execute(this.getWorld(), entity);
+		World world = this.getWorld();
+
+		if (world instanceof ServerWorld level) {
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/stopsound @a * midnightlurker:lurkerchase");
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/stopsound @a * midnightlurker:lurkerchase2");
+			SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
+		}
+
+		if (!EntityUtil.hasNoEntityOfTypeInArea(world, MidnightLurkerAggressiveEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
+			Entity entityInRange = EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10);
+			if (entityInRange != null && !entityInRange.getWorld().isClient()) {
+				entityInRange.discard();
+			}
+		}
 	}
 
 	@Override
@@ -286,7 +309,7 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightLurkerAggressiveEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

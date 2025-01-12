@@ -3,7 +3,7 @@ package net.mcreator.midnightlurker.entity;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.procedures.Destroytex2EntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.DestroytexOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.entity.tick.DestroytexOnEntityTickUpdateProcedure;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,6 +18,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -33,8 +34,8 @@ public class Destroytex2Entity extends PathAwareEntity {
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -45,11 +46,11 @@ public class Destroytex2Entity extends PathAwareEntity {
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.hurt"));
 	}
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.death"));
 	}
 	@Override
 	public boolean damage(DamageSource source, float amount) {

@@ -42,9 +42,9 @@ public class DeathJumpscareOverlay implements ScreenEvents.AfterRender {
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 			if (DeathJumpBackingProcProcedure.execute(entity)) {
-				drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/ideaing1black.png"), 0, 0, 0, 0, w, h, w, h);
+				drawContext.drawTexture(Identifier.of("midnightlurker:textures/screens/ideaing1black.png"), 0, 0, 0, 0, w, h, w, h);
 				if (DeathJumpBackingProcProcedure.execute(entity)) {
-					drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/ideaing1.png"), posX + -90, posY + -85, 0, 0, 162, 171, 162, 171);
+					drawContext.drawTexture(Identifier.of("midnightlurker:textures/screens/ideaing1.png"), posX + -90, posY + -85, 0, 0, 162, 171, 162, 171);
 				}
 			}
 			RenderSystem.depthMask(true);

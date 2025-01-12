@@ -12,17 +12,17 @@ import software.bernie.geckolib.model.data.EntityModelData;
 public class MidnightlurkerNEModel extends GeoModel<MidnightlurkerNEEntity> {
 	@Override
 	public Identifier getAnimationResource(MidnightlurkerNEEntity entity) {
-		return new Identifier("midnightlurker", "animations/midnightlurkerrunning.animation.json");
+		return Identifier.of("midnightlurker", "animations/midnightlurkerrunning.animation.json");
 	}
 
 	@Override
 	public Identifier getModelResource(MidnightlurkerNEEntity entity) {
-		return new Identifier("midnightlurker", "geo/midnightlurkerrunning.geo.json");
+		return Identifier.of("midnightlurker", "geo/midnightlurkerrunning.geo.json");
 	}
 
 	@Override
 	public Identifier getTextureResource(MidnightlurkerNEEntity entity) {
-		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+		return Identifier.of("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 	@Override

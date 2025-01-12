@@ -12,23 +12,26 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
 
-
 import java.util.Comparator;
 
 public class EntityUtil {
-    public static  Entity getEntityWithMinDistanceOf(WorldAccess world, Vec3d center, double dx, double dy, double dz) {
-        return getEntityWithMinDistanceOf(PlayerEntity.class, world, center, dx, dy, dz);
+    public static <T extends Entity> boolean hasNoEntityOfTypeInArea(WorldAccess world, Class<T> entityClass, Vec3d origin, int cubeArea) {
+        return world.getEntitiesByClass(entityClass, Box.of(origin, cubeArea, cubeArea, cubeArea), e -> true).isEmpty();
     }
 
-    public static <T extends Entity> Entity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double cubeBounds) {
-        return getEntityWithMinDistanceOf(type, world, center, cubeBounds, cubeBounds, cubeBounds);
+    public static Entity getPlayerEntityWithMinDistanceOf(WorldAccess world, Vec3d center, double dx, double dy, double dz) {
+        return getPlayerEntityWithMinDistanceOf(PlayerEntity.class, world, center, dx, dy, dz);
     }
 
-    public static <T extends Entity> Entity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double dx, double dy, double dz) {
-        return getEntityWithMinDistanceOf(type, world, new Vec3d(center.getX(), center.getY(), center.getZ()), dx, dy, dz);
+    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double cubeBounds) {
+        return getPlayerEntityWithMinDistanceOf(type, world, center, cubeBounds, cubeBounds, cubeBounds);
     }
 
-    public static <T extends Entity> Entity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, Vec3d center, double dx, double dy, double dz) {
+    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double dx, double dy, double dz) {
+        return getPlayerEntityWithMinDistanceOf(type, world, new Vec3d(center.getX(), center.getY(), center.getZ()), dx, dy, dz);
+    }
+
+    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, Vec3d center, double dx, double dy, double dz) {
         return world.getEntitiesByClass(type, Box.of(center, dx, dy, dz), e -> true)
                 .stream()
                 .min(compareDistOf(center.getX(), center.getY(), center.getZ()))

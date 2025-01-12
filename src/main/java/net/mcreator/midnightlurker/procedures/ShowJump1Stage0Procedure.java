@@ -2,10 +2,7 @@ package net.mcreator.midnightlurker.procedures;
 
 import net.minecraft.entity.Entity;
 
-import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-
-import java.io.File;
 
 public class ShowJump1Stage0Procedure {
 	public static boolean execute(Entity entity) {

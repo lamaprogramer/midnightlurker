@@ -16,6 +16,6 @@ public class ShapeShifterCowRenderer extends MobEntityRenderer<ShapeShifterCowEn
 
 	@Override
 	public Identifier getTexture(ShapeShifterCowEntity entity) {
-		return new Identifier("midnightlurker:textures/entities/shapeshiftercow.png");
+		return Identifier.of("midnightlurker:textures/entities/shapeshiftercow.png");
 	}
 }

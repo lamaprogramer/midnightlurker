@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.MidnightLurkerNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
-import net.mcreator.midnightlurker.procedures.VoidGatewayEntityIsHurtProcedure;
-import net.mcreator.midnightlurker.procedures.VoidGatewayOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.entity.hurt.VoidGatewayEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.tick.VoidGatewayOnEntityTickUpdateProcedure;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -25,6 +25,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -70,8 +71,8 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -104,12 +105,12 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.death"));
 	}
 
 	@Override
@@ -237,7 +238,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(VoidGatewayEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

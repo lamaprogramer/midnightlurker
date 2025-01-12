@@ -20,19 +20,17 @@ public class StaticEffectOnEffectActiveTickProcedure {
 			{
 				double _setval = MathHelper.nextInt(Random.create(), 20, 45);
 				((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
-				((IEntityDataSaver)entity).syncPlayerVariables(entity);
 			}
 		}
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") > 0) {
 			{
 				double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") - 1;
 				((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
-				((IEntityDataSaver)entity).syncPlayerVariables(entity);
 			}
 		}
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") == 10) {
-			if (world instanceof ServerWorld _level)
-				_level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+			if (world instanceof ServerWorld level)
+				level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
 						"/playsound midnightlurker:static record @p ~ ~ ~ 1 1");
 		}
 	}

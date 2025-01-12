@@ -8,6 +8,7 @@ import net.mcreator.midnightlurker.procedures.Insanityoverlayevent7Procedure;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -15,22 +16,18 @@ import net.minecraft.world.World;
 
 public class Insanityoverlay7Overlay implements HudRenderCallback {
 	
-	public void onHudRender(DrawContext drawContext, float tickDelta) {
+	public void onHudRender(DrawContext drawContext, RenderTickCounter renderTickCounter) {
 		int w = drawContext.getScaledWindowWidth();
 		int h = drawContext.getScaledWindowHeight();
+
 		int posX = w / 2;
 		int posY = h / 2;
 		World world = null;
-		double x = 0;
-		double y = 0;
-		double z = 0;
 		PlayerEntity entity = MinecraftClient.getInstance().player;
 		if (entity != null) {
 			world = entity.getWorld();
-			x = entity.getX();
-			y = entity.getY();
-			z = entity.getZ();
 		}
+		
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
@@ -38,7 +35,7 @@ public class Insanityoverlay7Overlay implements HudRenderCallback {
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		if (Insanityoverlayevent7Procedure.execute(entity)) {
-			drawContext.drawTexture(new Identifier("midnightlurker:textures/screens/insanityvignette27.png"), 0, 0, 0, 0, w, h, w, h);
+			drawContext.drawTexture(Identifier.of("midnightlurker:textures/screens/insanityvignette27.png"), 0, 0, 0, 0, w, h, w, h);
 		}
 		RenderSystem.depthMask(true);
 		RenderSystem.defaultBlendFunc();

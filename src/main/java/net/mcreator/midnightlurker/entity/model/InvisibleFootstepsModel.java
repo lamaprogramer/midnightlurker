@@ -10,17 +10,17 @@ import net.mcreator.midnightlurker.entity.InvisibleFootstepsEntity;
 public class InvisibleFootstepsModel extends GeoModel<InvisibleFootstepsEntity> {
 	@Override
 	public Identifier getAnimationResource(InvisibleFootstepsEntity entity) {
-		return new Identifier("midnightlurker", "animations/voidgateway.animation.json");
+		return Identifier.of("midnightlurker", "animations/voidgateway.animation.json");
 	}
 
 	@Override
 	public Identifier getModelResource(InvisibleFootstepsEntity entity) {
-		return new Identifier("midnightlurker", "geo/voidgateway.geo.json");
+		return Identifier.of("midnightlurker", "geo/voidgateway.geo.json");
 	}
 
 	@Override
 	public Identifier getTextureResource(InvisibleFootstepsEntity entity) {
-		return new Identifier("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
+		return Identifier.of("midnightlurker", "textures/entities/" + entity.getTexture() + ".png");
 	}
 
 }

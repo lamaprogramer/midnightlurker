@@ -23,21 +23,20 @@ public class MidnightPhantomHeadPlayerCollidesWithThisEntityProcedure {
 			return;
 		if (!entity.getWorld().isClient())
 			entity.discard();
-		if (world instanceof ServerWorld _level)
-			_level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+		if (world instanceof ServerWorld level)
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
 					"/stopsound @a neutral midnightlurker:phantom_head_scream");
 		if (Math.random() > 0.7) {
-			IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
-			if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100), e -> true).isEmpty()) {
+			IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
+			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 100)) {
 				if (dataSaver.getPersistentData().getDouble("JumpscareActive") < 1) {
 					{
 						double _setval = 1;
 						dataSaver.getPersistentData().putDouble("JumpscareActive", _setval);
-						dataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100));
 					}
 				}
 				MidnightlurkerMod.queueServerWork(18, () -> {
-					if (EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+					if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 						_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1, 1));
 				});
 			}

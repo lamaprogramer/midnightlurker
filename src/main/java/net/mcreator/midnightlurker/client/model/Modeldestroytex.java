@@ -16,7 +16,7 @@ public class Modeldestroytex<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererFactory.Context in
 	// the entity renderer and passed into this model's constructor
 
-	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier("midnightlurker", "modeldestroytex"), "main");
+	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Identifier.of("midnightlurker", "modeldestroytex"), "main");
 	public final ModelPart bb_main;
 
 	public Modeldestroytex(ModelPart root) {
@@ -25,15 +25,17 @@ public class Modeldestroytex<T extends Entity> extends EntityModel<T> {
 
 	public static TexturedModelData createBodyLayer() {
 		ModelData meshdefinition = new ModelData();
+		
 		ModelPartData partdefinition = meshdefinition.getRoot();
 		ModelPartData bb_main = partdefinition.addChild("bb_main", ModelPartBuilder.create().uv(-1, -1).cuboid(-8.5F, -48.5F, -8.5F, 17.0F, 49.0F, 17.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 		return TexturedModelData.of(meshdefinition, 64, 64);
 	}
 
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		bb_main.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+		bb_main.render(matrices, vertices, light, overlay, color);
 	}
+	
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 	}

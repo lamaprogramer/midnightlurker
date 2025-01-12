@@ -10,9 +10,7 @@ public class InsanitySleepProcedure {
 			return;
         IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
 		if (dataSaver.getPersistentData().getDouble("InsanityAktive") > 0) {
-            double _setval = 0;
-            dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-            dataSaver.syncPlayerVariables(entity);
+            dataSaver.getPersistentData().putDouble("InsanityAktive", 0);
 		}
 	}
 }

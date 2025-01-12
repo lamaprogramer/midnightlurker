@@ -1,20 +1,17 @@
 
 package net.mcreator.midnightlurker.client.renderer;
 
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumerProvider;
-
-import net.mcreator.midnightlurker.entity.model.MidnightLurkerFakerWatcherModel;
-import net.mcreator.midnightlurker.entity.layer.MidnightLurkerFakerWatcherLayer;
 import net.mcreator.midnightlurker.entity.MidnightLurkerFakerWatcherEntity;
-
+import net.mcreator.midnightlurker.entity.layer.MidnightLurkerFakerWatcherLayer;
+import net.mcreator.midnightlurker.entity.model.MidnightLurkerFakerWatcherModel;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MidnightLurkerFakerWatcherRenderer extends GeoEntityRenderer<MidnightLurkerFakerWatcherEntity> {
 	public MidnightLurkerFakerWatcherRenderer(EntityRendererFactory.Context renderManager) {
@@ -29,11 +26,10 @@ public class MidnightLurkerFakerWatcherRenderer extends GeoEntityRenderer<Midnig
 	}
 
 	@Override
-	public void preRender(MatrixStack poseStack, MidnightLurkerFakerWatcherEntity entity, BakedGeoModel model, VertexConsumerProvider bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red,
-			float green, float blue, float alpha) {
+	public void preRender(MatrixStack poseStack, MidnightLurkerFakerWatcherEntity entity, BakedGeoModel model, VertexConsumerProvider bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
 		float scale = 0.95f;
 		this.scaleHeight = scale;
 		this.scaleWidth = scale;
-		super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+		super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
 	}
 }

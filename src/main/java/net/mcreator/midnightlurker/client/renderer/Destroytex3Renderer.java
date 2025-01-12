@@ -15,6 +15,6 @@ public class Destroytex3Renderer extends MobEntityRenderer<Destroytex3Entity, Mo
 
 	@Override
 	public Identifier getTexture(Destroytex3Entity entity) {
-		return new Identifier("midnightlurker:textures/entities/destroytex3.png");
+		return Identifier.of("midnightlurker:textures/entities/destroytex3.png");
 	}
 }

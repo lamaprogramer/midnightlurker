@@ -4,6 +4,10 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerFakerWatcherEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnInitialEntitySpawnProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure;
+import net.mcreator.midnightlurker.entity.tick.MidnightLurkerFakerWatcherOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.minecraft.entity.*;
@@ -26,6 +30,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -44,9 +49,7 @@ public class MidnightLurkerFakerWatcherEntity extends HostileEntity implements G
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerFakerWatcherEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerFakerWatcherEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
 	private boolean lastloop;
-	private long lastSwing;
 	public String animationprocedure = "empty";
 
 	public MidnightLurkerFakerWatcherEntity(EntityType<MidnightLurkerFakerWatcherEntity> type, World world) {
@@ -74,8 +77,8 @@ public class MidnightLurkerFakerWatcherEntity extends HostileEntity implements G
 	}
 
 	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket() {
-		return super.createSpawnPacket();
+	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
+		return super.createSpawnPacket(entityTrackerEntry);
 	}
 
 	@Override
@@ -111,12 +114,12 @@ public class MidnightLurkerFakerWatcherEntity extends HostileEntity implements G
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.hurt"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.hurt"));
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return Registries.SOUND_EVENT.get(new Identifier("entity.generic.death"));
+		return Registries.SOUND_EVENT.get(Identifier.of("entity.generic.death"));
 	}
 
 	@Override
@@ -233,7 +236,7 @@ public class MidnightLurkerFakerWatcherEntity extends HostileEntity implements G
 		++this.deathTime;
 		if (this.deathTime == 20) {
 			this.remove(MidnightLurkerFakerWatcherEntity.RemovalReason.KILLED);
-			this.dropXp();
+			this.dropXp(null);
 		}
 	}
 

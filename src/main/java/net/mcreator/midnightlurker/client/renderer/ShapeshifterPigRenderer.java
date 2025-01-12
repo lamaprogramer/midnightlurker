@@ -16,6 +16,6 @@ public class ShapeshifterPigRenderer extends MobEntityRenderer<ShapeshifterPigEn
 
 	@Override
 	public Identifier getTexture(ShapeshifterPigEntity entity) {
-		return new Identifier("midnightlurker:textures/entities/shapeshifterpig.png");
+		return Identifier.of("midnightlurker:textures/entities/shapeshifterpig.png");
 	}
 }

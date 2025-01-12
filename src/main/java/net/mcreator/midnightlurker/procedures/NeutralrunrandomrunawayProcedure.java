@@ -6,7 +6,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.entity.player.PlayerEntity;
 
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.util.IEntityDataSaver;
 
 public class NeutralrunrandomrunawayProcedure {
 	public static boolean execute(WorldAccess world, double x, double y, double z) {

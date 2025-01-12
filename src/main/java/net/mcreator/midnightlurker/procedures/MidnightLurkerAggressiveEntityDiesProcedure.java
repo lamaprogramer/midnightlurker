@@ -9,7 +9,6 @@ import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
@@ -18,14 +17,16 @@ public class MidnightLurkerAggressiveEntityDiesProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (world instanceof ServerWorld _level)
-			_level.getServer().getCommandManager().executeWithPrefix(
-					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+		if (world instanceof ServerWorld level) {
+			level.getServer().getCommandManager().executeWithPrefix(
+					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
 					"/stopsound @a * midnightlurker:lurkerchase");
-		if (world instanceof ServerWorld _level)
-			_level.getServer().getCommandManager().executeWithPrefix(
-					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, _level, 4, "", Text.literal(""), _level.getServer(), null).withSilent(),
+
+			level.getServer().getCommandManager().executeWithPrefix(
+					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
 					"/stopsound @a * midnightlurker:lurkerchase2");
+		}
+
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive > 0) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
@@ -34,24 +35,14 @@ public class MidnightLurkerAggressiveEntityDiesProcedure {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost + 1;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 		}
-		IEntityDataSaver entityDataSaver = (IEntityDataSaver) EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
-		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()
+		IEntityDataSaver entityDataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
+		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 100)
 				&& entityDataSaver.getPersistentData().getDouble("InsanityStage") == 7) {
-			{
-				double _setval = 0;
-				entityDataSaver.getPersistentData().putDouble("InsanityStage", _setval);
-				entityDataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100));
-			}
-			{
-				double _setval = 0;
-				entityDataSaver.getPersistentData().putDouble("InsanityTimer", _setval);
-				entityDataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100));
-			}
-			{
-				double _setval = 0;
-				entityDataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-				entityDataSaver.syncPlayerVariables(EntityUtil.getEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100));
-			}
+
+			entityDataSaver.getPersistentData().putDouble("InsanityStage", 0);
+			entityDataSaver.getPersistentData().putDouble("InsanityTimer", 0);
+			entityDataSaver.getPersistentData().putDouble("InsanityAktive", 0);
+
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 			MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = 0;

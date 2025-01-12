@@ -15,11 +15,12 @@ package net.mcreator.midnightlurker;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.mcreator.midnightlurker.config.CoreConfig;
+import net.mcreator.midnightlurker.config.core.ConfigRegistry;
 import net.mcreator.midnightlurker.init.*;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -29,9 +30,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MidnightlurkerMod implements ModInitializer {
 	public static final String MODID = "midnightlurker";
+	public static CoreConfig CONFIG;
 	public static final boolean DEBUG_MODE = true;
-	public static final Identifier CHANNEL_ID_VARIABLES = new Identifier(MODID, MODID + "_vars");
-	public static final Identifier CHANNEL_ID = new Identifier(MODID, MODID);
 
 	private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 	public static void queueServerWork(int tick, Runnable action) {
@@ -40,6 +40,23 @@ public class MidnightlurkerMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CoreConfig defaultConfig = new CoreConfig();
+		defaultConfig.setLurkerChaseMusic(true);
+		defaultConfig.setLurkerSpawnRate(3);
+		defaultConfig.setPopUpJumpscare(true);
+		defaultConfig.setJumpscareSound (true);
+		defaultConfig.setLongerLurkerChase(false);
+		defaultConfig.setSpookyAmbience(true);
+		defaultConfig.setMultiSpawning(false);
+		defaultConfig.setInsanityProgressEffect(true);
+		defaultConfig.setInsanityCountdownTime(3);
+		defaultConfig.setLurkerInvulnerable(false);
+		defaultConfig.setNetherLurkerSpawnRate(4);
+		defaultConfig.setAmnesia(true);
+		defaultConfig.setInvisibleEntitiesSpawning(true);
+		defaultConfig.setEncountersProgressStages(true);
+		CONFIG = new ConfigRegistry<>(defaultConfig, CoreConfig.class).register();
+
 		LurkerconfigProcedure.execute();
 
 		MidnightlurkerModSounds.init();
