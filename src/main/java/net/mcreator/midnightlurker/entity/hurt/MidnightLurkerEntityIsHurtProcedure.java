@@ -1,6 +1,7 @@
 package net.mcreator.midnightlurker.entity.hurt;
 
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
