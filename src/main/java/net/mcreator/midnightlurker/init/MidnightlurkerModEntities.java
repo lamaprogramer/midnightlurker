@@ -36,18 +36,6 @@ public class MidnightlurkerModEntities {
 			EntityType.Builder.create(MidnightLurkerSeenAngressiveEntity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true).maxTrackingRange(64).trackingTickInterval(3)
 					.makeFireImmune().dimensions(0.7f, 2.5f).build());
 	
-	public static EntityType<DestroytexEntity> DESTROYTEX = register(Identifier.of("midnightlurker", "destroytex"), EntityType.Builder.create(DestroytexEntity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true).maxTrackingRange(64)
-			.trackingTickInterval(3).makeFireImmune().dimensions(0.7f, 3f).build());
-	
-	public static EntityType<Destroytex2Entity> DESTROYTEX_2 = register(Identifier.of("midnightlurker", "destroytex_2"), EntityType.Builder.create(Destroytex2Entity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true)
-			.maxTrackingRange(64).trackingTickInterval(3).makeFireImmune().dimensions(0.7f, 3f).build());
-	
-	public static EntityType<Destroytex3Entity> DESTROYTEX_3 = register(Identifier.of("midnightlurker", "destroytex_3"), EntityType.Builder.create(Destroytex3Entity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true)
-			.maxTrackingRange(64).trackingTickInterval(3).makeFireImmune().dimensions(0.7f, 3f).build());
-	
-	public static EntityType<Destroytex4Entity> DESTROYTEX_4 = register(Identifier.of("midnightlurker", "destroytex_4"), EntityType.Builder.create(Destroytex4Entity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true)
-			.maxTrackingRange(64).trackingTickInterval(3).makeFireImmune().dimensions(0.7f, 3f).build());
-	
 	public static EntityType<MidnightLurkerFakerAggroEntity> MIDNIGHT_LURKER_FAKER_AGGRO = register(Identifier.of("midnightlurker", "midnight_lurker_faker_aggro"),
 			EntityType.Builder.create(MidnightLurkerFakerAggroEntity::new, SpawnGroup.MONSTER).alwaysUpdateVelocity(true).maxTrackingRange(64).trackingTickInterval(3)
 					.makeFireImmune().dimensions(0.7f, 2.5f).build());
@@ -143,10 +131,6 @@ public class MidnightlurkerModEntities {
 		MidnightLurkerInvisibleEntity.init();
 		SpookyambienceentityEntity.init();
 		MidnightLurkerSeenAngressiveEntity.init();
-		DestroytexEntity.init();
-		Destroytex2Entity.init();
-		Destroytex3Entity.init();
-		Destroytex4Entity.init();
 		MidnightLurkerFakerAggroEntity.init();
 		MidnightLurkerFakerEntity.init();
 		MidnightLurkerFakerWatcherEntity.init();
@@ -180,10 +164,6 @@ public class MidnightlurkerModEntities {
 		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_INVISIBLE, MidnightLurkerInvisibleEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(SPOOKYAMBIENCEENTITY, SpookyambienceentityEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_SEEN_ANGRESSIVE, MidnightLurkerSeenAngressiveEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(DESTROYTEX, DestroytexEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(DESTROYTEX_2, Destroytex2Entity.createAttributes());
-		FabricDefaultAttributeRegistry.register(DESTROYTEX_3, Destroytex3Entity.createAttributes());
-		FabricDefaultAttributeRegistry.register(DESTROYTEX_4, Destroytex4Entity.createAttributes());
 		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER_AGGRO, MidnightLurkerFakerAggroEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER, MidnightLurkerFakerEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(MIDNIGHT_LURKER_FAKER_WATCHER, MidnightLurkerFakerWatcherEntity.createAttributes());

@@ -4,11 +4,12 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleLurkerFootstepsPlayerCollidesWithThisEntityProcedure;
 import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -41,13 +42,11 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class InvisibleLurkerFootstepsEntity extends HostileEntity implements GeoEntity {
+public class InvisibleLurkerFootstepsEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleLurkerFootstepsEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(InvisibleLurkerFootstepsEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(InvisibleLurkerFootstepsEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean lastloop;
-	public String animationprocedure = "empty";
 
 	public InvisibleLurkerFootstepsEntity(EntityType<InvisibleLurkerFootstepsEntity> type, World world) {
 		super(type, world);
@@ -77,10 +76,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 		return 1.4F;
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -194,10 +190,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 		this.calculateDimensions();
 	}
 
-	@Override
-	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
-		return super.getBaseDimensions(p_33597_).scaled((float) 1);
-	}
+	
 
 	@Override
 	public boolean isPushable() {
@@ -233,46 +226,23 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
+	private PlayState movementPredicate(AnimationState<?> event) {
+		if (!((AnimationHandler)this).hasAnimation()) {
 			return event.setAndContinue(RawAnimation.begin().thenLoop("gatewaydarkness"));
 		}
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
-		Entity entity = this;
-		World world = entity.getWorld();
-		boolean loop = false;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (!loop && this.lastloop) {
-			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
-			return PlayState.STOP;
-		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
-				this.lastloop = true;
-			}
-		}
-		return PlayState.CONTINUE;
+	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+		AnimationHandler animationHandler = (AnimationHandler) this;
+		return animationHandler.dynamic(animationState, false);
 	}
 
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
-			this.remove(InvisibleLurkerFootstepsEntity.RemovalReason.KILLED);
+			this.remove(RemovalReason.KILLED);
 			this.dropXp(null);
 		}
 	}
@@ -288,7 +258,7 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
 	@Override

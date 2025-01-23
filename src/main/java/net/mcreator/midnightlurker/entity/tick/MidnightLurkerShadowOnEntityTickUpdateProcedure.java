@@ -2,7 +2,6 @@ package net.mcreator.midnightlurker.entity.tick;
 
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -15,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerShadowOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 

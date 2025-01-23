@@ -4,13 +4,13 @@ import net.mcreator.midnightlurker.entity.tick.util.EntityTickActions;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkertposeOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		

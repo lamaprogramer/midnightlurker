@@ -16,9 +16,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MidnightlurkerNEOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	private static final Logger log = LoggerFactory.getLogger(MidnightlurkerNEOnEntityTickUpdateProcedure.class);
+
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		
@@ -62,8 +66,9 @@ public class MidnightlurkerNEOnEntityTickUpdateProcedure {
 		if (entityData.getPersistentData().getDouble("StunTimer") > 0 && entityData.getPersistentData().getDouble("StunTimer") < 98) {
 			if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 				_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3, 255, false, false));
-			if (entity instanceof MidnightlurkerNEEntity) {
-				((MidnightlurkerNEEntity) entity).setAnimation("stunned1");
+			if (entity instanceof MidnightlurkerNEEntity midnightlurkerNE) {
+				System.out.println("Stunned animation");
+				midnightlurkerNE.setAnimation("stunned1");
 			}
 		}
 

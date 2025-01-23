@@ -9,7 +9,8 @@ import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnI
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerInvisibleOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.*;
+import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -23,7 +24,6 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -31,6 +31,7 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -44,15 +45,11 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoEntity {
+public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerInvisibleEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerInvisibleEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerInvisibleEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
-	private boolean lastloop;
-	private long lastSwing;
-	public String animationprocedure = "empty";
 
 
 	public MidnightLurkerInvisibleEntity(EntityType<MidnightLurkerInvisibleEntity> type, World world) {
@@ -79,10 +76,7 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 		return this.dataTracker.get(TEXTURE);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -159,10 +153,7 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 		this.calculateDimensions();
 	}
 
-	@Override
-	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
-		return super.getBaseDimensions(p_33597_).scaled((float) 1);
-	}
+	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, 9, 1, 1);
@@ -184,11 +175,9 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
-			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
-
-			) {
+	private PlayState movementPredicate(AnimationState<?> event) {
+		if (!((AnimationHandler)this).hasAnimation()) {
+			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
 			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
@@ -196,39 +185,16 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
-		Entity entity = this;
-		World world = entity.getWorld();
-		boolean loop = false;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (!loop && this.lastloop) {
-			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
-			return PlayState.STOP;
-		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
-				this.lastloop = true;
-			}
-		}
-		return PlayState.CONTINUE;
+	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+		AnimationHandler animationHandler = (AnimationHandler) this;
+		return animationHandler.dynamic(animationState, false);
 	}
 
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
-			this.remove(MidnightLurkerInvisibleEntity.RemovalReason.KILLED);
+			this.remove(RemovalReason.KILLED);
 			this.dropXp(null);
 		}
 	}
@@ -244,7 +210,7 @@ public class MidnightLurkerInvisibleEntity extends HostileEntity implements GeoE
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
 	@Override

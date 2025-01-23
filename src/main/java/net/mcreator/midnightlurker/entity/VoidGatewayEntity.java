@@ -4,11 +4,12 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.entity.hurt.VoidGatewayEntityIsHurtProcedure;
+import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.VoidGatewayOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
+import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -36,15 +37,11 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
+public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity, AnimatableEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(VoidGatewayEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
-	private boolean lastloop;
-	private long lastSwing;
-	public String animationprocedure = "empty";
 
 	public VoidGatewayEntity(EntityType<VoidGatewayEntity> type, World world) {
 		super(type, world);
@@ -70,10 +67,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		return this.dataTracker.get(TEXTURE);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -81,21 +75,11 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		this.goalSelector.add(1, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				double x = VoidGatewayEntity.this.getX();
-				double y = VoidGatewayEntity.this.getY();
-				double z = VoidGatewayEntity.this.getZ();
-				Entity entity = VoidGatewayEntity.this;
-				World world = VoidGatewayEntity.this.getWorld();
 				return super.canStart() && VoidFloatProcProcedure.execute();
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = VoidGatewayEntity.this.getX();
-				double y = VoidGatewayEntity.this.getY();
-				double z = VoidGatewayEntity.this.getZ();
-				Entity entity = VoidGatewayEntity.this;
-				World world = VoidGatewayEntity.this.getWorld();
 				return super.shouldContinue() && VoidFloatProcProcedure.execute();
 			}
 		});
@@ -153,10 +137,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		this.calculateDimensions();
 	}
 
-	@Override
-	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
-		return super.getBaseDimensions(p_33597_).scaled((float) 1);
-	}
+	
 
 	@Override
 	public boolean isPushable() {
@@ -198,46 +179,23 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
+	private PlayState movementPredicate(AnimationState<?> event) {
+		if (!((AnimationHandler)this).hasAnimation()) {
 			return event.setAndContinue(RawAnimation.begin().thenLoop("gatewaydarkness"));
 		}
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
-		Entity entity = this;
-		World world = entity.getWorld();
-		boolean loop = false;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (!loop && this.lastloop) {
-			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
-			return PlayState.STOP;
-		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
-				this.lastloop = true;
-			}
-		}
-		return PlayState.CONTINUE;
+	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+		AnimationHandler animationHandler = (AnimationHandler) this;
+		return animationHandler.dynamic(animationState, false);
 	}
 
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
-			this.remove(VoidGatewayEntity.RemovalReason.KILLED);
+			this.remove(RemovalReason.KILLED);
 			this.dropXp(null);
 		}
 	}
@@ -253,7 +211,7 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity {
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
 	@Override

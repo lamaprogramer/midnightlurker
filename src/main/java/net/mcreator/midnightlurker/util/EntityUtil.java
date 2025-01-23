@@ -1,6 +1,7 @@
 package net.mcreator.midnightlurker.util;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.util.hit.BlockHitResult;
@@ -19,19 +20,19 @@ public class EntityUtil {
         return world.getEntitiesByClass(entityClass, Box.of(origin, cubeArea, cubeArea, cubeArea), e -> true).isEmpty();
     }
 
-    public static Entity getPlayerEntityWithMinDistanceOf(WorldAccess world, Vec3d center, double dx, double dy, double dz) {
-        return getPlayerEntityWithMinDistanceOf(PlayerEntity.class, world, center, dx, dy, dz);
+    public static PlayerEntity getPlayerEntityWithMinDistanceOf(WorldAccess world, Vec3d center, double dx, double dy, double dz) {
+        return (PlayerEntity) getEntityWithMinDistanceOf(PlayerEntity.class, world, center, dx, dy, dz);
     }
 
-    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double cubeBounds) {
-        return getPlayerEntityWithMinDistanceOf(type, world, center, cubeBounds, cubeBounds, cubeBounds);
+    public static <T extends LivingEntity> LivingEntity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double cubeBounds) {
+        return getEntityWithMinDistanceOf(type, world, center, cubeBounds, cubeBounds, cubeBounds);
     }
 
-    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double dx, double dy, double dz) {
-        return getPlayerEntityWithMinDistanceOf(type, world, new Vec3d(center.getX(), center.getY(), center.getZ()), dx, dy, dz);
+    public static <T extends LivingEntity> LivingEntity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, BlockPos center, double dx, double dy, double dz) {
+        return getEntityWithMinDistanceOf(type, world, new Vec3d(center.getX(), center.getY(), center.getZ()), dx, dy, dz);
     }
 
-    public static <T extends Entity> Entity getPlayerEntityWithMinDistanceOf(Class<T> type, WorldAccess world, Vec3d center, double dx, double dy, double dz) {
+    public static <T extends LivingEntity> LivingEntity getEntityWithMinDistanceOf(Class<T> type, WorldAccess world, Vec3d center, double dx, double dy, double dz) {
         return world.getEntitiesByClass(type, Box.of(center, dx, dy, dz), e -> true)
                 .stream()
                 .min(compareDistOf(center.getX(), center.getY(), center.getZ()))

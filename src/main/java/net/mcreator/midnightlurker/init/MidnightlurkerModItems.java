@@ -47,10 +47,6 @@ public class MidnightlurkerModItems {
 	public static final Item MIDNIGHT_LURKER_INVISIBLE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_INVISIBLE, -13421773, -3355444, new Item.Settings());
 	public static final Item SPOOKYAMBIENCEENTITY_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, -13421773, -3355444, new Item.Settings());
 	public static final Item MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_SEEN_ANGRESSIVE, -13421773, -3355444, new Item.Settings());
-	public static final Item DESTROYTEX_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX, -1, -1, new Item.Settings());
-	public static final Item DESTROYTEX_2_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_2, -1, -1, new Item.Settings());
-	public static final Item DESTROYTEX_3_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_3, -1, -1, new Item.Settings());
-	public static final Item DESTROYTEX_4_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.DESTROYTEX_4, -1, -1, new Item.Settings());
 	public static final Item MIDNIGHT_LURKER_FAKER_AGGRO_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO, -13421773, -3355444, new Item.Settings());
 	public static final Item MIDNIGHT_LURKER_FAKER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER, -13421773, -3355444, new Item.Settings());
 	public static final Item MIDNIGHT_LURKER_FAKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_WATCHER, -13421773, -3355444, new Item.Settings());
@@ -99,22 +95,6 @@ public class MidnightlurkerModItems {
 		register(
 				MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG,
 				MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG_ITEM
-		);
-		register(
-				DESTROYTEX_SPAWN_EGG,
-				DESTROYTEX_SPAWN_EGG_ITEM
-		);
-		register(
-				DESTROYTEX_2_SPAWN_EGG,
-				DESTROYTEX_2_SPAWN_EGG_ITEM
-		);
-		register(
-				DESTROYTEX_3_SPAWN_EGG,
-				DESTROYTEX_3_SPAWN_EGG_ITEM
-		);
-		register(
-				DESTROYTEX_4_SPAWN_EGG,
-				DESTROYTEX_4_SPAWN_EGG_ITEM
 		);
 		register(
 				MIDNIGHT_LURKER_FAKER_AGGRO_SPAWN_EGG,

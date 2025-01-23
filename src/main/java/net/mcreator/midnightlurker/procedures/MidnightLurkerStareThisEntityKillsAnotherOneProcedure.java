@@ -26,8 +26,8 @@ public class MidnightLurkerStareThisEntityKillsAnotherOneProcedure {
 		}
 		MidnightlurkerMod.queueServerWork(2, () -> {
 			if (!world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
-				if (!EntityUtil.getPlayerEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).getWorld().isClient())
-					EntityUtil.getPlayerEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).discard();
+				if (!EntityUtil.getEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).getWorld().isClient())
+					EntityUtil.getEntityWithMinDistanceOf(MidnightLurkerStareEntity.class, world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10).discard();
 			}
 		});
 	}

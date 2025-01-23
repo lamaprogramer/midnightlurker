@@ -29,7 +29,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 
 public class LurandsOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		

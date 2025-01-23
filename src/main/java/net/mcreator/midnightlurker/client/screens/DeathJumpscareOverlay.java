@@ -13,7 +13,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 
 public class DeathJumpscareOverlay implements ScreenEvents.AfterRender {
@@ -24,17 +23,8 @@ public class DeathJumpscareOverlay implements ScreenEvents.AfterRender {
 			int h = screen.height;
 			int posX = w / 2;
 			int posY = h / 2;
-			World world = null;
-			double x = 0;
-			double y = 0;
-			double z = 0;
 			PlayerEntity entity = MinecraftClient.getInstance().player;
-			if (entity != null) {
-				world = entity.getWorld();
-				x = entity.getX();
-				y = entity.getY();
-				z = entity.getZ();
-			}
+
 			RenderSystem.disableDepthTest();
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();

@@ -4,9 +4,9 @@ import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class MidnightlurkerNEModel extends GeoModel<MidnightlurkerNEEntity> {
@@ -34,6 +34,5 @@ public class MidnightlurkerNEModel extends GeoModel<MidnightlurkerNEEntity> {
 			head.setRotX(entityData.headPitch() * ((float) Math.PI / 180F) * unpausedMultiplier);
 			head.setRotY(entityData.netHeadYaw() * ((float) Math.PI / 180F) * unpausedMultiplier);
 		}
-
 	}
 }

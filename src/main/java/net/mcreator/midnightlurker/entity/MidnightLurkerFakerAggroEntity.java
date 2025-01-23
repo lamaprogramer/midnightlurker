@@ -13,6 +13,7 @@ import net.mcreator.midnightlurker.procedures.AggrowatchplayerProcedure;
 import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -46,13 +47,12 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightLurkerFakerAggroEntity extends HostileEntity implements GeoEntity {
+public class MidnightLurkerFakerAggroEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerFakerAggroEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerFakerAggroEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerFakerAggroEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean lastloop;
-	public String animationprocedure = "empty";
+
 
 	public MidnightLurkerFakerAggroEntity(EntityType<MidnightLurkerFakerAggroEntity> type, World world) {
 		super(type, world);
@@ -78,10 +78,7 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 		return this.dataTracker.get(TEXTURE);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -95,7 +92,6 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 				double x = MidnightLurkerFakerAggroEntity.this.getX();
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
-				Entity entity = MidnightLurkerFakerAggroEntity.this;
 				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.canStart() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
@@ -105,7 +101,6 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 				double x = MidnightLurkerFakerAggroEntity.this.getX();
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
-				Entity entity = MidnightLurkerFakerAggroEntity.this;
 				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.shouldContinue() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
@@ -116,7 +111,6 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 				double x = MidnightLurkerFakerAggroEntity.this.getX();
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
-				Entity entity = MidnightLurkerFakerAggroEntity.this;
 				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.canStart() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
@@ -126,7 +120,6 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 				double x = MidnightLurkerFakerAggroEntity.this.getX();
 				double y = MidnightLurkerFakerAggroEntity.this.getY();
 				double z = MidnightLurkerFakerAggroEntity.this.getZ();
-				Entity entity = MidnightLurkerFakerAggroEntity.this;
 				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.shouldContinue() && AggrowatchplayerProcedure.execute(world, x, y, z);
 			}
@@ -134,21 +127,13 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 		this.goalSelector.add(6, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				double x = MidnightLurkerFakerAggroEntity.this.getX();
-				double y = MidnightLurkerFakerAggroEntity.this.getY();
-				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.canStart() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = MidnightLurkerFakerAggroEntity.this.getX();
-				double y = MidnightLurkerFakerAggroEntity.this.getY();
-				double z = MidnightLurkerFakerAggroEntity.this.getZ();
 				Entity entity = MidnightLurkerFakerAggroEntity.this;
-				World world = MidnightLurkerFakerAggroEntity.this.getWorld();
 				return super.shouldContinue() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -220,10 +205,7 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 		this.calculateDimensions();
 	}
 
-	@Override
-	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
-		return super.getBaseDimensions(p_33597_).scaled((float) 1);
-	}
+	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER_AGGRO, 7, 1, 1);
@@ -246,8 +228,8 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
+	private PlayState movementPredicate(AnimationState<?> event) {
+		if (!((AnimationHandler)this).hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
 
 					&& !this.isAttacking()) {
@@ -264,43 +246,26 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
+	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+		AnimationHandler animationHandler = (AnimationHandler) this;
+
 		Entity entity = this;
 		World world = entity.getWorld();
-		boolean loop = false;
 		double x = entity.getX();
 		double y = entity.getY();
 		double z = entity.getZ();
-		String condition = MidnightLurkerAggressivePlayReturnedAnimationProcedure.execute(world, x, y, z, entity);
-		if (!condition.equals("empty"))
-			this.animationprocedure = condition;
-		loop = MidnightLurkerAggressiveLoopExternalAnimationsProcedure.execute(world, x, y, z, entity);
-		if (!loop && this.lastloop) {
-			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
-			return PlayState.STOP;
-		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
-				this.lastloop = true;
-			}
-		}
-		return PlayState.CONTINUE;
+
+		String animationName = MidnightLurkerAggressivePlayReturnedAnimationProcedure.execute(world, x, y, z, this);
+		boolean shouldLoop = MidnightLurkerAggressiveLoopExternalAnimationsProcedure.execute(world, x, y, z, this);
+
+		return animationHandler.dynamic(animationState, animationName, shouldLoop);
 	}
 
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
-			this.remove(MidnightLurkerFakerAggroEntity.RemovalReason.KILLED);
+			this.remove(RemovalReason.KILLED);
 			this.dropXp(null);
 		}
 	}
@@ -316,7 +281,7 @@ public class MidnightLurkerFakerAggroEntity extends HostileEntity implements Geo
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
 	@Override

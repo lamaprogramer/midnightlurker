@@ -1,7 +1,8 @@
 package net.mcreator.midnightlurker.mixin;
 
-import net.mcreator.midnightlurker.init.EntityAnimationFactory;
+import net.mcreator.midnightlurker.entity.AnimatableEntity;
 import net.mcreator.midnightlurker.procedures.*;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
@@ -16,13 +17,60 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin implements IEntityDataSaver {
+public class LivingEntityMixin implements IEntityDataSaver, AnimationHandler {
     @Unique
     private final LivingEntity THIS = (LivingEntity)(Object)this;
     @Unique
     public NbtCompound persistantData = new NbtCompound();
+    @Unique
+    private boolean isLastLoop;
+    @Unique
+    public String animationName = "empty";
+
+    @Override
+    public PlayState dynamic(AnimationState<?> animationState, boolean shouldLoop) {
+        AnimationController<?> animationController = animationState.getController();
+
+        if (!shouldLoop && this.isLastLoop) {
+            this.isLastLoop = false;
+            animationController.setAnimation(RawAnimation.begin().thenPlay(this.animationName));
+            animationController.forceAnimationReset();
+            return PlayState.STOP;
+        }
+
+        if (this.hasAnimation() && animationController.getAnimationState() == AnimationController.State.STOPPED) {
+            if (!shouldLoop) {
+                animationController.setAnimation(RawAnimation.begin().thenPlay(this.animationName));
+                if (animationController.getAnimationState() == AnimationController.State.STOPPED) {
+                    this.animationName = "empty";
+                    animationController.forceAnimationReset();
+                }
+            } else {
+                animationController.setAnimation(RawAnimation.begin().thenLoop(this.animationName));
+                this.isLastLoop = true;
+            }
+        }
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public PlayState dynamic(AnimationState<?> animationState, String animationName, boolean shouldLoop) {
+        if (!animationName.equals("empty")) {
+            this.animationName = animationName;
+        }
+        return dynamic(animationState, shouldLoop);
+    }
+
+    @Override
+    public boolean hasAnimation() {
+        return !this.animationName.equals("empty");
+    }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     protected void injectWriteMethod(NbtCompound nbt, CallbackInfo ci) {
@@ -72,8 +120,15 @@ public class LivingEntityMixin implements IEntityDataSaver {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void updateTick(CallbackInfo ci) {
+        if (this instanceof AnimatableEntity syncable) {
+            String animation = syncable.getSyncedAnimation();
+            if (!animation.equals("undefined")) {
+                syncable.setAnimation("undefined");
+                this.animationName = animation;
+            }
+        }
+
         if (THIS instanceof PlayerEntity) {
-            EntityAnimationFactory.onEntityTick(THIS);
             AggroPotionAddTickProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
             InsanityoverlayrendersProcedure.execute(THIS);
             AmnesiaStageAddProcedure.execute(THIS);
@@ -86,6 +141,7 @@ public class LivingEntityMixin implements IEntityDataSaver {
             ScreenShakeProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
         }
     }
+
     @Inject(method = "wakeUp()V", at = @At("HEAD"))
     private void updateWakeUp(CallbackInfo ci) {
         InsanitySleepProcedure.execute(THIS);

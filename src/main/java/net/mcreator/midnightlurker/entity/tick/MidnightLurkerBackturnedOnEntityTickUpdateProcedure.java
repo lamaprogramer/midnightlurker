@@ -1,6 +1,7 @@
 package net.mcreator.midnightlurker.entity.tick;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.entity.AnimatableEntity;
 import net.mcreator.midnightlurker.entity.MidnightLurkerBackturnedEntity;
 import net.mcreator.midnightlurker.entity.tick.util.EntityTickActions;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
@@ -10,7 +11,6 @@ import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
@@ -26,7 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		
@@ -38,13 +38,9 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 		}
 
 		if (entityData.getPersistentData().getDouble("InsanePotionTimer") == 1) {
-			if (entity instanceof MidnightLurkerBackturnedEntity midnightLurkerBackturned) {
-                if (!midnightLurkerBackturned.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-					midnightLurkerBackturned.setAnimation("snapstare5");
-					if (!midnightLurkerBackturned.getWorld().isClient()) {
-						midnightLurkerBackturned.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.INSANITY, 80, 0, false, false));
-					}
-				}
+			if (entity instanceof AnimatableEntity animatableEntity && !entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
+				animatableEntity.setAnimation("snapstare5");
+				EntityTickActions.handleEffect(entity, MidnightlurkerModMobEffects.INSANITY, 80, 0, false, false);
             }
 		}
 
@@ -55,24 +51,22 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 		}
 
 		if (entityData.getPersistentData().getDouble("SlownessEffect") < 1 && entityData.getPersistentData().getDouble("PlayerActivation") >= 1
-				&& (entity instanceof LivingEntity _livEnt && _livEnt.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY) ? _livEnt.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration() : 0) <= 1
-				&& entity instanceof LivingEntity _livEnt19 && _livEnt19.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
+				&& (entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY) ? entity.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration() : 0) <= 1
+				&& entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
 			entityData.getPersistentData().putDouble("SlownessEffect", (entityData.getPersistentData().getDouble("SlownessEffect") + 1));
 		}
 
-		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0 && !(entity instanceof LivingEntity _livEnt23 && _livEnt23.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY))
+		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0
+				&& !entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)
 				&& entityData.getPersistentData().getDouble("PlayerActivation") <= 0) {
 			entityData.getPersistentData().putDouble("SlownessEffect", 0);
 		}
 
 		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0) {
-			if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-				_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 10, 255, false, false));
+			EntityTickActions.handleEffect(entity, StatusEffects.SLOWNESS, 10, 255, false, false);
 		}
 
-		if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-			_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 60, 0, false, false));
-
+		EntityTickActions.handleEffect(entity, StatusEffects.DOLPHINS_GRACE, 60, 0, false, false);
 		EntityTickActions.handleAutoDismount(entity);
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 30)) {
@@ -80,14 +74,15 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 				if (entityData.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesByClass(MidnightLurkerBackturnedEntity.class, Box.of(new Vec3d(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
 					entityData.getPersistentData().putDouble("SoundActivate", (entityData.getPersistentData().getDouble("SoundActivate") + 1));
 				}
+
 				if (entityData.getPersistentData().getDouble("SoundActivate") == 1) {
-					MidnightlurkerMod.queueServerWork(2, () -> {
-						SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
-					});
+					SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 				}
-				if (entity instanceof MidnightLurkerBackturnedEntity) {
-					((MidnightLurkerBackturnedEntity) entity).setAnimation("teleport5");
+
+				if (entity instanceof AnimatableEntity animatableEntity) {
+					animatableEntity.setAnimation("teleport5");
 				}
+
 				MidnightlurkerMod.queueServerWork(13, () -> {
 					if (!entity.getWorld().isClient())
 						entity.discard();
@@ -95,12 +90,10 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 			});
 		}
 
-		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0 && entity instanceof LivingEntity _livEnt50 && _livEnt50.hasStatusEffect(StatusEffects.SLOWNESS)) {
+		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0 && entity.hasStatusEffect(StatusEffects.SLOWNESS)) {
 			entity.setSneaking(true);
-		} else if (entityData.getPersistentData().getDouble("SlownessEffect") >= 1 && entity instanceof LivingEntity _livEnt53 && _livEnt53.hasStatusEffect(StatusEffects.SLOWNESS)) {
-			MidnightlurkerMod.queueServerWork(2, () -> {
-				entity.setSneaking(false);
-			});
+		} else if (entityData.getPersistentData().getDouble("SlownessEffect") >= 1 && entity.hasStatusEffect(StatusEffects.SLOWNESS)) {
+			entity.setSneaking(false);
 		}
 
 		EntityTickActions.handleParticles(0.9, world, MidnightlurkerModParticleTypes.VOID_DOT, x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
@@ -118,9 +111,7 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 						entityData.getPersistentData().putDouble("SoundActivate", (entityData.getPersistentData().getDouble("SoundActivate") + 1));
 					}
 					if (entityData.getPersistentData().getDouble("SoundActivate") == 1) {
-						MidnightlurkerMod.queueServerWork(2, () -> {
-							SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
-						});
+						SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 					}
 					if (entity instanceof MidnightLurkerBackturnedEntity) {
 						((MidnightLurkerBackturnedEntity) entity).setAnimation("teleport5");

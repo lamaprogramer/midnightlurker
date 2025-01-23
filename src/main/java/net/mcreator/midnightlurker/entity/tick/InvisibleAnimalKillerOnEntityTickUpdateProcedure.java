@@ -1,9 +1,8 @@
 package net.mcreator.midnightlurker.entity.tick;
 
+import net.mcreator.midnightlurker.entity.tick.util.EntityTickActions;
 import net.mcreator.midnightlurker.util.EntityUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -11,7 +10,7 @@ import net.minecraft.world.WorldAccess;
 
 
 public class InvisibleAnimalKillerOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 
@@ -20,9 +19,7 @@ public class InvisibleAnimalKillerOnEntityTickUpdateProcedure {
 		}
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 70)) {
-			if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient()) {
-				livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 3, 255, false, false));
-			}
+			EntityTickActions.handleEffect(entity, StatusEffects.SLOWNESS, 3, 255, false, false);
 		}
 	}
 }

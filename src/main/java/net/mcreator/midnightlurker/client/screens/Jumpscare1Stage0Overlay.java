@@ -33,6 +33,11 @@ public class Jumpscare1Stage0Overlay implements HudRenderCallback {
 		if (entity != null) {
 			world = entity.getWorld();
 		}
+
+		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
+		if (dataSaver.getPersistentData().getDouble("JumpscareActive") != 1) {
+			return;
+		}
 		
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);

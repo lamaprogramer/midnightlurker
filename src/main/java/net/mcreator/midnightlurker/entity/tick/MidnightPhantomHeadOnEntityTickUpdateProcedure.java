@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MidnightPhantomHeadOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		double yaw = 0;

@@ -16,19 +16,12 @@ public class PlayerDeathProcedure {
 
         IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
 		if (entity instanceof PlayerEntity) {
-			{
-				double _setval = 0;
-                dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-                
-			}
+			dataSaver.getPersistentData().putDouble("InsanityAktive", 0);
 		}
+
 		if (entity instanceof PlayerEntity && !world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 10, 10, 10), e -> true).isEmpty()) {
 			if (dataSaver.getPersistentData().getDouble("DeathJumpActive") < 1) {
-				{
-					double _setval = 1;
-                    dataSaver.getPersistentData().putDouble("DeathJumpActive", _setval);
-                    
-				}
+				dataSaver.getPersistentData().putDouble("DeathJumpActive", 1);
 			}
 		}
 	}

@@ -19,7 +19,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerShadowEyesOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("LightLevelRandom") < 8 && world.getLightLevel(BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ())) > 1) {

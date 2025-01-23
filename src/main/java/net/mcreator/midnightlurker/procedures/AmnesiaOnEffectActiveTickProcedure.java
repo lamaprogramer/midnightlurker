@@ -20,7 +20,7 @@ public class AmnesiaOnEffectActiveTickProcedure {
 		boolean entity_found = false;
         for (int index0 = 0; index0 < 30; index0++) {
 			BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
-			if (!EntityUtil.hasNoEntityOfTypeInArea(world, HostileEntity.class, new Vec3d((blockHit.getBlockPos().getX()), (blockHit.getBlockPos().getY()), (blockHit.getBlockPos().getZ())), 25) && !(EntityUtil.getPlayerEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == entity)) {
+			if (!EntityUtil.hasNoEntityOfTypeInArea(world, HostileEntity.class, new Vec3d((blockHit.getBlockPos().getX()), (blockHit.getBlockPos().getY()), (blockHit.getBlockPos().getZ())), 25) && !(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == entity)) {
 				entity_found = true;
 			} else {
 				entity_found = false;
@@ -30,14 +30,14 @@ public class AmnesiaOnEffectActiveTickProcedure {
 
 		if (entity_found) {
 			BlockHitResult blockHit = BlockUtil.raycast(entity, raytrace_distance);
-			if (!(EntityUtil.getPlayerEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == null)) {
+			if (!(EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, blockHit.getBlockPos(), 25) == null)) {
 				SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 0, 0);
 			}
 		} else {
 			if (EntityUtil.hasNoEntityOfTypeInArea(world, HostileEntity.class, entity.getPos(), 10)) {
 				if (!EntityUtil.hasNoEntityOfTypeInArea(world, HostileEntity.class, entity.getPos(), 30)) {
-					if (!EntityUtil.getPlayerEntityWithMinDistanceOf(HostileEntity.class, world, entity.getPos(), 30, 30, 30).getWorld().isClient()) {
-						EntityUtil.getPlayerEntityWithMinDistanceOf(HostileEntity.class, world, entity.getPos(), 30, 30, 30).discard();
+					if (!EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, entity.getPos(), 30, 30, 30).getWorld().isClient()) {
+						EntityUtil.getEntityWithMinDistanceOf(HostileEntity.class, world, entity.getPos(), 30, 30, 30).discard();
 					}
 				}
 			}

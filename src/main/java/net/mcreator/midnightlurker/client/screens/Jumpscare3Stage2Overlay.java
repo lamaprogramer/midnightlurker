@@ -34,13 +34,18 @@ public class Jumpscare3Stage2Overlay implements HudRenderCallback {
 			world = entity.getWorld();
 		}
 		
+		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
+		if (dataSaver.getPersistentData().getDouble("JumpscareActive") != 1) {
+			return;
+		}
+		
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
-
+		
 		Map<Integer, Identifier> frameMap = new HashMap<>();
 		frameMap.put(JumpscareFrames.FRAME_MAP.get("FRAME_17"), Identifier.of("midnightlurker:textures/screens/jumpscarethird6stage2.png"));
 		frameMap.put(JumpscareFrames.FRAME_MAP.get("FRAME_16"), Identifier.of("midnightlurker:textures/screens/jumpscarethird5stage2.png"));

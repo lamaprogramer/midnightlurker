@@ -6,7 +6,6 @@ import net.mcreator.midnightlurker.entity.tick.util.EntityTickActions;
 import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -26,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerUnprovokedOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 
@@ -119,10 +118,8 @@ public class MidnightLurkerUnprovokedOnEntityTickUpdateProcedure {
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("encount") == 1) {
 			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
 				if (dataSaver.getPersistentData().getDouble("encounternumber") < 6) {
-					{
-						double _setval = dataSaver.getPersistentData().getDouble("encounternumber") + 1;
-						dataSaver.getPersistentData().putDouble("encounternumber", _setval);
-					}
+					double _setval = dataSaver.getPersistentData().getDouble("encounternumber") + 1;
+					dataSaver.getPersistentData().putDouble("encounternumber", _setval);
 				}
 			}
 		}

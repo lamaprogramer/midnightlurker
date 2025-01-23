@@ -33,17 +33,13 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 
 public class ShapeshifterPigEntity extends PathAwareEntity {
-
 	public ShapeshifterPigEntity(EntityType<ShapeshifterPigEntity> type, World world) {
 		super(type, world);
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
 		setAiDisabled(false);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {

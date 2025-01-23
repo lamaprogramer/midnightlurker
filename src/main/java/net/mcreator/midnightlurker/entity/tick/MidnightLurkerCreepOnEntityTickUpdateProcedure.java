@@ -29,15 +29,14 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
+	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
 		double spawnx = 0;
 		double spawnz = 0;
 		double spawny = 0;
-		if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-			_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 60, 0, false, false));
 
+		EntityTickActions.handleEffect(entity, StatusEffects.DOLPHINS_GRACE, 60, 0, false, false);
 		EntityTickActions.handleAutoDismount(entity);
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 300)) {

@@ -18,6 +18,7 @@ public class InvisibleFootstepsNaturalEntitySpawningConditionProcedure {
 
 		if (spawnInvisibleEntities) {
 			SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerchase")), SoundCategory.NEUTRAL, 0, 0);
+			System.out.println("Tried spawning");
 			return EntityUtil.hasNoEntityOfTypeInArea(world, InvisibleFootstepsEntity.class, new Vec3d(x, y, z), 800)
 					&& EntityUtil.hasNoEntityOfTypeInArea(world, InvisibleShadowEntity.class, new Vec3d(x, y, z), 800)
 					&& EntityUtil.hasNoEntityOfTypeInArea(world, InvisibleStaticEntity.class, new Vec3d(x, y, z), 800)

@@ -23,7 +23,6 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
@@ -43,10 +42,7 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 		setAiDisabled(false);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -111,12 +107,8 @@ public class ShapeShifterCowEntity extends PathAwareEntity {
 
 	@Override
 	public ActionResult interactMob(PlayerEntity sourceentity, Hand hand) {
-		ItemStack itemstack = sourceentity.getStackInHand(hand);
 		ActionResult retval = ActionResult.success(this.getWorld().isClient());
 		super.interactMob(sourceentity, hand);
-		double x = this.getX();
-		double y = this.getY();
-		double z = this.getZ();
 		Entity entity = this;
 		World world = this.getWorld();
 

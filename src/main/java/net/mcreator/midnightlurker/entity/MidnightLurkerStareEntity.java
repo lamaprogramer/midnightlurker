@@ -10,6 +10,7 @@ import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurker
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerStareOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
+import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -47,15 +48,11 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntity {
+public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
 	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerStareEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerStareEntity.class, TrackedDataHandlerRegistry.STRING);
 	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerStareEntity.class, TrackedDataHandlerRegistry.STRING);
 	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-	private boolean swinging;
-	private boolean lastloop;
-	private long lastSwing;
-	public String animationprocedure = "empty";
 
 	public MidnightLurkerStareEntity(EntityType<MidnightLurkerStareEntity> type, World world) {
 		super(type, world);
@@ -81,10 +78,7 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 		return this.dataTracker.get(TEXTURE);
 	}
 
-	@Override
-	public Packet<ClientPlayPacketListener> createSpawnPacket(EntityTrackerEntry entityTrackerEntry) {
-		return super.createSpawnPacket(entityTrackerEntry);
-	}
+	
 
 	@Override
 	protected void initGoals() {
@@ -116,49 +110,29 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 
 		});
 		this.goalSelector.add(4, new MeleeAttackGoal(this, 1.2, false) {
-			
-
 			@Override
 			public boolean canStart() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && StarerunProcedure.execute(entity);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && StarerunProcedure.execute(entity);
 			}
 
 		});
 		this.goalSelector.add(5, new MeleeAttackGoal(this, 1.2, false) {
-			
-
 			@Override
 			public boolean canStart() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && StarerunProcedure.execute(entity);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && StarerunProcedure.execute(entity);
 			}
 
@@ -167,21 +141,13 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 		this.goalSelector.add(7, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = MidnightLurkerStareEntity.this.getX();
-				double y = MidnightLurkerStareEntity.this.getY();
-				double z = MidnightLurkerStareEntity.this.getZ();
 				Entity entity = MidnightLurkerStareEntity.this;
-				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && LurkerinwaterconditionProcedure.execute(entity);
 			}
 		});
@@ -191,7 +157,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -201,7 +166,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -212,7 +176,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -222,7 +185,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -233,7 +195,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -243,7 +204,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -254,7 +214,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.canStart() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -264,7 +223,6 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 				double x = MidnightLurkerStareEntity.this.getX();
 				double y = MidnightLurkerStareEntity.this.getY();
 				double z = MidnightLurkerStareEntity.this.getZ();
-				Entity entity = MidnightLurkerStareEntity.this;
 				World world = MidnightLurkerStareEntity.this.getWorld();
 				return super.shouldContinue() && LurkerKillAnimalsProcProcedure.execute(world, x, y, z);
 			}
@@ -347,10 +305,7 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 		this.calculateDimensions();
 	}
 
-	@Override
-	public EntityDimensions getBaseDimensions(EntityPose p_33597_) {
-		return super.getBaseDimensions(p_33597_).scaled((float) 1);
-	}
+	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_STARE, 15, 1, 1);
@@ -373,8 +328,8 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 		return builder;
 	}
 
-	private PlayState movementPredicate(AnimationState event) {
-		if (this.animationprocedure.equals("empty")) {
+	private PlayState movementPredicate(AnimationState<?> event) {
+		if (!((AnimationHandler)this).hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
 
 					&& !this.isAttacking()) {
@@ -394,39 +349,16 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 		return PlayState.STOP;
 	}
 
-	private PlayState procedurePredicate(AnimationState event) {
-		Entity entity = this;
-		World world = entity.getWorld();
-		boolean loop = false;
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (!loop && this.lastloop) {
-			this.lastloop = false;
-			event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-			event.getController().forceAnimationReset();
-			return PlayState.STOP;
-		}
-		if (!this.animationprocedure.equals("empty") && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-			if (!loop) {
-				event.getController().setAnimation(RawAnimation.begin().thenPlay(this.animationprocedure));
-				if (event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-					this.animationprocedure = "empty";
-					event.getController().forceAnimationReset();
-				}
-			} else {
-				event.getController().setAnimation(RawAnimation.begin().thenLoop(this.animationprocedure));
-				this.lastloop = true;
-			}
-		}
-		return PlayState.CONTINUE;
+	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+		AnimationHandler animationHandler = (AnimationHandler) this;
+		return animationHandler.dynamic(animationState, false);
 	}
 
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
 		if (this.deathTime == 20) {
-			this.remove(MidnightLurkerStareEntity.RemovalReason.KILLED);
+			this.remove(RemovalReason.KILLED);
 			this.dropXp(null);
 		}
 	}
@@ -442,7 +374,7 @@ public class MidnightLurkerStareEntity extends HostileEntity implements GeoEntit
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::procedurePredicate));
+		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
 	@Override

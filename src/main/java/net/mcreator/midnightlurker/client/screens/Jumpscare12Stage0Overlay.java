@@ -14,7 +14,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +28,11 @@ public class Jumpscare12Stage0Overlay implements HudRenderCallback {
 
 		int posX = w / 2;
 		int posY = h / 2;
-		World world = null;
 		PlayerEntity entity = MinecraftClient.getInstance().player;
-		if (entity != null) {
-			world = entity.getWorld();
+		
+		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
+		if (dataSaver.getPersistentData().getDouble("JumpscareActive") != 1) {
+			return;
 		}
 		
 		RenderSystem.disableDepthTest();

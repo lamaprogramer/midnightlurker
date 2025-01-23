@@ -2,7 +2,7 @@ package net.mcreator.midnightlurker.entity.tick;
 
 import net.mcreator.midnightlurker.entity.MidnightLurkerShapeshifterEntity;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
@@ -10,7 +10,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class MidnightLurkerShapeshifterOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, Entity entity) {
+	public static void execute(WorldAccess world, LivingEntity entity) {
 		if (entity == null)
 			return;
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("Shapeshifternumber") < 3) {

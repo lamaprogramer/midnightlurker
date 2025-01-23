@@ -1,10 +1,10 @@
 package net.mcreator.midnightlurker.entity.tick;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.WorldAccess;
 
 public class SpookyambienceentityOnEntityTickUpdateProcedure {
-	public static void execute(WorldAccess world, Entity entity) {
+	public static void execute(WorldAccess world, LivingEntity entity) {
 		if (entity == null)
 			return;
 

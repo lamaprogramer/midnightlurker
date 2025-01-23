@@ -1,17 +1,16 @@
 package net.mcreator.midnightlurker.entity.tick.util;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
-import net.mcreator.midnightlurker.entity.MidnightlurkerNEEntity;
+import net.mcreator.midnightlurker.entity.AnimatableEntity;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.command.CommandOutput;
@@ -35,17 +35,17 @@ import net.minecraft.world.WorldAccess;
 import java.util.Map;
 
 public class EntityTickActions {
-    public static void handleAutoDismount(Entity entity) {
+    public static void handleAutoDismount(LivingEntity entity) {
         if (entity.hasVehicle()) {
             entity.stopRiding();
         }
     }
 
-    public static void handleClimbing(WorldAccess world, Entity entity, double x, double y, double z) {
+    public static void handleClimbing(WorldAccess world, LivingEntity entity, double x, double y, double z) {
         for (Direction direction : new Direction[]{Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH}) {
             if (world.getBlockState(BlockPos.ofFloored(x, y + 0, z).offset(direction, 1)).isOpaque()
                     && !world.getBlockState(BlockPos.ofFloored(x, y + 0, z).offset(direction, 1)).isIn(TagKey.of(RegistryKeys.BLOCK, Identifier.of("midnightlurker:cannotclimb")))
-                    && !world.getBlockState(BlockPos.ofFloored(x, y + 2, z)).isOpaque() || !world.getBlockState(BlockPos.ofFloored(x, y + 3, z)).isOpaque()
+                    && (!world.getBlockState(BlockPos.ofFloored(x, y + 2, z)).isOpaque() || !world.getBlockState(BlockPos.ofFloored(x, y + 3, z)).isOpaque())
                     && !world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y + 52, z), 100.1, 100.1, 100.1), e -> true).isEmpty()
                     && entity.getHorizontalFacing() == direction) {
 
@@ -54,6 +54,7 @@ public class EntityTickActions {
                         new Vec3d(entity.getVelocity().getX(), 0.2, 0);
 
                 entity.setVelocity(velocity.offset(direction, 0.2));
+                break;
             }
         }
     }
@@ -80,9 +81,9 @@ public class EntityTickActions {
         }
     }
 
-    public static void handleDamageScaling(WorldAccess world, Entity entity, double x, double y, double z) {
+    public static void handleDamageScaling(WorldAccess world, LivingEntity entity, double x, double y, double z) {
         if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 15)) {
-            if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient()) {
+            if (entity.getWorld().isClient()) {
                 if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 15, 15, 15) instanceof LivingEntity playerEntity) {
                     Map<EquipmentSlot, ArmorItem.Type> armorSlots = Map.ofEntries(
                             Map.entry(EquipmentSlot.HEAD, ArmorItem.Type.HELMET),
@@ -103,20 +104,20 @@ public class EntityTickActions {
                     }
 
                     if (totalDefense >= 20 && totalToughness >= 12.0f) {
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 3, false, false));
+                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 3, false, false));
                     } else if (totalDefense >= 20) {
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 2, false, false));
+                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 2, false, false));
                     } else if (totalDefense >= 15) {
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 1, false, false));
+                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 1, false, false));
                     } else if (totalDefense >= 11) {
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 0, false, false));
+                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 3, 0, false, false));
                     }
                 }
             }
         }
     }
 
-    public static void handleBlockBreaking(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
+    public static void handleBlockBreaking(WorldAccess world, LivingEntity entity, IEntityDataSaver entityData, double x, double y, double z) {
         for (Direction direction : new Direction[]{Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH}) {
             if (world.getBlockState(BlockPos.ofFloored(x, y, z).offset(direction, 1)).isOpaque()
                     && !world.getBlockState(BlockPos.ofFloored(x, y, z).offset(direction, 4)).isOpaque()
@@ -129,8 +130,8 @@ public class EntityTickActions {
                 }
 
                 if (entityData.getPersistentData().getDouble("LurkerTime") == 1) {
-                    if (entity instanceof MidnightLurkerAggressiveEntity midnightLurkerAggressive) {
-                        midnightLurkerAggressive.setAnimation("breaking1");
+                    if (entity instanceof AnimatableEntity animatableEntity) {
+                        animatableEntity.setAnimation("breaking1");
                     }
                     world.breakBlock(BlockPos.ofFloored(x, y + 0, z).offset(direction, 1), false);
                     world.breakBlock(BlockPos.ofFloored(x, y + 1, z).offset(direction, 1), false);
@@ -145,8 +146,8 @@ public class EntityTickActions {
 
                 double lurkerBreakTime = entityData.getPersistentData().getDouble("LurkerTime");
                 if (lurkerBreakTime % 10 == 0) {
-                    if (entity instanceof MidnightLurkerAggressiveEntity midnightLurkerAggressive) {
-                        midnightLurkerAggressive.setAnimation("breaking1");
+                    if (entity instanceof AnimatableEntity animatableEntity) {
+                        animatableEntity.setAnimation("breaking1");
                     }
 
                     int breakProgress = (int) (10 - (lurkerBreakTime / 10));
@@ -171,7 +172,7 @@ public class EntityTickActions {
         }
     }
 
-    public static void handleLurkerChase(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
+    public static void handleLurkerChase(WorldAccess world, LivingEntity entity, IEntityDataSaver entityData, double x, double y, double z) {
         boolean longerLurkerChase = MidnightlurkerMod.CONFIG.shouldDoLongerLurkerChase();
         boolean lurkerChaseMusic = MidnightlurkerMod.CONFIG.shouldDoLurkerChaseMusic();
         int angryTime = longerLurkerChase ? 2400 : 1200;
@@ -184,16 +185,11 @@ public class EntityTickActions {
             }
 
             if (entityData.getPersistentData().getDouble("AngryTime") == 1) {
-
-                if (entity instanceof MidnightLurkerAggressiveEntity) {
-                    ((MidnightLurkerAggressiveEntity) entity).setAnimation("teleport1");
+                if (entity instanceof AnimatableEntity animatableEntity) {
+                    animatableEntity.setAnimation("teleport1");
                 }
 
-                if (entity instanceof MidnightlurkerNEEntity) {
-                    ((MidnightlurkerNEEntity) entity).setAnimation("teleport1");
-                }
-
-                MidnightlurkerMod.queueServerWork(2, () -> SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1));
+                SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 
                 MidnightlurkerMod.queueServerWork(13, () -> {
                     if (!entity.getWorld().isClient()) entity.discard();
@@ -228,7 +224,7 @@ public class EntityTickActions {
         }
     }
 
-    public static void handleLurkerScream(WorldAccess world, Entity entity, IEntityDataSaver entityData) {
+    public static void handleLurkerScream(WorldAccess world, LivingEntity entity, IEntityDataSaver entityData) {
         if (entityData.getPersistentData().getDouble("LurkerScream") == 0) {
             entityData.getPersistentData().putDouble("LurkerScream", 110);
         } else {
@@ -242,31 +238,53 @@ public class EntityTickActions {
         }
     }
 
-    public static void handleFasterSwimSpeed(WorldAccess world, Entity entity, double x, double y, double z) {
-        if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient()) {
-            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 1, 0, false, false));
+    public static void handleEffect(LivingEntity entity, RegistryEntry<StatusEffect> statusEffect, int duration, int amplifier, boolean ambient, boolean visible) {
+        if (!entity.getWorld().isClient()) {
+            entity.addStatusEffect(new StatusEffectInstance(statusEffect, duration, amplifier, ambient, visible));
         }
+    }
+
+    public static void handleFasterSwimSpeed(WorldAccess world, LivingEntity entity, double x, double y, double z) {
+        handleEffect(entity, StatusEffects.DOLPHINS_GRACE, 1, 0, false, false);
 
         if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 70)) {
             if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 70, 70, 70).hasVehicle()) {
-                if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient()) {
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 3, 255, false, false));
+                if (entity.getWorld().isClient()) {
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 3, 255, false, false));
                 }
             }
         }
     }
 
-    public static void handleSpeedWhenObstructed(WorldAccess world, Entity entity, double x, double y, double z) {
+    public static void handleSpeedWhenObstructed(WorldAccess world, LivingEntity entity, double x, double y, double z) {
         if (!world.getBlockState(BlockPos.ofFloored(x, y + 0, z)).isOpaque()
                 && (world.getBlockState(BlockPos.ofFloored(x, y + 1, z)).isOpaque() || (world.getBlockState(BlockPos.ofFloored(x, y + 1, z))).isIn(BlockTags.LEAVES))) {
-            if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient())
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3, 0, false, false));
+            if (entity.getWorld().isClient())
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3, 0, false, false));
         }
 
         if (!world.getBlockState(BlockPos.ofFloored(x, y + 0, z)).isOpaque() && !world.getBlockState(BlockPos.ofFloored(x, y + 1, z)).isOpaque()
                 && (world.getBlockState(BlockPos.ofFloored(x, y + 2, z)).isOpaque() || (world.getBlockState(BlockPos.ofFloored(x, y + 2, z))).isIn(BlockTags.LEAVES))) {
-            if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient())
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3, 0, false, false));
+            if (entity.getWorld().isClient())
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 3, 0, false, false));
+        }
+    }
+
+    public static void handleJumpscare(WorldAccess world, LivingEntity entity) {
+        if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
+            if (!entity.getWorld().isClient())
+                entity.discard();
+
+            IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
+            if (dataSaver.getPersistentData().getDouble("JumpscareActive") < 1) {
+                dataSaver.getPersistentData().putDouble("JumpscareActive", 1);
+            }
+
+            if (dataSaver.getPersistentData().getDouble("InsanityStage") < 7) {
+                double _setval = dataSaver.getPersistentData().getDouble("InsanityStage") + 1;
+                dataSaver.getPersistentData().putDouble("InsanityStage", _setval);
+                dataSaver.getPersistentData().putDouble("InsanityTimer", 0);
+            }
         }
     }
 }
