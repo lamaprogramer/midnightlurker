@@ -5,6 +5,7 @@ import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerAggressiveOnEntityTickUpdateProcedure;
+import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
@@ -24,20 +25,19 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -137,6 +137,24 @@ public class MidnightLurkerAggressiveEntity extends HostileEntity implements Geo
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
 		return Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerhurt"));
+	}
+
+	@Override
+	public void onAttacking(Entity target) {
+		World world = this.getEntityWorld();
+
+		if (!world.isClient() && target instanceof PlayerEntity) {
+			ServerWorld serverWorld = (ServerWorld) world;
+			for (int index0 = 0; index0 < 50; index0++) {
+				double posX = target.getX() + MathHelper.nextDouble(Random.create(), -6, 6);
+				double posY = target.getY() + MathHelper.nextDouble(Random.create(), 0, 6);
+				double posZ = target.getZ() + MathHelper.nextDouble(Random.create(), -6, 6);
+
+				serverWorld.spawnParticles(MidnightlurkerModParticleTypes.LURKERFACEPARTICLE, posX, posY, posZ, 1, 0d, 0d, 0d, 0d);
+			}
+		}
+
+		super.onAttacking(target);
 	}
 
 	@Override

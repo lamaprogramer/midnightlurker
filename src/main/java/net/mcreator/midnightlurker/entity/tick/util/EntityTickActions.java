@@ -2,6 +2,7 @@ package net.mcreator.midnightlurker.entity.tick.util;
 
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.AnimatableEntity;
+import net.mcreator.midnightlurker.network.MidnightLurkerNetworking;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
@@ -25,6 +26,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -196,12 +198,14 @@ public class EntityTickActions {
                 });
             }
 
-            IEntityDataSaver playerData = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
+            ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
+            IEntityDataSaver playerData = (IEntityDataSaver) player;
             if (playerData.getPersistentData().getDouble("InsanityStage") == 7 && entityData.getPersistentData().getDouble("AngryTime") == 1) {
                 playerData.getPersistentData().putDouble("InsanityStage", 0);
                 playerData.getPersistentData().putDouble("InsanityTimer", 0);
                 playerData.getPersistentData().putDouble("InsanityAktive", 0);
 
+                MidnightLurkerNetworking.syncPlayerData(player, "InsanityStage");
                 MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
                 MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
                 MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = 0;
@@ -272,18 +276,25 @@ public class EntityTickActions {
 
     public static void handleJumpscare(WorldAccess world, LivingEntity entity) {
         if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
-            if (!entity.getWorld().isClient())
+            if (!entity.getWorld().isClient()) {
                 entity.discard();
 
-            IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
-            if (dataSaver.getPersistentData().getDouble("JumpscareActive") < 1) {
-                dataSaver.getPersistentData().putDouble("JumpscareActive", 1);
-            }
+                ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
+                IEntityDataSaver dataSaver = (IEntityDataSaver) player;
 
-            if (dataSaver.getPersistentData().getDouble("InsanityStage") < 7) {
-                double _setval = dataSaver.getPersistentData().getDouble("InsanityStage") + 1;
-                dataSaver.getPersistentData().putDouble("InsanityStage", _setval);
-                dataSaver.getPersistentData().putDouble("InsanityTimer", 0);
+                if (dataSaver.getPersistentData().getDouble("JumpscareActive") < 1) {
+                    dataSaver.getPersistentData().putDouble("JumpscareActive", 1);
+
+                    MidnightLurkerNetworking.syncPlayerData(player, "JumpscareActive");
+                }
+
+                if (dataSaver.getPersistentData().getDouble("InsanityStage") < 7) {
+                    double _setval = dataSaver.getPersistentData().getDouble("InsanityStage") + 1;
+                    dataSaver.getPersistentData().putDouble("InsanityStage", _setval);
+                    dataSaver.getPersistentData().putDouble("InsanityTimer", 0);
+
+                    MidnightLurkerNetworking.syncPlayerData(player, "InsanityStage");
+                }
             }
         }
     }

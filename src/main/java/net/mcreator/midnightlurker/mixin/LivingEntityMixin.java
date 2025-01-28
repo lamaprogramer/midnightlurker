@@ -118,6 +118,8 @@ public class LivingEntityMixin implements IEntityDataSaver, AnimationHandler {
         }
     }
 
+
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void updateTick(CallbackInfo ci) {
         if (this instanceof AnimatableEntity syncable) {
@@ -150,11 +152,6 @@ public class LivingEntityMixin implements IEntityDataSaver, AnimationHandler {
     @Inject(method = "onDeath", at = @At("HEAD"))
     private void updateOnDeath(DamageSource damageSource, CallbackInfo ci) {
         PlayerDeathProcedure.execute(THIS.getWorld(), THIS);
-    }
-
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void updateDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        PlayerHitByAggroProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
     }
 
     @Inject(method = "eatFood", at = @At("HEAD"))

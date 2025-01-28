@@ -5,18 +5,24 @@ import net.mcreator.midnightlurker.config.core.Config;
 
 public class CoreConfig implements Config {
     private boolean lurkerChaseMusic;
+    private boolean longerLurkerChase;
+    private boolean lurkerInvulnerable;
+
+    private boolean multiSpawning;
+    private boolean invisibleEntitiesSpawning;
     private int lurkerSpawnRate;
+    private int netherLurkerSpawnRate;
+
     private boolean popUpJumpscare;
     private boolean jumpscareSound;
-    private boolean longerLurkerChase;
-    private boolean spookyAmbience;
-    private boolean multiSpawning;
+
     private boolean insanityProgressEffect;
     private int insanityCountdownTime;
-    private boolean lurkerInvulnerable;
-    private int netherLurkerSpawnRate;
+
     private boolean amnesia;
-    private boolean invisibleEntitiesSpawning;
+    private boolean insanityBar;
+
+    private boolean spookyAmbience;
     private boolean encountersProgressStages;
 
     public CoreConfig() {}
@@ -36,11 +42,12 @@ public class CoreConfig implements Config {
             copy.multiSpawning,
             copy.netherLurkerSpawnRate,
             copy.popUpJumpscare,
-            copy.spookyAmbience
+            copy.spookyAmbience,
+            copy.insanityBar
         );
     }
 
-    public CoreConfig(boolean encountersProgressStages, boolean amnesia, int insanityCountdownTime, boolean insanityProgressEffect, boolean invisibleEntitiesSpawning, boolean longerLurkerChase, boolean jumpscareSound, boolean lurkerChaseMusic, boolean lurkerInvulnerable, int lurkerSpawnRate, boolean multiSpawning, int netherLurkerSpawnRate, boolean popUpJumpscare, boolean spookyAmbience) {
+    public CoreConfig(boolean encountersProgressStages, boolean amnesia, int insanityCountdownTime, boolean insanityProgressEffect, boolean invisibleEntitiesSpawning, boolean longerLurkerChase, boolean jumpscareSound, boolean lurkerChaseMusic, boolean lurkerInvulnerable, int lurkerSpawnRate, boolean multiSpawning, int netherLurkerSpawnRate, boolean popUpJumpscare, boolean spookyAmbience, boolean insanityBar) {
         this.encountersProgressStages = encountersProgressStages;
         this.amnesia = amnesia;
         this.insanityCountdownTime = insanityCountdownTime;
@@ -55,6 +62,7 @@ public class CoreConfig implements Config {
         this.netherLurkerSpawnRate = netherLurkerSpawnRate;
         this.popUpJumpscare = popUpJumpscare;
         this.spookyAmbience = spookyAmbience;
+        this.insanityBar = insanityBar;
     }
 
 
@@ -69,6 +77,14 @@ public class CoreConfig implements Config {
 
     public void setAmnesia(boolean amnesia) {
         this.amnesia = amnesia;
+    }
+
+    public boolean shouldHaveInsanityBar() {
+        return this.insanityBar;
+    }
+
+    public void setInsanityBar(boolean insanityBar) {
+        this.insanityBar = insanityBar;
     }
 
     public boolean shouldDoEncountersProgressStages() {

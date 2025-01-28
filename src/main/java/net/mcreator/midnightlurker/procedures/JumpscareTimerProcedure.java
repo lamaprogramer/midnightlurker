@@ -54,19 +54,16 @@ public class JumpscareTimerProcedure {
 
 		if (dataSaver.getPersistentData().getDouble("JumpscareActive") == 1) {
 			if (dataSaver.getPersistentData().getDouble("JumpscareTimer") == 0) {
-				System.out.println("Set Jumpscare Timer.");
 				dataSaver.getPersistentData().putDouble("JumpscareTimer", 46);
 			}
 		}
 
 		if (dataSaver.getPersistentData().getDouble("JumpscareActive") == 1 && dataSaver.getPersistentData().getDouble("JumpscareTimer") == 1) {
-			System.out.println("Gen New Jumpscare Key");
 			dataSaver.getPersistentData().putDouble("JumpscareActive", 0);
 			dataSaver.getPersistentData().putDouble("JumpscareRandom", MathHelper.nextInt(Random.create(), 0, 2));
 		}
 
 		if (dataSaver.getPersistentData().getDouble("JumpscareTimer") > 0) {
-			System.out.println("Decremented Jumpscare Timer.");
 			double _setval = dataSaver.getPersistentData().getDouble("JumpscareTimer") - 1;
 			dataSaver.getPersistentData().putDouble("JumpscareTimer", _setval);
 		}

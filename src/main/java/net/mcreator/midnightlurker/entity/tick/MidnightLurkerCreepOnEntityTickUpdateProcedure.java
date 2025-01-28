@@ -49,11 +49,10 @@ public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
 				&& !world.isAir(BlockPos.ofFloored(spawnx, spawny - 1, spawnz))) {
 			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 300) && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 20)) {
 				if (entity instanceof LivingEntity _livEnt19 && _livEnt19.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-					{
-                        entity.teleport((ServerWorld) world, spawnx, spawny, spawnz, null, entity.getPitch(), entity.getYaw());
-						if (entity instanceof ServerPlayerEntity _serverPlayer)
-							_serverPlayer.networkHandler.requestTeleport(spawnx, spawny, spawnz, entity.getYaw(), entity.getPitch());
-					}
+
+					entity.teleport((ServerWorld) world, spawnx, spawny, spawnz, null, entity.getPitch(), entity.getYaw());
+					if (entity instanceof ServerPlayerEntity serverPlayer)
+						serverPlayer.networkHandler.requestTeleport(spawnx, spawny, spawnz, entity.getYaw(), entity.getPitch());
 				}
 			}
 		}

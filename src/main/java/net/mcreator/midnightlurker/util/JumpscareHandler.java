@@ -25,16 +25,12 @@ public class JumpscareHandler {
             Identifier frame = frameMap.getOrDefault((int)entityData.getPersistentData().getDouble("JumpscareTimer"), null);
 
             if (frame != null) {
-                System.out.println("Rendering frame: " + frame + " at id: " + entityData.getPersistentData().getDouble("JumpscareTimer"));
                 drawContext.drawTexture(frame, posX, posY, 0, 0, 1023, 528, 1023, 528);
-                return;
             }
-
-            System.out.println("Frame was null.");
         }
     }
 
-    public static boolean shouldJumpscareTest(Entity entity, int insanityStage, int randVal) {
+    public static boolean shouldJumpscare(Entity entity, int insanityStage, int randVal) {
         if (entity == null)
             return false;
 
@@ -44,11 +40,6 @@ public class JumpscareHandler {
         return entityData.getPersistentData().getDouble("JumpscareActive") == 1
                 && entityData.getPersistentData().getDouble("InsanityStage") == insanityStage
                 && accountForRandom;
-    }
-
-    public static boolean shouldJumpscare(Entity entity, int insanityStage, int randVal) {
-        boolean condition = shouldJumpscareTest(entity, insanityStage, randVal);
-        return condition;
     }
 
     public static boolean shouldDisplayFrame(IEntityDataSaver entityData, int frameId) {

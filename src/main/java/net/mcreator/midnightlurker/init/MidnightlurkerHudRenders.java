@@ -6,9 +6,8 @@ import net.mcreator.midnightlurker.client.screens.*;
 
 public class MidnightlurkerHudRenders {
     public static void init() {
-        ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-            ScreenEvents.afterRender(screen).register(new DeathJumpscareOverlay());
-        });
+        ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenEvents.afterRender(screen).register(new DeathJumpscareOverlay()));
+        ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> ScreenEvents.afterRender(screen).register(new InsanityBarOverlay()));
 
         HudRenderCallback.EVENT.register(new Insanityoverlay1Overlay());
         HudRenderCallback.EVENT.register(new Insanityoverlay2Overlay());

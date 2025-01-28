@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.mcreator.midnightlurker.config.CoreConfig;
 import net.mcreator.midnightlurker.config.core.ConfigRegistry;
 import net.mcreator.midnightlurker.init.*;
+import net.mcreator.midnightlurker.network.MidnightLurkerNetworking;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
 import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 import net.minecraft.server.MinecraftServer;
@@ -34,8 +35,9 @@ public class MidnightlurkerMod implements ModInitializer {
 	public static final boolean DEBUG_MODE = true;
 
 	private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
+
 	public static void queueServerWork(int tick, Runnable action) {
-		action.run();
+		workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class MidnightlurkerMod implements ModInitializer {
 		defaultConfig.setLurkerChaseMusic(true);
 		defaultConfig.setLurkerSpawnRate(3);
 		defaultConfig.setPopUpJumpscare(true);
-		defaultConfig.setJumpscareSound (true);
+		defaultConfig.setJumpscareSound(true);
 		defaultConfig.setLongerLurkerChase(false);
 		defaultConfig.setSpookyAmbience(true);
 		defaultConfig.setMultiSpawning(false);
@@ -55,9 +57,11 @@ public class MidnightlurkerMod implements ModInitializer {
 		defaultConfig.setAmnesia(true);
 		defaultConfig.setInvisibleEntitiesSpawning(true);
 		defaultConfig.setEncountersProgressStages(true);
+		defaultConfig.setInsanityBar(true);
 		CONFIG = new ConfigRegistry<>(defaultConfig, CoreConfig.class).register();
 
 		LurkerconfigProcedure.execute();
+		MidnightLurkerNetworking.initServer();
 
 		MidnightlurkerModSounds.init();
 		MidnightlurkerModItems.init();

@@ -16,7 +16,6 @@ import net.minecraft.util.Identifier;
 
 
 public class DeathJumpscareOverlay implements ScreenEvents.AfterRender {
-
 	public void afterRender(Screen screen, DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
 		if (screen instanceof DeathScreen) {
 			int w = screen.width;

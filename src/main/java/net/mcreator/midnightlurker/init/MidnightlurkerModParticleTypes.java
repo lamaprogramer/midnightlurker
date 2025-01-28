@@ -21,6 +21,7 @@ public class MidnightlurkerModParticleTypes {
 		register(Identifier.of(MidnightlurkerMod.MODID, "void_dot"), VOID_DOT);
 		register(Identifier.of(MidnightlurkerMod.MODID, "lurkerfaceparticle"), LURKERFACEPARTICLE);
 	}
+
 	private static void register(Identifier id, SimpleParticleType particleType) {
 		Registry.register(Registries.PARTICLE_TYPE, id, particleType);
 	}
