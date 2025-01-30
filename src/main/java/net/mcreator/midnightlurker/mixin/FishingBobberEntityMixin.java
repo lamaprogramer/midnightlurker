@@ -16,13 +16,12 @@ public class FishingBobberEntityMixin {
     private void updateUse(ItemStack usedItem, CallbackInfoReturnable<Integer> cir, @Local PlayerEntity entity) {
         if (entity == null)
 			return;
-		if (((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityStage") < 7) {
-			if (((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") >= 400) {
-				{
-					double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("InsanityTimer") - 200;
-
-                    ((IEntityDataSaver)entity).getPersistentData().putDouble("InsanityTimer", _setval);
-				}
+		
+		IEntityDataSaver entityData = (IEntityDataSaver) entity;
+		if (entityData.getPersistentData().getDouble("InsanityStage") < 7) {
+			if (entityData.getPersistentData().getDouble("InsanityTimer") >= 400) {
+				double _setval = entityData.getPersistentData().getDouble("InsanityTimer") - 200;
+				entityData.getPersistentData().putDouble("InsanityTimer", _setval);
 			}
 		}
     }

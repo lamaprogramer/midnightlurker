@@ -198,18 +198,20 @@ public class EntityTickActions {
                 });
             }
 
-            ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
-            IEntityDataSaver playerData = (IEntityDataSaver) player;
-            if (playerData.getPersistentData().getDouble("InsanityStage") == 7 && entityData.getPersistentData().getDouble("AngryTime") == 1) {
-                playerData.getPersistentData().putDouble("InsanityStage", 0);
-                playerData.getPersistentData().putDouble("InsanityTimer", 0);
-                playerData.getPersistentData().putDouble("InsanityAktive", 0);
+            if (!world.isClient()) {
+                ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
+                IEntityDataSaver playerData = (IEntityDataSaver) player;
+                if (playerData.getPersistentData().getDouble("InsanityStage") == 7 && entityData.getPersistentData().getDouble("AngryTime") == 1) {
+                    playerData.getPersistentData().putDouble("InsanityStage", 0);
+                    playerData.getPersistentData().putDouble("InsanityTimer", 0);
+                    playerData.getPersistentData().putDouble("InsanityAktive", 0);
 
-                MidnightLurkerNetworking.syncPlayerData(player, "InsanityStage");
-                MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
-                MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
-                MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = 0;
-                MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
+                    MidnightLurkerNetworking.syncPlayerData(player, "InsanityStage");
+                    MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
+                    MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
+                    MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = 0;
+                    MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
+                }
             }
         }
 

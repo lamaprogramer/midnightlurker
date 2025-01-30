@@ -23,5 +23,4 @@ public class MidnightlurkerModMobEffects {
 	private static RegistryEntry<StatusEffect> register(String id, StatusEffect statusEffect) {
 		return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(id), statusEffect);
 	}
-
 }

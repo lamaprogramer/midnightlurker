@@ -5,10 +5,10 @@ import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.FogShape;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,14 +26,26 @@ public class BackgroundRendererMixin {
 
 	@Shadow private static float blue;
 
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;clearColor(FFFF)V", remap = false))
+	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;clearColor(FFFF)V"))
 	private static void modifyFogColors(Args args, Camera camera, float partialTicks, ClientWorld level, int renderDistanceChunks, float bossColorModifier) {
 		Entity entity = camera.getFocusedEntity();
 
 		if (entity instanceof PlayerEntity player && player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-			red = 62 / 255.0F;
-			green = 20 / 255.0F;
-			blue = 25 / 255.0F;
+			IEntityDataSaver playerData = (IEntityDataSaver) player;
+			double fogFade = playerData.getPersistentData().getDouble("InsanityFog");
+			float step = Math.clamp((float)fogFade / 40f, 0f, 1f);
+
+			float r = MathHelper.lerp(step, red, 62 / 255.0F);
+			float g = MathHelper.lerp(step, green, 20 / 255.0F);
+			float b = MathHelper.lerp(step, blue, 25 / 255.0F);
+
+			red = r;
+			green = g;
+			blue = b;
+
+			args.set(0, r);
+			args.set(1, g);
+			args.set(2, b);
 		}
 	}
 
@@ -43,32 +55,13 @@ public class BackgroundRendererMixin {
 
         if (entity instanceof PlayerEntity player) {
 			IEntityDataSaver playerData = (IEntityDataSaver) player;
-			
-			if (player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-				fogData.fogStart = 1;
-				fogData.fogEnd = (float) playerData.getPersistentData().getDouble("InsanityFog");
-				fogData.fogShape = FogShape.SPHERE;
-	
-				if ((player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY) ? player.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration() : 0) >= 53
-						&& playerData.getPersistentData().getDouble("InsanityFog") >= 201) {
-					playerData.getPersistentData().putDouble("InsanityFog", 200);
-				}
-				
-				if ((player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY) ? player.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration() : 0) >= 53
-						&& playerData.getPersistentData().getDouble("InsanityFog") > 14) {
-					playerData.getPersistentData().putDouble("InsanityFog", (playerData.getPersistentData().getDouble("InsanityFog") - 1));
-				}
-				
-				if ((player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY) ? player.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration() : 0) <= 52
-						&& playerData.getPersistentData().getDouble("InsanityFog") < 200) {
-					playerData.getPersistentData().putDouble("InsanityFog", (playerData.getPersistentData().getDouble("InsanityFog") + 1));
-				}
 
-				if (playerData.getPersistentData().getDouble("InsanityFog") < 1) {
-					playerData.getPersistentData().putDouble("InsanityFog", 201);
-				}
-			} else {
-				playerData.getPersistentData().putDouble("InsanityFog", 201);
+			if (player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
+				double fogFade = playerData.getPersistentData().getDouble("InsanityFog");
+				float step = Math.clamp((float)fogFade / 40f, 0f, 1f);
+
+				fogData.fogStart = MathHelper.lerp(step, fogData.fogStart, 1);
+				fogData.fogEnd = MathHelper.lerp(step, fogData.fogEnd, 14);
 			}
 		}
     }

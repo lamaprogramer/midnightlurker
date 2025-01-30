@@ -17,10 +17,6 @@ public class MidnightlurkerModItems {
 	public static final Identifier MIDNIGHT_LURKER_INVISIBLE_SPAWN_EGG = Identifier.of("midnightlurker:midnight_lurker_invisible_spawn_egg");
 	public static final Identifier SPOOKYAMBIENCEENTITY_SPAWN_EGG = Identifier.of("midnightlurker:spookyambienceentity_spawn_egg");
 	public static final Identifier MIDNIGHT_LURKER_SEEN_ANGRESSIVE_SPAWN_EGG = Identifier.of("midnightlurker:midnight_lurker_seen_angressive_spawn_egg");
-	public static final Identifier DESTROYTEX_SPAWN_EGG = Identifier.of("midnightlurker:destroytex_spawn_egg");
-	public static final Identifier DESTROYTEX_2_SPAWN_EGG = Identifier.of("midnightlurker:destroytex_2_spawn_egg");
-	public static final Identifier DESTROYTEX_3_SPAWN_EGG = Identifier.of("midnightlurker:destroytex_3_spawn_egg");
-	public static final Identifier DESTROYTEX_4_SPAWN_EGG = Identifier.of("midnightlurker:destroytex_4_spawn_egg");
 	public static final Identifier MIDNIGHT_LURKER_FAKER_AGGRO_SPAWN_EGG = Identifier.of("midnightlurker:midnight_lurker_faker_aggro_spawn_egg");
 	public static final Identifier MIDNIGHT_LURKER_FAKER_SPAWN_EGG = Identifier.of("midnightlurker:midnight_lurker_faker_spawn_egg");
 	public static final Identifier MIDNIGHT_LURKER_FAKER_WATCHER_SPAWN_EGG = Identifier.of("midnightlurker:midnight_lurker_faker_watcher_spawn_egg");
@@ -64,12 +60,6 @@ public class MidnightlurkerModItems {
 	public static final Item MIDNIGHT_LURKER_WATCHER_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, -13421773, -3355444, new Item.Settings());
 	public static final Item VOID_HANDS_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.VOID_HANDS, -16777216, -16777216, new Item.Settings());
 	public static final Item MIDNIGHT_LURKER_CREEP_SPAWN_EGG_ITEM = new SpawnEggItem(MidnightlurkerModEntities.MIDNIGHT_LURKER_CREEP, -13421773, -3355444, new Item.Settings());
-	
-	
-	
-	
-	
-	
 
 	public static void init() {
 		register(

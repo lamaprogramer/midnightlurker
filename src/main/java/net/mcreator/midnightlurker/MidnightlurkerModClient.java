@@ -10,6 +10,7 @@ import net.mcreator.midnightlurker.network.MidnightLurkerNetworking;
 public class MidnightlurkerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+
         MidnightLurkerNetworking.initClient();
 
         MidnightlurkerHudRenders.init();
