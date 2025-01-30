@@ -2,7 +2,6 @@ package net.mcreator.midnightlurker.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
-import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.world.ClientWorld;
@@ -31,9 +30,7 @@ public class BackgroundRendererMixin {
 		Entity entity = camera.getFocusedEntity();
 
 		if (entity instanceof PlayerEntity player && player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-			IEntityDataSaver playerData = (IEntityDataSaver) player;
-			double fogFade = playerData.getPersistentData().getDouble("InsanityFog");
-			float step = Math.clamp((float)fogFade / 40f, 0f, 1f);
+			float step = player.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getFadeFactor(player, 1f);
 
 			float r = MathHelper.lerp(step, red, 62 / 255.0F);
 			float g = MathHelper.lerp(step, green, 20 / 255.0F);
@@ -54,11 +51,8 @@ public class BackgroundRendererMixin {
         Entity entity = camera.getFocusedEntity();
 
         if (entity instanceof PlayerEntity player) {
-			IEntityDataSaver playerData = (IEntityDataSaver) player;
-
 			if (player.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-				double fogFade = playerData.getPersistentData().getDouble("InsanityFog");
-				float step = Math.clamp((float)fogFade / 40f, 0f, 1f);
+				float step = player.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getFadeFactor(player, 1f);
 
 				fogData.fogStart = MathHelper.lerp(step, fogData.fogStart, 1);
 				fogData.fogEnd = MathHelper.lerp(step, fogData.fogEnd, 14);

@@ -24,6 +24,11 @@ public class InsanityMobEffect extends StatusEffect {
 	}
 
 	@Override
+	public int getFadeTicks() {
+		return 20;
+	}
+
+	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
 		return true;
 	}

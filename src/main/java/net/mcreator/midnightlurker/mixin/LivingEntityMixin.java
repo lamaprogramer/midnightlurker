@@ -1,7 +1,6 @@
 package net.mcreator.midnightlurker.mixin;
 
 import net.mcreator.midnightlurker.entity.AnimatableEntity;
-import net.mcreator.midnightlurker.init.MidnightlurkerModMobEffects;
 import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
@@ -142,20 +141,6 @@ public class LivingEntityMixin implements IEntityDataSaver, AnimationHandler {
             JumpscareTimerProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
             LurkerfaceparticleprocedureProcedure.execute(THIS.getWorld(), THIS);
             ScreenShakeProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
-
-            IEntityDataSaver playerData = (IEntityDataSaver) THIS;
-            if (THIS.getWorld().isClient() && THIS.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-                double fogFade = playerData.getPersistentData().getDouble("InsanityFog");
-                int duration = THIS.getStatusEffect(MidnightlurkerModMobEffects.INSANITY).getDuration();
-
-                if (fogFade < 40 && duration > 40) {
-                    playerData.getPersistentData().putDouble("InsanityFog", fogFade + 1);
-                } else if (duration <= 40) {
-                    playerData.getPersistentData().putDouble("InsanityFog", fogFade - 1);
-                }
-            } else {
-                playerData.getPersistentData().putDouble("InsanityFog", 0);
-            }
         }
     }
 
