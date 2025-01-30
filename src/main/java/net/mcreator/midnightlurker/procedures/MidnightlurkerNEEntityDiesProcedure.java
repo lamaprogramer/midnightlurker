@@ -14,14 +14,12 @@ public class MidnightlurkerNEEntityDiesProcedure {
 	public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
-		if (world instanceof ServerWorld level)
-			level.getServer().getCommandManager().executeWithPrefix(
-					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
-					"/stopsound @a * midnightlurker:lurkerchase");
-		if (world instanceof ServerWorld level)
-			level.getServer().getCommandManager().executeWithPrefix(
-					new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
-					"/stopsound @a * midnightlurker:lurkerchase2");
+
+		if (world instanceof ServerWorld level) {
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/stopsound @a * midnightlurker:lurkerchase");
+			level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/stopsound @a * midnightlurker:lurkerchase2");
+		}
+
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive > 0) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);

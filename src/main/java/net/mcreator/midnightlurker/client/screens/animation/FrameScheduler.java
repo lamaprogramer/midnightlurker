@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 
 public class FrameScheduler {
-    private Map<Integer, Identifier> frameMap;
+    private final Map<Integer, Identifier> frameMap;
 
     public FrameScheduler(Map<Integer, Identifier> frameMap) {
         this.frameMap = frameMap;

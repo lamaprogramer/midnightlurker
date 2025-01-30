@@ -7,8 +7,8 @@ import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.LurandsOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.LurandsattackplayerProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -25,13 +25,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -84,9 +82,8 @@ public class VoidHandsEntity extends HostileEntity implements GeoEntity, Animata
 				double x = VoidHandsEntity.this.getX();
 				double y = VoidHandsEntity.this.getY();
 				double z = VoidHandsEntity.this.getZ();
-				Entity entity = VoidHandsEntity.this;
 				World world = VoidHandsEntity.this.getWorld();
-				return super.canStart() && LurandsattackplayerProcedure.execute(world, x, y, z);
+				return super.canStart() && !EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 10);
 			}
 		});
 	}

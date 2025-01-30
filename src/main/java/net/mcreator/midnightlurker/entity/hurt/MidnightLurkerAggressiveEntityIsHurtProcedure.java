@@ -17,6 +17,7 @@ public class MidnightLurkerAggressiveEntityIsHurtProcedure {
 		IEntityDataSaver entityData = (IEntityDataSaver) entity;
 		
 		if (config.isLurkerInvulnerable()) {
+
 			if ((entity instanceof MidnightLurkerAggressiveEntity || entity instanceof MidnightLurkerBackturnedEntity || entity instanceof MidnightLurkerHiderEntity || entity instanceof MidnightLurkerRuntrueEntity
 					|| entity instanceof MidnightLurkerSeenAngressiveEntity || entity instanceof MidnightLurkerStalkingEntity || entity instanceof MidnightLurkerUnprovokedEntity || entity instanceof MidnightlurkerNEEntity)
 					&& sourceentity instanceof PlayerEntity) {

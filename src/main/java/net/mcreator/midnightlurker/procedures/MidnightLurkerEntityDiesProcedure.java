@@ -17,10 +17,7 @@ public class MidnightLurkerEntityDiesProcedure {
 		}
 		IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300);
 		if (dataSaver.getPersistentData().getDouble("InsanityAktive") > 0) {
-			{
-				double _setval = 0;
-				dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-			}
+			dataSaver.getPersistentData().putDouble("InsanityAktive", 0);
 		}
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost < 5) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost + 1;

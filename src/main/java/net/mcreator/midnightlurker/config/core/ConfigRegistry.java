@@ -14,6 +14,7 @@ public class ConfigRegistry<C extends Config> {
         this.config = config;
         this.defaultConfig = defaultConfig;
     }
+
     public C register() {
         Path configLocation = ConfigUtil.findOrCreateConfig(this.defaultConfig);
         try {

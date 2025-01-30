@@ -9,7 +9,6 @@ import net.mcreator.midnightlurker.entity.tick.InvisibleShadowOnEntityTickUpdate
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.procedures.InvisibleFootstepsPlayerCollidesWithThisEntityProcedure;
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -28,10 +27,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -125,12 +121,12 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		this.goalSelector.add(3, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				return super.canStart() && VoidFloatProcProcedure.execute();
+				return super.canStart();
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				return super.shouldContinue() && VoidFloatProcProcedure.execute();
+				return super.shouldContinue();
 			}
 		});
 	}

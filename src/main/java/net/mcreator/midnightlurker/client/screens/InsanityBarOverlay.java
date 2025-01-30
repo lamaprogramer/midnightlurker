@@ -45,7 +45,7 @@ public class InsanityBarOverlay implements ScreenEvents.AfterRender {
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 
-			if (MidnightlurkerMod.CONFIG.shouldHaveInsanityBar()) {
+			if (entity != null && MidnightlurkerMod.CONFIG.shouldHaveInsanityBar()) {
 				if (entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
 					drawContext.drawTexture(Identifier.of("midnightlurker:textures/screens/insanitystagecharge.png"), 0, 0, 0, 0, w, h, w, h);
 				} else {

@@ -1,9 +1,9 @@
 package net.mcreator.midnightlurker.procedures;
 
-import com.google.gson.JsonObject;
+import net.mcreator.midnightlurker.MidnightlurkerMod;
+import net.mcreator.midnightlurker.config.CoreConfig;
 import net.mcreator.midnightlurker.entity.MidnightLurkerAggressiveEntity;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.util.ConfigUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Box;
@@ -15,9 +15,10 @@ public class InsanityStageTimerProcedure {
     public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
-		JsonObject config = ConfigUtil.loadConfig();
+		CoreConfig config = MidnightlurkerMod.CONFIG;
+
 		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
-		double insanityCountdownTime = config.get("insanity_countdown_time").getAsDouble();
+		double insanityCountdownTime = config.getInsanityCountdownTime();
 
 		if (insanityCountdownTime == 1) {
 			handleInsanityCounter(entity, dataSaver, world, 6000);

@@ -165,7 +165,7 @@ public class Jumpscare2Overlay implements HudRenderCallback {
 		PlayerEntity entity = MinecraftClient.getInstance().player;
 		IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
 
-		if (dataSaver.getPersistentData().getDouble("JumpscareActive") == 1) {
+		if (entity != null && dataSaver.getPersistentData().getDouble("JumpscareActive") == 1) {
 			int insanity = (int) dataSaver.getPersistentData().getDouble("InsanityStage");
 			int random = (int) dataSaver.getPersistentData().getDouble("JumpscareRandom");
 

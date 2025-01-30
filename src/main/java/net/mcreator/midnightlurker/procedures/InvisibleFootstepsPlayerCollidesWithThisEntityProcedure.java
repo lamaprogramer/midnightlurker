@@ -7,7 +7,9 @@ public class InvisibleFootstepsPlayerCollidesWithThisEntityProcedure {
 	public static void execute(Entity entity) {
 		if (entity == null)
 			return;
-		if (!entity.getWorld().isClient())
+
+		if (!entity.getWorld().isClient()) {
 			entity.discard();
+		}
 	}
 }

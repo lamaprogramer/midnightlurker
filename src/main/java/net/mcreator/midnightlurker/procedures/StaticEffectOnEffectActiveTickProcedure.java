@@ -17,16 +17,12 @@ public class StaticEffectOnEffectActiveTickProcedure {
 		if (entity == null)
 			return;
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") == 0) {
-			{
-				double _setval = MathHelper.nextInt(Random.create(), 20, 45);
-				((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
-			}
+			double _setval = MathHelper.nextInt(Random.create(), 20, 45);
+			((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
 		}
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") > 0) {
-			{
-				double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") - 1;
-				((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
-			}
+			double _setval = ((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") - 1;
+			((IEntityDataSaver)entity).getPersistentData().putDouble("StaticRender", _setval);
 		}
 		if (((IEntityDataSaver)entity).getPersistentData().getDouble("StaticRender") == 10) {
 			if (world instanceof ServerWorld level)

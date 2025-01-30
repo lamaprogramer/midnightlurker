@@ -16,6 +16,7 @@ public class AmnesiaOnEffectActiveTickProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
+
 		double raytrace_distance = 0;
 		boolean entity_found = false;
         for (int index0 = 0; index0 < 30; index0++) {

@@ -12,8 +12,9 @@ public class InvisibleLurkerFootstepsPlayerCollidesWithThisEntityProcedure {
 		if (entity == null)
 			return;
 		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 14, 14, 14), e -> true).isEmpty()) {
-			if (!entity.getWorld().isClient())
+			if (!entity.getWorld().isClient()) {
 				entity.discard();
+			}
 		}
 	}
 }

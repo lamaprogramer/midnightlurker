@@ -47,7 +47,7 @@ public class JumpRedFlashOverlay implements HudRenderCallback {
 
 		IEntityDataSaver entityData = (IEntityDataSaver) entity;
 
-		if (entityData.getPersistentData().getDouble("JumpscareActive") == 1) {
+		if (entity != null && entityData.getPersistentData().getDouble("JumpscareActive") == 1) {
 			frameScheduler.playAnimation(drawContext,
 				(int) entityData.getPersistentData().getDouble("JumpscareTimer"),
 				w, h,

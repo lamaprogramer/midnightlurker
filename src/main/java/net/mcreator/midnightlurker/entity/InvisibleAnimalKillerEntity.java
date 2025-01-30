@@ -7,7 +7,6 @@ import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.InvisibleAnimalKillerOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -87,12 +86,12 @@ public class InvisibleAnimalKillerEntity extends HostileEntity implements GeoEnt
 		this.goalSelector.add(6, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				return super.canStart() && VoidFloatProcProcedure.execute();
+				return super.canStart();
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				return super.shouldContinue() && VoidFloatProcProcedure.execute();
+				return super.shouldContinue();
 			}
 		});
 	}

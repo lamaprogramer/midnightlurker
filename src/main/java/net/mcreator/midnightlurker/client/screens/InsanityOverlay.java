@@ -46,7 +46,7 @@ public class InsanityOverlay implements HudRenderCallback {
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 
-		if (entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
+		if (entity != null && entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
 			frameScheduler.playAnimation(drawContext,
 					(int) ((IEntityDataSaver) entity).getPersistentData().getDouble("InsanityOverlayTime"),
 					w, h,

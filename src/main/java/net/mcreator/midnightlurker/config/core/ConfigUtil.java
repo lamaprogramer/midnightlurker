@@ -17,7 +17,6 @@ public class ConfigUtil {
 
     public static <C extends Config> boolean save(C config) {
         Path path = Path.of(ConfigUtil.CONFIG_PATH.toString(), config.fileName()+".json");
-        System.out.println("Saved");
         if (!Files.exists(path)) {
             try {
                 createFileWithDirectories(path, config);
@@ -35,6 +34,7 @@ public class ConfigUtil {
         }
         return false;
     }
+
     public static <C extends Config> C load(Path configPath, Class<C> config) {
         try {
             return GSON.fromJson(new FileReader(configPath.toString()), config);

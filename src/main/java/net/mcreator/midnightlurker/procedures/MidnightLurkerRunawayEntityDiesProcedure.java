@@ -23,10 +23,7 @@ public class MidnightLurkerRunawayEntityDiesProcedure {
 		}
 		IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 300, 300, 300);
 		if (dataSaver.getPersistentData().getDouble("InsanityAktive") > 0) {
-			{
-				double _setval = 0;
-				dataSaver.getPersistentData().putDouble("InsanityAktive", _setval);
-			}
+			dataSaver.getPersistentData().putDouble("InsanityAktive", 0);
 		}
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost < 5) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost + 1;
@@ -35,8 +32,7 @@ public class MidnightLurkerRunawayEntityDiesProcedure {
 		MidnightlurkerMod.queueServerWork(100, () -> {
 			if (Math.random() > 0.5) {
 				if (world instanceof ServerWorld level)
-					level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(),
-							"/playsound midnightlurker:lurker_taunt neutral @a ~ ~ ~ 3 1");
+					level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/playsound midnightlurker:lurker_taunt neutral @a ~ ~ ~ 3 1");
 			}
 		});
 	}

@@ -19,34 +19,25 @@ public class ScreenShakeProcedure {
         IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
 		if (!world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()) {
 			if (dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
-				{
-					double _setval = dataSaver.getPersistentData().getDouble("ScreenShake") - 1;
-					dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
-					
-				}
+				double _setval = dataSaver.getPersistentData().getDouble("ScreenShake") - 1;
+				dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
 			}
 		}
 		if ((world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty())
 				&& dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
-			{
-				double _setval = 0;
-				dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
-				
-			}
+			dataSaver.getPersistentData().putDouble("ScreenShake", 0);
 		}
 		if (!world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()) {
 			if (dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
-				{
-                    entity.setYaw(entity.getYaw() + MathHelper.nextInt(Random.create(), -1, 1));
-					entity.setPitch(entity.getPitch() + MathHelper.nextInt(Random.create(), -1, 1));
-					entity.setBodyYaw(entity.getYaw());
-					entity.setHeadYaw(entity.getYaw());
-					entity.prevYaw = entity.getYaw();
-					entity.prevPitch = entity.getPitch();
-					if (entity instanceof LivingEntity _entity) {
-						_entity.prevBodyYaw = _entity.getYaw();
-						_entity.prevHeadYaw = _entity.getYaw();
-					}
+				entity.setYaw(entity.getYaw() + MathHelper.nextInt(Random.create(), -1, 1));
+				entity.setPitch(entity.getPitch() + MathHelper.nextInt(Random.create(), -1, 1));
+				entity.setBodyYaw(entity.getYaw());
+				entity.setHeadYaw(entity.getYaw());
+				entity.prevYaw = entity.getYaw();
+				entity.prevPitch = entity.getPitch();
+				if (entity instanceof LivingEntity _entity) {
+					_entity.prevBodyYaw = _entity.getYaw();
+					_entity.prevHeadYaw = _entity.getYaw();
 				}
 			}
 		}

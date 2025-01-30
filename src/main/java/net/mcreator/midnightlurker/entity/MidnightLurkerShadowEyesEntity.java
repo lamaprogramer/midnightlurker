@@ -4,7 +4,6 @@ package net.mcreator.midnightlurker.entity;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
-import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerShadowEyesEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerShadowNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerShadowEyesOnEntityTickUpdateProcedure;
@@ -19,19 +18,13 @@ import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -121,37 +114,7 @@ public class MidnightLurkerShadowEyesEntity extends HostileEntity implements Geo
 
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		if (!MidnightLurkerShadowEyesEntityIsHurtProcedure.execute(this))
-			return false;
-		if (source.isOf(DamageTypes.IN_FIRE))
-			return false;
-		if (source.getSource() instanceof PersistentProjectileEntity)
-			return false;
-		if (source.getSource() instanceof PlayerEntity)
-			return false;
-		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
-			return false;
-		if (source.isOf(DamageTypes.FALL))
-			return false;
-		if (source.isOf(DamageTypes.CACTUS))
-			return false;
-		if (source.isOf(DamageTypes.DROWN))
-			return false;
-		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
-			return false;
-		if (source.isOf(DamageTypes.EXPLOSION))
-			return false;
-		if (source.isOf(DamageTypes.TRIDENT))
-			return false;
-		if (source.isOf(DamageTypes.FALLING_ANVIL))
-			return false;
-		if (source.isOf(DamageTypes.DRAGON_BREATH))
-			return false;
-		if (source.isOf(DamageTypes.WITHER))
-			return false;
-		if (source.isOf(DamageTypes.WITHER_SKULL))
-			return false;
-		return super.damage(source, amount);
+		return false;
 	}
 
 	@Override

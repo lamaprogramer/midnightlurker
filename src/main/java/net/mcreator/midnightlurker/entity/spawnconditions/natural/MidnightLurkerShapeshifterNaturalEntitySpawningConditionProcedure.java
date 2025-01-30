@@ -24,12 +24,13 @@ public class MidnightLurkerShapeshifterNaturalEntitySpawningConditionProcedure {
 						if ((world.getBlockState(BlockPos.ofFloored(x + sx, y + sy, z + sz))).getBlock() == Blocks.BELL) {
 							found = true;
 						}
-						sz = sz + 1;
+						sz += 1;
 					}
-					sy = sy + 1;
+					sy += 1;
 				}
-				sx = sx + 1;
+				sx += 1;
 			}
+
 			if (found) {
                 return EntityUtil.hasNoEntityOfTypeInArea(world, MidnightLurkerShapeshifterEntity.class, new Vec3d(x, y, z), 400);
 			}

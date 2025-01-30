@@ -38,12 +38,11 @@ public class SpookyambienceentityOnInitialEntitySpawnProcedure {
 					|| !world.getEntitiesByClass(MidnightLurkerStareEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()
 					|| !world.getEntitiesByClass(MidnightLurkerWatcherEntity.class, Box.of(new Vec3d(x, y, z), 700, 700, 700), e -> true).isEmpty()
 					|| !EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 700)) {
+
 				if (world instanceof ServerWorld level) {
 					level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/playsound midnightlurker:spookyambience record @a ~ ~ ~ 500 1");
-				}
 
-				if (Math.random() >= 0.8) {
-					if (world instanceof ServerWorld level) {
+					if (Math.random() >= 0.8) {
 						level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/playsound midnightlurker:thirteen_ambient record @a ~ ~ ~ 500 1");
 					}
 				}

@@ -7,7 +7,6 @@ import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.procedures.VoidFloatProcProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
@@ -128,12 +127,12 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 		this.goalSelector.add(3, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
-				return super.canStart() && VoidFloatProcProcedure.execute();
+				return super.canStart();
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				return super.shouldContinue() && VoidFloatProcProcedure.execute();
+				return super.shouldContinue();
 			}
 		});
 		this.goalSelector.add(4, new WanderAroundGoal(this, 1) {

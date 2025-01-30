@@ -20,7 +20,6 @@ import net.mcreator.midnightlurker.config.core.ConfigRegistry;
 import net.mcreator.midnightlurker.init.*;
 import net.mcreator.midnightlurker.network.MidnightLurkerNetworking;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
-import net.mcreator.midnightlurker.procedures.LurkerconfigProcedure;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.AbstractMap;
@@ -60,7 +59,6 @@ public class MidnightlurkerMod implements ModInitializer {
 		defaultConfig.setInsanityBar(true);
 		CONFIG = new ConfigRegistry<>(defaultConfig, CoreConfig.class).register();
 
-		LurkerconfigProcedure.execute();
 		MidnightLurkerNetworking.initServer();
 
 		MidnightlurkerModSounds.init();

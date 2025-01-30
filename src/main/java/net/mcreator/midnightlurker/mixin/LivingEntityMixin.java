@@ -130,9 +130,9 @@ public class LivingEntityMixin implements IEntityDataSaver, AnimationHandler {
             }
         }
 
-        if (THIS instanceof PlayerEntity) {
+        if (THIS instanceof PlayerEntity player) {
             AggroPotionAddTickProcedure.execute(THIS.getWorld(), THIS.getX(), THIS.getY(), THIS.getZ(), THIS);
-            InsanityoverlayrendersProcedure.execute(THIS);
+            InsanityoverlayrendersProcedure.execute(player);
             AmnesiaStageAddProcedure.execute(THIS);
             DeathJumpTimerProcedure.execute(THIS.getWorld(), THIS);
             EncounterProcProcedure.execute(THIS);

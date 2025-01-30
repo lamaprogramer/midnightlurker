@@ -15,13 +15,14 @@ public class MidnightLurkerShapeshifterEntityIsHurtProcedure {
 	public static void execute(WorldAccess world, Entity entity) {
 		if (entity == null)
 			return;
+
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
-			if (world instanceof ServerWorld level)
-				level.spawnParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
-			if (!entity.getWorld().isClient())
+			if (!entity.getWorld().isClient()) {
+				((ServerWorld)world).spawnParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
+
 				entity.discard();
-			if (world instanceof ServerWorld level) {
-				Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE.spawn(level, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
+
+				Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_RUNTRUE.spawn(((ServerWorld)world), BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
 				if (entityToSpawn != null) {
 					entityToSpawn.setYaw(entity.getYaw());
 					entityToSpawn.setBodyYaw(entity.getYaw());
