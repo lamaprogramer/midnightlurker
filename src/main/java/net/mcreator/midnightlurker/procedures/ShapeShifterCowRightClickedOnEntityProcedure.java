@@ -18,6 +18,7 @@ public class ShapeShifterCowRightClickedOnEntityProcedure {
 	public static void execute(WorldAccess world, Entity entity, Entity sourceentity) {
 		if (entity == null || sourceentity == null)
 			return;
+
 		if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandStack() : ItemStack.EMPTY).getItem() == Items.BUCKET
 				|| (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffHandStack() : ItemStack.EMPTY).getItem() == Items.BUCKET) {
 			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {

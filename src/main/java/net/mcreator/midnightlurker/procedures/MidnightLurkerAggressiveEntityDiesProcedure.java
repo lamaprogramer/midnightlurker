@@ -26,10 +26,12 @@ public class MidnightLurkerAggressiveEntityDiesProcedure {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive = 0;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 		}
+
 		if (MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost < 5) {
 			MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost = MidnightlurkerModVariables.WorldVariables.get(world).midnighthealthboost + 1;
 			MidnightlurkerModVariables.WorldVariables.get(world).syncData(world);
 		}
+
 		IEntityDataSaver entityDataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 100, 100, 100);
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 100)
 				&& entityDataSaver.getPersistentData().getDouble("InsanityStage") == 7) {

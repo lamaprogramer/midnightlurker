@@ -56,9 +56,6 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity, A
 				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "nothing")
 		);
-		
-		
-		
 	}
 
 	public void setTexture(String texture) {
@@ -73,8 +70,6 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity, A
 	public double getEyeY() {
 		return 1.4F;
 	}
-
-	
 
 	@Override
 	protected void initGoals() {
@@ -93,8 +88,6 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity, A
 			}
 		});
 	}
-
-	
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:nostepsound")), 0.15f, 1);
@@ -149,9 +142,6 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity, A
 		this.calculateDimensions();
 	}
 
-
-	
-
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
 		super.onPlayerCollision(player);
@@ -163,12 +153,11 @@ public class InvisibleStaticEntity extends HostileEntity implements GeoEntity, A
 	}
 
 	@Override
-	protected void pushAway(Entity entity) {
-	}
+	protected void pushAway(Entity entity) {}
 
 	@Override
-	protected void tickCramming() {
-	}
+	protected void tickCramming() {}
+
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_STATIC, 4, 1, 1);
 		SpawnRestriction.register(MidnightlurkerModEntities.INVISIBLE_STATIC, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (entityType, world, reason, pos, random) -> {

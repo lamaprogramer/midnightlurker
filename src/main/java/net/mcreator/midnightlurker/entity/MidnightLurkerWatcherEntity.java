@@ -3,7 +3,6 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNaturalEntitySpawningConditionProcedure;
@@ -21,17 +20,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -39,43 +32,20 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
-	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerWatcherEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerWatcherEntity.class, TrackedDataHandlerRegistry.STRING);
-	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerWatcherEntity.class, TrackedDataHandlerRegistry.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+public class MidnightLurkerWatcherEntity extends MidnightLurkerEntity {
 	public MidnightLurkerWatcherEntity(EntityType<MidnightLurkerWatcherEntity> type, World world) {
 		super(type, world);
-		
-		setGlowing(MidnightlurkerMod.DEBUG_MODE);
-		setAiDisabled(false);
 	}
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder
-				.add(SHOOT, false)
-				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "midnightlurkervoidgatenomouth")
 		);
 	}
-
-	public void setTexture(String texture) {
-		this.dataTracker.set(TEXTURE, texture);
-	}
-
-	public String getTexture() {
-		return this.dataTracker.get(TEXTURE);
-	}
-
-	
 
 	@Override
 	protected void initGoals() {
@@ -87,13 +57,13 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 			@Override
 			public boolean canStart() {
 				Entity entity = MidnightLurkerWatcherEntity.this;
-				return super.canStart() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.canStart() && entity.isTouchingWater();
 			}
 
 			@Override
 			public boolean shouldContinue() {
 				Entity entity = MidnightLurkerWatcherEntity.this;
-				return super.shouldContinue() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.shouldContinue() && entity.isTouchingWater();
 			}
 		});
 	}
@@ -119,26 +89,6 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 			return false;
 		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
 			return false;
-		if (source.isOf(DamageTypes.FALL))
-			return false;
-		if (source.isOf(DamageTypes.CACTUS))
-			return false;
-		if (source.isOf(DamageTypes.DROWN))
-			return false;
-		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
-			return false;
-		if (source.isOf(DamageTypes.EXPLOSION))
-			return false;
-		if (source.isOf(DamageTypes.TRIDENT))
-			return false;
-		if (source.isOf(DamageTypes.FALLING_ANVIL))
-			return false;
-		if (source.isOf(DamageTypes.DRAGON_BREATH))
-			return false;
-		if (source.isOf(DamageTypes.WITHER))
-			return false;
-		if (source.isOf(DamageTypes.WITHER_SKULL))
-			return false;
 		return super.damage(source, amount);
 	}
 
@@ -155,8 +105,6 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 		MidnightLurkerWatcherOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
 		this.calculateDimensions();
 	}
-
-	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_WATCHER, 15, 1, 1);
@@ -180,9 +128,7 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 
 	private PlayState movementPredicate(AnimationState<?> event) {
 		if (!((AnimationHandler)this).hasAnimation()) {
-			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))
-
-					&& !this.isAttacking()) {
+			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F)) && !this.isAttacking()) {
 				return event.setAndContinue(RawAnimation.begin().thenLoop("running6"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
@@ -196,36 +142,9 @@ public class MidnightLurkerWatcherEntity extends HostileEntity implements GeoEnt
 		return PlayState.STOP;
 	}
 
-	private PlayState dynamicPredicate(AnimationState<?> animationState) {
-		AnimationHandler animationHandler = (AnimationHandler) this;
-		return animationHandler.dynamic(animationState, false);
-	}
-
-	@Override
-	protected void updatePostDeath() {
-		++this.deathTime;
-		if (this.deathTime == 20) {
-			this.remove(RemovalReason.KILLED);
-			this.dropXp(null);
-		}
-	}
-
-	public String getSyncedAnimation() {
-		return this.dataTracker.get(ANIMATION);
-	}
-
-	public void setAnimation(String animation) {
-		this.dataTracker.set(ANIMATION, animation);
-	}
-
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		super.registerControllers(data);
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
-	}
-
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
 	}
 }

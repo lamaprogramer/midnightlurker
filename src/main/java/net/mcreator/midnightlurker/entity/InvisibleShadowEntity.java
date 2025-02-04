@@ -7,9 +7,8 @@ import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.InvisibleShadowOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleFootstepsPlayerCollidesWithThisEntityProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -73,51 +72,38 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		return 1.4F;
 	}
 
-	
-
 	@Override
 	protected void initGoals() {
 		super.initGoals();
+
 		this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, false, false) {
 			@Override
 			public boolean canStart() {
-				double x = InvisibleShadowEntity.this.getX();
-				double y = InvisibleShadowEntity.this.getY();
-				double z = InvisibleShadowEntity.this.getZ();
 				World world = InvisibleShadowEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleShadowEntity.this.getPos(), 7);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = InvisibleShadowEntity.this.getX();
-				double y = InvisibleShadowEntity.this.getY();
-				double z = InvisibleShadowEntity.this.getZ();
 				World world = InvisibleShadowEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleShadowEntity.this.getPos(), 7);
 			}
 		});
-		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, false) {
 
+		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			public boolean canStart() {
-				double x = InvisibleShadowEntity.this.getX();
-				double y = InvisibleShadowEntity.this.getY();
-				double z = InvisibleShadowEntity.this.getZ();
 				World world = InvisibleShadowEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleShadowEntity.this.getPos(), 7);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = InvisibleShadowEntity.this.getX();
-				double y = InvisibleShadowEntity.this.getY();
-				double z = InvisibleShadowEntity.this.getZ();
 				World world = InvisibleShadowEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleShadowEntity.this.getPos(), 7);
 			}
-
 		});
+
 		this.goalSelector.add(3, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
@@ -131,7 +117,6 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		});
 	}
 
-	
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:nostepsound")), 0.15f, 1);
@@ -187,25 +172,24 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		this.calculateDimensions();
 	}
 
-	
-
 	@Override
 	public void onPlayerCollision(PlayerEntity player) {
 		super.onPlayerCollision(player);
-		InvisibleFootstepsPlayerCollidesWithThisEntityProcedure.execute(this);
+		if (!this.getWorld().isClient()) {
+			this.discard();
+		}
 	}
+
 	@Override
 	public boolean isPushable() {
 		return false;
 	}
 	
 	@Override
-	protected void pushAway(Entity entity) {
-	}
+	protected void pushAway(Entity entity) {}
 
 	@Override
-	protected void tickCramming() {
-	}
+	protected void tickCramming() {}
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.INVISIBLE_SHADOW, 4, 1, 1);

@@ -3,7 +3,6 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerSpawnmainProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerFakerOnEntityTickUpdateProcedure;
@@ -17,9 +16,6 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
@@ -31,43 +27,22 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightLurkerFakerEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
-	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightLurkerFakerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightLurkerFakerEntity.class, TrackedDataHandlerRegistry.STRING);
-	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightLurkerFakerEntity.class, TrackedDataHandlerRegistry.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+public class MidnightLurkerFakerEntity extends MidnightLurkerEntity {
 
 	public MidnightLurkerFakerEntity(EntityType<MidnightLurkerFakerEntity> type, World world) {
 		super(type, world);
 		this.experiencePoints = 25;
-		setGlowing(MidnightlurkerMod.DEBUG_MODE);
-		setAiDisabled(false);
 	}
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder
-				.add(SHOOT, false)
-				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "midnightlurker")
 		);
 	}
-
-	public void setTexture(String texture) {
-		this.dataTracker.set(TEXTURE, texture);
-	}
-
-	public String getTexture() {
-		return this.dataTracker.get(TEXTURE);
-	}
-
-	
 
 	@Override
 	protected void initGoals() {
@@ -80,18 +55,16 @@ public class MidnightLurkerFakerEntity extends HostileEntity implements GeoEntit
 			@Override
 			public boolean canStart() {
 				Entity entity = MidnightLurkerFakerEntity.this;
-				return super.canStart() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.canStart() && entity.isTouchingWater();
 			}
 
 			@Override
 			public boolean shouldContinue() {
 				Entity entity = MidnightLurkerFakerEntity.this;
-				return super.shouldContinue() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.shouldContinue() && entity.isTouchingWater();
 			}
 		});
 	}
-
-	
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -126,8 +99,6 @@ public class MidnightLurkerFakerEntity extends HostileEntity implements GeoEntit
 		MidnightLurkerFakerOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
 		this.calculateDimensions();
 	}
-
-	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.MIDNIGHT_LURKER_FAKER, 7, 1, 1);
@@ -170,36 +141,9 @@ public class MidnightLurkerFakerEntity extends HostileEntity implements GeoEntit
 		return PlayState.STOP;
 	}
 
-	private PlayState dynamicPredicate(AnimationState<?> animationState) {
-		AnimationHandler animationHandler = (AnimationHandler) this;
-		return animationHandler.dynamic(animationState, false);
-	}
-
-	@Override
-	protected void updatePostDeath() {
-		++this.deathTime;
-		if (this.deathTime == 20) {
-			this.remove(RemovalReason.KILLED);
-			this.dropXp(null);
-		}
-	}
-
-	public String getSyncedAnimation() {
-		return this.dataTracker.get(ANIMATION);
-	}
-
-	public void setAnimation(String animation) {
-		this.dataTracker.set(ANIMATION, animation);
-	}
-
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		super.registerControllers(data);
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
-	}
-
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
 	}
 }

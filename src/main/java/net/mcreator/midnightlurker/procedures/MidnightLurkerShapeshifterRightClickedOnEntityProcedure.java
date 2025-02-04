@@ -18,8 +18,10 @@ public class MidnightLurkerShapeshifterRightClickedOnEntityProcedure {
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
 			if (world instanceof ServerWorld level)
 				level.spawnParticles(ParticleTypes.LARGE_SMOKE, (entity.getX()), (entity.getY()), (entity.getZ()), 100, 0.3, 1.5, 0.3, 0.01);
+
 			if (!entity.getWorld().isClient())
 				entity.discard();
+
 			if (world instanceof ServerWorld level) {
 				Entity entityToSpawn = MidnightlurkerModEntities.MIDNIGHT_LURKER_UNPROVOKED.spawn(level, BlockPos.ofFloored(entity.getX(), entity.getY(), entity.getZ()), SpawnReason.MOB_SUMMONED);
 				if (entityToSpawn != null) {

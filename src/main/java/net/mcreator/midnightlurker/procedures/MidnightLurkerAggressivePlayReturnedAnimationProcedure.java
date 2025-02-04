@@ -34,6 +34,7 @@ public class MidnightLurkerAggressivePlayReturnedAnimationProcedure {
 				return "climb1";
 			}
 		}
+
 		if (!world.getBlockState(BlockPos.ofFloored(x + 1, y + 0, z)).isOpaque() && world.getBlockState(BlockPos.ofFloored(x + 1, y + 1, z)).isOpaque() && (entity.getHorizontalFacing()) == Direction.EAST
 				|| !world.getBlockState(BlockPos.ofFloored(x + 1, y + 1, z)).isOpaque() && world.getBlockState(BlockPos.ofFloored(x + 1, y + 0, z)).isOpaque() && world.getBlockState(BlockPos.ofFloored(x + 1, y + 2, z)).isOpaque()
 						&& (entity.getHorizontalFacing()) == Direction.EAST

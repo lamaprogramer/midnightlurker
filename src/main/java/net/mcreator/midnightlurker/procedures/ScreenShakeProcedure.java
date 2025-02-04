@@ -16,6 +16,7 @@ public class ScreenShakeProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
+
         IEntityDataSaver dataSaver = (IEntityDataSaver) entity;
 		if (!world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()) {
 			if (dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
@@ -23,10 +24,12 @@ public class ScreenShakeProcedure {
 				dataSaver.getPersistentData().putDouble("ScreenShake", _setval);
 			}
 		}
+
 		if ((world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty())
 				&& dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
 			dataSaver.getPersistentData().putDouble("ScreenShake", 0);
 		}
+
 		if (!world.getEntitiesByClass(MidnightLurkerAggressiveEntity.class, Box.of(new Vec3d(x, y, z), 100, 100, 100), e -> true).isEmpty()) {
 			if (dataSaver.getPersistentData().getDouble("ScreenShake") > 0) {
 				entity.setYaw(entity.getYaw() + MathHelper.nextInt(Random.create(), -1, 1));

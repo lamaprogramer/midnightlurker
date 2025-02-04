@@ -15,11 +15,13 @@ package net.mcreator.midnightlurker;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.mcreator.midnightlurker.config.CoreConfig;
 import net.mcreator.midnightlurker.config.core.ConfigRegistry;
 import net.mcreator.midnightlurker.init.*;
 import net.mcreator.midnightlurker.network.MidnightLurkerNetworking;
 import net.mcreator.midnightlurker.network.MidnightlurkerModVariables;
+import net.mcreator.midnightlurker.procedures.TriestosleepwhilemonstersnearProcedure;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.AbstractMap;
@@ -70,6 +72,8 @@ public class MidnightlurkerMod implements ModInitializer {
 
 		MidnightlurkerModVariables.initServer();
 		MidnightlurkerCallbacks.init();
+
+		UseBlockCallback.EVENT.register(new TriestosleepwhilemonstersnearProcedure());
 
 		ServerTickEvents.END_SERVER_TICK.register((MinecraftServer server) -> {
 			List<AbstractMap.SimpleEntry<Runnable, Integer>> actions = new ArrayList<>();

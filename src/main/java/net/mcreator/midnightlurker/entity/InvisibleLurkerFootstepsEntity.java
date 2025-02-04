@@ -6,9 +6,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
-import net.mcreator.midnightlurker.procedures.InvisibleLurkerFootstepsPlayerCollidesWithThisEntityProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -72,51 +71,37 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 		return 1.4F;
 	}
 
-	
-
 	@Override
 	protected void initGoals() {
 		super.initGoals();
 		this.targetSelector.add(1, new ActiveTargetGoal(this, PlayerEntity.class, false, false) {
 			@Override
 			public boolean canStart() {
-				double x = InvisibleLurkerFootstepsEntity.this.getX();
-				double y = InvisibleLurkerFootstepsEntity.this.getY();
-				double z = InvisibleLurkerFootstepsEntity.this.getZ();
 				World world = InvisibleLurkerFootstepsEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleLurkerFootstepsEntity.this.getPos(), 7);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = InvisibleLurkerFootstepsEntity.this.getX();
-				double y = InvisibleLurkerFootstepsEntity.this.getY();
-				double z = InvisibleLurkerFootstepsEntity.this.getZ();
 				World world = InvisibleLurkerFootstepsEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleLurkerFootstepsEntity.this.getPos(), 7);
 			}
 		});
-		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, false) {
 
+		this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			public boolean canStart() {
-				double x = InvisibleLurkerFootstepsEntity.this.getX();
-				double y = InvisibleLurkerFootstepsEntity.this.getY();
-				double z = InvisibleLurkerFootstepsEntity.this.getZ();
 				World world = InvisibleLurkerFootstepsEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleLurkerFootstepsEntity.this.getPos(), 7);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = InvisibleLurkerFootstepsEntity.this.getX();
-				double y = InvisibleLurkerFootstepsEntity.this.getY();
-				double z = InvisibleLurkerFootstepsEntity.this.getZ();
 				World world = InvisibleLurkerFootstepsEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, InvisibleLurkerFootstepsEntity.this.getPos(), 7);
 			}
-
 		});
+
 		this.goalSelector.add(3, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
@@ -182,7 +167,13 @@ public class InvisibleLurkerFootstepsEntity extends HostileEntity implements Geo
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		InvisibleLurkerFootstepsPlayerCollidesWithThisEntityProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
+
+		if (!EntityUtil.hasNoEntityOfTypeInArea(this.getWorld(), PlayerEntity.class, this.getPos(), 14)) {
+			if (!this.getWorld().isClient()) {
+				this.discard();
+			}
+		}
+
 		this.calculateDimensions();
 	}
 

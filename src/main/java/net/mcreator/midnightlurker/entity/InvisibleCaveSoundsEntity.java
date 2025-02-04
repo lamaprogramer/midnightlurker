@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.FootstepsWalkToPlayerProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
@@ -80,8 +79,6 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 		return 1.4F;
 	}
 
-	
-
 	@Override
 	protected void initGoals() {
 		super.initGoals();
@@ -92,7 +89,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 
 			@Override
@@ -101,7 +98,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 		});
 		this.goalSelector.add(2, new MeleeAttackGoal(this, 1, false) {
@@ -111,7 +108,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 
 			@Override
@@ -120,7 +117,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 
 		});
@@ -142,7 +139,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.canStart() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 
 			@Override
@@ -151,7 +148,7 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 				double y = InvisibleCaveSoundsEntity.this.getY();
 				double z = InvisibleCaveSoundsEntity.this.getZ();
 				World world = InvisibleCaveSoundsEntity.this.getWorld();
-				return super.shouldContinue() && FootstepsWalkToPlayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 7);
 			}
 		});
 	}

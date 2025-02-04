@@ -26,10 +26,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
@@ -142,8 +139,6 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 		SpookyambienceentityOnEntityTickUpdateProcedure.execute(this.getWorld(), this);
 		this.calculateDimensions();
 	}
-
-	
 
 	public static void init() {
 		BiomeModifications.addSpawn(BiomeSelectors.all(), SpawnGroup.MONSTER, MidnightlurkerModEntities.SPOOKYAMBIENCEENTITY, 2, 1, 1);

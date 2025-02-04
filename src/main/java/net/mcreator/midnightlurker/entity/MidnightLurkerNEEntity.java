@@ -3,7 +3,6 @@ package net.mcreator.midnightlurker.entity;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerAggressiveOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerNENaturalEntitySpawningConditionProcedure;
@@ -17,19 +16,10 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.network.EntityTrackerEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -38,43 +28,21 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
-	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(MidnightlurkerNEEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<String> ANIMATION = DataTracker.registerData(MidnightlurkerNEEntity.class, TrackedDataHandlerRegistry.STRING);
-	public static final TrackedData<String> TEXTURE = DataTracker.registerData(MidnightlurkerNEEntity.class, TrackedDataHandlerRegistry.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+public class MidnightlurkerNEEntity extends MidnightLurkerEntity {
 	public MidnightlurkerNEEntity(EntityType<MidnightlurkerNEEntity> type, World world) {
 		super(type, world);
 		this.experiencePoints = 25;
-		setGlowing(MidnightlurkerMod.DEBUG_MODE);
-		setAiDisabled(false);
 	}
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder
-				.add(SHOOT, false)
-				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "midnightlurkervoidgate")
 		);
 	}
-
-	public void setTexture(String texture) {
-		this.dataTracker.set(TEXTURE, texture);
-	}
-
-	public String getTexture() {
-		return this.dataTracker.get(TEXTURE);
-	}
-
-	
 
 	@Override
 	protected void initGoals() {
@@ -90,7 +58,7 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, 
 				double y = MidnightlurkerNEEntity.this.getY();
 				double z = MidnightlurkerNEEntity.this.getZ();
 				World world = MidnightlurkerNEEntity.this.getWorld();
-				return super.canStart() && AggrowatchplayerProcedure.execute(world, x, y, z);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 40);
 			}
 
 			@Override
@@ -99,25 +67,23 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, 
 				double y = MidnightlurkerNEEntity.this.getY();
 				double z = MidnightlurkerNEEntity.this.getZ();
 				World world = MidnightlurkerNEEntity.this.getWorld();
-				return super.shouldContinue() && AggrowatchplayerProcedure.execute(world, x, y, z);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 40);
 			}
 		});
 		this.goalSelector.add(6, new SwimGoal(this) {
 			@Override
 			public boolean canStart() {
 				Entity entity = MidnightlurkerNEEntity.this;
-				return super.canStart() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.canStart() && entity.isTouchingWater();
 			}
 
 			@Override
 			public boolean shouldContinue() {
 				Entity entity = MidnightlurkerNEEntity.this;
-				return super.shouldContinue() && LurkerinwaterconditionProcedure.execute(entity);
+				return super.shouldContinue() && entity.isTouchingWater();
 			}
 		});
 	}
-
-	
 
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -137,32 +103,6 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, 
 	@Override
 	public boolean damage(DamageSource source, float amount) {
 		if (!MidnightLurkerAggressiveEntityIsHurtProcedure.execute(this, source.getAttacker()))
-			return false;
-		if (source.isOf(DamageTypes.IN_FIRE))
-			return false;
-		if (source.getSource() instanceof PersistentProjectileEntity)
-			return false;
-		if (source.getSource() instanceof PotionEntity || source.getSource() instanceof AreaEffectCloudEntity)
-			return false;
-		if (source.isOf(DamageTypes.FALL))
-			return false;
-		if (source.isOf(DamageTypes.CACTUS))
-			return false;
-		if (source.isOf(DamageTypes.DROWN))
-			return false;
-		if (source.isOf(DamageTypes.LIGHTNING_BOLT))
-			return false;
-		if (source.isOf(DamageTypes.EXPLOSION))
-			return false;
-		if (source.isOf(DamageTypes.TRIDENT))
-			return false;
-		if (source.isOf(DamageTypes.FALLING_ANVIL))
-			return false;
-		if (source.isOf(DamageTypes.DRAGON_BREATH))
-			return false;
-		if (source.isOf(DamageTypes.WITHER))
-			return false;
-		if (source.isOf(DamageTypes.WITHER_SKULL))
 			return false;
 		return super.damage(source, amount);
 	}
@@ -240,7 +180,8 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, 
 		return PlayState.STOP;
 	}
 
-	private PlayState dynamicPredicate(AnimationState<?> animationState) {
+	@Override
+	protected PlayState dynamicPredicate(AnimationState<?> animationState) {
 		AnimationHandler animationHandler = (AnimationHandler) this;
 
 		Entity entity = this;
@@ -256,30 +197,8 @@ public class MidnightlurkerNEEntity extends HostileEntity implements GeoEntity, 
 	}
 
 	@Override
-	protected void updatePostDeath() {
-		++this.deathTime;
-		if (this.deathTime == 20) {
-			this.remove(RemovalReason.KILLED);
-			this.dropXp(null);
-		}
-	}
-
-	public String getSyncedAnimation() {
-		return this.dataTracker.get(ANIMATION);
-	}
-
-	public void setAnimation(String animation) {
-		this.dataTracker.set(ANIMATION, animation);
-	}
-
-	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		super.registerControllers(data);
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
-	}
-
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
 	}
 }

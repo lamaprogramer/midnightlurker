@@ -59,8 +59,6 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity, Ani
 		return this.dataTracker.get(TEXTURE);
 	}
 
-	
-
 	@Override
 	protected void initGoals() {
 		super.initGoals();
@@ -100,8 +98,6 @@ public class VoidGatewayEntity extends PathAwareEntity implements GeoEntity, Ani
 		VoidGatewayOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
 		this.calculateDimensions();
 	}
-
-	
 
 	@Override
 	public boolean isPushable() {
