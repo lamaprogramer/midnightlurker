@@ -7,7 +7,6 @@ import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerAgg
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerSpawnmainProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerFakerAggroOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressiveLoopExternalAnimationsProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerAggressivePlayReturnedAnimationProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;

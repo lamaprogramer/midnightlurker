@@ -3,14 +3,13 @@ package net.mcreator.midnightlurker.procedures;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.MidnightLurkerUnprovokedEntity;
 import net.mcreator.midnightlurker.util.EntityUtil;
+import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class MidnightLurkerUnprovokedThisEntityKillsAnotherOneProcedure {

@@ -8,6 +8,7 @@ import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurker
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerShadowOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -21,6 +22,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;

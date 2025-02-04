@@ -7,7 +7,6 @@ import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnI
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerSpawnmainProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerFakerOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;

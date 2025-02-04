@@ -4,7 +4,6 @@ package net.mcreator.midnightlurker.entity;
 import net.mcreator.midnightlurker.entity.hurt.MidnightLurkerAggressiveEntityIsHurtProcedure;
 import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerRuntrueOnInitialEntitySpawnProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerRuntrueOnEntityTickUpdateProcedure;
-import net.mcreator.midnightlurker.procedures.LurkerinwaterconditionProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.block.BlockState;
