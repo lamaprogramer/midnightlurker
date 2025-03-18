@@ -27,6 +27,9 @@ public class MidnightPhantomHeadOnEntityTickUpdateProcedure {
 	public static void execute(WorldAccess world, double x, double y, double z, LivingEntity entity) {
 		if (entity == null)
 			return;
+
+		IEntityDataSaver entityData = (IEntityDataSaver) entity;
+		
 		double yaw = 0;
 		if ((world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 33, 33, 33), e -> true).isEmpty())) {
 			if (entity instanceof MidnightPhantomHeadEntity animatable)
@@ -92,21 +95,21 @@ public class MidnightPhantomHeadOnEntityTickUpdateProcedure {
 
 		if (!world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 40, 40, 40), e -> true).isEmpty()) {
 			if (EntityUtil.getEntityWithRaycast(EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 40, 40, 40), entity, 40) instanceof MidnightPhantomHeadEntity) {
-				if (((IEntityDataSaver)entity).getPersistentData().getDouble("lookingatphantomhead") < 2000) {
-					((IEntityDataSaver)entity).getPersistentData().putDouble("lookingatphantomhead", 2000);
+				if (entityData.getPersistentData().getDouble("lookingatphantomhead") < 2000) {
+					entityData.getPersistentData().putDouble("lookingatphantomhead", 2000);
 				}
 			}
 		}
 
-		if (((IEntityDataSaver)entity).getPersistentData().getDouble("lookingatphantomhead") > 0) {
-			((IEntityDataSaver)entity).getPersistentData().putDouble("lookingatphantomhead", (((IEntityDataSaver)entity).getPersistentData().getDouble("lookingatphantomhead") - 1));
+		if (entityData.getPersistentData().getDouble("lookingatphantomhead") > 0) {
+			entityData.getPersistentData().putDouble("lookingatphantomhead", (entityData.getPersistentData().getDouble("lookingatphantomhead") - 1));
 		}
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 20)) {
-			if (((IEntityDataSaver)entity).getPersistentData().getDouble("despawntimephant") < 600) {
-				((IEntityDataSaver)entity).getPersistentData().putDouble("despawntimephant", (((IEntityDataSaver)entity).getPersistentData().getDouble("despawntimephant") + 1));
+			if (entityData.getPersistentData().getDouble("despawntimephant") < 600) {
+				entityData.getPersistentData().putDouble("despawntimephant", (entityData.getPersistentData().getDouble("despawntimephant") + 1));
 			}
-			if (((IEntityDataSaver)entity).getPersistentData().getDouble("despawntimephant") >= 600) {
+			if (entityData.getPersistentData().getDouble("despawntimephant") >= 600) {
 				if (!entity.getWorld().isClient())
 					entity.discard();
 			}
@@ -151,34 +154,18 @@ public class MidnightPhantomHeadOnEntityTickUpdateProcedure {
 			}
 		}
 
-		if (((IEntityDataSaver)entity).getPersistentData().getDouble("lookingatphantomhead") == 0) {
+		if (entityData.getPersistentData().getDouble("lookingatphantomhead") == 0) {
 			entity.setVelocity(new Vec3d(0, (entity.getVelocity().getY()), 0));
 		}
 
-		if (((IEntityDataSaver)entity).getPersistentData().getDouble("InvisNumb") == 1 && (world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 24, 24, 24), e -> true).isEmpty())) {
-			if (((IEntityDataSaver)entity).getPersistentData().getDouble("lookingatphantomhead") < 3) {
-				((IEntityDataSaver)entity).getPersistentData().putDouble("lookingatphantomhead", 3);
+		if (entityData.getPersistentData().getDouble("InvisNumb") == 1 && (world.getEntitiesByClass(PlayerEntity.class, Box.of(new Vec3d(x, y, z), 24, 24, 24), e -> true).isEmpty())) {
+			if (entityData.getPersistentData().getDouble("lookingatphantomhead") < 3) {
+				entityData.getPersistentData().putDouble("lookingatphantomhead", 3);
 			}
 			if (entity instanceof LivingEntity _entity && !_entity.getWorld().isClient())
 				_entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 3, 0, false, false));
 		}
 
-		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-			if (((IEntityDataSaver)entity).getPersistentData().getDouble("encount") < 2) {
-				((IEntityDataSaver)entity).getPersistentData().putDouble("encount", (((IEntityDataSaver)entity).getPersistentData().getDouble("encount") + 1));
-			}
-		}
-
-		IEntityDataSaver dataSaver = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8);
-		if (((IEntityDataSaver)entity).getPersistentData().getDouble("encount") == 1) {
-			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-				if (dataSaver.getPersistentData().getDouble("encounternumber") < 6) {
-					{
-						double _setval = dataSaver.getPersistentData().getDouble("encounternumber") + 1;
-						dataSaver.getPersistentData().putDouble("encounternumber", _setval);
-					}
-				}
-			}
-		}
+		EntityTickActions.handleEncounter(world, entity, entityData, x, y, z);
 	}
 }

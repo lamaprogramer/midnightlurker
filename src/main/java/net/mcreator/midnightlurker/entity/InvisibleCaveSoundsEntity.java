@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
@@ -21,9 +20,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -39,18 +35,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
-	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<String> ANIMATION = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.STRING);
-	public static final TrackedData<String> TEXTURE = DataTracker.registerData(InvisibleCaveSoundsEntity.class, TrackedDataHandlerRegistry.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+public class InvisibleCaveSoundsEntity extends AnimatableHostileMidnightLurkerEntity {
 	public InvisibleCaveSoundsEntity(EntityType<InvisibleCaveSoundsEntity> type, World world) {
 		super(type, world);
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
@@ -60,18 +48,8 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder
-				.add(SHOOT, false)
-				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "nothing")
 		);
-	}
-
-	public void setTexture(String texture) {
-		this.dataTracker.set(TEXTURE, texture);
-	}
-
-	public String getTexture() {
-		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
@@ -266,15 +244,10 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 	}
 
 	private PlayState movementPredicate(AnimationState<?> event) {
-		if (!((AnimationHandler)this).hasAnimation()) {
+		if (!this.hasAnimation()) {
 			return event.setAndContinue(RawAnimation.begin().thenLoop("gatewaydarkness"));
 		}
 		return PlayState.STOP;
-	}
-
-	private PlayState dynamicPredicate(AnimationState<?> animationState) {
-		AnimationHandler animationHandler = (AnimationHandler) this;
-		return animationHandler.dynamic(animationState, false);
 	}
 
 	@Override
@@ -286,22 +259,9 @@ public class InvisibleCaveSoundsEntity extends HostileEntity implements GeoEntit
 		}
 	}
 
-	public String getSyncedAnimation() {
-		return this.dataTracker.get(ANIMATION);
-	}
-
-	public void setAnimation(String animation) {
-		this.dataTracker.set(ANIMATION, animation);
-	}
-
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		super.registerControllers(data);
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
-	}
-
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
 	}
 }

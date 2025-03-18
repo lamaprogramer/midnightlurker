@@ -32,6 +32,7 @@ public class InsanityStageTimerProcedure {
 	}
 
 	private static void handleInsanityCounter(Entity entity, IEntityDataSaver dataSaver, WorldAccess world, int timerMax) {
+		// TODO: fix(maybe) Insanity timer.
 		if (dataSaver.getPersistentData().getDouble("InsanityStage") < 7 && MidnightlurkerModVariables.WorldVariables.get(world).midnightlurkerinsanityactive == 1 && dataSaver.getPersistentData().getDouble("InsanityAktive") == 1) {
 			if (dataSaver.getPersistentData().getDouble("InsanityTimer") < timerMax+1) {
 				double _setval = dataSaver.getPersistentData().getDouble("InsanityTimer") + 1;
@@ -44,6 +45,7 @@ public class InsanityStageTimerProcedure {
 				}
 			}
 		}
+
 		if (dataSaver.getPersistentData().getDouble("InsanityTimer") >= timerMax+1) {
 			dataSaver.getPersistentData().putDouble("InsanityTimer", 0);
 		}

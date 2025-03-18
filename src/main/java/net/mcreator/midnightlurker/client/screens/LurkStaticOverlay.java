@@ -18,7 +18,6 @@ import net.minecraft.util.Identifier;
 
 
 public class LurkStaticOverlay implements HudRenderCallback {
-
 	private static final FrameScheduler staticOverlay = new FrameScheduler(new AnimationBuilder()
 			.addFrame(1, Identifier.of("midnightlurker:textures/screens/static2.png"))
 			.addFrame(2, Identifier.of("midnightlurker:textures/screens/static1.png"))

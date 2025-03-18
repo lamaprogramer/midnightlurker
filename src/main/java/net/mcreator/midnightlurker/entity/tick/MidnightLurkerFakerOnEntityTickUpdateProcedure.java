@@ -31,7 +31,7 @@ public class MidnightLurkerFakerOnEntityTickUpdateProcedure {
 		if (entityData.getPersistentData().getDouble("InsanePotionTimer") == 1) {
 			if (entity instanceof MidnightLurkerFakerEntity midnightLurkerFaker) {
                 if (!midnightLurkerFaker.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-					midnightLurkerFaker.setAnimation("snapstare4");
+					midnightLurkerFaker.setAnimation("snapstare");
 					EntityTickActions.handleEffect(midnightLurkerFaker, MidnightlurkerModMobEffects.INSANITY, 80, 0, false, false);
                 }
             }

@@ -7,7 +7,6 @@ import net.mcreator.midnightlurker.entity.spawnconditions.init.MidnightLurkerOnI
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurkerFakerWatcherNaturalEntitySpawningConditionProcedure;
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerFakerWatcherOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
-import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -113,7 +112,7 @@ public class MidnightLurkerFakerWatcherEntity extends MidnightLurkerEntity {
 	}
 
 	private PlayState movementPredicate(AnimationState<?> event) {
-		if (!((AnimationHandler)this).hasAnimation()) {
+		if (!this.hasAnimation()) {
 			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;

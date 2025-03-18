@@ -9,6 +9,7 @@ import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -133,7 +134,7 @@ public class EntityTickActions {
 
                 if (entityData.getPersistentData().getDouble("LurkerTime") == 1) {
                     if (entity instanceof AnimatableEntity animatableEntity) {
-                        animatableEntity.setAnimation("breaking1");
+                        animatableEntity.setAnimation("breaking");
                     }
                     world.breakBlock(BlockPos.ofFloored(x, y + 0, z).offset(direction, 1), false);
                     world.breakBlock(BlockPos.ofFloored(x, y + 1, z).offset(direction, 1), false);
@@ -149,7 +150,7 @@ public class EntityTickActions {
                 double lurkerBreakTime = entityData.getPersistentData().getDouble("LurkerTime");
                 if (lurkerBreakTime % 10 == 0) {
                     if (entity instanceof AnimatableEntity animatableEntity) {
-                        animatableEntity.setAnimation("breaking1");
+                        animatableEntity.setAnimation("breaking");
                     }
 
                     int breakProgress = (int) (10 - (lurkerBreakTime / 10));
@@ -188,7 +189,7 @@ public class EntityTickActions {
 
             if (entityData.getPersistentData().getDouble("AngryTime") == 1) {
                 if (entity instanceof AnimatableEntity animatableEntity) {
-                    animatableEntity.setAnimation("teleport1");
+                    animatableEntity.setAnimation("teleport");
                 }
 
                 SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
@@ -276,26 +277,47 @@ public class EntityTickActions {
         }
     }
 
-    public static void handleJumpscare(WorldAccess world, LivingEntity entity) {
-        if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
-            if (!entity.getWorld().isClient()) {
+    public static void handleJumpscare(WorldAccess world, LivingEntity entity, int range, float increaseInsanityStageChance, boolean condition) {
+        if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), range)) {
+            if (condition && !entity.getWorld().isClient()) {
                 entity.discard();
 
-                ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), 100, 100, 100);
+                ServerPlayerEntity player = (ServerPlayerEntity) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d((entity.getX()), (entity.getY()), (entity.getZ())), range, range, range);
                 IEntityDataSaver dataSaver = (IEntityDataSaver) player;
 
                 if (dataSaver.getPersistentData().getDouble("JumpscareActive") < 1) {
                     dataSaver.getPersistentData().putDouble("JumpscareActive", 1);
-
                     MidnightLurkerNetworking.syncPlayerData(player, "JumpscareActive");
                 }
 
-                if (dataSaver.getPersistentData().getDouble("InsanityStage") < 7) {
+                if (Math.random() < increaseInsanityStageChance && dataSaver.getPersistentData().getDouble("InsanityStage") < 7) {
                     double _setval = dataSaver.getPersistentData().getDouble("InsanityStage") + 1;
+
                     dataSaver.getPersistentData().putDouble("InsanityStage", _setval);
                     dataSaver.getPersistentData().putDouble("InsanityTimer", 0);
-
                     MidnightLurkerNetworking.syncPlayerData(player, "InsanityStage");
+                }
+            }
+        }
+    }
+
+    public static void handleJumpscare(WorldAccess world, LivingEntity entity) {
+        handleJumpscare(world, entity, 10, 1.0f, true);
+    }
+
+    public static void handleEncounter(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
+        if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
+            if (entityData.getPersistentData().getDouble("encount") < 2) {
+                entityData.getPersistentData().putDouble("encount", (entityData.getPersistentData().getDouble("encount") + 1));
+            }
+        }
+
+        if (entityData.getPersistentData().getDouble("encount") == 1) {
+            if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
+                IEntityDataSaver playerEntityData = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8);
+                if (playerEntityData.getPersistentData().getDouble("encounternumber") < 6) {
+                    double _setval = playerEntityData.getPersistentData().getDouble("encounternumber") + 1;
+                    playerEntityData.getPersistentData().putDouble("encounternumber", _setval);
                 }
             }
         }

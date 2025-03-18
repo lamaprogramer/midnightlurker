@@ -11,6 +11,9 @@ public class InsanityFoodReduceProcedure {
         if (entity == null)
             return;
         IEntityDataSaver entityData = (IEntityDataSaver) entity;
+        System.out.println("Before Insanity Stage: " + entityData.getPersistentData().getDouble("InsanityStage"));
+        System.out.println("Before Insanity Timer: " + entityData.getPersistentData().getDouble("InsanityTimer"));
+
         if (itemStack.getItem() == Items.GOLDEN_APPLE) {
             modifyInsanityStage(entityData, entityData.getPersistentData().getDouble("InsanityStage") < 7 && entityData.getPersistentData().getDouble("InsanityStage") > 0, 1);
         } else if (itemStack.getItem() == Items.ENCHANTED_GOLDEN_APPLE) {
@@ -38,6 +41,8 @@ public class InsanityFoodReduceProcedure {
         } else if (itemStack.getItem() == Items.POISONOUS_POTATO) {
             modifyInsanityTimer(entityData, true, 1500);
         }
+        System.out.println("After Insanity Stage: " + entityData.getPersistentData().getDouble("InsanityStage"));
+        System.out.println("After Insanity Timer: " + entityData.getPersistentData().getDouble("InsanityTimer"));
     }
     
     private static void modifyInsanityTimer(IEntityDataSaver entityData, boolean condition, int increment) {

@@ -1,6 +1,5 @@
 package net.mcreator.midnightlurker.entity.tick;
 
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.MidnightLurkerWatcherEntity;
 import net.mcreator.midnightlurker.entity.tick.util.EntityTickActions;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
@@ -9,6 +8,7 @@ import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
+import net.mcreator.midnightlurker.util.animations.Animations;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -51,38 +51,26 @@ public class MidnightLurkerWatcherOnEntityTickUpdateProcedure {
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 23)) {
 			if (EntityUtil.getEntityWithRaycast(EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 23, 23, 23), entity, 23) instanceof MidnightLurkerWatcherEntity) {
-				if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 30)) {
-					if (((IEntityDataSaver)entity).getPersistentData().getDouble("SoundActivate6") < 3 && !EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 30)) {
-						((IEntityDataSaver)entity).getPersistentData().putDouble("SoundActivate6", (((IEntityDataSaver)entity).getPersistentData().getDouble("SoundActivate6") + 1));
-					}
+				SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 
-					if (((IEntityDataSaver)entity).getPersistentData().getDouble("SoundActivate6") == 1) {
-						MidnightlurkerMod.queueServerWork(2, () -> {
-							SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
-						});
-						if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 23)) {
-							if (EntityUtil.getEntityWithRaycast(EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 23, 23, 23), entity, 23) instanceof MidnightLurkerWatcherEntity) {
-								if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 23)) {
-									if (Math.random() > 0.7) {
-										if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 23, 23, 23) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
-											_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.STATIC_EFFECT, 46, 0, false, false));
-									}
-								}
-							}
+				if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 23)) {
+					if (EntityUtil.getEntityWithRaycast(EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 23, 23, 23), entity, 23) instanceof MidnightLurkerWatcherEntity) {
+						if (Math.random() > 0.7) {
+							if (EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 23, 23, 23) instanceof LivingEntity _entity && !_entity.getWorld().isClient())
+								_entity.addStatusEffect(new StatusEffectInstance(MidnightlurkerModMobEffects.STATIC_EFFECT, 46, 0, false, false));
 						}
 					}
-
-					if (entity instanceof MidnightLurkerWatcherEntity) {
-						((MidnightLurkerWatcherEntity) entity).setAnimation("teleport6");
-					}
-
-					MidnightlurkerMod.queueServerWork(13, () -> {
-						if (!entity.getWorld().isClient())
-							entity.discard();
-					});
 				}
+
+				if (entity instanceof MidnightLurkerWatcherEntity) {
+					((MidnightLurkerWatcherEntity) entity).setAnimation(Animations.TELEPORT_1);
+				}
+
+				if (!entity.getWorld().isClient())
+					entity.discard();
 			}
 		}
+
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 80)) {
 			if (EntityUtil.getEntityWithRaycast(entity, entity, 80) == EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 80, 80, 80)) {
 				if (((IEntityDataSaver)entity).getPersistentData().getDouble("CaveSoundLurk") < 300) {

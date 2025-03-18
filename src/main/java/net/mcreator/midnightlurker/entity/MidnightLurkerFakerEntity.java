@@ -30,7 +30,6 @@ import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
 
 public class MidnightLurkerFakerEntity extends MidnightLurkerEntity {
-
 	public MidnightLurkerFakerEntity(EntityType<MidnightLurkerFakerEntity> type, World world) {
 		super(type, world);
 		this.experiencePoints = 25;
@@ -123,19 +122,18 @@ public class MidnightLurkerFakerEntity extends MidnightLurkerEntity {
 	private PlayState movementPredicate(AnimationState<?> event) {
 		if (!((AnimationHandler)this).hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F)) && !this.isAttacking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking4"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim4"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			if (this.isSneaking()) {
-				System.out.println("Sneak Animation");
-				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned4"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned"));
 			}
 			if (this.isAttacking() && event.isMoving()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("running4"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("running"));
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle4"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;
 	}

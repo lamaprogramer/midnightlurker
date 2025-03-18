@@ -5,7 +5,6 @@
 package net.mcreator.midnightlurker.init;
 
 
-import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
@@ -78,8 +77,6 @@ public class MidnightlurkerModSounds {
 		register(LURKER_STUNNED, SoundEvent.of(LURKER_STUNNED));
 		register(LURKER_TAUNT, SoundEvent.of(LURKER_TAUNT));
 		register(LURKER_STUN_OVER, SoundEvent.of(LURKER_STUN_OVER));
-
-
 	}
 	private static void register(Identifier id, SoundEvent event) {
 		Registry.register(Registries.SOUND_EVENT, id, event);

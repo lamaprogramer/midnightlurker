@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"swim9": {
+		"swim": {
 			"loop": true,
 			"animation_length": 0.8,
 			"bones": {
@@ -271,7 +271,7 @@
 				}
 			}
 		},
-		"stalking9": {
+		"stalking": {
 			"loop": true,
 			"animation_length": 2.84,
 			"bones": {
@@ -541,7 +541,7 @@
 				}
 			}
 		},
-		"idle9": {
+		"idle": {
 			"loop": true,
 			"animation_length": 2.84,
 			"bones": {
@@ -709,7 +709,7 @@
 				}
 			}
 		},
-		"teleport9": {
+		"teleport": {
 			"animation_length": 0.44,
 			"bones": {
 				"head": {
@@ -867,7 +867,7 @@
 				}
 			}
 		},
-		"running9": {
+		"running": {
 			"loop": true,
 			"animation_length": 0.8,
 			"override_previous_animation": true,
@@ -1137,7 +1137,7 @@
 				}
 			}
 		},
-		"snapstare9": {
+		"snapstare": {
 			"loop": true,
 			"animation_length": 0.12,
 			"bones": {
@@ -1300,7 +1300,7 @@
 				}
 			}
 		},
-		"stunned9": {
+		"stunned": {
 			"animation_length": 5,
 			"bones": {
 				"head": {

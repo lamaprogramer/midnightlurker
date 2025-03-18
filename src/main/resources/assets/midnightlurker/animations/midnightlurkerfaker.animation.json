@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"stalking4": {
+		"stalking": {
 			"loop": true,
 			"animation_length": 2.84,
 			"bones": {
@@ -266,7 +266,7 @@
 				}
 			}
 		},
-		"idle4": {
+		"idle": {
 			"loop": true,
 			"animation_length": 2.84,
 			"bones": {
@@ -429,7 +429,7 @@
 				}
 			}
 		},
-		"backturned4": {
+		"backturned": {
 			"loop": true,
 			"animation_length": 2.84,
 			"bones": {
@@ -597,7 +597,7 @@
 				}
 			}
 		},
-		"snapstare4": {
+		"snapstare": {
 			"animation_length": 4,
 			"bones": {
 				"head": {
@@ -950,7 +950,7 @@
 				}
 			}
 		},
-		"running4": {
+		"running": {
 			"loop": true,
 			"animation_length": 0.8,
 			"bones": {
@@ -1214,7 +1214,7 @@
 				}
 			}
 		},
-		"swim4": {
+		"swim": {
 			"loop": true,
 			"animation_length": 0.8,
 			"bones": {

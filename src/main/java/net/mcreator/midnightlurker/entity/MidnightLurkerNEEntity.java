@@ -10,6 +10,7 @@ import net.mcreator.midnightlurker.entity.tick.MidnightlurkerNEOnEntityTickUpdat
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.*;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.EntityUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -54,20 +55,14 @@ public class MidnightlurkerNEEntity extends MidnightLurkerEntity {
 		this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, (float) 100) {
 			@Override
 			public boolean canStart() {
-				double x = MidnightlurkerNEEntity.this.getX();
-				double y = MidnightlurkerNEEntity.this.getY();
-				double z = MidnightlurkerNEEntity.this.getZ();
 				World world = MidnightlurkerNEEntity.this.getWorld();
-				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 40);
+				return super.canStart() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, MidnightlurkerNEEntity.this.getPos(), 40);
 			}
 
 			@Override
 			public boolean shouldContinue() {
-				double x = MidnightlurkerNEEntity.this.getX();
-				double y = MidnightlurkerNEEntity.this.getY();
-				double z = MidnightlurkerNEEntity.this.getZ();
 				World world = MidnightlurkerNEEntity.this.getWorld();
-				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 40);
+				return super.shouldContinue() && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, MidnightlurkerNEEntity.this.getPos(), 40);
 			}
 		});
 		this.goalSelector.add(6, new SwimGoal(this) {
@@ -167,15 +162,15 @@ public class MidnightlurkerNEEntity extends MidnightLurkerEntity {
 	private PlayState movementPredicate(AnimationState<?> event) {
 		if (!((AnimationHandler)this).hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F)) && !this.isAttacking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking1"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim1"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			if (this.isAttacking() && event.isMoving()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("running1"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("running"));
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle1"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;
 	}

@@ -61,7 +61,7 @@ public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
 		handleDisalol(world, entity, entityData, x, y, z);
 		handleCreepDespawn(world, entity, entityData, x ,y ,z);
 		EntityTickActions.handleParticles(0.9, world, MidnightlurkerModParticleTypes.VOID_DOT, x, y, z, 2, 0.3, 1.2, 0.3, 0.1);
-		handleEncounter(world, entity, entityData, x ,y ,z);
+		EntityTickActions.handleEncounter(world, entity, entityData, x ,y ,z);
 		handleInvisLogic(world, entity, entityData, x ,y ,z);
 	}
 	
@@ -113,7 +113,7 @@ public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
 				}
 				
 				if (entity instanceof MidnightLurkerCreepEntity midnightLurkerCreep) {
-					midnightLurkerCreep.setAnimation("teleport11");
+					midnightLurkerCreep.setAnimation("teleport");
 				}
 				
 				MidnightlurkerMod.queueServerWork(13, () -> {
@@ -141,30 +141,12 @@ public class MidnightLurkerCreepOnEntityTickUpdateProcedure {
 		}
 	}
 
-	public static void handleEncounter(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
-		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-			if (entityData.getPersistentData().getDouble("encount") < 2) {
-				entityData.getPersistentData().putDouble("encount", (entityData.getPersistentData().getDouble("encount") + 1));
-			}
-		}
-		
-		if (entityData.getPersistentData().getDouble("encount") == 1) {
-			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-				IEntityDataSaver playerEntityData = ((IEntityDataSaver)EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8));
-				if (playerEntityData.getPersistentData().getDouble("encounternumber") < 6) {
-					double _setval = playerEntityData.getPersistentData().getDouble("encounternumber") + 1;
-					entityData.getPersistentData().putDouble("encounternumber", _setval);
-				}
-			}
-		}
-	}
-
 	public static void handleInvisLogic(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 300) && EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(x, y, z), 20)) {
 			if (!entityData.getPersistentData().getBoolean("InvisLogic")) {
 				if (EntityUtil.getEntityWithRaycast(EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 300, 300, 300), entity, 300) instanceof MidnightLurkerCreepEntity) {
 					if (entity instanceof MidnightLurkerCreepEntity) {
-						((MidnightLurkerCreepEntity) entity).setAnimation("teleport1122");
+						((MidnightLurkerCreepEntity) entity).setAnimation("teleport2");
 					}
 					MidnightlurkerMod.queueServerWork(13, () -> {
 						if (entity instanceof LivingEntity livingEntity && !livingEntity.getWorld().isClient()) {

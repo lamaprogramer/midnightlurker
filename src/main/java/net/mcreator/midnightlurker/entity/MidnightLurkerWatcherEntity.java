@@ -128,15 +128,15 @@ public class MidnightLurkerWatcherEntity extends MidnightLurkerEntity {
 	private PlayState movementPredicate(AnimationState<?> event) {
 		if (!((AnimationHandler)this).hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F)) && !this.isAttacking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("running6"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("running"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim6"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			if (this.isAttacking() && event.isMoving()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking6"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle6"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;
 	}

@@ -9,6 +9,7 @@ import net.mcreator.midnightlurker.init.MidnightlurkerModParticleTypes;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.IEntityDataSaver;
 import net.mcreator.midnightlurker.util.SoundUtil;
+import net.mcreator.midnightlurker.util.animations.Animations;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
@@ -20,7 +21,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldAccess;
@@ -39,7 +39,7 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 
 		if (entityData.getPersistentData().getDouble("InsanePotionTimer") == 1) {
 			if (entity instanceof AnimatableEntity animatableEntity && !entity.hasStatusEffect(MidnightlurkerModMobEffects.INSANITY)) {
-				animatableEntity.setAnimation("snapstare5");
+				animatableEntity.setAnimation("snapstare");
 				EntityTickActions.handleEffect(entity, MidnightlurkerModMobEffects.INSANITY, 80, 0, false, false);
             }
 		}
@@ -70,24 +70,14 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 		EntityTickActions.handleAutoDismount(entity);
 
 		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 30)) {
-			MidnightlurkerMod.queueServerWork(700, () -> {
-				if (entityData.getPersistentData().getDouble("SoundActivate") < 3 && !world.getEntitiesByClass(MidnightLurkerBackturnedEntity.class, Box.of(new Vec3d(x, y, z), 6, 6, 6), e -> true).isEmpty()) {
-					entityData.getPersistentData().putDouble("SoundActivate", (entityData.getPersistentData().getDouble("SoundActivate") + 1));
-				}
+			SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 
-				if (entityData.getPersistentData().getDouble("SoundActivate") == 1) {
-					SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
-				}
+			if (entity instanceof AnimatableEntity animatableEntity) {
+				animatableEntity.setAnimation(Animations.TELEPORT_1);
+			}
 
-				if (entity instanceof AnimatableEntity animatableEntity) {
-					animatableEntity.setAnimation("teleport5");
-				}
-
-				MidnightlurkerMod.queueServerWork(13, () -> {
-					if (!entity.getWorld().isClient())
-						entity.discard();
-				});
-			});
+			if (!entity.getWorld().isClient())
+				entity.discard();
 		}
 
 		if (entityData.getPersistentData().getDouble("SlownessEffect") <= 0 && entity.hasStatusEffect(StatusEffects.SLOWNESS)) {
@@ -100,7 +90,7 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 		handleDiscardOnLook(world, entity, entityData, x, y, z);
 		EntityTickActions.handleClimbing(world, entity, x, y, z);
 		handleCaveSounds(world, entity, entityData, x, y ,z);
-		handleEncounter(world, entity, entityData, x, y, z);
+		EntityTickActions.handleEncounter(world, entity, entityData, x, y, z);
 	}
 	
 	public static void handleDiscardOnLook(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
@@ -114,7 +104,7 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 						SoundUtil.playsound(world, x, y, z, Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
 					}
 					if (entity instanceof MidnightLurkerBackturnedEntity) {
-						((MidnightLurkerBackturnedEntity) entity).setAnimation("teleport5");
+						((MidnightLurkerBackturnedEntity) entity).setAnimation(Animations.TELEPORT_1);
 					}
 					MidnightlurkerMod.queueServerWork(13, () -> {
 						if (!entity.getWorld().isClient()) entity.discard();
@@ -135,24 +125,6 @@ public class MidnightLurkerBackturnedOnEntityTickUpdateProcedure {
 					if (world instanceof ServerWorld level) {
 						level.getServer().getCommandManager().executeWithPrefix(new ServerCommandSource(CommandOutput.DUMMY, new Vec3d(x, y, z), Vec2f.ZERO, level, 4, "", Text.literal(""), level.getServer(), null).withSilent(), "/playsound minecraft:ambient.cave ambient @a ~ ~ ~ 80 0.7");
 					}
-				}
-			}
-		}
-	}
-
-	public static void handleEncounter(WorldAccess world, Entity entity, IEntityDataSaver entityData, double x, double y, double z) {
-		if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-			if (entityData.getPersistentData().getDouble("encount") < 2) {
-				entityData.getPersistentData().putDouble("encount", (entityData.getPersistentData().getDouble("encount") + 1));
-			}
-		}
-
-		if (entityData.getPersistentData().getDouble("encount") == 1) {
-			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 8)) {
-				IEntityDataSaver playerEntityData = (IEntityDataSaver) EntityUtil.getPlayerEntityWithMinDistanceOf(world, new Vec3d(x, y, z), 8, 8, 8);
-				if (playerEntityData.getPersistentData().getDouble("encounternumber") < 6) {
-					double _setval = playerEntityData.getPersistentData().getDouble("encounternumber") + 1;
-					playerEntityData.getPersistentData().putDouble("encounternumber", _setval);
 				}
 			}
 		}

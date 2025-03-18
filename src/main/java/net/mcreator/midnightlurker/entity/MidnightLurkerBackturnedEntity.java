@@ -9,7 +9,6 @@ import net.mcreator.midnightlurker.entity.spawnconditions.natural.MidnightLurker
 import net.mcreator.midnightlurker.entity.tick.MidnightLurkerBackturnedOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
-import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.block.BlockState;
@@ -148,20 +147,20 @@ public class MidnightLurkerBackturnedEntity extends MidnightLurkerEntity {
 	}
 
 	private PlayState movementPredicate(AnimationState<?> event) {
-		if (!((AnimationHandler)this).hasAnimation()) {
+		if (!this.hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F)) && !this.isAttacking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking5"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim5"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			if (this.isSneaking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned5"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("backturned"));
 			}
 			if (this.isAttacking() && event.isMoving()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("running56"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("running2"));
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle5"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;
 	}

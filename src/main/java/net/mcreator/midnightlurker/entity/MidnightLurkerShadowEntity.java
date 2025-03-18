@@ -130,7 +130,7 @@ public class MidnightLurkerShadowEntity extends MidnightLurkerEntity {
 
 	private PlayState movementPredicate(AnimationState<?> event) {
 		if (!((AnimationHandler)this).hasAnimation()) {
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idleshadow7"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idleshadow"));
 		}
 		return PlayState.STOP;
 	}

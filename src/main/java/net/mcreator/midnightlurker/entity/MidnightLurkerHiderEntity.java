@@ -11,7 +11,6 @@ import net.mcreator.midnightlurker.entity.tick.MidnightLurkerHiderOnEntityTickUp
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerEntityDiesProcedure;
 import net.mcreator.midnightlurker.procedures.MidnightLurkerHiderBoundingBoxScaleProcedure;
-import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
 import net.mcreator.midnightlurker.util.SoundUtil;
 import net.minecraft.entity.*;
@@ -189,17 +188,17 @@ public class MidnightLurkerHiderEntity extends MidnightLurkerEntity {
 	}
 
 	private PlayState movementPredicate(AnimationState<?> event) {
-		if (!((AnimationHandler)this).hasAnimation()) {
+		if (!this.hasAnimation()) {
 			if ((event.isMoving() || !(event.getLimbSwingAmount() > -0.15F && event.getLimbSwingAmount() < 0.15F))) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking8"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("stalking"));
 			}
 			if (this.isInsideWaterOrBubbleColumn()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("swim8"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("swim"));
 			}
 			if (this.isSneaking()) {
-				return event.setAndContinue(RawAnimation.begin().thenLoop("idlehidden8"));
+				return event.setAndContinue(RawAnimation.begin().thenLoop("idlehidden"));
 			}
-			return event.setAndContinue(RawAnimation.begin().thenLoop("idle8"));
+			return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
 		}
 		return PlayState.STOP;
 	}

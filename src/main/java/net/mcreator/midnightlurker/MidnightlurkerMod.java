@@ -16,6 +16,7 @@ package net.mcreator.midnightlurker;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.mcreator.midnightlurker.config.CoreConfig;
 import net.mcreator.midnightlurker.config.core.ConfigRegistry;
 import net.mcreator.midnightlurker.init.*;
@@ -33,7 +34,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class MidnightlurkerMod implements ModInitializer {
 	public static final String MODID = "midnightlurker";
 	public static CoreConfig CONFIG;
-	public static final boolean DEBUG_MODE = true;
+	public static final boolean DEBUG_MODE = FabricLoader.getInstance().isDevelopmentEnvironment();
 
 	private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 
@@ -71,7 +72,6 @@ public class MidnightlurkerMod implements ModInitializer {
 		MidnightlurkerModTabs.buildTabContentsVanilla();
 
 		MidnightlurkerModVariables.initServer();
-		MidnightlurkerCallbacks.init();
 
 		UseBlockCallback.EVENT.register(new TriestosleepwhilemonstersnearProcedure());
 

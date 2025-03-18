@@ -9,6 +9,7 @@ import net.mcreator.midnightlurker.entity.spawnconditions.natural.Spookyambience
 import net.mcreator.midnightlurker.entity.tick.SpookyambienceentityOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.util.AnimationHandler;
+import net.mcreator.midnightlurker.util.animations.Animations;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -187,6 +188,11 @@ public class SpookyambienceentityEntity extends HostileEntity implements GeoEnti
 
 	public void setAnimation(String animation) {
 		this.dataTracker.set(ANIMATION, animation);
+	}
+
+	@Override
+	public void setAnimation(Animations animation) {
+		this.dataTracker.set(ANIMATION, animation.getValue());
 	}
 
 	@Override

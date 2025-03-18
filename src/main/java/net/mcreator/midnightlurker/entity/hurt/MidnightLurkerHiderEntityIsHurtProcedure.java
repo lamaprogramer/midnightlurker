@@ -36,7 +36,7 @@ public class MidnightLurkerHiderEntityIsHurtProcedure {
 		if (entity instanceof MidnightLurkerHiderEntity && sourceentity instanceof PlayerEntity) {
 			if (!EntityUtil.hasNoEntityOfTypeInArea(world, PlayerEntity.class, new Vec3d(entity.getX(), entity.getY(), entity.getZ()), 10)) {
 				SoundUtil.playsound(world, entity.getX(), entity.getY(), entity.getZ(), Registries.SOUND_EVENT.get(Identifier.of("midnightlurker:lurkerdisappear")), SoundCategory.NEUTRAL, 1, 1);
-                ((MidnightLurkerHiderEntity) entity).setAnimation("teleport8");
+                ((MidnightLurkerHiderEntity) entity).setAnimation("teleport");
 
 				if (!entity.getWorld().isClient()) {
 					entity.discard();
@@ -48,7 +48,6 @@ public class MidnightLurkerHiderEntityIsHurtProcedure {
 						if (entityToSpawn != null) {
 							entityToSpawn.setYaw(world.getRandom().nextFloat() * 360F);
 						}
-
 					}
 				}
 			}

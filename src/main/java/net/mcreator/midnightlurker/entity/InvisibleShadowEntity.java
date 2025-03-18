@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.mcreator.midnightlurker.MidnightlurkerMod;
 import net.mcreator.midnightlurker.entity.spawnconditions.natural.InvisibleFootstepsNaturalEntitySpawningConditionProcedure;
-import net.mcreator.midnightlurker.entity.tick.InvisibleShadowOnEntityTickUpdateProcedure;
 import net.mcreator.midnightlurker.init.MidnightlurkerModEntities;
 import net.mcreator.midnightlurker.util.AnimationHandler;
 import net.mcreator.midnightlurker.util.EntityUtil;
@@ -19,9 +18,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -32,18 +28,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, AnimatableEntity {
-	public static final TrackedData<Boolean> SHOOT = DataTracker.registerData(InvisibleShadowEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<String> ANIMATION = DataTracker.registerData(InvisibleShadowEntity.class, TrackedDataHandlerRegistry.STRING);
-	public static final TrackedData<String> TEXTURE = DataTracker.registerData(InvisibleShadowEntity.class, TrackedDataHandlerRegistry.STRING);
-	private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+public class InvisibleShadowEntity extends AnimatableHostileMidnightLurkerEntity {
 	public InvisibleShadowEntity(EntityType<InvisibleShadowEntity> type, World world) {
 		super(type, world);
 		setGlowing(MidnightlurkerMod.DEBUG_MODE);
@@ -53,18 +41,8 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder
-				.add(SHOOT, false)
-				.add(ANIMATION, "undefined")
 				.add(TEXTURE, "nothing")
 		);
-	}
-
-	public void setTexture(String texture) {
-		this.dataTracker.set(TEXTURE, texture);
-	}
-
-	public String getTexture() {
-		return this.dataTracker.get(TEXTURE);
 	}
 
 	@Override
@@ -168,7 +146,11 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 	@Override
 	public void baseTick() {
 		super.baseTick();
-		InvisibleShadowOnEntityTickUpdateProcedure.execute(this.getWorld(), this.getX(), this.getY(), this.getZ(), this);
+
+		if (!EntityUtil.hasNoEntityOfTypeInArea(this.getWorld(), PlayerEntity.class, this.getPos(), 9)) {
+			if (!this.getWorld().isClient()) this.discard();
+		}
+
 		this.calculateDimensions();
 	}
 
@@ -219,11 +201,6 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		return PlayState.STOP;
 	}
 
-	private PlayState dynamicPredicate(AnimationState<?> animationState) {
-		AnimationHandler animationHandler = (AnimationHandler) this;
-		return animationHandler.dynamic(animationState, false);
-	}
-
 	@Override
 	protected void updatePostDeath() {
 		++this.deathTime;
@@ -233,22 +210,10 @@ public class InvisibleShadowEntity extends HostileEntity implements GeoEntity, A
 		}
 	}
 
-	public String getSyncedAnimation() {
-		return this.dataTracker.get(ANIMATION);
-	}
-
-	public void setAnimation(String animation) {
-		this.dataTracker.set(ANIMATION, animation);
-	}
-
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar data) {
+		super.registerControllers(data);
 		data.add(new AnimationController<>(this, "movement", 4, this::movementPredicate));
-		data.add(new AnimationController<>(this, "procedure", 4, this::dynamicPredicate));
 	}
 
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return this.cache;
-	}
 }

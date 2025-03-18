@@ -40,6 +40,6 @@ public class TriestosleepwhilemonstersnearProcedure implements UseBlockCallback 
             }
         }
 
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 }
